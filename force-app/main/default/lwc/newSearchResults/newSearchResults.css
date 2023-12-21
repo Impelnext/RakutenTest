@@ -1,0 +1,57 @@
+.p-section {
+    /* #l-wrapper の代わり */
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 64px;
+}
+
+.l-inner_s {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.p-contents_near_head {
+    background-color: #ebf7fd;
+    padding: 15px;
+    border-radius: 10px;
+    color: #015c8f;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.p-contents_near_head::after {
+    box-sizing: border-box;
+    content: "";
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 15px 11px 0 11px;
+    border-color: #ebf7fd transparent transparent transparent;
+}
+
+.p-contents_near_ttl {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 16px;
+}
+
+.u-txt_c {
+    text-align: center;
+}
+
+p {
+    margin-bottom: 1.5em;
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+.c-list_faq {
+    margin-bottom: 32px;
+}

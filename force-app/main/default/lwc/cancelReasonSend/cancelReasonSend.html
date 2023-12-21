@@ -1,0 +1,584 @@
+<template>
+
+    <div class="form_area form_area_top">
+        <div class="l-wrapper">
+            <main class="l-main">
+                <div class="l-inner">
+                    <div class="p-subhead_page">
+                        <h3>ご解約の手続きの前に<br>確認いただきたいこと</h3>
+                    </div>
+
+                    <!-- ご解約の理由 -->
+                    <section class="p-section reason">
+                        <h2 class="c-ttl_sec">ご解約の理由について</h2>
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span><span
+                                    class="p-form_requireLabel">ご解約の理由</span></div>
+                            <p>今後のサービスの参考にさせていただきますので、解約理由を教えてください。</p>
+                        </div>
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel">保険料について</div>
+                            <ul class="c-list_input _nocol">
+                                <template for:each={ReasonAmt} for:item="Amt">
+                                    <li key={Amt.id}>
+                                        <input type="radio" name="nmCancellationReason"
+                                            id={Amt.id}
+                                            class="c-form_radio display_radio js-cancellation-reason"
+                                            data-target={Amt.target}
+                                            data-value={Amt.value}>
+                                        <label for={Amt.id}>
+                                            <span><lightning-formatted-rich-text value={Amt.label}></lightning-formatted-rich-text></span>
+                                        </label>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel">保障内容について</div>
+                            <ul class="c-list_input _nocol">
+                                <template for:each={ReasonCont} for:item="Cont">
+                                    <li key={Cont.id}>
+                                        <input type="radio" name="nmCancellationReason"
+                                            id={Cont.id}
+                                            class="c-form_radio display_radio js-cancellation-reason"
+                                            data-target={Cont.target}
+                                            data-value={Cont.value}>
+                                        <label for={Cont.id}>
+                                            <span><lightning-formatted-rich-text value={Cont.label}></lightning-formatted-rich-text></span>
+                                        </label>
+                                    </li>
+                                </template>                        
+                            </ul>
+                        </div>
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel">その他</div>
+                            <ul class="c-list_input _nocol">
+                                <template for:each={ReasonAnother} for:item="Another">
+                                    <li key={Another.id}>
+                                        <input type="radio" name="nmCancellationReason"
+                                            id={Another.id}
+                                            class="c-form_radio display_radio js-cancellation-reason"
+                                            data-target={Another.target}
+                                            data-value={Another.value}>
+                                        <label for={Another.id}><span>{Another.label}</span></label>
+                                    </li>
+                                </template>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- お客様にとって不利益になる可能性のご案内 -->
+                    <!-- パターン１ -->
+                    <section class="u-hide p-section js-confirmation-content" id="ConfirmationContent1">
+                        <section class="p-section circumstance">
+                            <h2 class="c-ttl_sec circumstance-ttl"><span class="u-icon_require">必須</span><span
+                                    class="p-form_requireLabel">解約された後、お客さまにご不便やご迷惑をおかけしないよう、3点お伺いします。</span></h2>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">1</span><span
+                                        class="p-form_numberLabel">今まで他社の保険も含めて給付金請求のお手続きをしたことがある。</span></div>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance1" id="nmIsCircumstance1Yes"
+                                            class="c-form_radio display_radio js-circumstance" data-value="1">
+                                        <label for="nmIsCircumstance1Yes"><span>はい<br><span
+                                                    class="p-form_radioLabelNote">給付金の請求をしたことがある</span></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance1" id="nmIsCircumstance1No"
+                                            class="c-form_radio display_radio js-circumstance" data-value="0">
+                                        <label for="nmIsCircumstance1No"><span>いいえ<br><span
+                                                    class="p-form_radioLabelNote">給付金の請求をしたことがない</span></span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">2</span><span
+                                        class="p-form_numberLabel">過去、ご病気で手術や通院、入院を経験したことがある、または、現在もしている。もしくは、ご持病がある。</span>
+                                </div>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance2" id="nmIsCircumstance2Yes"
+                                            class="c-form_radio display_radio js-circumstance" data-value="1">
+                                        <label for="nmIsCircumstance2Yes"><span>はい<br><span
+                                                    class="p-form_radioLabelNote">健康に不安はある</span></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance2" id="nmIsCircumstance2No"
+                                            class="c-form_radio display_radio js-circumstance" data-value="0">
+                                        <label for="nmIsCircumstance2No"><span>いいえ<br><span
+                                                    class="p-form_radioLabelNote">健康に不安はない</span></span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">3</span><span
+                                        class="p-form_numberLabel">現在、他社の保険を含め、他の（生命・医療）保険には加入していない。</span></div>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance3" id="nmIsCircumstance3Yes"
+                                            class="c-form_radio display_radio js-circumstance" data-value="1">
+                                        <label for="nmIsCircumstance3Yes"><span>はい<br><span
+                                                    class="p-form_radioLabelNote">保険には加入していない</span></span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsCircumstance3" id="nmIsCircumstance3No"
+                                            class="c-form_radio display_radio js-circumstance" data-value="0">
+                                        <label for="nmIsCircumstance3No"><span>いいえ<br><span
+                                                    class="p-form_radioLabelNote">加入している保険がある</span></span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        <!-- １つでも「はい」を選んだ場合 -->
+                        <section class="u-hide p-section attention js-attention-content" id="AttentionContent1">
+                            <section class="l-inner_s p-section warning">
+                                <section class="warning-info">
+                                    <h3 class="warning-ttl">ご注意ください</h3>
+                                    <p class="warning-txt">
+                                        上記、1～3の設問で１つでも「はい」を付けたお客さまは、ご解約されることでご不便やご迷惑をおかけする可能性がございますので代理店やオペレーターに相談されることをお薦めいたします。
+                                    </p>
+                                </section>
+                                <ul class="warning-lst">
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9312;</span>本日解約のお手続きをされると<strong>明日より保障がなくなってしまいます</strong>。
+                                    </li>
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9313;</span>新たに保険をご契約される場合、<strong>保障内容やご年齢により保険料が高くなる</strong>場合があります。
+                                    </li>
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9314;</span>新しく生命保険をご契約される場合、<strong>ご健康状態によりご契約できない可能性</strong>がございます。
+                                    </li>
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9315;</span>解約される前に<strong>解約ご希望の商品の保障内容や特約をご確認いただくことをお薦めします</strong>。特約や終身保障タイプや解約返戻金のあるタイプもございます。<br>以下の方法で事前にご確認いただけます。
+                                        <div class="cta cta_warning">
+                                            <div class="cta-multi">
+                                                <a href="https://www.rakuten-life.co.jp/applicant/enroll/list/"
+                                                    class="cta-btn" target="_blank">マイページ<br>はこちら</a>
+                                                <a href="https://www.rakuten-life.co.jp/products/all.html"
+                                                    class="cta-btn" target="_blank">商品一覧ページ<br>はこちら</a>
+                                            </div>
+                                            <div class="cta-single">
+                                                <a href="tel:0120-921-041" class="cta-tel"><span>0120-921-041</span></a>
+                                                <p class="cta-note">9:00-18:00（年末年始を除く）</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section class="p-section consideration">
+                                <h2 class="consideration-ttl">ご継続いただける方法を<br>検討されませんか？</h2>
+                                <div class="l-inner_s consideration-content">
+                                    <h3 class="consideration-subttl">当社代理店やオペレーターにて<br>大切な保険の見直し相談を承ります</h3>
+                                    <div class="consideration-img"><img src="/sfsites/c/resource/siteprc/template/images/img_counseling.svg" alt="見直し相談">
+                                    </div>
+                                    <p class="consideration-txt">
+                                        保障を小さくして<strong>保険料を抑えたり</strong>、<strong>他の契約や特約を一部解約</strong>することで、現在の保険契約を継続できる方法について相談を承ります。<br>また、<strong>新しい保障や新しい保険をご検討</strong>される際には、<strong>ご健康状態によっては</strong>、ご加入いただける保障が限られたり、保険料が上がる場合もありますので、<strong>解約前</strong>にご相談ください。<br>お客さまに不利益なく、ご理解いただいたうえでご契約を解約いただくことが目的のため、ご安心ください。
+                                    </p>
+                                </div>
+                                <section class="l-inner_s counseling">
+                                    <div class="counseling-content">
+                                        <h3 class="counseling-ttl"><span
+                                                class="counseling-number">&#9312;</span>当社代理店に相談する
+                                        </h3>
+                                        <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_agency.svg" alt="当社代理店に相談">
+                                        </div>
+                                        <p class="counseling-txt">当社代理店を通じて、対象保険商品をご契約いただいた場合は担当代理店にご相談ください。</p>
+                                    </div>
+                                    <div class="counseling-content">
+                                        <h3 class="counseling-ttl"><span
+                                                class="counseling-number">&#9313;</span>オペレーターに相談する
+                                        </h3>
+                                        <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_operator.svg" alt="オペレーターに相談">
+                                        </div>
+                                        <p class="counseling-txt">オペレーターでの受付時間 9:00～18:00（年末年始を除く）</p>
+                                        <p class="counseling-note">楽天保険の総合窓口が承ります。</p>
+                                        <div class="counseling-way">
+                                            <h4 class="counseling-subttl">ご相談方法</h4>
+                                            <ul class="counseling-lst">
+                                                <li class="counseling-item">
+                                                    <a href="https://www.rakuten-insurance.co.jp/contract/chat/privacy.html"
+                                                        class="counseling-link counseling-link_chat">チャットでのご相談はこちら</a>
+                                                    <div class="counseling-box">
+                                                        <p class="counseling-note">チャットボットのメニューで「保険料の見直し相談」をご選択ください。</p>
+                                                    </div>
+                                                </li>
+                                                <li class="counseling-item">
+                                                    <a href="tel:0120-921-041"
+                                                        class="counseling-link counseling-link_tel">電話で相談したい</a>
+                                                    <div class="counseling-box">
+                                                        <p class="counseling-explanation">オペレーターに直接つながる「保険見直し相談」</p>
+                                                        <a href="tel:0120-921-041"
+                                                            class="counseling-tel">0120-921-041</a>
+                                                        <p class="counseling-note">一部IP電話（050）からはご利用いただけません。</p>
+                                                    </div>
+                                                </li>
+                                                <li class="counseling-item">
+                                                    <a href="https://procedure.rakuten-insurance.co.jp/inquiry/s/?company=life"
+                                                        class="counseling-link counseling-link_mail">お電話予約やメールでのご相談はこちら</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                            <div class="cta">
+                                <div class="cta-single">
+                                    <input type="submit" class="cta-submit js-attention-submit" value="ここまでで問題ないので
+さらにページを進む" data-target="ConfirmationContent2" disabled>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- すべて「いいえ」を選んだ場合 -->
+                        <section class="u-hide p-section attention js-attention-content" id="AttentionContent2">
+                            <section class="l-inner_s p-section warning">
+                                <section class="warning-info">
+                                    <h3 class="warning-ttl">ご注意ください</h3>
+                                    <p class="warning-txt">
+                                        上記、1～3の設問ですべて「いいえ」を付けたお客さまは、現在のご契約を継続することで今後のリスクに備えておけますので、事前に代理店やオペレーターに相談されることをお薦めいたします。
+                                    </p>
+                                </section>
+                                <ul class="warning-lst">
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9312;</span><strong>保障を小さくして保険料を抑えたり、他の契約や特約を一部解約することで、現在の保険契約をご継続できる可能性がございます。</strong>
+                                    </li>
+                                    <li class="warning-item"><span
+                                            class="warning-number">&#9313;</span>新たに保険をご契約される場合、<strong>保障内容やご年齢により保険料が高くなる</strong>場合があります。
+                                    </li>
+                                    <li class="warning-item">
+                                        <span
+                                            class="warning-number">&#9314;</span><strong>保険料1%分の楽天ポイントが毎月貯まります。</strong><br>対象となる楽天生命の保険商品に楽天IDを登録、保険料を払い込みいただいたお客さまに毎月保険料1％分の楽天ポイントを付与する「ポイントプログラム」。<br>貯まったポイントは、1ポイント1円分として楽天の多彩なサービスに活用できます。
+                                        <p class="warning-note">ポイント付与には一定の条件があります。</p>
+                                        <p class="warning-note">ポイント付与は楽天エコシステムによる募集経費の削減効果等を楽天会員に還元する制度です。</p>
+                                        <div class="cta cta_warning">
+                                            <div class="cta-single">
+                                                <a href="https://www.rakuten-life.co.jp/merit/point_program/"
+                                                    class="cta-btn" target="_blank">詳しく見る</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="warning-item">
+                                        <span
+                                            class="warning-number">&#9315;</span>解約される前に<strong>解約ご希望の商品の保障内容や特約をご確認いただくことをお薦めします</strong>。特約や終身保障タイプや解約返戻金のあるタイプもございます。<br>以下の方法で事前にご確認いただけます。
+                                        <div class="cta cta_warning">
+                                            <div class="cta-multi">
+                                                <a href="https://www.rakuten-life.co.jp/applicant/enroll/list/"
+                                                    class="cta-btn" target="_blank">マイページ<br>はこちら</a>
+                                                <a href="https://www.rakuten-life.co.jp/products/all.html"
+                                                    class="cta-btn" target="_blank">商品一覧ページ<br>はこちら</a>
+                                            </div>
+                                            <div class="cta-single">
+                                                <a href="tel:0120-921-041" class="cta-tel"><span>0120-921-041</span></a>
+                                                <p class="cta-note">9:00-18:00（年末年始を除く）</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </section>
+                            <section class="consideration">
+                                <h2 class="consideration-ttl">ご継続いただける方法を<br>検討されませんか？</h2>
+                                <div class="l-inner_s consideration-content">
+                                    <h3 class="consideration-subttl">当社代理店やオペレーターにて<br>大切な保険の見直し相談を承ります</h3>
+                                    <div class="consideration-img"><img src="/sfsites/c/resource/siteprc/template/images/img_counseling.svg" alt="見直し相談">
+                                    </div>
+                                </div>
+                                <section class="l-inner_s counseling">
+                                    <div class="counseling-content">
+                                        <h3 class="counseling-ttl"><span
+                                                class="counseling-number">&#9312;</span>当社代理店に相談する
+                                        </h3>
+                                        <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_agency.svg" alt="当社代理店に相談">
+                                        </div>
+                                        <p class="counseling-txt">当社代理店を通じて、対象保険商品をご契約いただいた場合は担当代理店にご相談ください。</p>
+                                    </div>
+                                    <div class="counseling-content">
+                                        <h3 class="counseling-ttl"><span
+                                                class="counseling-number">&#9313;</span>オペレーターに相談する
+                                        </h3>
+                                        <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_operator.svg" alt="オペレーターに相談">
+                                        </div>
+                                        <p class="counseling-txt">オペレーターでの受付時間 9:00～18:00（年末年始を除く）</p>
+                                        <p class="counseling-note">楽天保険の総合窓口が承ります。</p>
+                                        <div class="counseling-way">
+                                            <h4 class="counseling-subttl">ご相談方法</h4>
+                                            <ul class="counseling-lst">
+                                                <li class="counseling-item">
+                                                    <a href="https://www.rakuten-insurance.co.jp/contract/chat/privacy.html"
+                                                        class="counseling-link counseling-link_chat">チャットでのご相談はこちら</a>
+                                                    <div class="counseling-box">
+                                                        <p class="counseling-note">チャットボットのメニューで「保険料の見直し相談」をご選択ください。</p>
+                                                    </div>
+                                                </li>
+                                                <li class="counseling-item">
+                                                    <a href="tel:0120-921-041"
+                                                        class="counseling-link counseling-link_tel">電話で相談したい</a>
+                                                    <div class="counseling-box">
+                                                        <p class="counseling-explanation">オペレーターに直接つながる「保険見直し相談」</p>
+                                                        <a href="tel:0120-921-041"
+                                                            class="counseling-tel">0120-921-041</a>
+                                                        <p class="counseling-note">一部IP電話（050）からはご利用いただけません。</p>
+                                                    </div>
+                                                </li>
+                                                <li class="counseling-item">
+                                                    <a href="https://procedure.rakuten-insurance.co.jp/inquiry/s/?company=life"
+                                                        class="counseling-link counseling-link_mail">お電話予約やメールでのご相談はこちら</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </section>
+                            </section>
+                            <div class="cta">
+                                <div class="cta-single">
+                                    <input type="submit" class="cta-submit js-attention-submit" value="ここまでで問題ないので
+さらにページを進む" data-target="ConfirmationContent2" disabled>
+                                </div>
+                            </div>
+                        </section>
+                    </section>
+
+                    <!-- パターン２ -->
+                    <section class="u-hide p-section js-confirmation-content" id="ConfirmationContent2">
+                        <section class="p-section understanding">
+                            <h2 class="c-ttl_sec understanding-ttl">お客さまにとって不利益になる可能性のご案内</h2>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span><span
+                                        class="p-form_requireLabel">解約に伴い、お客さまに不利益となる可能性がございますので大切な最終確認になります。<br>今までの質問と重なる内容もございますが、ご理解賜りますようよろしくお願いいたします。</span>
+                                </div>
+                            </div>
+                            <div class="p-form_item">
+                                <p class="weight4">解約の手続きに際しまして、下記の注意事項をお読みいただき、「理解した」「詳しい話を聞き相談したい」のいずれかにチェックをお願いいたします。
+                                </p>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">1</span><span
+                                        class="p-form_numberLabel">このお手続きをもって、明日より保障がなくなります。</span></div>
+                                <p class="weight4">解約後はご契約をお戻しすることができません。また、新規販売を終了している商品をご解約されると同じ商品にご加入いただくことができません。
+                                </p>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding1" id="nmIsUnderstanding1Yes"
+                                            class="c-form_radio display_radio js-understanding" data-value="1">
+                                        <label for="nmIsUnderstanding1Yes"><span id="Understand1">理解した</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding1" id="nmIsUnderstanding1No"
+                                            class="c-form_radio display_radio js-understanding" data-value="0">
+                                        <label for="nmIsUnderstanding1No"><span id="disUnderstand1">詳しい話を聞き相談したい</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">2</span><span
+                                        class="p-form_numberLabel">新たに保険をご契約される場合、保障内容やご年齢により保険料が高くなる場合があります。</span>
+                                </div>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding2" id="nmIsUnderstanding2Yes"
+                                            class="c-form_radio display_radio js-understanding" data-value="1">
+                                        <label for="nmIsUnderstanding2Yes"><span id="Understand2">理解した</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding2" id="nmIsUnderstanding2No"
+                                            class="c-form_radio display_radio js-understanding" data-value="0">
+                                        <label for="nmIsUnderstanding2No"><span id="disUnderstand2">詳しい話を聞き相談したい</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">3</span><span
+                                        class="p-form_numberLabel">新たに当社の保険にお申込みいただく場合、ご健康状態によって、ご希望の保障にご加入いただけない場合があります。</span>
+                                </div>
+                                <p class="weight4">保険加入をお断りする商品もございます。</p>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding3" id="nmIsUnderstanding3Yes"
+                                            class="c-form_radio display_radio js-understanding" data-value="1">
+                                        <label for="nmIsUnderstanding3Yes"><span id="Understand3">理解した</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding3" id="nmIsUnderstanding3No"
+                                            class="c-form_radio display_radio js-understanding" data-value="0">
+                                        <label for="nmIsUnderstanding3No"><span  id="disUnderstand3">詳しい話を聞き相談したい</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">4</span><span
+                                        class="p-form_numberLabel">認知症保険の「無事故給付金特約（払戻金なし）」については、3年ごとの契約応当日<sup>※</sup>前に解約する場合、無事故給付金はお受け取りいただけません。</span>
+                                </div>
+                                <p class="p-form_itemLabelNote">保険契約後に訪れる契約した日付と同じ日</p>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding4" id="nmIsUnderstanding4Yes"
+                                            class="c-form_radio display_radio js-understanding" data-value="1">
+                                        <label for="nmIsUnderstanding4Yes"><span id="Understand4">理解した</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding4" id="nmIsUnderstanding4No"
+                                            class="c-form_radio display_radio js-understanding" data-value="0">
+                                        <label for="nmIsUnderstanding4No"><span id="disUnderstand4">詳しい話を聞き相談したい</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="p-form_item">
+                                <div class="p-form_itemLabel"><span class="u-icon_number">5</span><span
+                                        class="p-form_numberLabel">ご解約される商品に該当するかご確認ください。当社の商品は以下2商品を除き、解約返戻金がございません。</span>
+                                </div>
+                                <ul class="understanding-lst">
+                                    <li class="understanding-item">スーパー医療保険戻るんです（終身医療保険2018 健康還付特則付［無配当］）</li>
+                                    <li class="understanding-item">スーパー終身保険（低解約払戻金型終身保険［無配当]）</li>
+                                </ul>
+                                <ul class="c-list_input _nocol">
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding5" id="nmIsUnderstanding5Yes"
+                                            class="c-form_radio display_radio js-understanding" data-value="1">
+                                        <label for="nmIsUnderstanding5Yes"><span id="Understand5">理解した</span></label>
+                                    </li>
+                                    <li>
+                                        <input type="radio" name="nmIsUnderstanding5" id="nmIsUnderstanding5No"
+                                            class="c-form_radio display_radio js-understanding" data-value="0">
+                                        <label for="nmIsUnderstanding5No"><span id="disUnderstand5">詳しい話を聞き相談したい</span></label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Modefied 2023/09/19 【RIPCRM-1012】解約フォーム_共済商品解約時「メディエイドα特約」部分の不利益同意内容の修正 By 張 Start
+                                <h2 class="understanding-accordion js-understanding-accordion">共済商品をご解約する場合はこちらもご確認ください。
+                                </h2> 
+                                <div class="u-hide p-form_item">
+                                 <div class="p-form_itemLabel"><span class="u-icon_number">6</span><span
+                                        class="p-form_numberLabel">「メディエイドα特約」が付帯されている契約を解約されますと、自動的に「メディエイドα特約」も解約となります。</span>
+                                     </div> 
+                                <p class="weight4">なお、解約手続き前にお申し出いただけましたら、メディエイドα特約の付替えが可能な場合がございます</p> -->
+                            <div class="p-form_item">   
+                                 <div class="p-form_itemLabel"><span class="u-icon_number">6</span><span
+                                            class="p-form_numberLabel"><p class="weight4_1">特約が付帯されているご契約を解約されますと、自動的に特約も解約となります。</p><br />
+                                                <p class="weight4_2">
+                                                なお、「メディエイドα」につきましては他の共済契約へ付帯が可能な場合がございますので、<br/>
+                                                ご希望の場合は下記楽天保険の総合窓口へご連絡ください。</p></span>
+                                    </div>
+                                <!-- Modefied 2023/09/19 【RIPCRM-1012】解約フォーム_共済商品解約時「メディエイドα特約」部分の不利益同意内容の修正 By 張 End -->
+                                    <ul class="c-list_input _nocol">
+                                        <li>
+                                            <input type="radio" name="nmIsUnderstanding6" id="nmIsUnderstanding6Yes"
+                                                class="c-form_radio display_radio js-understanding" data-value="1">
+                                            <label for="nmIsUnderstanding6Yes"><span id="Understand6">理解した</span></label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" name="nmIsUnderstanding6" id="nmIsUnderstanding6No"
+                                                class="c-form_radio display_radio js-understanding" data-value="0">
+                                            <label for="nmIsUnderstanding6No"><span id="disUnderstand6">詳しい話を聞き相談したい</span></label>
+                                        </li>
+                                    </ul>
+                            </div>
+                        </section>
+                        <section class="u-hide p-section consideration js-counseling-content" id="CounselingContent">
+                            <div class="l-inner_s consideration-content">
+                                <h3 class="consideration-subttl">当社代理店やオペレーターにて<br>大切な保険の見直し相談を承ります</h3>
+                                <div class="consideration-img"><img src="/sfsites/c/resource/siteprc/template/images/img_counseling.svg" alt="見直し相談"></div>
+                                <p class="consideration-txt">もし、以下のような点でご検討されていれば、ぜひお気軽にご相談ください。</p>
+                                <ul class="consideration-lst">
+                                    <li class="consideration-item">毎月支払う保険料を抑えたい</li>
+                                    <li class="consideration-item">自分に必要な保障だけに絞りたい</li>
+                                    <li class="consideration-item">いま、心配な保障を手厚くしたい<p class="consideration-note">
+                                            特約や新しい保険を付加することで手厚くできる場合がございます。</p>
+                                    </li>
+                                    <li class="consideration-item">新しい保険や保障を検討したい<p class="consideration-note">
+                                            健康にご不安がある方も一度代理店にご相談ください。必要な保障に絞ることで保険料を抑えたり、保障の見直し希望もご相談ください。</p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <section class="l-inner_s counseling">
+                                <div class="counseling-content">
+                                    <h3 class="counseling-ttl">保険料1%分の楽天ポイントが毎月貯まる</h3>
+                                    <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_point.png" alt="ポイント"></div>
+                                    <p class="counseling-txt">
+                                        対象となる楽天生命の保険商品に楽天IDを登録、保険料を払い込みいただいたお客さまに毎月保険料1％分の楽天ポイントを付与する「ポイントプログラム」。<br>貯まったポイントは、1ポイント1円分として楽天の多彩なサービスに活用できます。
+                                    </p>
+                                    <p class="warning-note">ポイント付与には一定の条件があります。</p>
+                                    <p class="warning-note">ポイント付与は楽天エコシステムによる募集経費の削減効果等を楽天会員に還元する制度です。</p>
+                                    <div class="cta">
+                                        <div class="cta-single">
+                                            <a href="https://www.rakuten-life.co.jp/merit/point_program/"
+                                                class="cta-btn" target="_blank">詳しく見る</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="counseling-content">
+                                    <h3 class="counseling-ttl">解約される商品の保障内容や特約、<br>保険料をご確認されたい場合</h3>
+                                    <div class="cta">
+                                        <div class="cta-multi">
+                                            <a href="https://www.rakuten-life.co.jp/applicant/enroll/list/"
+                                                class="cta-btn" target="_blank">マイページ<br>はこちら</a>
+                                            <a href="https://www.rakuten-life.co.jp/products/all.html" class="cta-btn"
+                                                target="_blank">商品一覧ページ<br>はこちら</a>
+                                        </div>
+                                        <div class="cta-single">
+                                            <a href="tel:0120-921-041" class="cta-tel"><span>0120-921-041</span></a>
+                                            <p class="cta-note">9:00-18:00（年末年始を除く）</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="counseling-content">
+                                    <h3 class="counseling-ttl"><span class="counseling-number">&#9312;</span>当社代理店に相談する
+                                    </h3>
+                                    <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_agency.svg" alt="当社代理店に相談"></div>
+                                    <p class="counseling-txt">当社代理店を通じて、対象保険商品をご契約いただいた場合は担当代理店にご相談ください。</p>
+                                </div>
+                                <div class="counseling-content">
+                                    <h3 class="counseling-ttl"><span class="counseling-number">&#9313;</span>オペレーターに相談する
+                                    </h3>
+                                    <div class="counseling-img"><img src="/sfsites/c/resource/siteprc/template/images/img_operator.svg" alt="オペレーターに相談">
+                                    </div>
+                                    <p class="counseling-txt">オペレーターでの受付時間 9:00～18:00（年末年始を除く）</p>
+                                    <p class="counseling-note">楽天保険の総合窓口が承ります。</p>
+                                    <div class="counseling-way">
+                                        <h4 class="counseling-subttl">ご相談方法</h4>
+                                        <ul class="counseling-lst">
+                                            <li class="counseling-item">
+                                                <a href="https://www.rakuten-insurance.co.jp/contract/chat/privacy.html"
+                                                    class="counseling-link counseling-link_chat">チャットでのご相談はこちら</a>
+                                                <div class="counseling-box">
+                                                    <p class="counseling-note">チャットボットのメニューで「保険料の見直し相談」をご選択ください。</p>
+                                                </div>
+                                            </li>
+                                            <li class="counseling-item">
+                                                <a href="tel:0120-921-041"
+                                                    class="counseling-link counseling-link_tel">電話で相談したい</a>
+                                                <div class="counseling-box">
+                                                    <p class="counseling-explanation">オペレーターに直接つながる「保険見直し相談」</p>
+                                                    <a href="tel:0120-921-041" class="counseling-tel">0120-921-041</a>
+                                                    <p class="counseling-note">一部IP電話（050）からはご利用いただけません。</p>
+                                                </div>
+                                            </li>
+                                            <li class="counseling-item">
+                                                <a href="https://procedure.rakuten-insurance.co.jp/inquiry/s/?company=life"
+                                                    class="counseling-link counseling-link_mail">お電話予約やメールでのご相談はこちら</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="p-section">
+                                <div class="p-form_btn mb40">
+                                    <div class="c-btn_outline _gray c-btn_close js-counseling-close" data-target="CounselingContent">閉じる</div>
+                                </div>
+                            </section>
+                        </section>
+                        <section class="p-section">
+                            <div class="cta">
+                                <div class="cta-single">
+                                    <input type="button" class="cta-submit js-page-submit" value="理解したのでお手続きページに進む" disabled>
+                                </div>
+                                <p class="cta-txt">「お客さまにとって不利益になる可能性のご案内」の「理解した」にすべてチェックを入れていただくと「お手続きページに進む」ボタンを押せます。
+                                </p>
+                            </div>
+                        </section>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+
+</template>

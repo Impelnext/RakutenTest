@@ -1,0 +1,483 @@
+<!--
+  @File Name          : RequestInlineReductionCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/19/2019, 6:56:54 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'PolicyNumber1__c':'',
+                                                             			'ChangeDetails1__c':'',
+																		'PolicyNumber2__c':'',
+                                                                        'ChangeDetails2__c':'',
+                                                                        'PolicyNumber3__c':'',
+																		'ChangeDetails3__c':'',
+                                                             			'PolicyNumber4__c':'',
+																		'ChangeDetails4__c':'',
+                                                                        'PolicyNumber5__c':'',
+                                                                        'ChangeDetails5__c':'',
+																		'PolicyNumber6__c':'',
+                                                             			'ChangeDetails6__c':'',
+																		'PolicyNumber7__c':'',
+                                                                        'ChangeDetails7__c':'',
+                                                                        'PolicyNumber8__c':'',
+																		'ChangeDetails8__c':'',
+                                                             			'PolicyNumber9__c':'',
+																		'ChangeDetails9__c':'',
+                                                                        'PolicyNumber10__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRequestReduction" action="{!c.saveInlineRequestReduction}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Event Method -->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+       
+<!--Declare Attributes-->	
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>    
+
+<aura:attribute name="beforeReduction1" type="Integer"/>
+<aura:attribute name="afterReduction1" type="Integer"/>
+<aura:attribute name="beforeReduction2" type="Integer"/>
+<aura:attribute name="afterReduction2" type="Integer"/>
+<aura:attribute name="beforeReduction3" type="Integer"/>
+<aura:attribute name="afterReduction3" type="Integer"/>
+<aura:attribute name="beforeReduction4" type="Integer"/>
+<aura:attribute name="afterReduction4" type="Integer"/>
+<aura:attribute name="beforeReduction5" type="Integer"/>
+<aura:attribute name="afterReduction5" type="Integer"/>
+<aura:attribute name="beforeReduction6" type="Integer"/>
+<aura:attribute name="afterReduction6" type="Integer"/>
+<aura:attribute name="beforeReduction7" type="Integer"/>
+<aura:attribute name="afterReduction7" type="Integer"/>
+<aura:attribute name="beforeReduction8" type="Integer"/>
+<aura:attribute name="afterReduction8" type="Integer"/>
+<aura:attribute name="beforeReduction9" type="Integer"/>
+<aura:attribute name="afterReduction9" type="Integer"/>
+<aura:attribute name="beforeReduction10" type="Integer"/>
+<aura:attribute name="afterReduction10" type="Integer"/>	
+
+<aura:attribute name="afrReduction1" type="boolean" default="false"/>
+<aura:attribute name="afrReduction2" type="boolean" default="false"/>
+<aura:attribute name="afrReduction3" type="boolean" default="false"/>
+<aura:attribute name="afrReduction4" type="boolean" default="false"/>
+<aura:attribute name="afrReduction5" type="boolean" default="false"/>
+<aura:attribute name="afrReduction6" type="boolean" default="false"/>
+<aura:attribute name="afrReduction7" type="boolean" default="false"/>
+<aura:attribute name="afrReduction8" type="boolean" default="false"/>
+<aura:attribute name="afrReduction9" type="boolean" default="false"/>
+<aura:attribute name="afrReduction10" type="boolean" default="false"/>
+
+<aura:attribute name="bfrReduction1" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction2" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction3" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction4" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction5" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction6" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction7" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction8" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction9" type="boolean" default="false"/>
+<aura:attribute name="bfrReduction10" type="boolean" default="false"/>    
+ 
+  
+<aura:attribute name="PolicyNumberValidate1" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate2" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate3" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate4" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate5" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate6" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate7" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate8" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate9" type="boolean" default="false"/>
+<aura:attribute name="PolicyNumberValidate10" type="boolean" default="false"/>
+
+<aura:attribute name="numberOfCopies" type="Integer"/> 
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_POLICYNO_SECTION_INPUT" type="String"  default="証券番号を入力したセクションの全ての項目を入力してください。"/>
+<aura:attribute name="ERR_MSG_BEFOREREDUCTION_SECTION_INPUT" type="String"  default="減額前は半角数字で入力してください"/>
+<aura:attribute name="ERR_MSG_AFTERREDUCTION_SECTION_INPUT" type="String"  default="減額後は半角数字で入力してください"/>
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+
+<div class="slds-box slds-theme_default">
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額①</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber1" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber1__c}" label="証券番号①"/> 
+				 <aura:if isTrue="{!v.PolicyNumberValidate1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+			<!--<ui:inputNumber aura:Id="beforeReduction1" value="{!v.beforeReduction1}" label="減額前" change="{!c.handleBfrReduction1}"/>-->
+			<lightning:input aura:Id="beforeReduction1" type="integer" value="{!v.beforeReduction1}" label="減額前" onchange="{!c.handleBfrReduction1}" />
+                <aura:if isTrue="{!v.bfrReduction1}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	   
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction1" value="{!v.afterReduction1}" label="減額後" change="{!c.handleAfrReduction1}"/>-->
+				<lightning:input aura:Id="afterReduction1" type="integer" value="{!v.afterReduction1}" label="減額後" onchange="{!c.handleAfrReduction1}" />
+                <aura:if isTrue="{!v.afrReduction1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額②</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber2" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber2__c}" label="証券番号②"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+			    <!--<ui:inputNumber aura:Id="beforeReduction2" value="{!v.beforeReduction2}" label="減額前" change="{!c.handleBfrReduction2}"/>-->
+			    <lightning:input aura:Id="beforeReduction2" type="integer" value="{!v.beforeReduction2}" label="減額前" onchange="{!c.handleBfrReduction2}" />
+                <aura:if isTrue="{!v.bfrReduction2}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	   
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction2" value="{!v.afterReduction2}" label="減額後" change="{!c.handleAfrReduction2}"/>-->
+				<lightning:input aura:Id="afterReduction2" type="integer" value="{!v.afterReduction2}" label="減額後" onchange="{!c.handleAfrReduction2}" />
+                <aura:if isTrue="{!v.afrReduction2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額③</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber3" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber3__c}" label="証券番号③"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction3" value="{!v.beforeReduction3}" label="減額前" change="{!c.handleBfrReduction3}"/>-->
+			    <lightning:input aura:Id="beforeReduction3" type="integer" value="{!v.beforeReduction3}" label="減額前" onchange="{!c.handleBfrReduction3}" />
+                <aura:if isTrue="{!v.bfrReduction3}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	  
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction3" value="{!v.afterReduction3}" label="減額後" change="{!c.handleAfrReduction3}"/>-->
+				<lightning:input aura:Id="afterReduction3" type="integer" value="{!v.afterReduction3}" label="減額後" onchange="{!c.handleAfrReduction3}" />
+                <aura:if isTrue="{!v.afrReduction3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+           
+            </div>
+		</div>
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額④</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber4" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber4__c}" label="証券番号④"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction4" value="{!v.beforeReduction4}" label="減額前" change="{!c.handleBfrReduction4}"/>-->
+			    <lightning:input aura:Id="beforeReduction4" type="integer" value="{!v.beforeReduction4}" label="減額前" onchange="{!c.handleBfrReduction4}" />
+                <aura:if isTrue="{!v.bfrReduction4}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	 
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction4" value="{!v.afterReduction4}" label="減額後" change="{!c.handleAfrReduction4}"/>-->
+				<lightning:input aura:Id="afterReduction4" type="integer" value="{!v.afterReduction4}" label="減額後" onchange="{!c.handleAfrReduction4}" />
+                <aura:if isTrue="{!v.afrReduction4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑤</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber5" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber5__c}" label="証券番号⑤"/>
+				<aura:if isTrue="{!v.PolicyNumberValidate5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction5" value="{!v.beforeReduction5}" label="減額前" change="{!c.handleBfrReduction5}"/>-->
+			    <lightning:input aura:Id="beforeReduction5" type="integer" value="{!v.beforeReduction5}" label="減額前" onchange="{!c.handleBfrReduction5}" />
+                <aura:if isTrue="{!v.bfrReduction5}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	 
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction5" value="{!v.afterReduction5}" label="減額後" change="{!c.handleAfrReduction5}"/>-->
+				<lightning:input aura:Id="afterReduction5" type="integer" value="{!v.afterReduction5}" label="減額後" onchange="{!c.handleAfrReduction5}" />
+                <aura:if isTrue="{!v.afrReduction5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑥</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber6" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber6__c}" label="証券番号⑥"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction6" value="{!v.beforeReduction6}" label="減額前" change="{!c.handleBfrReduction6}"/>-->
+			    <lightning:input aura:Id="beforeReduction6" type="integer" value="{!v.beforeReduction6}" label="減額前" onchange="{!c.handleBfrReduction6}" />
+                <aura:if isTrue="{!v.bfrReduction6}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	 
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction6" value="{!v.afterReduction6}" label="減額後" change="{!c.handleAfrReduction6}"/>-->
+				<lightning:input aura:Id="afterReduction6" type="integer" value="{!v.afterReduction6}" label="減額後" onchange="{!c.handleAfrReduction6}" />
+                <aura:if isTrue="{!v.afrReduction6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑦</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber7" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber7__c}" label="証券番号⑦"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction7" value="{!v.beforeReduction7}" label="減額前" change="{!c.handleBfrReduction7}"/>-->
+			    <lightning:input aura:Id="beforeReduction7" type="integer" value="{!v.beforeReduction7}" label="減額前" onchange="{!c.handleBfrReduction7}" />
+                <aura:if isTrue="{!v.bfrReduction7}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	 
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction7" value="{!v.afterReduction7}" label="減額後" change="{!c.handleAfrReduction7}"/>-->
+				<lightning:input aura:Id="afterReduction7" type="integer" value="{!v.afterReduction7}" label="減額後" onchange="{!c.handleAfrReduction7}" />
+                <aura:if isTrue="{!v.afrReduction7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑧</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber8" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber8__c}" label="証券番号⑧"/>
+				<aura:if isTrue="{!v.PolicyNumberValidate8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>				
+				<!--<ui:inputNumber aura:Id="beforeReduction8" value="{!v.beforeReduction8}" label="減額前" change="{!c.handleBfrReduction8}"/>-->
+			    <lightning:input aura:Id="beforeReduction8" type="integer" value="{!v.beforeReduction8}" label="減額前" onchange="{!c.handleBfrReduction8}" />
+                <aura:if isTrue="{!v.bfrReduction8}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	
+            </div>
+			<div class="slds-col">	
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction8" value="{!v.afterReduction8}" label="減額後" change="{!c.handleAfrReduction8}"/>-->
+				<lightning:input aura:Id="afterReduction8" type="integer" value="{!v.afterReduction8}" label="減額後" onchange="{!c.handleAfrReduction8}" />
+                <aura:if isTrue="{!v.afrReduction8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑨</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber9" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber9__c}" label="証券番号⑨"/> 
+				<aura:if isTrue="{!v.PolicyNumberValidate9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction9" value="{!v.beforeReduction9}" label="減額前" change="{!c.handleBfrReduction9}"/>-->
+			    <lightning:input aura:Id="beforeReduction9" type="integer" value="{!v.beforeReduction9}" label="減額前" onchange="{!c.handleBfrReduction9}" />
+                <aura:if isTrue="{!v.bfrReduction9}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+			   <!--<ui:inputNumber aura:Id="afterReduction9" value="{!v.afterReduction9}" label="減額後" change="{!c.handleAfrReduction9}"/>-->
+				<lightning:input aura:Id="afterReduction9" type="integer" value="{!v.afterReduction9}" label="減額後" onchange="{!c.handleAfrReduction9}" />
+                <aura:if isTrue="{!v.afrReduction9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>
+		</div>
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減額⑩</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="policyNumber10" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber10__c}" label="証券番号⑩"/>
+				<aura:if isTrue="{!v.PolicyNumberValidate10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeReduction10" value="{!v.beforeReduction10}" label="減額前" change="{!c.handleBfrReduction10}"/>-->
+			    <lightning:input aura:Id="beforeReduction10" type="integer" value="{!v.beforeReduction10}" label="減額前" onchange="{!c.handleBfrReduction10}" />
+                <aura:if isTrue="{!v.bfrReduction10}">
+                   <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_BEFOREREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>	
+            </div>
+			<div class="slds-col">
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-small"></div>
+				<!--<ui:inputNumber aura:Id="afterReduction10" value="{!v.afterReduction10}" label="減額後" change="{!c.handleAfrReduction10}"/>-->
+				<lightning:input aura:Id="afterReduction10" type="integer" value="{!v.afterReduction10}" label="減額後" onchange="{!c.handleAfrReduction10}" />
+                <aura:if isTrue="{!v.afrReduction10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_AFTERREDUCTION_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+            </div>	
+		</div>	
+	 <div class="slds-p-top_medium"></div>	
+     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+						<lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+							<aura:iteration items="{!v.processingPicklist}" var="pro" >
+								<option  value="{!pro}"> {!pro} </option>		
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                            <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                                <option  value="{!pro}"> {!pro} </option>		
+                            </aura:iteration>
+                        </lightning:select>
+				</div>			
+				<div class="form-group">
+						<lightning:select aura:id="dateOfShipmentPickMap" value="{!v.innerCmpNewRequest.DateOfShipment__c}" label="発送日" disabled="true">
+							<option value="">-None-</option>
+							<aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+								<option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingMethodPickMap" value="{!v.innerCmpNewRequest.ShippingMethod__c}" label="発送方法" disabled="true">
+							<option value="">-None-</option>
+							<aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+								<option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+			</div>	
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--xxx-small"></div>
+               <!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+				<!--<lightning:input aura:Id="numberOfCopies" name="" type="integer" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/> -->
+				<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数" onchange="{!c.handleNoOfCopies}" disabled="true"/>
+				<aura:if isTrue="{!v.noOfCopiesErr}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+			</div>
+		</div>	
+</div>
+</aura:component>

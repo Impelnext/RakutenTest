@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="CollectiveAgencyAccountAlertController">
+    
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="showError" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!v.showError}">
+        <div class="theme_alert">
+            <!--Modify 2023/02/15 RIPCRM-819_統合CRM（損保）集団扱い代理店 アラート文言の変更依頼 By 範　Start-->
+            <!--<b>集団扱い代理店です！</b>住変・TEL変、解約、名変、特約の追加・削除、家財保険の追加・一部解約・減額はCC受付可能-->
+            <b>集団扱い代理店です！</b>住変・TEL変、解約、特約の追加・削除、家財保険の追加・一部解約・減額はCC受付可能
+            <!--Modify 2023/02/15 RIPCRM-819_統合CRM（損保）集団扱い代理店 アラート文言の変更依頼 By 範　End-->
+        </div>
+    </aura:if>
+</aura:component>

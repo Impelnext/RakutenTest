@@ -1,0 +1,29 @@
+<template>
+    <template if:false={confirmPhase}>
+
+        <p style="font-weight: bold;"><span class="required red">必須</span>{majorItemName}</p>
+        <lightning-input type="text" id={itemKeyPolicyNumber} 
+            value={valuePolicyNumber} maxlength="8" 
+            placeholder="" 
+            onchange={changeValueHandlerPolicyNumber}
+            variant="label-hidden" >
+        </lightning-input>
+        <small>生命保険：数字8桁</small><br>
+        <small>共済契約：数字13桁　※ハイフンなし</small><br><br>
+        <template if:true={disp}>
+            <small>※複数のご契約がある場合はいずれか一つ</small>
+        </template>
+<!--
+        <img src={appResources.policyNumberIcon} alt="画像">
+-->
+    </template>
+
+    <template if:true={confirmPhase}>
+        <p style="font-weight: bold;">{majorItemName}</p>
+        <template if:false={disp}>
+            <p>証券番号①</p>    
+        </template>
+        {valuePolicyNumber}<br>
+    </template>
+  
+ </template>

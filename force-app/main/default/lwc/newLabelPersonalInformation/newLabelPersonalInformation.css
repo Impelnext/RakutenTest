@@ -1,0 +1,113 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 64px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+.p-form_privacy {
+    border: 1px solid #ccc;
+    padding: 16px;
+    height: 280px;
+    overflow: auto;
+}
+
+.c {
+    text-align: center;
+}
+
+.p-form_btn {
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.p-form_btn:last-child {
+    margin-bottom: 0;
+}
+
+.c-form_checkSimple {
+    display: none;
+}
+
+input:disabled + label {
+    color: #333;
+    cursor: default;
+}
+
+input:disabled+label:before {
+    background: #fff;
+    /* border-color: #ccc; */
+    border-color: #898989;
+}
+
+.c-form_checkSimple + label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 32px;
+    line-height: 20px;
+}
+
+.c-form_checkSimple + label::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.c-form_checkSimple+label::after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    width: 8px;
+    height: 12px;
+    border: solid #002896;
+    border-width: 0 2px 2px 0;
+    left: 6px;
+    top: 2px;
+    transform: rotate(45deg);
+}
+
+.c-form_checkSimple:checked + label::after {
+    opacity: 1;
+}
+
+@media only screen and (max-width: 756px) {
+    .c-form_checkSimple+label {
+        padding: 0;
+    }
+
+    .c-form_checkSimple+label::before {
+        content: none;
+    }
+
+    .c-form_checkSimple+label::after {
+        content: none;
+    }
+
+    input[type=checkbox]+.checkbox {
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 1% 4%;
+        border-radius: 5px;
+        display: inline-block;
+    }
+
+    input[type=checkbox]:checked+.checkbox {
+        background: #cccccc;
+    }
+}
+
+.checkbox {
+    font-weight: bold;
+}

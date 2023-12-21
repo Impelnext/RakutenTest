@@ -1,0 +1,59 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'IssuingYear__c ':'',
+																		'DeliveryAddress__c':'',
+																		'DeliveryAddress_zipCode__c':'',
+																		'DeliveryAddress_prefecture__c':'',
+																		'DeliveryAddress_city__c':'',
+																		'DeliveryAddress_Address1__c':'',
+																		'DeliveryAddress_buildingName__c':'',
+																		'IsReflectDeliveryAddress__c':'',
+																		'SendingMethod__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineReissuanceCertificateReissueCmp" action="{!c.saveInlineReissuanceCertificateReissueCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+
+<!--Picklist attributes-->
+<aura:attribute name="issuingYearPickMap" type="Map"/>
+<aura:attribute name="deliveryAddressPickMap" type="Map"/>
+<aura:attribute name="sendingMethodPickMap" type="Map"/>
+ <aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+   
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">控除証明再発行</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:select aura:Id="issuingYearPickMap" value="{!v.innerCmpNewRequest.IssuingYear__c}" label="発行年度" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.issuingYearPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.IssuingYear__c}"/>
+				</aura:iteration>
+			</lightning:select>
+		    <lightning:select aura:Id="deliveryAddressPickMap" value="{!v.innerCmpNewRequest.DeliveryAddress__c}" label="送付先住所①" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.deliveryAddressPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.DeliveryAddress__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" onblur="{!c.handleAreaInfo}" value="{!v.innerCmpNewRequest.DeliveryAddress_zipCode__c}" label="送付先住所②_郵便番号　　注）変更後の郵便番号は000-0000の形式で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.DeliveryAddress_prefecture__c}" label="送付先住所②_都道府県"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.DeliveryAddress_city__c}" label="送付先住所②_市区町村"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.DeliveryAddress_Address1__c}" label="送付先住所②_住所１　　注）全角で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.DeliveryAddress_buildingName__c}" label="送付先住所②_建物名　　注）全角で入力してください"/>
+		    <ui:inputCheckbox aura:id="isReflectDeliveryAddress" label="送付先住所②を受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.IsReflectDeliveryAddress__c}"/>
+		    <lightning:select aura:Id="sendingMethodPickMap" value="{!v.innerCmpNewRequest.SendingMethod__c}" label="送付方法" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.sendingMethodPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.SendingMethod__c}"/>
+				</aura:iteration>
+			</lightning:select>
+		    <lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>	
+		</div>
+</aura:component>

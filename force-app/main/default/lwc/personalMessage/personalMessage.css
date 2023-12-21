@@ -1,0 +1,61 @@
+.section {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #F7F7F7;
+    padding: 15px;
+    white-space: pre-wrap;
+}
+
+.l-main {
+    padding: 0px 64px 16px 64px;
+    font-size: 14px;
+}
+
+.l-inner_s {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.l-inner_s p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.l-main p {
+    margin-bottom: 1.5em;
+}
+
+.p-personal_name {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 18px;
+    line-height: 1.4;
+}
+
+.c-box_guide.personal_Inquiry {
+    max-width: 600px;
+}
+.c-box_guide {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 950px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    margin-bottom: 51px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+.c-form_textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    padding: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 16px;
+}

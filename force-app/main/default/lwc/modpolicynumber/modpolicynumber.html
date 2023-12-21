@@ -1,0 +1,110 @@
+<template>
+    <div style={styleInput} >
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>{majorItemName}</div>
+                <div class="p-form_itemNote" if:true={dispGuide}>
+                    {itemGuide1}<br>
+                    {itemGuide2}
+                </div>
+                <div class="js-number-list">
+                    <div class="number-list__item">
+                        <label for="Number" if:true={lifeOnly}>ご契約の証券番号<span class="js-number-text">1</span></label>
+                        <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                        <!-- <label for="Number" if:false={lifeOnly}>ご契約の証券番号、または会員（証書）番号<span class="js-number-text">1</span></label> -->
+                        <label for="Number" if:false={lifeOnly}>
+                            <label for="Number" if:false={dispCreditCart}>ご契約の証券番号、または会員（証書）番号<span class="js-number-text">1</span></label>
+                            <label for="Number" if:true={dispCreditCart}>ご契約の証券番号<span class="js-number-text">1</span></label>
+                        </label>
+                        <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                        <div class="c-number-form">
+                            <input type="text" name="nmNumber[01]" id="CancelInsurance1" class="c-form_text js-numCheck" data-num-type={dataNumType} value={valuePolicyNumber} maxlength="10" onchange={changeValueHandlerPolicyNumber}>
+                        </div>
+                    </div>
+                    <template for:each={policyNumList} for:item="p">
+                        <div key={p.key} class="number-list__item">
+                            <div class={p.class}>
+                                <label for="Number" if:true={lifeOnly}>ご契約の証券番号<span class="js-number-text">{p.num}</span></label>
+                                <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                                <!-- <label for="Number" if:false={lifeOnly}>ご契約の証券番号、または会員（証書）番号<span class="js-number-text">{p.num}</span></label> -->
+                                <label for="Number" if:false={lifeOnly}>
+                                    <label for="Number" if:false={dispCreditCart}>ご契約の証券番号、または会員（証書）番号<span class="js-number-text">{p.num}</span></label>
+                                    <label for="Number" if:true={dispCreditCart}>ご契約の証券番号<span class="js-number-text">{p.num}</span></label>
+                                </label>
+                                <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                                <div class="c-number-form">
+                                    <input name={p.tagName} type="text" data-id={p.key} class="c-form_text js-numCheck" data-num-type={dataNumType} value={p.value} maxlength="10" disabled={p.disabled} onchange={changeValueHandlerPolicyNumberList} onblur={onBlurInput}>
+                                    <button type="button" class="c-btn_remove center js-remove-number" value={p.key} onclick={removePolicyNumber}>
+                                        削除
+                                    </button>
+                                </div>
+                                <div class="p-form_itemNote_small" if:true={lifeOnly}>
+                                    <span>※証券番号を未入力のまま、次の確認画面に進めません。解約対象のご契約がない場合には、「削除」ボタンを押して入力欄を削除ください。</span>
+                                </div>
+                                <div class="p-form_itemNote_small" if:false={lifeOnly}>
+                                    <span class="weight4" ></span>
+                                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                                    <!-- <span>※証券番号、または会員（証書）番号を未入力のまま、次の確認画面に進めません。対象のご契約がない場合には、「削除」ボタンを押して入力欄を削除ください。</span> -->
+                                    <span if:false={dispCreditCart}>※証券番号、または会員（証書）番号を未入力のまま、次の確認画面に進めません。対象のご契約がない場合には、「削除」ボタンを押して入力欄を削除ください。</span>
+                                    <span if:true={dispCreditCart}>※証券番号を未入力のまま、次の確認画面に進めません。対象のご契約がない場合には、「削除」ボタンを押して入力欄を削除ください。</span>
+                                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="p-form_itemNote" if:true={lifeOnly}>
+                    ※数字8桁<br>
+                    お手元の証券番号が12桁の場合は、中央の8桁のみ入力してください。（例：XXX-12345678-X）
+                </div>
+                <div class="p-form_itemNote" if:false={lifeOnly}>
+                    ■生命保険：数字8桁<br>
+                    お手元の証券番号が12桁の場合は、中央の8桁のみ入力してください。（例：XXX-12345678-X）<br>
+                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                    <!-- ■共済契約：数字10桁<br>
+                    お手元の会員(証書)番号が14桁の場合は、中央の10桁のみ入力してください。（例：XXX-1234567890-X） -->
+                    <div class="p-form_itemNote" if:false={dispCreditCart}>
+                        ■共済契約：数字10桁<br>
+                        お手元の会員(証書)番号が14桁の場合は、中央の10桁のみ入力してください。（例：XXX-1234567890-X）
+                    </div>
+                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                </div>
+                    <button type="button" class="c-btn_add mt10 center" onclick={addPolicyNumber} if:true={dispAddNumber}>
+                    <span>証券番号を追加する</span>
+                    <img src={plusIcon} alt="追加">
+                    </button>
+                </div>
+        </section>
+    </div>
+
+    <template if:true={dispConfirm}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">{majorItemName}</span><br>
+                    <span class="weight4" if:true={lifeOnly}>ご契約の証券番号1</span>
+                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                    <!-- <span class="weight4" if:false={lifeOnly}>ご契約の証券番号、または会員（証書）番号1</span><br> -->
+                    <span class="weight4" if:false={lifeOnly}>
+                        <span class="weight4" if:false={dispCreditCart}>ご契約の証券番号、または会員（証書）番号1</span>
+                        <span class="weight4" if:true={dispCreditCart}>ご契約の証券番号1</span>
+                    </span><br>
+                    <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                    {valuePolicyNumber}<br>
+                    <template for:each={confirmPolicyNumList} for:item="p">
+                        <span key={p.key} class="weight4" if:true={lifeOnly}>ご契約の証券番号{p.label}</span>
+                        <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　Start -->
+                        <!-- <span key={p.key} class="weight4" if:false={lifeOnly}>ご契約の証券番号、または会員（証書）番号{p.label}</span> -->
+                        <span key={p.key} class="weight4" if:false={lifeOnly}>
+                            <span key={p.key} class="weight4" if:false={dispCreditCart}>ご契約の証券番号、または会員（証書）番号{p.label}</span>
+                            <span key={p.key} class="weight4" if:true={dispCreditCart}>ご契約の証券番号{p.label}</span>
+                        </span>
+                        <!-- Modify 2023/07/19 RIPCRM-924_次世代CC BAU（引継ぎOJTタスク）：ExperienceCloud対応案件 By 邵　End -->
+                        <br key={p.key}>{p.value}<br key={p.key}>
+                    </template>
+                </div>
+            </div>
+        </section>
+    </template>
+</template>

@@ -1,0 +1,43 @@
+<template>
+    <div class="form_area">
+        <div class="l-wrapper">
+            <main class="l-main">
+                <div class="l-inner_s">
+                    <div class="p-section">
+
+                        <!--手続き完了画面用-->
+                        <div if:true={isDisplayCompletePage} style="font-size: 14px">
+                            <p>お手続きいただきありがとうございます。</p>
+                            <p class="text-red">※お手続きはまだ完了しておりません。</p>
+                            <p>
+                                ご入力いただいたメールアドレスに、受付完了のお知らせメールが自動送信されますのでご確認ください。<br>
+                                お手続き内容につきまして誤りや確認の為、電話、ショートメッセージでご連絡する場合がございます。<br>
+                                なお、3日間ご連絡が取れず、お手続きを完了できない場合にはお手続きを取消しさせていただく場合がございます。<br>
+                                <br>
+                                お手続きは以上となります。ご利用ありがとうございました。
+                            </p>
+                        </div>
+
+                        <!--取り消し完了画面用-->
+                        <div if:false={isDisplayCompletePage} style="font-size: 14px">
+                            <p>お手続きをご希望される場合は、改めてお電話、もしくはホームページにてお手続きをお願いしいたします。</p>
+                        </div>
+
+                        <!--両画面共通-->
+                        <div class="center c-complete_link">
+                            <a href="https://www.rakuten-insurance.co.jp" class="c-link_with_icon">楽天保険の総合窓口ホームページに遷移します</a>
+                        </div>
+                        <div class="c-box_guide phone_number">
+                            <div class="mb-8">お問合せは、以下の電話番号で承ります。</div>
+                            <div class="bold mb-8">
+                                楽天保険の総合窓口<br>
+                                0120-977-010
+                            </div>
+                            <div>受付時間：9:00～18:00（年末年始を除く）</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</template>

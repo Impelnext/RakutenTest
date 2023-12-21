@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>個人情報専用ページ</title>
+  <link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script type="text/javascript" src="/appjs/agencyControl.js"></script>
+  <!--#include virtual="/shared/inc/common_head_r.html" -->
+</head>
+
+<body id="personal_area" class="personal_top">
+  <!--#include virtual="/shared/inc/header_r.html" -->
+  <div id="l-wrapper">
+
+    <div class="p-head_page">
+      <div class="p-head_pageInner">
+        <h1>個人情報専用ページ</h1>
+      </div>
+    </div>
+    <main class="l-main">
+      <div class="l-inner_s">
+        <div class="p-section">
+          <p class="p-personal_name">楽天 　生命　さま</p>
+          <p>楽天保険の総合　窓口お問い合わせをご利用いただきましてありがとうございます。</p>
+          <p>お客様から頂いた内容に関して、下記を楽天保険の担当者よりご回答を記載していますので、ご確認ください。</p>
+          <div class="c-box_guide personal_Inquiry">
+            <p class="u-txt_c">楽天保険の総合窓口からのご案内・ご依頼</p>
+            <p>問い合わせ番号：●●●●●</p>
+            <p>SPUの対象は●●●となります。一度指定の内容で確認いただけますでしょうか。<br>
+              また、本人確認書類の提出をお願いします。提出書類は下記【ご本人提出書類】からファイルアップロードをお願いします。</p>
+          </div>
+          <p>さらにご質問をされたいお客さまは下記ご入力欄からご質問をご記入ください。</p>
+        </div>
+      </div>
+      <div class="l-inner">
+        <section class="p-section">
+          <h2 class="c-ttl_sec">お客さまご入力欄</h2>
+          <div class="p-form_item">
+            <textarea name="nmCustomerMessage" rows="10" class="c-form_textarea" id="CustomerMessage"></textarea>
+          </div>
+        </section>
+        <section class="p-section">
+          <h2 class="c-ttl_sec">提出書類のアップロード</h2>
+          <div class="p-form_item">
+            <p>お手続きやお問い合わせ内容によって、当社より書類の提出をお願いする場合がございます。その際に書類をアップロードください。</p>
+            <p class="u-fs12">※アップロードできるファイル数は5枚です。<br>
+              ※画像容量は最大で25MBです。画像の種類（拡張子）は、jpg、gif、png のいずれかで保存をお願いします。</p>
+          </div>
+        </section>
+
+        <div class="container">
+          <div class="drop-zone" id="js-dropzone">
+            <div class="overlay-area" id="js-overlay-area">
+              <p class="no-active" id="js-overlay-text">ファイルをドラッグ＆ドロップしてください</p>
+            </div>
+            <p class="drop-zone-text1">ファイルをドラッグ＆ドロップするかクリップボードから画像を貼り付けしてください</p>
+            <p class="drop-zone-text2">または</p>
+            <div class="c">
+              <label for="file_upload" class="select-file" id="js-select-file">
+                ファイルを選択してください
+                <input type="file" multiple id="file_upload" accept="image/*">
+              </label>
+            </div>
+            <div class="c" id="preview"></div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <div class="p-section margin50p spnone">
+          <div class="c-box_guide l-inner_s">
+            <p class="u-txt_c span">スマートフォンで<span>アップロードする場合</span></p>
+            <div class="c-cols_qr">
+              <div class="c-cols_qrTxt">
+                <ol class="c-list_num">
+                  <li>お持ちのスマートフォンでQRコードを撮影してください。</li>
+                  <li>スマートフォンの画面の手順に従って、【アルバムから選択】【写真を撮影】を選択してください。</li>
+                </ol>
+              </div>
+              <div class="c-cols_qrImg personal_qr" id="js-qrcode">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <ul class="c-list_upfiles">
+            <li>
+              <div><strong>画像1</strong></div>
+              <label class="c-form_fileup">
+                <input type="file" name="fileField" onchange="imgPreView(event, 'item1')">
+                <div id="preview-item1" data-mfp-src="#preview-modal" class="c-form_filePreview js-fileModal"></div>
+              </label>
+              <div class="u-txt_c">
+                <span class="c-btn_red js-fileDelete">削除する</span>
+              </div>
+            </li>
+            <li>
+              <div><strong>画像2</strong></div>
+              <label class="c-form_fileup">
+                <input type="file" name="fileField2" onchange="imgPreView(event, 'item2')">
+                <div id="preview-item2" data-mfp-src="#preview-modal" class="c-form_filePreview js-fileModal"></div>
+              </label>
+              <div class="u-txt_c">
+                <span class="c-btn_red js-fileDelete">削除する</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="p-form_btn margin50p">
+          <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit _blue" id="ButtonConfirmationPage"
+            value="入力内容を確認する">
+        </div>
+      </div>
+    </main>
+    <div id="preview-modal" class="p-modal mfp-hide">
+      <div class="p-modal_img"><span></span></div>
+      <div class="p-modal_btns">
+        <div><span class="c-btn_red mfp-close">閉じる</span></div>
+      </div>
+    </div>
+    <footer class="l-footer">
+      <div class="l-inner">
+        <!-- <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div> -->
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="js/lib.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+
+  <script>
+    function previewFile(file) {
+      // プレビュー画像を追加する要素
+      const preview = document.getElementById('preview');
+
+      // FileReaderオブジェクトを作成
+      const reader = new FileReader();
+
+      // ファイルが読み込まれたときに実行する
+      reader.onload = function (e) {
+        const imageUrl = e.target.result; // 画像のURLはevent.target.resultで呼び出せる
+        const img = document.createElement("img"); // img要素を作成
+        img.src = imageUrl; // 画像のURLをimg要素にセット
+        preview.appendChild(img); // #previewの中に追加
+      }
+
+      // いざファイルを読み込む
+      reader.readAsDataURL(file);
+    }
+
+
+    // <input>でファイルが選択されたときの処理
+    const fileInput = document.getElementById('file_upload');
+    const handleFileSelect = () => {
+      const files = fileInput.files;
+      for (let i = 0; i < files.length; i++) {
+        previewFile(files[i]);
+      }
+    }
+    fileInput.addEventListener('change', handleFileSelect);
+    
+  </script>
+
+  <!--#include virtual="/shared/inc/footer_r.html" -->
+  <!--#include virtual="/shared/inc/footer_group_r.html" -->
+  <!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+
+</html>

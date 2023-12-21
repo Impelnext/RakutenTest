@@ -1,0 +1,18 @@
+<template>
+    <div class="p-form_btn">
+        <input name="nmButtonCancel" type="button" class="c-btn_outline _gray js-modal-open" data-target="CancelModal" id="ButtonCancel" value="手続きの取消" onclick={openModal}>
+        <div class={containerClass} id="CancelModal" onclick={closeModal}>
+            <div class="modal-body">
+                <div class="modal-close pc js-modal-close" data-target="CancelModal" onclick={closeModal}></div>
+                <div class="modal-content" onclick={clickDialog}>
+                    <p class="weight7">すべてのお手続きが取り消されますがよろしいでしょうか？</p>
+                    <div class="flex flex-center">
+                        <a class="c-btn_outline _red js-modal-close" data-target="CancelModal" onclick={closeModal}>お手続きを続ける</a>
+                        <a class="c-btn_outline _red ml5" onclick={moveToCancelPage}>お手続きを取り消す</a>
+                    </div>
+                </div>
+                <div class="modal-close sp js-modal-close" data-target="CancelModal"></div>
+            </div>
+        </div>
+    </div>
+</template>

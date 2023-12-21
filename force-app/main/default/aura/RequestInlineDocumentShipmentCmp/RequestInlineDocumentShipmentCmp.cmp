@@ -1,0 +1,136 @@
+<aura:component
+  controller="RequestController"
+  implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId"
+>
+  <aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                                        'ReportGroup__c':'',
+                                                                        'report_agency__c':'',
+                                                                        'Remarks__c':'',
+                                                                        'NumberOfCopies__c':'',
+                                                                        'ShippingInput__c	':'',
+                                                                        'DestinationAddress__c':'',
+                                                                        'Postalcode__c	':'',
+                                                                        'Prefectures__c':'',
+                                                                        'Address1__c':'',
+                                                                        'Address2__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':'',
+                                                                        'City__c':'' 
+                                                                       }" />
+  <!--init method-->
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+  <!--Values to be received from parent cmp-->
+  <aura:attribute name="parentNewRequest" type="Request__c" access="public" />
+  <aura:attribute name="subjectSelected" type="String" access="public" />
+  <aura:attribute name="recContractWrapper" type="Object" />
+
+  <!--Aura method Values to be received from parent comp to save-->
+  <aura:method name="DocShipment" action="{!c.saveDocShipment}" access="PUBLIC">
+    <aura:attribute name="parentNewRequestFromInqTyp" type="Request__c" />
+  </aura:method>
+
+  <!--For picklist-->
+  <aura:attribute name="selectVal" type="String" />
+
+  <!--Map for storing Area info-->
+  <aura:attribute name="getAreaInfoMap" type="Map" default="{}" />
+
+  <!--Map for storing dependencies-->
+  <aura:attribute name="subReportGroupFieldMap" type="Map" default="{}" />
+  <aura:attribute name="reportFieldMap" type="Map" default="{}" />
+
+  <!--List for picklist value entry-->
+  <aura:attribute name="reportGroupPLValues" type="list" default="[]" />
+  <aura:attribute name="reportPLValues" type="list" default="[]" />
+  <aura:attribute name="shippingInputPLValues" type="list" default="[]" />
+  <aura:attribute name="dateOfShipmentPLValues" type="list" default="[]" />
+  <aura:attribute name="shipmentMethodPLValues" type="list" default="[]" />
+
+  <!--Setting Display-->
+    <!--Setting Display-->
+    <div class="slds-p-top_medium"/>   
+    <div class="slds-box slds-theme_default">
+        <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">書類発送</h3> </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-p-top_medium"/>
+            <lightning:select aura:id="reportGroup" name="controllerFld" value="{!v.innerCmpNewRequest.ReportGroup__c}" label="帳票グループ" onchange="{!c.onControllerFieldChange}">
+              <aura:iteration items="{!v.reportGroupPLValues}" var="val">
+                <option   value="{!val}">{!val}</option>
+              </aura:iteration>
+            </lightning:select>
+            <br/>
+          </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-1">
+            <div class="slds-p-top_medium"/>
+            <lightning:dualListbox aura:id="dependentFld" name="dependentFld" label="帳票" sourceLabel="選択可能" selectedLabel="選択済み" options="{!v.reportPLValues}" 
+                                   value="{!v.innerCmpNewRequest.report_agency__c}" disabled="{!v.bDisabledDependentFld}" size="3"/>
+            <br/>
+          </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-p-top_medium"/>
+            <lightning:input type="text" name="Remarks" label="備考" value="{!v.innerCmpNewRequest.Remarks__c}"  />
+            <br/>               
+					  <lightning:input type="text" name="NumberOfCopies" aura:id="NumberOfCopies" label="部数" value="{!v.innerCmpNewRequest.NumberOfCopies__c}"  />
+            <br/>           	     		
+          </div>
+          <div class="slds-col">
+            <div class="slds-p-top_medium"/>
+            <lightning:select name="DateOfShipment"  label="発送日"  value="{!v.innerCmpNewRequest.DateOfShipment__c}" >
+              <aura:iteration items="{!v.dateOfShipmentPLValues}" var="date" >
+                <option  value="{!date}">{!date}</option>
+              </aura:iteration>
+            </lightning:select>
+            <br/>
+                
+            <lightning:select name="ShippingMethod"  label="発送方法"  value="{!v.innerCmpNewRequest.ShippingMethod__c}" >
+              <aura:iteration items="{!v.shipmentMethodPLValues}" var="method" >
+                <option  value="{!method}">{!method}</option>
+              </aura:iteration>
+            </lightning:select>
+
+          </div>
+    	  </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-p-top_medium"/>
+            <lightning:select name="ShippingInput" aura:id="ShippingInput" label="送付先"  value="{!v.innerCmpNewRequest.ShippingInput__c}" onchange="{!c.onChangeShippingInp}">
+        			<aura:iteration items="{!v.shippingInputPLValues}" var="inp" >
+              	<option  value="{!inp}" selected="{!inp==v.selectVal}" >{!inp}</option>
+            	</aura:iteration>
+    				</lightning:select> 
+            <br/>         		
+            <lightning:input type="text" aura:Id="DestinationAddress" name="DestinationAddress"  value="{!v.innerCmpNewRequest.DestinationAddress__c}" label="送付先宛名" disabled="true" />
+            <br/>
+            <lightning:input type="text" aura:Id="PostalCode" name="PostalCode"  value="{!v.innerCmpNewRequest.Postalcode__c}" label="郵便番号" disabled="true" onblur="{!c.handleAreaInfo}" />
+        		<br/>
+          </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-2">
+            <div class="slds-p-top_medium"/>
+            <lightning:input type="text" aura:Id="Prefectures" name="Prefectures"  value="{!v.innerCmpNewRequest.Prefectures__c}" label="都道府県" disabled="true"  />
+        		<br/>
+          </div>
+          <div class="slds-col">
+            <div class="slds-p-top_medium"/>
+            <lightning:input type="text" aura:Id="City" name="City"  value="{!v.innerCmpNewRequest.City__c}" label="市区町村" disabled="true" />
+            <br/>          	
+          </div>
+        </div>
+        <div class="slds-grid slds-gutters">
+          <div class="slds-col slds-size_1-of-1">
+            <div class="slds-p-top_medium"/>
+            <lightning:input type="text" aura:Id="Address1" name="Address1"  value="{!v.innerCmpNewRequest.Address1__c}" label="住所１" disabled="true"  />
+        		<br/>
+            <lightning:input type="text" aura:Id="Address2" name="Address2"  value="{!v.innerCmpNewRequest.Address2__c}" label="住所２" disabled="true" />
+        		<br/>
+          </div>
+        </div>
+    </div>  
+</aura:component>

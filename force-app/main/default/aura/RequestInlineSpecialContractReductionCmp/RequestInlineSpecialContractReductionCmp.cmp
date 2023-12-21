@@ -1,0 +1,1925 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'PolicyNumber1__c':'',
+                                                             			'ChangeDetails1__c':'',
+																		'PolicyNumber2__c':'',
+                                                                        'ChangeDetails2__c':'',
+                                                                        'PolicyNumber3__c':'',
+																		'ChangeDetails3__c':'',
+                                                             			'PolicyNumber4__c':'',
+																		'ChangeDetails4__c':'',
+                                                                        'PolicyNumber5__c':'',
+                                                                        'ChangeDetails5__c':'',
+																		'PolicyNumber6__c':'',
+                                                             			'ChangeDetails6__c':'',
+																		'PolicyNumber7__c':'',
+                                                                        'ChangeDetails7__c':'',
+                                                                        'PolicyNumber8__c':'',
+																		'ChangeDetails8__c':'',
+                                                             			'PolicyNumber9__c':'',
+																		'ChangeDetails9__c':'',
+                                                                        'PolicyNumber10__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="specialContractReduction" action="{!c.saveInlineRequestSpecialContractReduction}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+    
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+    
+<!--Declare Attributes-->	
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>
+
+<!--ChangeDetails1 attributes-->
+<aura:attribute name="cancerTreaty1" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction1" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter1" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore1" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc1" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti1" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract1" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract1" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF1" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf1" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront1" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter1" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore1" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter1" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore1" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter1" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore1" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter1" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore1" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter1" type="Integer"/>
+
+<!--ChangeDetails2 attributes-->
+<aura:attribute name="cancerTreaty2" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction2" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter2" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore2" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc2" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti2" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract2" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract2" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF2" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf2" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront2" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter2" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore2" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter2" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore2" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter2" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore2" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter2" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore2" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter2" type="Integer"/>
+
+<!--ChangeDetails3 attributes-->
+<aura:attribute name="cancerTreaty3" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction3" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter3" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore3" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc3" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti3" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract3" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract3" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF3" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf3" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront3" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter3" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore3" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter3" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore3" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter3" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore3" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter3" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore3" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter3" type="Integer"/>
+
+<!--ChangeDetails4 attributes-->
+<aura:attribute name="cancerTreaty4" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction4" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter4" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore4" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc4" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti4" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract4" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract4" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF4" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf4" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront4" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter4" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore4" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter4" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore4" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter4" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore4" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter4" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore4" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter4" type="Integer"/>
+
+<!--ChangeDetails5 attributes-->
+<aura:attribute name="cancerTreaty5" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction5" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter5" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore5" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc5" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti5" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract5" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract5" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF5" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf5" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront5" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter5" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore5" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter5" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore5" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter5" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore5" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter5" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore5" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter5" type="Integer"/>
+
+<!--ChangeDetails6 attributes-->
+<aura:attribute name="cancerTreaty6" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction6" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter6" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore6" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc6" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti6" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract6" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract6" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF6" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf6" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront6" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter6" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore6" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter6" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore6" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter6" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore6" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter6" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore6" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter6" type="Integer"/>
+
+<!--ChangeDetails7 attributes-->
+<aura:attribute name="cancerTreaty7" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction7" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter7" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore7" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc7" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti7" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract7" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract7" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF7" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf7" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront7" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter7" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore7" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter7" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore7" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter7" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore7" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter7" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore7" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter7" type="Integer"/>
+
+<!--ChangeDetails8 attributes-->
+<aura:attribute name="cancerTreaty8" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction8" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter8" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore8" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc8" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti8" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract8" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract8" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF8" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf8" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront8" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter8" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore8" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter8" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore8" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter8" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore8" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter8" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore8" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter8" type="Integer"/>
+
+<!--ChangeDetails9 attributes-->
+<aura:attribute name="cancerTreaty9" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction9" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter9" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore9" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc9" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti9" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract9" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract9" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF9" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf9" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront9" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter9" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore9" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter9" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore9" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter9" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore9" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter9" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore9" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter9" type="Integer"/>
+
+<!--ChangeDetails10 attributes-->
+<aura:attribute name="cancerTreaty10" type="Integer" />
+<aura:attribute name="afterCancerSpecialContractReduction10" type="Integer"/> 
+<aura:attribute name="heartAttackStrokeAfter10" type="Integer" /> 
+<aura:attribute name="heartAttackStrokeBefore10" type="Integer"/>
+<aura:attribute name="hospitalSpecialContracteforeReduc10" type="Integer"/>
+<aura:attribute name="hospitalSpecialContractAfterReducti10" type="Integer"/>  
+<aura:attribute name="beforeHospitalizationSpecialContract10" type="Integer"/>
+<aura:attribute name="afterHospitalizationSpecialContract10" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractF10" type="Integer"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAf10" type="Integer"/>
+<aura:attribute name="sevenSpecialContractFront10" type="Integer"/> 
+<aura:attribute name="sevenSpecialAfter10" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBefore10" type="Integer"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfter10" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBefore10" type="Integer"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfter10" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBefore10" type="Integer"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfter10" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderBefore10" type="Integer"/>
+<aura:attribute name="hospitalLumpSumRiderAfter10" type="Integer"/>
+
+
+<!--Errormessages attributes-->
+<aura:attribute name="cancerTreatyErr1" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr1" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr1" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr1" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr1" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr1" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr1" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr1" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr1" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr1" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr1" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr1" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr1" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr1" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr1" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr2" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr2" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr2" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr2" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr2" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr2" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr2" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr2" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr2" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr2" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr2" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr2" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr2" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr2" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr2" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr3" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr3" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr3" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr3" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr3" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr3" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr3" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr3" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr3" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr3" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr3" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr3" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr3" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr3" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr3" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr4" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr4" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr4" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr4" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr4" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr4" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr4" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr4" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr4" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr4" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr4" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr4" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr4" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr4" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr4" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr5" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr5" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr5" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr5" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr5" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr5" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr5" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr5" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr5" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr5" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr5" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr5" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr5" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr5" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr5" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr6" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr6" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr6" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr6" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr6" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr6" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr6" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr6" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr6" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr6" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr6" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr6" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr6" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr6" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr6" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr7" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr7" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr7" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr7" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr7" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr7" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr7" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr7" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr7" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr7" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr7" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr7" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr7" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr7" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr7" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr8" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr8" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr8" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr8" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr8" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr8" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr8" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr8" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr8" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr8" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr8" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr8" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr8" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr8" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr8" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr9" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr9" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr9" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr9" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr9" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr9" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr9" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr9" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr9" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr9" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr9" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr9" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr9" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr9" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr9" type="boolean" default="false"/>
+
+<aura:attribute name="cancerTreatyErr10" type="boolean" default="false"/>
+<aura:attribute name="afterCancerSpecialContractReductionErr10" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeAfterErr10" type="boolean" default="false"/> 
+<aura:attribute name="heartAttackStrokeBeforeErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContracteforeReducErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalSpecialContractAfterReductiErr10" type="boolean" default="false"/>  
+<aura:attribute name="beforeHospitalizationSpecialContractErr10" type="boolean" default="false"/>
+<aura:attribute name="afterHospitalizationSpecialContractErr10" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractFErr10" type="boolean" default="false"/> 
+<aura:attribute name="dischargeHospitalSpecialContractAfErr10" type="boolean" default="false"/>
+<aura:attribute name="sevenSpecialContractFrontErr10" type="boolean" default="false"/> 
+<aura:attribute name="sevenSpecialAfterErr10" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractBeforeErr10" type="boolean" default="false"/>
+<aura:attribute name="longTermCareBnefitSpecialContractAfterErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractBeforeErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalWithMentalIllnessSpecialContractAfterErr10" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractBeforeErr10" type="boolean" default="false"/>
+<aura:attribute name="accidentFreeBenefitSpecialContractAfterErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderBeforeErr10" type="boolean" default="false"/>
+<aura:attribute name="hospitalLumpSumRiderAfterErr10" type="boolean" default="false"/>
+    
+<aura:attribute name="PolicyNumberValidate1" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate2" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate3" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate4" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate5" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate6" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate7" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate8" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate9" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate10" type="boolean" default="false"/>
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+  
+<aura:attribute name="ERR_MSG_POLICYNO_SECTION_INPUT" type="String"  default="証券番号を入力したセクションの全ての項目を入力してください。"/>
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>    
+
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額➀</h3> </div>
+    <div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber1" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber1__c}" label="証券番号①"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+			<lightning:input aura:Id="cancerTreaty1" type="integer" value="{!v.cancerTreaty1}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty1}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter1" type="integer" value="{!v.heartAttackStrokeAfter1}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter1}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc1" type="integer" value="{!v.hospitalSpecialContracteforeReduc1}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed1}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract1" type="integer" value="{!v.beforeHospitalizationSpecialContract1}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon1}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF1"  type="integer" value="{!v.dischargeHospitalSpecialContractF1}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon1}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront1" type="integer" value="{!v.sevenSpecialContractFront1}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront1}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore1" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore1}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore1}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore1" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore1}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore1}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore1" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore1}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore1}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore1" type="integer" value="{!v.hospitalLumpSumRiderBefore1}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore1}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr1}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction1" type="integer" value="{!v.afterCancerSpecialContractReduction1}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed1}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore1" type="integer" value="{!v.heartAttackStrokeBefore1}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore1}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti1" type="integer" value="{!v.hospitalSpecialContractAfterReducti1}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed1}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract1" type="integer" value="{!v.afterHospitalizationSpecialContract1}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon1}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf1" type="integer" value="{!v.dischargeHospitalSpecialContractAf1}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon1}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter1" type="integer" value="{!v.sevenSpecialAfter1}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter1}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr1}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter1" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter1}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter1}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr1}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter1" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter1}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter1}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr1}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter1" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter1}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter1}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr1}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter1" type="integer" value="{!v.hospitalLumpSumRiderAfter1}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter1}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr1}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額②</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber2" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber2__c}" label="証券番号②"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+			<lightning:input aura:Id="cancerTreaty2" type="integer" value="{!v.cancerTreaty2}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty2}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter2" type="integer" value="{!v.heartAttackStrokeAfter2}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter2}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc2" type="integer" value="{!v.hospitalSpecialContracteforeReduc2}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed2}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract2" type="integer" value="{!v.beforeHospitalizationSpecialContract2}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon2}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF2"  type="integer" value="{!v.dischargeHospitalSpecialContractF2}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon2}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront2" type="integer" value="{!v.sevenSpecialContractFront2}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront2}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore2" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore2}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore2}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore2" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore2}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore2}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore2" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore2}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore2}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore2" type="integer" value="{!v.hospitalLumpSumRiderBefore2}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore2}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction2" type="integer" value="{!v.afterCancerSpecialContractReduction2}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed2}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore2" type="integer" value="{!v.heartAttackStrokeBefore2}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore2}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti2" type="integer" value="{!v.hospitalSpecialContractAfterReducti2}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed2}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract2" type="integer" value="{!v.afterHospitalizationSpecialContract2}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon2}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf2" type="integer" value="{!v.dischargeHospitalSpecialContractAf2}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon2}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter2" type="integer" value="{!v.sevenSpecialAfter2}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter2}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr2}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter2" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter2}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter2}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter2" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter2}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter2}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter2" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter2}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter2}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter2" type="integer" value="{!v.hospitalLumpSumRiderAfter2}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter2}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額③</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber3" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber3__c}" label="証券番号③"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+			<lightning:input aura:Id="cancerTreaty3" type="integer" value="{!v.cancerTreaty3}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty3}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter3" type="integer" value="{!v.heartAttackStrokeAfter3}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter3}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc3" type="integer" value="{!v.hospitalSpecialContracteforeReduc3}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed3}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract3" type="integer" value="{!v.beforeHospitalizationSpecialContract3}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon3}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF3"  type="integer" value="{!v.dischargeHospitalSpecialContractF3}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon3}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront3" type="integer" value="{!v.sevenSpecialContractFront3}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront3}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore3" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore3}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore3}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore3" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore3}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore3}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore3" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore3}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore3}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore3" type="integer" value="{!v.hospitalLumpSumRiderBefore3}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore3}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction3" type="integer" value="{!v.afterCancerSpecialContractReduction3}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed3}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore3" type="integer" value="{!v.heartAttackStrokeBefore3}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore3}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti3" type="integer" value="{!v.hospitalSpecialContractAfterReducti3}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed3}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract3" type="integer" value="{!v.afterHospitalizationSpecialContract3}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon3}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf3" type="integer" value="{!v.dischargeHospitalSpecialContractAf3}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon3}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter3" type="integer" value="{!v.sevenSpecialAfter3}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter3}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr3}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter3" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter3}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter3}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter3" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter3}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter3}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter3" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter3}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter3}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter3" type="integer" value="{!v.hospitalLumpSumRiderAfter3}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter3}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額④</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber4" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber4__c}" label="証券番号④"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate4}">
+			  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+			  </div>
+			</aura:if>
+			<lightning:input aura:Id="cancerTreaty4" type="integer" value="{!v.cancerTreaty4}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty4}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter4" type="integer" value="{!v.heartAttackStrokeAfter4}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter4}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc4" type="integer" value="{!v.hospitalSpecialContracteforeReduc4}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed4}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract4" type="integer" value="{!v.beforeHospitalizationSpecialContract4}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon4}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF4"  type="integer" value="{!v.dischargeHospitalSpecialContractF4}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon4}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront4" type="integer" value="{!v.sevenSpecialContractFront4}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront4}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore4" value="{!v.longTermCareBnefitSpecialContractBefore4}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore4}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore4" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore4}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore4}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore4" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore4}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore4}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore4" type="integer" value="{!v.hospitalLumpSumRiderBefore4}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore4}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction4" type="integer" value="{!v.afterCancerSpecialContractReduction4}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed4}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore4" type="integer" value="{!v.heartAttackStrokeBefore4}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore4}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti4" type="integer" value="{!v.hospitalSpecialContractAfterReducti4}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed4}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract4" type="integer" value="{!v.afterHospitalizationSpecialContract4}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon4}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf4" type="integer" value="{!v.dischargeHospitalSpecialContractAf4}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon4}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter4" type="integer" value="{!v.sevenSpecialAfter4}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter4}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr4}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter4" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter4}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter4}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter4" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter4}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter4}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter4" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter4}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter4}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter4" type="integer" value="{!v.hospitalLumpSumRiderAfter4}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter4}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑤</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber5" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber5__c}" label="証券番号⑤"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate5}">
+			  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+			  </div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty5" type="integer" value="{!v.cancerTreaty5}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty5}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter5" type="integer" value="{!v.heartAttackStrokeAfter5}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter5}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc5" type="integer" value="{!v.hospitalSpecialContracteforeReduc5}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed5}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract5" type="integer" value="{!v.beforeHospitalizationSpecialContract5}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon5}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF5"  type="integer" value="{!v.dischargeHospitalSpecialContractF5}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon5}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront5" type="integer" value="{!v.sevenSpecialContractFront5}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront5}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore5" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore5}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore5}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore5" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore5}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore5}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore5" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore5}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore5}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore5" type="integer" value="{!v.hospitalLumpSumRiderBefore5}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore5}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr5}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction5" type="integer" value="{!v.afterCancerSpecialContractReduction5}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed5}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore5" type="integer" value="{!v.heartAttackStrokeBefore5}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore5}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti5" type="integer" value="{!v.hospitalSpecialContractAfterReducti5}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed5}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract5" type="integer" value="{!v.afterHospitalizationSpecialContract5}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon5}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf5" type="integer" value="{!v.dischargeHospitalSpecialContractAf5}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon5}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter5" type="integer" value="{!v.sevenSpecialAfter5}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter5}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr5}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter5" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter5}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter5}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr5}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter5" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter5}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter5}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr5}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter5" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter5}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter5}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr5}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter5" type="integer" value="{!v.hospitalLumpSumRiderAfter5}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter5}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr5}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑥</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber6" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber6__c}" label="証券番号⑥"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate6}">
+			  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+			  </div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty6" value="{!v.cancerTreaty6}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty6}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter6" type="integer" value="{!v.heartAttackStrokeAfter6}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter6}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc6" type="integer" value="{!v.hospitalSpecialContracteforeReduc6}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed6}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract6" type="integer" value="{!v.beforeHospitalizationSpecialContract6}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon6}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF6"  type="integer" value="{!v.dischargeHospitalSpecialContractF6}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon6}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront6" type="integer" value="{!v.sevenSpecialContractFront6}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront6}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore6" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore6}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore6}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore6" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore6}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore6}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore6" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore6}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore6}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore6" type="integer" value="{!v.hospitalLumpSumRiderBefore6}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore6}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction6" type="integer" value="{!v.afterCancerSpecialContractReduction6}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed6}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore6" type="integer" value="{!v.heartAttackStrokeBefore6}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore6}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti6" type="integer" value="{!v.hospitalSpecialContractAfterReducti6}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed6}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract6" type="integer" value="{!v.afterHospitalizationSpecialContract6}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon6}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf6" type="integer" value="{!v.dischargeHospitalSpecialContractAf6}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon6}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter6" type="integer" value="{!v.sevenSpecialAfter6}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter6}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr6}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter6" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter6}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter6}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr6}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter6" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter6}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter6}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr6}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter6" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter6}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter6}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr6}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter6" type="integer" value="{!v.hospitalLumpSumRiderAfter6}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter6}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr6}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑦</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber7" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber7__c}" label="証券番号⑦"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+				</div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty7" type="integer" value="{!v.cancerTreaty7}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty7}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter7" type="integer" value="{!v.heartAttackStrokeAfter7}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter7}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc7" type="integer" value="{!v.hospitalSpecialContracteforeReduc7}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed7}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract7" type="integer" value="{!v.beforeHospitalizationSpecialContract7}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon7}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF7"  type="integer" value="{!v.dischargeHospitalSpecialContractF7}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon7}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront7" type="integer" value="{!v.sevenSpecialContractFront7}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront7}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore7" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore7}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore7}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore7" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore7}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore7}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore7" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore7}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore7}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore7" type="integer" value="{!v.hospitalLumpSumRiderBefore7}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore7}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction7" type="integer" value="{!v.afterCancerSpecialContractReduction7}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed7}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore7" type="integer" value="{!v.heartAttackStrokeBefore7}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore7}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti7" type="integer" value="{!v.hospitalSpecialContractAfterReducti7}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed7}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract7" type="integer" value="{!v.afterHospitalizationSpecialContract7}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon7}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf7" type="integer" value="{!v.dischargeHospitalSpecialContractAf7}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon7}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter7" type="integer" value="{!v.sevenSpecialAfter7}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter7}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr7}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter7" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter7}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter7}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr7}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter7" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter7}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter7}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr7}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter7" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter7}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter7}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr7}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter7" type="integer" value="{!v.hospitalLumpSumRiderAfter7}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter7}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr7}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑧</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber8" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber8__c}" label="証券番号⑧"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+				</div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty8" type="integer" value="{!v.cancerTreaty8}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty8}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter8" type="integer" value="{!v.heartAttackStrokeAfter8}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter8}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc8" type="integer" value="{!v.hospitalSpecialContracteforeReduc8}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed8}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract8" type="integer" value="{!v.beforeHospitalizationSpecialContract8}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon8}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF8"  type="integer" value="{!v.dischargeHospitalSpecialContractF8}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon8}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront8" type="integer" value="{!v.sevenSpecialContractFront8}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront8}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore8" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore8}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore8}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore8" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore8}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore8}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore8" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore8}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore8}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore8" type="integer" value="{!v.hospitalLumpSumRiderBefore8}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore8}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction8" type="integer" value="{!v.afterCancerSpecialContractReduction8}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed8}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore8" type="integer" value="{!v.heartAttackStrokeBefore8}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore8}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti8" type="integer" value="{!v.hospitalSpecialContractAfterReducti8}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed8}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract8" type="integer" value="{!v.afterHospitalizationSpecialContract8}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon8}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf8" type="integer" value="{!v.dischargeHospitalSpecialContractAf8}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon8}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter8" type="integer" value="{!v.sevenSpecialAfter8}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter8}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr8}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter8" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter8}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter8}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr8}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter8" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter8}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter8}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr8}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter8" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter8}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter8}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr8}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter8" type="integer" value="{!v.hospitalLumpSumRiderAfter8}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter8}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr8}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑨</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber9" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber9__c}" label="証券番号⑨"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+				</div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty9" type="integer" value="{!v.cancerTreaty9}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty9}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter9" type="integer" value="{!v.heartAttackStrokeAfter9}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter9}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc9" type="integer" value="{!v.hospitalSpecialContracteforeReduc9}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed9}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract9" type="integer" value="{!v.beforeHospitalizationSpecialContract9}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon9}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF9"  type="integer" value="{!v.dischargeHospitalSpecialContractF9}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon9}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront9" type="integer" value="{!v.sevenSpecialContractFront9}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront9}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore9" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore9}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore9}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore9" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore9}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore9}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore9" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore9}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore9}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore9" type="integer" value="{!v.hospitalLumpSumRiderBefore9}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore9}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction9" type="integer" value="{!v.afterCancerSpecialContractReduction9}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed9}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore9" type="integer" value="{!v.heartAttackStrokeBefore9}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore9}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti9" type="integer" value="{!v.hospitalSpecialContractAfterReducti9}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed9}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract9" type="integer" value="{!v.afterHospitalizationSpecialContract9}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon9}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf9" type="integer" value="{!v.dischargeHospitalSpecialContractAf9}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon9}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter9" type="integer" value="{!v.sevenSpecialAfter9}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter9}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr9}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter9" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter9}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter9}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr9}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter9" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter9}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter9}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr9}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter9" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter9}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter9}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr9}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter9" type="integer" value="{!v.hospitalLumpSumRiderAfter9}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter9}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr9}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約減額⑩</h3> </div>
+	<div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">         
+        <div class="slds-col"> 
+            <lightning:input aura:Id="policyNumber10" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber10__c}" label="証券番号⑩"/>
+            <aura:if isTrue="{!v.PolicyNumberValidate10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+				<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+				</div>
+			</aura:if>	
+			<lightning:input aura:Id="cancerTreaty10" type="integer" value="{!v.cancerTreaty10}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額前）" onchange="{!c.handleCancerTreaty10}"/>  
+            <aura:if isTrue="{!v.cancerTreatyErr10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額前）は半角で入力してください</h3>
+                  </div>
+           	</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeAfter10" type="integer" value="{!v.heartAttackStrokeAfter10}" label="急性心筋梗塞・脳卒中特約（減額前）" onchange="{!c.handleHeartAttackStrokeAfter10}"/> 
+                <aura:if isTrue="{!v.heartAttackStrokeAfterErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="hospitalSpecialContracteforeReduc10" type="integer" value="{!v.hospitalSpecialContracteforeReduc10}" label="通院特約（減額前）" onchange="{!c.handleHospitalSpclConBfrRed10}" /> 
+                <aura:if isTrue="{!v.hospitalSpecialContracteforeReducErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="beforeHospitalizationSpecialContract10" type="integer" value="{!v.beforeHospitalizationSpecialContract10}" label="がん入院特約（減額前）" onchange="{!c.handleBeforeHospitalSpclCon10}"/> 
+                <aura:if isTrue="{!v.beforeHospitalizationSpecialContractErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">がん入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractF10"  type="integer" value="{!v.dischargeHospitalSpecialContractF10}" label="退院・通院特約（減額前）"  onchange="{!c.handleBfrDischargeHospSpclCon10}"/> 
+                <aura:if isTrue="{!v.dischargeHospitalSpecialContractFErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">退院・通院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:input aura:Id="sevenSpecialContractFront10" type="integer" value="{!v.sevenSpecialContractFront10}" label="7疾病特約（減額前）" onchange="{!c.handleSevenSpecialContractFront10}"/> 
+                <aura:if isTrue="{!v.sevenSpecialContractFrontErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">7疾病特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractBefore10" type="integer" value="{!v.longTermCareBnefitSpecialContractBefore10}" label="介護給付特約（減額前）" onchange="{!c.handleLongTermCareBnefitSpecialContractBefore10}"/> 
+                <aura:if isTrue="{!v.longTermCareBnefitSpecialContractBeforeErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">介護給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractBefore10" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractBefore10}" label="精神疾患併発入院特約（減額前）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractBefore10}"/> 
+                <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractBeforeErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractBefore10" type="integer" value="{!v.accidentFreeBenefitSpecialContractBefore10}" label="無事故給付特約（減額前）" onchange="{!c.handleAccidentFreeBenefitSpecialContractBefore10}"/> 
+                <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractBeforeErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">無事故給付特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderBefore10" type="integer" value="{!v.hospitalLumpSumRiderBefore10}" label="入院一時金特約（減額前）" onchange="{!c.handleHospitalLumpSumRiderBefore10}"/> 
+                <aura:if isTrue="{!v.hospitalLumpSumRiderBeforeErr10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">入院一時金特約（減額前）は半角で入力してください</h3>
+                    </div>
+                </aura:if>
+		</div>
+		<div class="slds-col"> 
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="afterCancerSpecialContractReduction10" type="integer" value="{!v.afterCancerSpecialContractReduction10}" label="がん特約／がん診断給付特約／がん特約Ⅱ（減額後）" onchange="{!c.handleAftrCncrSpclConRed10}"/>         
+			<aura:if isTrue="{!v.afterCancerSpecialContractReductionErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん特約／がん診断給付特約／がん特約Ⅱ（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="heartAttackStrokeBefore10" type="integer" value="{!v.heartAttackStrokeBefore10}" label="急性心筋梗塞・脳卒中特約（減額後）" onchange="{!c.handleHeartAttackStrokeBefore10}"/> 
+			<aura:if isTrue="{!v.heartAttackStrokeBeforeErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">急性心筋梗塞・脳卒中特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="hospitalSpecialContractAfterReducti10" type="integer" value="{!v.hospitalSpecialContractAfterReducti10}" label="通院特約（減額後）" onchange="{!c.handleHospitalSpclConAfrRed10}"/> 
+			<aura:if isTrue="{!v.hospitalSpecialContractAfterReductiErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="afterHospitalizationSpecialContract10" type="integer" value="{!v.afterHospitalizationSpecialContract10}" label="がん入院特約（減額後）" onchange="{!c.handleAfterHospitalSpclCon10}"/> 
+			<aura:if isTrue="{!v.afterHospitalizationSpecialContractErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">がん入院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="dischargeHospitalSpecialContractAf10" type="integer" value="{!v.dischargeHospitalSpecialContractAf10}" label="退院・通院特約（減額後）" onchange="{!c.handleAfrDischargeHospSpclCon10}"/> 
+			<aura:if isTrue="{!v.dischargeHospitalSpecialContractAfErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">退院・通院特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="sevenSpecialAfter10" type="integer" value="{!v.sevenSpecialAfter10}" label="7疾病特約（減額後）" onchange="{!c.handleSevenSpecialAfter10}" /> 
+			<aura:if isTrue="{!v.sevenSpecialAfterErr10}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">7疾病特約（減額後）は半角で入力してください</h3>
+				</div>
+			</aura:if>
+            <lightning:input aura:Id="longTermCareBnefitSpecialContractAfter10" type="integer" value="{!v.longTermCareBnefitSpecialContractAfter10}" label="介護給付特約（減額後）" onchange="{!c.handleLongTermCareBnefitSpecialContractAfter10}"/> 
+            <aura:if isTrue="{!v.longTermCareBnefitSpecialContractAfterErr10}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">介護給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalWithMentalIllnessSpecialContractAfter10" type="integer" value="{!v.hospitalWithMentalIllnessSpecialContractAfter10}" label="精神疾患併発入院特約（減額後）" onchange="{!c.handleHospitalWithMentalIllnessSpecialContractAfter10}"/> 
+            <aura:if isTrue="{!v.hospitalWithMentalIllnessSpecialContractAfterErr10}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">精神疾患併発入院特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="accidentFreeBenefitSpecialContractAfter10" type="integer" value="{!v.accidentFreeBenefitSpecialContractAfter10}" label="無事故給付特約（減額後）" onchange="{!c.handleAccidentFreeBenefitSpecialContractAfter10}"/> 
+            <aura:if isTrue="{!v.accidentFreeBenefitSpecialContractAfterErr10}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">無事故給付特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:input aura:Id="hospitalLumpSumRiderAfter10" type="integer" value="{!v.hospitalLumpSumRiderAfter10}" label="入院一時金特約（減額後）" onchange="{!c.handleHospitalLumpSumRiderAfter10}"/> 
+            <aura:if isTrue="{!v.hospitalLumpSumRiderAfterErr10}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">入院一時金特約（減額後）は半角で入力してください</h3>
+                </div>
+            </aura:if>  
+		</div>
+	</div>	
+    <div class="slds-p-top_medium"></div>  
+
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+    <div class="slds-p-top_medium"></div>
+     <div class="slds-grid slds-gutters">
+        <div class="slds-col"> 
+            <div class="form-group">
+                <lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+					<aura:iteration items="{!v.processingPicklist}" var="pro" >
+						<option  value="{!pro}"> {!pro} </option>		
+					</aura:iteration>
+				</lightning:select>
+            </div>
+            <div class="form-group">
+                <lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                    <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                        <option  value="{!pro}"> {!pro} </option>		
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            <div class="form-group">
+                <lightning:select aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}"  name="dateOfShipmentPicklist" label="発送日" disabled="true">
+                    <option value="">-- None --</option>
+                    <aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+                        <option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            <div class="form-group">
+                    <lightning:select aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}" name="shippingMethodPicklist" label="発送方法" disabled="true">
+                        <option value="">-- None --</option>
+                        <aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+                            <option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+                        </aura:iteration>
+                    </lightning:select>
+            </div>
+        </div>
+        
+		<div class="slds-col">            
+            <div class="slds-p-top_medium"></div><div class="slds-p-top--small"></div>
+			<div class="slds-p-top--large"></div>
+            <!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+            <lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数" onchange="{!c.handleNoOfCopies}" disabled="true"/>
+			<aura:if isTrue="{!v.noOfCopiesErr}">
+				<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+				</div>
+			</aura:if>
+        </div>
+    </div>
+</div>
+</aura:component>

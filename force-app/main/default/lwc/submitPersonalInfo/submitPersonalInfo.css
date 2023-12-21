@@ -1,0 +1,92 @@
+.p-form_btn {
+    text-align: center;
+    margin-bottom: 64px;
+    font-size: 14px;
+}
+
+.c-btn_submit._blue {
+    background-color: #bf0000;
+    border-color: #bf0000;
+}
+
+.p-form_btn:last-child {
+    margin-bottom: 0;
+}
+
+.c-btn_submit {
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding: 24px;
+    border-radius: 3px;
+    display: inline-block;
+    border: 1px solid #bf0000;
+    background-color: #bf0000;
+    min-width: 310px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.c-btn_submit:disabled {
+    background-color: #F0F0F0 !important;
+    border-color: #F0F0F0 !important;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.c-btn_submit:disabled:before {
+    background: #fff;
+    border-color: #ccc;
+}
+
+input.c-btn_rewrite {
+    min-width: 140px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.c-btn_rewrite {
+    border: 1px solid #bf0000;
+    text-align: center;
+    color: #bf0000;
+    background-color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.c-btn_rewrite:hover {
+    background-color: #bf0000;
+    color: #fff;
+  
+}
+
+button.c-btn_rewrite {
+    min-width: 140px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.p-form_add {
+    margin-bottom: 64px;
+    font-size: 14px;
+}
+
+.l-inner_s {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.l-inner_s p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.margin50p {
+    margin-top: 50px;
+}

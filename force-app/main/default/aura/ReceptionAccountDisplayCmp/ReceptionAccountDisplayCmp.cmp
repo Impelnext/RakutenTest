@@ -1,0 +1,355 @@
+<!--
+  @File Name          : ReceptionAccountDisplayCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/20/2019, 6:38:58 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/20/2019   SRM     Initial Version
+-->
+
+<aura:component controller="ReceptionController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId">
+	<lightning:workspaceAPI aura:id = "ReceptionSubTab" />
+    <!--onyx-->
+	<!--Modify 2023/08/09 RIPCRM-967_受付情報への入力項目欄追加 By 紀　Start-->
+	<aura:attribute name="newReception" type="Reception__c" default="{ 'sobjectType': 'Reception__c',
+																			'CRMID__c':'',
+																			'Account__c':'',
+																			'PersonBirthdate__c':'',
+																			'PersonMailingAddress__c':'',
+																			'NameOffererKana__c':'',
+																			'RelationshipWithContractor__c':'',
+																			'OtherPattern__c':'',
+																			'Identification__c':'',
+																			'BilleeRelationship__c':'',
+																			'IdentityVerificationOthers__c':'',
+																			'AdderssInputMethod__c':'',
+																			'Addressee__c':'',
+																			'MailingState__c':'',
+																			'Address1__c':'',
+																			'Address2__c':'',
+																			'MailingCity__c':'',
+																			'LF_Inquiry__c':'',
+																			'LF_InquiryName__c':'',
+																			'DM_Inquiry__c':'',
+																			'DM_InquiryName__c':'',
+																			'LT_Inquiry__c':'',
+																			'LT_InquiryName__c':'',
+                                                                     		'SeihoAgent__c':'', 
+																			'SeihoRecruiter__c':'',
+																			'ForAggregation__c':'',
+																			'No__c':'',
+																			'NPSQuestionnaireRecipient__c':'',
+																			'PostProcessingCheck__c':''
+																			}"/>
+	<!--Modify 2023/08/09 RIPCRM-967_受付情報への入力項目欄追加 By 紀　End-->																		
+	<!--Declare Event Handlers-->
+	<aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+	 <!-- 有人チャット start -->
+	<lightning:omniToolkitAPI aura:id="omniToolkit" />
+	<aura:handler event="lightning:omniChannelStatusChanged" action="{! c.onStatusChanged }"/>
+	<aura:handler event="lightning:omniChannelLogout" action="{! c.onLogout }"/>
+	<aura:attribute name="loginFlg" type="String" default = "logout"/>
+	<lightning:navigation aura:id="navCreateReceptionRADC"/> 
+	<!-- 有人チャット end --> 
+	<!--Declare Attributes-->
+	<aura:attribute name="accDetails" type="Object" />
+	<aura:attribute name="genreIdentificationList" type="List" default="[]" />   
+	<aura:attribute name="genreLFInquiryList" type="List" default="[]" />
+	<aura:attribute name="genreDMInquiryList" type="List" default="[]" />
+	<aura:attribute name="genreLTInquiryList" type="List" default="[]" />
+	
+	<aura:attribute name="relationshipPickMap" type="Map"/>    	
+	<aura:attribute name="billeRelationshipPickMap" type="Map"/>  
+	<aura:attribute name="adderssInputMethodPickMap" type="Map"/> 
+	<aura:attribute name="originPickMap" type="Map"/> 
+	<aura:attribute name="receptionTeamPickMap" type="Map"/>
+	<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+	<aura:handler event="force:navigateToSObject" action="{!c.navigate}"/>   
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="accountId" type="String" />
+    <aura:attribute name="MasterRecordId" type="String" />
+    <aura:attribute name="isPick" type="Boolean" default="true"/>
+	
+    <!--Newly added Attribute-->
+	<aura:attribute name="primaryCompletionMajorItemPickList" type="list"   />
+    <aura:attribute name="primaryCompletionMediumItemPickList" type="list"   />
+    <aura:attribute name="primaryCompletionFreeWord" type="String"  />
+    <aura:attribute name="listControllingValues" type="list" default="['--- None ---']"  />
+    <aura:attribute name="listDependingValues" type="list" default="['--- None ---']"  required="true"  />
+    <aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/> 
+    <aura:attribute name="freeWordFld" type="boolean" default="true"/> 
+    <aura:attribute name="depnedentFieldMap" type="map" />
+    <aura:attribute name="majorPickListErr" type="boolean" default="true"/>
+    <aura:attribute name="mediumPickListErr" type="boolean" default="true"/>    
+    <aura:attribute name="majorPickListWar" type="boolean" default="false"/>
+    <aura:attribute name="mediumPickListWar" type="boolean" default="false"/>
+    <aura:attribute name="ERR_MSG_FIELD_INPUT_1" type="String"  default=" 一次解決 集計用（大項目）を選択して保存してください。"/>
+    <aura:attribute name="ERR_MSG_FIELD_INPUT_2" type="String"  default=" 一次解決 集計用（中項目）を選択して保存してください。"/>
+	
+	<div class="slds-box slds-theme_default">
+		<div class="slds-float--right"  style="height:5rem">
+			<lightning:button aura:id="btnSeihoHozen" variant="neutral" label="生命(保全)一覧" title="生命(保全)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+			<lightning:button aura:id="btnSeihoHokenkin" variant="neutral" label="生命(保険金)一覧" title="生命(保険金)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+			<lightning:button aura:id="btnSeihoTokuyaku" variant="neutral" label="生命(特約)一覧" title="生命(特約)一覧" disabled="True" onclick="{!c.handleReportOpen}" />
+			<lightning:button aura:id="btnSonpo" variant="neutral" label="損保一覧" title="損保一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+			<lightning:button aura:id="btnSyotan" variant="neutral" label="少短一覧" title="少短一覧" disabled="True" onclick="{!c.handleReportOpen}"/>    
+		</div>
+		<div class="slds-p-top_xx-large"></div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_2-of-2">
+        <div class="slds-text-align_center" aura:id="ErrorBlock"></div></div></div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:darkorange;font-size:medium;font-weight:bold">取引先情報</h3></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">    
+				<div class="slds-p-top_medium"></div>
+				<lightning:input aura:Id="No" name="No" type="text"  value="{!v.newReception.No__c}" label="通しNo" class="slds-size_1-of-8" />
+				<div class="slds-p-top_medium"></div>
+				CRMID&emsp;: <ui:outputText value="{!v.accDetails.CRMID__c}"/><p/>
+				取引先名&nbsp;: <ui:outputText aura:Id="AccName" value="{!v.accDetails.Name}"/><p/>
+				生年月日&nbsp;: <ui:outputText value="{!v.accDetails.PersonBirthdate}"/><p/>
+				住所&emsp;&emsp;&nbsp;: <ui:outputText value="{!v.accDetails.PersonMailingPostalCode + v.accDetails.PersonMailingState + v.accDetails.PersonMailingCity + v.accDetails.PersonMailingStreet}"/><p/>
+				
+				<div class="slds-p-top_medium"></div>
+			</div>
+			<div class="slds-col">
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_large"></div>
+				<div class="slds-p-top_large"></div>
+				フリガナ姓名&emsp;&emsp;&nbsp;: <ui:outputText  value="{!v.accDetails.furigana__c}"/><p/>
+				生年月日（和暦）&nbsp;: <ui:outputText value="{!v.accDetails.PersonBirthDateJp__c}"/><p/>
+			   <!-- <lightning:input aura:id="lookup" value="{!v.accDetails.Id}" label="Account Id"/>-->
+			</div>
+		</div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 2 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:darkorange;font-size:medium;font-weight:bold">申出人情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+                <!--onyx-->
+                <lightning:input aura:Id="NameOffererKana" name="NameOffererKana" type="text"  value="" label="申出人氏名（カナ)" />
+
+                <div class="form-group">
+					<lightning:select aura:id="relationshipPicklist" value="{!v.newReception.RelationshipWithContractor__c}" onchange="{!c.handleRelationshipPick}" name="relationshipPicklist" label="契約者との続柄" >
+						<option value="">--None--</option>
+						<aura:iteration items="{!v.relationshipPickMap}" var="rel" indexVar="key">
+							<option text="{!rel.value}" value="{!rel.key}" selected="{!rel.key==v.newReception.RelationshipWithContractor__c}" />
+						</aura:iteration>
+					</lightning:select>
+					</div>
+				<lightning:input aura:Id="receptionField" name="OtherPattern" type="text"  value="{!v.newReception.OtherPattern__c}" label="続柄その他" />
+				<div class="slds-align_absolute-left">
+				<lightning:dualListbox aura:id="selectIdentificationGenre"
+				name="IdentificationGenre"
+				label="本人確認"
+				sourceLabel="選択可能"
+				selectedLabel="選択済み"
+				options="{!v.genreIdentificationList }" 
+                value="{!v.newReception.Identification__c}"
+				onchange="{!c.handleIdenPicklistChange}"
+				size="3"/>
+				</div>
+                <div class="slds-p-top_medium"></div>    
+                </div>   
+			<div class="slds-col">
+                <!--onyx-->
+				<div>
+				  <lightning:recordEditForm  objectApiName="Reception__c">
+                    <label for="recruiter">申出人氏名(募集人)</label>
+				    <lightning:inputField aura:id="Recruiter" id="recruiter" fieldName="SeihoRecruiter__c" value="{!v.newReception.SeihoRecruiter__c}" variant="label-hidden" onchange="{!c.onRecruiterChenged}" ></lightning:inputField>
+                    <label for="agent">申出人氏名(エージェント)</label>
+				    <lightning:inputField aura:id="Agent" id="agent" fieldName="SeihoAgent__c" value="{!v.newReception.SeihoAgent__c}" variant="label-hidden" onchange="{!c.onAgentChenged}" ></lightning:inputField>
+				  </lightning:recordEditForm>
+				</div>
+                <!--onyx-->
+				<div class="slds-p-top_large"></div>
+				<div class="form-group">			
+					<lightning:select aura:id="BilleeRelationshipPicklist" value="{!v.newReception.BilleeRelationship__c}" class="nolabel" onchange="{!c.handleBilleeRelPick}" name="BilleeRelationshipPicklist" label="請求対象者との続柄　　注）生命保険金のみ使用" >
+						<option value="">--None--</option>
+						<aura:iteration items="{!v.billeRelationshipPickMap}" var="rel" indexVar="key">
+							<option text="{!rel.value}" value="{!rel.key}" selected="{!rel.key==v.newReception.BilleeRelationship__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_large"></div>
+				<lightning:input aura:Id="receptionField" name="IdentityVerificationOthers" type="text"  value="{!v.newReception.IdentityVerificationOthers__c}" label="本人確認（その他）" />
+			</div>
+		</div>	
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 2 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 3 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:darkorange;font-size:medium;font-weight:bold">送付先</h3></div>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+					<lightning:select aura:id="adderssInputMethodPicklist" value="{!v.newReception.AdderssInputMethod__c}" onchange="{!c.handleAddressInputPick}" name="AdderssInputMethodPicklist" label="入力方法" >
+						<!--<option value="">None</option>-->
+						<aura:iteration items="{!v.adderssInputMethodPickMap}" var="rel" indexVar="key">
+							<option  text="{!rel.value}" value="{!rel.key}" selected="{!rel.key==v.newReception.AdderssInputMethod__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+				<lightning:input aura:Id="Addressee" name="Addressee" type="text"  value="{!v.newReception.Addressee__c}" label="送付先宛名　　注）全角で入力／姓と名の間はスペース"  disabled="true"/> 
+				<lightning:input aura:Id="MailingPostalCode" name="MailingPostalCode" type="text" onblur="{!c.handleAreaInfo}"  value="{!v.newReception.MailingPostalCode__c}" label="郵便番号　　注）半角で〔000-0000〕の形式で入力" disabled="true"/>
+				<lightning:input aura:Id="MailingState" name="MailingState" type="text" value="{!v.getAreaInfoMap.prefecture}" label="都道府県　　注）全角で入力" disabled="true"/>
+	 
+			</div>
+			<div class="slds-col">
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_large"></div>
+				<div class="slds-p-top_x-large"></div>
+				<div class="slds-p-top_xx-large"></div>
+				<div class="slds-p-top_xx-large"></div>
+				<lightning:input aura:Id="MailingCity" name="MailingCity" type="text"  value="{!v.getAreaInfoMap.municipality}" label="市区町村　　注）全角で入力" disabled="true"/>
+				
+			</div>
+		</div>
+		<lightning:input aura:Id="Address1" name="Address1" type="text"  value="{!v.getAreaInfoMap.chome}" label="住所１　　注）全角で入力" disabled="true"/>
+		<lightning:input aura:Id="Address2" name="Address2" type="text"  value="{!v.newReception.Address2__c}" label="住所２　　注）全角で入力／建物名の前はスペース" disabled="true"/>			
+		<div class="slds-p-bottom_medium"></div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 3 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 4 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:darkorange;font-size:medium;font-weight:bold">基本情報</h3></div>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+					<lightning:select aura:id="originPicklist" value="{!v.newReception.Origin__c}" onchange="{!c.handleOriginPick}" name="originPicklist" label="発生源" >
+						<!--<option value="">None</option>-->
+						<aura:iteration items="{!v.originPickMap}" var="rel" indexVar="key">
+							<option text="{!rel.value}" value="{!rel.key}" selected="{!rel.key==v.newReception.Origin__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+			</div>
+			<div class="slds-col">
+				<div class="form-group">
+					<lightning:select aura:id="receptionTeam" value="{!v.newReception.ReceptionTeam__c}" onchange="{!c.handleReceptionTeamPick}" name="receptionTeam" label="受付チーム" >
+						<option value="">--None--</option>
+						<aura:iteration items="{!v.receptionTeamPickMap}" var="rel" indexVar="key">
+							<option text="{!rel.value}" value="{!rel.key}" selected="{!rel.key==v.newReception.ReceptionTeam__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+			</div>         
+		</div>	   
+		<lightning:textarea aura:Id="ReceptionField" name="description"  value="{!v.newReception.Description__c}" label="受付内容" />        
+		<lightning:input aura:Id="ForAggregation" name="description"  value="{!v.newReception.ForAggregation__c}" label="集計用文言　※期間限定用" />
+        
+         <!--Newly added Component-->
+        <div class="slds-p-top_medium"></div>        
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-3">
+					<lightning:select  aura:Id="primaryCompletionMajorItemPickList"   name="primaryCompletionMajorItemPicklist" value="{!v.newReception.PrimaryCompletion_MajorItem__c}"  label="一次解決 集計用（大項目）"   onchange="{!c.onControllerFieldChange}" required="true" >						
+                    	<aura:iteration items="{!v.listControllingValues}" var="val">
+							<option value="{!val}">{!val}</option>
+						</aura:iteration>
+					</lightning:select> 
+				     <aura:if isTrue="{!v.majorPickListWar}">
+                         <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_FIELD_INPUT_1}</h3> 
+                         </div>   
+				     </aura:if>
+			</div>	
+ 
+              <div class="slds-col slds-size_1-of-3">				
+					<lightning:select aura:Id="primaryCompletionMediumItemPickList"  name="dependentFld" value="{!v.newReception.PrimaryCompletion_MediumItem__c}" label="一次解決 集計用（中項目）" disabled="{!v.bDisabledDependentFld}"   onchange="{!c.onDependentFieldChange}" required="true" >                                      
+                    	<aura:iteration items="{!v.listDependingValues}" var="val">
+							<option value="{!val}">{!val}</option>
+						</aura:iteration>
+					</lightning:select>  
+                      <aura:if isTrue="{!v.mediumPickListWar}">
+                           <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+      				         <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_FIELD_INPUT_2}</h3>
+                           </div>    
+			   		</aura:if> 
+              </div>  
+            
+            <div class="slds-col slds-size_1-of-3">
+                 <lightning:input aura:Id="primaryCompletionFreeWord" type="text"  value="{!v.newReception.PrimaryCompletion_FreeWord__c}" label="一次解決 集計用（フリーワード）" disabled="{!v.freeWordFld}"  /> 
+			</div>              
+      </div>	
+	  <!--Add 2023/08/09 RIPCRM-967_受付情報への入力項目欄追加 By 紀　Start-->
+		<lightning:input aura:Id="NPSQuestionnaireRecipient" name="NPSQuestionnaireRecipient" type="text"  value="{!v.newReception.NPSQuestionnaireRecipient__c}" label="NPSアンケート送信先　※NPSアンケート送信対象の場合のみ電話番号入力" disabled="false"/>
+	  	<ui:inputCheckbox aura:id="PostProcessingCheck" label="後処理チェック" value="{!v.newReception.PostProcessingCheck__c}"/>
+	  <!--Add 2023/08/09 RIPCRM-967_受付情報への入力項目欄追加 By 紀　End-->
+                      
+		<div class="slds-p-bottom_medium"></div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 4 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 5 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-text-align--left">
+			<h3 class="slds-section-title--divider" style="background-color:darkorange;font-size:medium;font-weight:bold">
+				<div class="slds-grid" style="text-align:left;">
+					<div class="slds-col" style="width:5%"> 問合せ</div>
+					<div class="slds-col" style="color:black;width:95%"> ※ここにチェックをして受付登録を行うと、クローズ済みのリクエスト情報、ケースが自動作成されます。（契約は紐づきません） </div>
+				</div>
+			</h3>	
+		</div>
+		
+		<div class="slds-box"> 
+			<div class="slds-grid slds-gutters">
+				<div class="slds-col slds-size_1-of-2">
+					<div class="slds-text-align--left"><ui:inputCheckbox aura:id="LF_InquiryCBox" label="問合わせケース（生命）" value="{!v.newReception.LF_Inquiry__c}" change="{!c.showLFinquiry}" /></div>
+					<div class="slds-m-around_xx-large">
+						<lightning:dualListbox aura:id="disableEnableLF"
+						name="LFInquiryGenre"
+						label="問合わせ　件名（生命）"
+						sourceLabel="選択可能"
+						selectedLabel="選択済み"
+						options="{!v.genreLFInquiryList}"
+						value="{!v.newReception.LF_InquiryName__c}"
+						onchange="{!c.handleLFInquiryPicklistChange}" disabled="true" size="3"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-box">
+			<div class="slds-grid slds-gutters">
+				<div class="slds-col slds-size_1-of-2">
+					<div class="slds-text-align--left"><ui:inputCheckbox aura:id="DM_InquiryCBox" label="問合わせケース（損保）" value="{!v.newReception.DM_Inquiry__c}" change="{!c.showDMinquiry}"/></div>
+					<div class="slds-m-around_xx-large">
+						<lightning:dualListbox aura:id="disableEnableDM"
+						name="DMInquiryGenre"
+						label="問合わせ　件名（損保）"
+						sourceLabel="選択可能"
+						selectedLabel="選択済み"
+						options="{!v.genreDMInquiryList }"
+						value="{!v.newReception.DM_InquiryName__c}" 
+						onchange="{!c.handleDMInquiryPicklistChange}" disabled="true" size="3"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="slds-box">
+			<div class="slds-grid slds-gutters">
+				<div class="slds-col slds-size_1-of-2">
+					<div class="slds-text-align--left"><ui:inputCheckbox aura:id="LT_InquiryCBox" label="問合わせケース（少短）" value="{!v.newReception.LT_Inquiry__c}" change="{!c.showLTinquiry}"/></div>
+					<div class="slds-m-around_xx-large">
+						<lightning:dualListbox aura:id="disableEnableLT"
+						name="LTInquiryGenre"
+						label="問合わせ　件名（少短）"
+						sourceLabel="選択可能"
+						selectedLabel="選択済み"
+						options="{!v.genreLTInquiryList }"
+						value="{!v.newReception.LT_InquiryName__c}"
+						onchange="{!c.handleLTInquiryPicklistChange}"  disabled="true" size="3"/>
+					</div>
+				</div>
+				<div class="slds-p-right_large"></div>
+			</div>
+		</div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 5 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-align_absolute-center" style="height:5rem" aura:Id="buttons" onkeydown="{!c.preventDefault}">
+			<lightning:button aura:Id="receptionField" label="Save" variant="brand" onclick="{!c.handleSaveReception}" tabindex="-1"/>
+			<lightning:button variant="neutral" label="Cancel" title="Cancel" type="text" onclick="{!c.handleCancel}"/>
+		</div>
+		<div><div class="slds-backdrop"></div></div>
+	</div>
+	</aura:component>

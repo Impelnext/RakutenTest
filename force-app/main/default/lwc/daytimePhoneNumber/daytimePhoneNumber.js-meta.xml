@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>日中のご連絡先電話番号</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKey" label="項目キー" type="String" description="項目キー" />
+            <property name="confirmName1" label="確認項目名１" type="String" description="確認項目名１" />
+            <property name="confirmName2" label="確認項目名２" type="String" description="確認項目名２" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

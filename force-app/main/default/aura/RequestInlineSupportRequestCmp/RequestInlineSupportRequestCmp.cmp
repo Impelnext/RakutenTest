@@ -1,0 +1,42 @@
+<!--
+  @File Name          : RequestInlineSupportRequestCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/20/2019, 6:07:01 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/20/2019           SRM    Initial Version
+-->
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                       'RequestDetails__c':'',
+                                                             		   'EmergencyFlag__c':'',
+																	   'CallBackStartTime__c':'',
+																	   'CallBackEndTime__c':'',
+																	   'ReturnName__c':'',
+                                                                       'ReturnContact__c':'',
+																	   }"/>																		
+<!--Declare Method-->
+<aura:method name="supportRequest" action="{!c.saveSupportRequest}" access="PUBLIC">
+  <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>				
+																																					
+<div class="slds-box slds-theme_default">	
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">対応依頼内容</h3> </div>
+      <div class="slds-p-top_medium"></div>
+      <lightning:textarea aura:Id="requestDetails" name="" type="text" value="{!v.innerCmpNewRequest.RequestDetails__c}" label="対応依頼内容" class="customHeight"/> 
+      <ui:inputCheckbox aura:Id="emergencyFlag" label=" 至急対応フラグ(1時間以内対応の場合のみチェック)" value="{!v.innerCmpNewRequest.EmergencyFlag__c}"/> 
+    <div class="slds-grid slds-gutters">
+      <div class="slds-col slds-size_1-of-2">
+        <ui:inputDateTime aura:Id="callBackStartTime" value="{!v.innerCmpNewRequest.CallBackStartTime__c}" label="折り返し　開始" displayDatePicker="true"/>
+        <lightning:input aura:Id="returnName" name="" type="text" value="{!v.innerCmpNewRequest.ReturnName__c}" label="折り返し先氏名　　注）全角で入力／姓と名の間はスペース"/> 
+      </div>
+      <div class="slds-col">
+        <ui:inputDateTime aura:Id="callBackEndTime" value="{!v.innerCmpNewRequest.CallBackEndTime__c}" label="折り返し　期限" displayDatePicker="true"/>
+        <lightning:input aura:Id="returnContact" name="" type="text" value="{!v.innerCmpNewRequest.ReturnContact__c}" label="折り返し連絡先 　　注）半角で〔000-0000-0000〕の形式で入力"/> 
+      </div>
+    </div> 
+</div>
+</aura:component>

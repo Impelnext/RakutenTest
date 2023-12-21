@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>お問い合わせ</title>
+<link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script type="text/javascript" src="/appjs/agencyControl.js"></script>
+<!--#include virtual="/shared/inc/common_head_r.html" -->
+</head>
+
+<body id="form_area" class="form_area_top">
+<!--#include virtual="/shared/inc/header_r.html" -->
+<div id="l-wrapper">
+  <div class="p-head_page">
+    <div class="p-head_pageInner">
+      <h1>お問い合わせ</h1>
+    </div>
+  </div>
+  <main class="l-main">
+    <div class="l-inner">
+			<form method="post" action="#">
+      <section class="p-section">
+        <h2 class="c-ttl_sec"><span class="u-icon_require">必須</span>お問い合わせ種別</h2>
+        <div class="p-form_item">
+          <ul class="c-list_input _nocolSP life">
+            <li>
+              <input type="radio" name="life" id="InquiryType_01" value="お申し込みの相談" class="c-form_radio"><label for="InquiryType_01">お申し込みのご相談</label>
+            </li>
+            <li>
+              <input type="radio" name="life" id="InquiryType_02" value="ご契約内容照会・変更" class="c-form_radio"><label for="InquiryType_02">ご契約内容照会・変更</label>
+            </li>
+            <li>
+              <input type="radio" name="life" id="InquiryType_03" value="保険金・給付金のご請求" class="c-form_radio"><label for="InquiryType_03">保険金・給付金のご請求</label>
+            </li>
+            <li>
+              <input type="radio" name="life" id="InquiryType_04" value="その他" class="c-form_radio"><label for="InquiryType_04">その他</label>
+            </li>
+          </ul>
+					<ul class="c-list_input _nocolSP gen">
+            <li>
+              <input type="radio" name="gen" id="InquiryType_05" value="お申し込みの相談" class="c-form_radio"><label for="InquiryType_05">お申し込みのご相談</label>
+            </li>
+            <li>
+              <input type="radio" name="gen" id="InquiryType_06" value="自動車保険" class="c-form_radio"><label for="InquiryType_06">自動車保険</label>
+            </li>
+            <li>
+              <input type="radio" name="gen" id="InquiryType_07" value="自動車以外の保険" class="c-form_radio"><label for="InquiryType_07">自動車以外の保険</label>
+            </li>
+          </ul>
+					<ul class="c-list_input _nocolSP pet">
+            <li>
+              <input type="radio" name="pet" id="InquiryType_08" value="お申し込みの相談" class="c-form_radio"><label for="InquiryType_08">お申し込みのご相談</label>
+            </li>
+            <li>
+              <input type="radio" name="pet" id="InquiryType_09" value="ご契約内容照会・変更" class="c-form_radio"><label for="InquiryType_09">ご契約内容照会・変更</label>
+            </li>
+            <li>
+              <input type="radio" name="pet" id="InquiryType_10" value="ご契約の更新" class="c-form_radio"><label for="InquiryType_10">ご契約の更新</label>
+            </li>
+						<li>
+              <input type="radio" name="pet" id="InquiryType_11" value="保険金・給付金のご請求" class="c-form_radio"><label for="InquiryType_11">保険金・給付金のご請求</label>
+            </li>
+						<li>
+              <input type="radio" name="pet" id="InquiryType_12" value="その他" class="c-form_radio"><label for="InquiryType_12">その他</label>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <section class="p-section">
+        <h2 class="c-ttl_sec"><span class="u-icon_require">必須</span>お問い合わせ内容</h2>
+        <div class="p-form_item">
+          <textarea name="nmContentsOfInquiry" rows="10" class="c-form_textarea" id="ContentsOfInquiry"></textarea>
+        </div>
+        <div class="p-contents_near l-inner_s">
+          <div class="p-contents_near_head">ご入力いただいた内容から、よくある質問に似たような結果がありました。</div>
+          <div class="p-contents_near_ttl">よくある質問の検索結果</div>
+          <div class="c-list_faq">
+            <div class="c-list_faqChild">
+              <div class="c-list_faqHead js-open_qa">SPUの条件となる商品はなんですか？</div>
+              <div class="c-list_faqBody">
+                <p>ほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげほげ</p>
+                <div class="u-txt_c"><span class="c-btn_red js-close_qa">閉じる</span></div>
+              </div>
+            </div>
+            <div class="c-list_faqChild">
+              <div class="c-list_faqHead js-open_qa">SPUいつから適用されますか？</div>
+              <div class="c-list_faqBody">
+                <p>ほげほげほげほげほげほげほげほげほげほげほげほげほげほげ</p>
+                <div class="u-txt_c"><span class="c-btn_red js-close_qa">閉じる</span></div>
+              </div>
+            </div>
+            <div class="c-list_faqChild">
+              <div class="c-list_faqHead js-open_qa">超かんたん保険もSPUの対象になりますか？</div>
+              <div class="c-list_faqBody">
+                <p>ほげほげほげほげほげほげほげほげほげほげほげほげほげほげ</p>
+                <div class="u-txt_c"><span class="c-btn_red js-close_qa">閉じる</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="u-txt_c">お問い合わせが解消されない場合には当社で確認の上ご回答差し上げます。<br>
+          以下の情報をご入力ください。</p>
+        </div>
+      </section>
+      <section class="p-section">
+        <h2 class="c-ttl_sec">お問い合わせする方の情報</h2>
+        <div class="p-form">
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（漢字）</div>
+            <div class="c-cols_input">
+              <div>
+                <label for="LastName">姓</label>
+                <input name="nmLastName" type="text" class="c-form_text" id="LastName" placeholder="例）楽天">
+              </div>
+              <div>
+                <label for="FirstName">名</label>
+                <input name="nmFirstName" type="text" class="c-form_text" id="FirstName" placeholder="例）生命">
+              </div>
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（カナ）</div>
+            <div class="c-cols_input">
+              <div>
+                <label for="FuriganaLast">姓</label>
+                <input name="nmFuriganaLast" type="text" class="c-form_text" id="FuriganaLast" placeholder="例）ラクテン">
+              </div>
+              <div>
+                <label for="FuriganaFirst">名</label>
+                <input name="nmFuriganaFirst" type="text" class="c-form_text" id="FuriganaFirst" placeholder="例）セイメイ">
+              </div>
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生年月日</div>
+            <input type="date" name="nmBirthday" id="Birthday" class="c-form_text">
+					</div>
+          <!--<div class="p-form_item">
+						<div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生年月日（js版、ただしSPはinput dateによる日付選択（上記と同じ））</div>
+            <input type="text" name="Birthday" id="js-datepicker" class="c-form_text">
+          </div>-->
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>日中のご連絡先電話番号</div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmDaytimePhoneNumber" id="DaytimePhoneNumberSameFlag" value="当社にご登録のお電話番号と同じ" class="c-form_radio hide-radiobtn">
+                <label for="DaytimePhoneNumberSameFlag">当社にご登録のお電話番号と同じ</label>
+              </li>
+              <li>
+                <input type="radio" name="nmDaytimePhoneNumber" id="DaytimeNumberOtherFlag" value="別の電話番号" class="c-form_radio hide-radiobtn">
+                <label for="DaytimeNumberOtherFlag">別の電話番号
+                  <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text u-hide" id="DaytimePhoneNumber" placeholder="0312345678">
+                </label>
+              </li>
+            </ul>
+            <div class="p-form_itemNote">※お電話でご連絡差し上げる場合がございますのでご承知おきください。</div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>メールアドレス</div>
+            <input name="nmEmail" type="email" class="c-form_text" id="Email" placeholder="aaaa@example.ne.jp">
+            <div class="p-form_itemNote">※「rakuten.co.jp」からのメール受信が可能な状態にしていただくようお願いいたします。</div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>ご契約者様との続柄</div>
+            <ul class="c-list_input">
+              <li>
+                <input type="radio" name="nmRelationshipWithContractor" id="RelationshipWithContractorOneself" value="契約者ご本人" class="c-form_radio">
+                <label for="RelationshipWithContractorOneself">契約者ご本人</label>
+              </li>
+              <li>
+                <input type="radio" name="nmRelationshipWithContractor" id="RelationshipWithContractorOther" value="契約者以外" class="c-form_radio">
+                <label for="RelationshipWithContractorOther">契約者以外</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section class="p-section">
+        <h2 class="c-ttl_sec"><span class="u-icon_require">必須</span>個人情報保護方針への同意</h2>
+        <div class="p-form_item">
+          <div class="p-form_privacy js-scrollArea" id="js-terms">
+            <p>【個人情報保護方針（プライバシーポリシー）】<br>
+              楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」と楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」と楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社</p>
+            <p>楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」と楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」と楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社（以下「楽天生命」とします）では、個人情報の保護取扱に関する【個人情報保護方針（プライバシーポリシー）】楽天生命保険株式会社</p>
+          </div>
+        </div>
+        <div class="c">
+          <div class="p-form_btn check">
+            <input type="checkbox" name="nmConsentPersonalInformation" id="ConsentPersonalInformation" class="c-form_checkSimple js-agree" disabled>
+            <label for="ConsentPersonalInformation" class="checkbox">個人情報に同意する</label>
+          </div>
+        </div>
+      </section>
+      <div class="p-form_btn">
+        <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit _blue" id="ButtonConfirmationPage" value="入力内容を確認する">
+				<input name="nmCompanyName" id="CompanyName" type="hidden" value="">
+      </div>
+			</form>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-inner">
+      <!-- <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div> -->
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="./js/lib.js"></script>
+<script type="text/javascript" src="./js/common.js"></script>
+<script>
+  flatpickr('#js-datepicker', {
+    locale     : 'ja',
+    dateFormat : 'Y/m/d'
+  });
+</script>
+<!--#include virtual="/shared/inc/footer_r.html" -->
+<!--#include virtual="/shared/inc/footer_group_r.html" -->
+<!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+</html>

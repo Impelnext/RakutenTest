@@ -1,0 +1,17 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="SMSSendBaseCmpController">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="retmsg" type="String" />
+    <aura:attribute name="error" type="Integer" />
+    <aura:attribute name="setIntervalId" type="Integer"/>
+
+    <div class="slds-clearfix">
+         <div class="slds-float_right">
+              <lightning:button label="送信"  class="slds-m-left_x-small" onclick="{!c.SMSSendCmp}" />
+         </div>
+    </div>
+
+    <div aura:Id="SMSSendCmpPopup">
+        {!v.body}
+    </div>
+
+</aura:component>

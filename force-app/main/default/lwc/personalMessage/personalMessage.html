@@ -1,0 +1,47 @@
+<template>
+  <div style={displayStyle}>
+      <div class="l-main">
+        <div class="l-inner_s">
+          <div >
+            <p class="p-personal_name">{GuidanceMessage.GuidanceCustomerName}　さま</p>
+            <p>楽天保険の総合窓口お問合せをご利用いただきましてありがとうございます。</p>
+            <p>お客さまからいただいた内容に関して、下記に担当者からの回答を記載していますのでご確認ください。</p>
+
+            <div class="c-box_guide personal_Inquiry">
+              <p class="u-txt_c">楽天保険の総合窓口からのご案内・ご依頼</p>
+              <div id="GuidanceMessage" class="GuidanceMessage" style="white-space: pre-wrap;word-break: break-all;" lwc:dom="manual">
+              </div>
+            </div>
+
+            <div id="GuidanceRequest">
+              <p>問題が解決した方は画面を閉じてください。</p>
+              <p>さらにご質問をされたいお客さまは下記ご入力欄からご質問をご記入ください。</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+      <div style="font-size: 14px;">
+
+        <div if:false={isConfirm}>
+          <c-section-title title="お客さまご入力欄"></c-section-title>
+          <div class="p-form_item">
+            <textarea name="nmCustomerMessage" id={itemKey} rows="10" class="c-form_textarea" onchange={onChangeCustomerQuestion} placeholder={placeholder} maxlength="32768">{CustomerQuestion}</textarea>
+          </div>
+        </div>
+
+        <div if:true={isConfirm}>
+          <c-section-title if:true={CustomerQuestion} title="お客さまご入力欄"></c-section-title>
+          <div class="p-form_item">
+            <p style="white-space: pre-wrap;word-break: break-all;">{CustomerQuestion}</p>
+          </div>
+        </div>
+        
+      </div>
+
+  </div>
+    
+</template>

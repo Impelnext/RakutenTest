@@ -1,0 +1,8 @@
+<apex:page controller="BatchBCP_LittleContractEnteredCSV">
+<apex:form >
+<B>少短契約情報_有効メールアドレス出力</B>
+<br/>
+<br/>
+ <apex:commandButton value="Run Batch" action="{!executeBatchBCP_LittleContractEnteredCSV}"/>
+</apex:form>
+</apex:page>

@@ -1,0 +1,134 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:actionOverride,force:appHostable,force:hasRecordId,force:lightningQuickAction" access="global" controller="SMSInfoCmpController">
+<lightning:workspaceAPI aura:id="workspace"/>
+
+<aura:attribute name="lastStatus" type="String"/>
+<aura:attribute name="smsinfo" type="SMSInfo__c"/>
+<aura:attribute name="account" type="Account"/>
+<aura:attribute name="recordId" type="Id" />
+<aura:attribute name="furigana" type="String" />
+<!-- <aura:attribute name="sender" type="Id" /> -->
+<aura:attribute name="statusActive" type="Boolean" default="true"/>
+<aura:attribute name="statusOptions" type="List" default="[{'label':'下書き','value':'下書き'}]"/>
+<aura:attribute name="smsmessage" type="String" default="AAA#" />
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<!--
+<aura:handler name="cmpEvent" event="c:SMSTemplateEvent" action="{!c.handleCmpEvent}" includeFacets="true"/>
+<c:SMSTemplateCmp cmpEvent="{!c.handleCmpEvent}" />
+-->
+<aura:handler name="cmpEvent" event="c:SMSTemplateEvent" action="{!c.handleCmpEvent}" includeFacets="true"/>
+
+<!--
+<table class="zentai0" ><tr><td class="zentai_td0">
+    <h2 class="smsh2">SMS送信情報画面</h2>
+    <div class="smstitle" >SMS送信</div>
+</td></tr></table>
+-->
+
+	<div class="slds-box slds-theme_default">
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+		<div class="slds-grid slds-gutters">
+
+<table class="zentai" ><tr><td class="zentai_td">
+    <lightning:recordEditForm objectApiName="SMSInfo__c" recordId="{!v.recordId}">
+
+        <div class="slds-grid" >
+
+            <!--
+            <div class="slds-col slds-size_1-of-2" style="margin: 10px; width: 50%;">
+               -->
+            <div class="slds-col slds-size_1-of-2" >
+                <span >送信先電話番号：
+                    <lightning:inputField variant="label-hidden" fieldName="DestinationPhoneNumber__c" value="{!v.smsinfo.DestinationPhoneNumber__c}" />
+                </span>
+                <div>&nbsp;</div>
+                <span >送信担当者：
+                    <lightning:inputField variant="label-hidden" disabled="true" fieldName="Sender__c" value="{!v.smsinfo.Sender__c}" />
+                </span>
+                <div>&nbsp;</div>
+                <span >ステータス：
+                    <!-- <lightning:inputField variant="label-hidden" fieldName="Status__c" value="{!v.smsinfo.Status__c}"/> -->
+                    <lightning:combobox variant="label-hidden" label=""  value="{!v.smsinfo.Status__c}" options="{!v.statusOptions}" disabled="{!v.statusActive}" />
+                    <!-- <lightning:combobox variant="label-hidden" value="{!v.smsinfo.Status__c}" options="{!v.statusOptions}" disabled="true" /> -->
+                </span>
+                <div>&nbsp;</div>
+            </div>
+
+            <!--
+            <div class="slds-col slds-size_1-of-2" style="margin: 6px; width: 40%">
+               -->
+            <div class="slds-col slds-size_1-of-2" >
+                <span >
+                    <lightning:input name="furigana" disabled="true" fieldName="ContractorFurigana__c" value="{!v.furigana}" label="契約者フリガナ：" />
+                </span>
+                <div>&nbsp;</div>
+                <span >送信元番号：
+                    <!-- <lightning:inputField variant="label-hidden" fieldName="SenderPhoneNumber__c" value="{!v.smsinfo.SenderPhoneNumber__c}" /> -->
+                    <lightning:inputField variant="label-hidden" fieldName="SenderPhoneNumber__c" aura:id="senderPhoneNumber" />
+                </span>
+                <div>&nbsp;</div>
+                
+				<!-- 承認先はキューに変更、以下の部分をコメントアウト by Harry 2020-10-7
+                <span >承認申請先：
+                    <lightning:inputField variant="label-hidden" fieldName="ApprovalUser__c" value="{!v.smsinfo.ApprovalUser__c}"  />
+                </span>
+                -->
+                
+            </div>
+        </div>
+
+        <div style="width: 80%; margin: 10px;" class="slds-grid">
+            <table ><tr><td>
+                <span style="border:1px;" >件名：
+                    <lightning:input maxlength="80" variant="label-hidden" value="{!v.smsinfo.SendSubject__c}"  />
+                </span>
+                <div>&nbsp;</div>
+            </td></tr></table>
+        </div>
+        <div style="width: 80%; margin: 10px;" class="slds-grid">
+            <table ><tr><td>
+                <span >送信内容：
+                    <lightning:inputField name="smsmessage" variant="label-hidden" fieldName="SendContents__c" value="{!v.smsinfo.SendContents__c}" />
+                </span>
+                <div>&nbsp;</div>
+            </td></tr></table>
+        </div>
+        <div style="width: 30%; margin: 10px;" class="slds-grid">
+            <table ><tr><td>
+                <span >送信日時：
+                    <lightning:outputField variant="label-hidden" fieldName="SendDateTime__c"  />
+                </span>
+                <div>&nbsp;</div>
+            </td></tr></table>
+        </div>
+
+        <!--
+        <div class="slds-m-top_medium" >
+            <span class="hozon">
+                <lightning:button label="保存" onclick="{!c.saveCheck}" />
+            </span>
+        </div>
+        -->
+
+    <div class="slds-clearfix">
+        <div class="slds-float_left">
+        <span>&nbsp;&nbsp;</span>
+            <lightning:button label="保存" onclick="{!c.saveCheck}" variant="brand" />
+        <span>&nbsp;&nbsp;</span>
+            <lightning:button label="キャンセル" onclick="{!c.clickCancel}" />
+        <span>&nbsp;&nbsp;</span>
+            <lightning:button label="テンプレート挿入" aura:Id="bankMastersearchId" onclick="{!c.openBankMasterSearch}" />
+        </div>
+    </div>
+
+    </lightning:recordEditForm>
+
+</td></tr></table>
+
+	</div>
+	<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->	
+    </div>
+    <div aura:Id="bankMasterPopup">
+        {!v.body}
+    </div>
+
+</aura:component>

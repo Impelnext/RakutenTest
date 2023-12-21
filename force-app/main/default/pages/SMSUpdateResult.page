@@ -1,0 +1,6 @@
+<apex:page controller="SMSUpdateResultController" action="{!init}" >
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>SMSUpdateResult</h1>
+  {!msg}
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

@@ -1,0 +1,37 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel">保障内容について</div>
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent1" value="保障の良い楽天生命の別の保険へ加入・検討" class="c-form_radio display_radio" onchange={changeValueHandler}>
+                        <label for="CancellationReasonContent1"><span>保障の良い楽天生命の別の保険へ加入・検討</span></label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent2" value="楽天生命以外の保障の良い保険へ加入・検討" class="c-form_radio display_radio" onchange={changeValueHandler}>
+                        <label for="CancellationReasonContent2">楽天生命以外<span>の保障の良い保険へ加入・検討</span></label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent3" value="保障が過剰だと感じたため" class="c-form_radio display_radio" onchange={changeValueHandler}>
+                        <label for="CancellationReasonContent3"><span>保障が過剰だと感じたため</span></label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent4" value="環境が変わり、保障が不要になったため" class="c-form_radio display_radio" onchange={changeValueHandler}>
+                        <label for="CancellationReasonContent4"><span>環境が変わり、保障が不要になったため</span></label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </template>   
+    <template if:true={dispConfirm}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                  <span class="weight4">保障内容について</span><br>
+                  {value}
+                </div>
+            </div>
+        </section>
+    </template>   
+</template>

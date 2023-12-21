@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global"
+                controller="OppCreateDefaultValueAuraController">
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="seihoRType" type="String"/>
+    <aura:attribute name="sonpoRType" type="String"/>
+    <aura:attribute name="syotanRType" type="String"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <Div style="background:white;padding:15px;">
+        商談作成：
+        <br /><br />
+        <lightning:button aura:id="btnSeiho" variant="neutral" label="生保"  onclick="{! c.createSeihoOpp }" disabled="True" />
+        <lightning:button aura:id="btnSonpo" variant="neutral" label="損保"  onclick="{! c.createSonpoOpp }" disabled="True" />
+        <lightning:button aura:id="btnSyotan" variant="neutral" label="少短"  onclick="{! c.createSyotanOpp }" disabled="True" />
+    </Div>
+</aura:component>

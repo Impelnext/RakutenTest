@@ -1,0 +1,35 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <div class="p-form_itemLabel"><span class="u-icon_any">任意</span>ご契約の証券番号、または会員（証書）番号</div>
+                    <div class="p-form_itemNote" if:true={dispComment}>{itemComment}</div>
+                    <div class="c-number-form">
+                      <input name="nmNumber" type="text" class="c-form_text js-numCheck" data-num-type="8-10" id={itemKey} value={value} maxlength="13" onchange={changeValueHandler}>
+                    </div>
+                    <div class="p-form_itemNote">
+                      ■生命保険：数字8桁<br>
+                      お手元の証券番号が12桁の場合は、中央の8桁のみ入力してください。（例：XXX-12345678-X）<br>
+                      ■共済契約：数字10桁<br>
+                      お手元の会員(証書)番号が14桁の場合は、中央の10桁のみ入力してください。（例：XXX-1234567890-X）
+                    </div>
+                  </div>
+
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <template if:true={dispConfirm}>
+            <section class="p-section">
+                <div class="p-form">
+                    <div class="p-form_item">
+                        <span class="weight4">ご契約の証券番号、または会員（証書）番号</span>
+                        <br>{value}
+                    </div>
+                </div>
+            </section>
+        </template>
+    </template>
+</template>

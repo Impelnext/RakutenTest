@@ -1,0 +1,21 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="c-box_info _orange w95" id="CreditCaution">
+                    <div class="caution">
+                        <img src={cautionIcon} alt="caution">
+                        <div class="caution_text">
+                        {notearea1}<br>
+                        {notearea2}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+    </template>
+  
+</template>

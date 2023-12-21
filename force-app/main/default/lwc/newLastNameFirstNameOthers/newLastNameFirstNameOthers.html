@@ -1,0 +1,43 @@
+<template>
+  <template if:true={dispTitle}>
+    <template if:false={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（漢字）</div>
+            <div class="c-cols_input">
+              <div>
+                <div style="display: flex;">
+                  <label for={itemKeySei}>姓</label>
+                  <div class="errorMsgSei">[全角]で入力してください。</div>
+                </div>
+                <input id={itemKeySei} name="nmLastName" type="text" class="c-form_text last-name" value={lastName} placeholder="例）楽天" onchange={changeHandlerForLastName} maxlength="255">
+              </div>
+              <div>
+                <div style="display: flex;">
+                  <label for={itemKeyMei}>名</label>
+                  <div class="errorMsgMei">[全角]で入力してください。</div>
+                </div>
+                <input id={itemKeyMei} name="nmFirstName" type="text" class="c-form_text first-name" value={firstName} placeholder="例）太郎" onchange={changeHandlerForFirstName} maxlength="255">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
+
+
+    <template if:true={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">お名前（漢字）</span>
+            <br>
+            <span>{lastName}</span><span style="margin-left: 5px;">{firstName}</span>
+          </div>
+        </div>
+      </section>
+    </template>
+  </template>
+
+</template>

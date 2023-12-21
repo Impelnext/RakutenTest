@@ -1,0 +1,16 @@
+.THIS .button-color {
+    background-color: lightgrey
+}
+
+.THIS .slds-modal__content{
+    height: 100%;
+    background:whitesmoke
+}
+
+.THIS .slds-modal__header{
+    background:whitesmoke;
+}
+
+.THIS .slds-modal__footer{
+    background: whitesmoke;
+}

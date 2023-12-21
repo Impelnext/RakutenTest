@@ -1,0 +1,3 @@
+<design:component label="リダイレクトテーマレイアウト">
+   <design:attribute name="redirectUrl" label="リダイレクトURL" />
+</design:component>

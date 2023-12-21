@@ -1,0 +1,79 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                     'ChangeDate__c':'',
+																		'DesiredCertificateType__c':'',
+																		'TargetSecuritiesNumber2__c':'',
+																		'DesiredCertificateType2__c':'',
+																		'TargetSecuritiesNumber3__c':'',
+																		'DesiredCertificateType3__c':'',
+                                                                        'TargetSecuritiesNumber1__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineIssuanceAttachedCrtfct" action="{!c.saveInlineIssuanceAttachedCrtfct}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+<!--Declare Attributes-->	
+            <!--Picklist Attributes-->	
+
+<aura:attribute name="desiredCertificateTypePickMap" type="Map"/>
+<aura:attribute name="desiredCertificateType2PickMap" type="Map"/>
+<aura:attribute name="desiredCertificateType3PickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">発行情報</h3> </div>
+    <div class="slds-p-top_medium"></div>
+    <lightning:input aura:Id="changeDate" type="date" name="changeDate" value="{!v.innerCmpNewRequest.ChangeDate__c}" label="異動日" />
+	<lightning:input aura:Id="targetSecuritiesNumber1" name="" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber1__c}" label="対象証券番号①" />	
+    <div class="form-group">
+		<lightning:select 
+		aura:id="desiredCertificateTypePicklist" 
+		value="{!v.innerCmpNewRequest.DesiredCertificateType__c}"
+		name="desiredCertificateTypePicklist" 
+		label="希望証明書種類①" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.desiredCertificateTypePickMap}" var="dct" indexVar="key">
+		<option text="{!dct.value}" 
+		value="{!dct.key}" 
+		selected="{!dct.key==v.innerCmpNewRequest.DesiredCertificateType__c}" />
+		</aura:iteration>
+		</lightning:select>
+	</div>
+	<lightning:input aura:Id="targetSecuritiesNumber2" name="" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber2__c}" label="対象証券番号②" />	
+	<div class="form-group">
+		<lightning:select 
+		aura:id="desiredCertificateType2Picklist" 
+		value="{!v.innerCmpNewRequest.DesiredCertificateType2__c}"
+		name="desiredCertificateType2Picklist" 
+		label="希望証明書種類②" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.desiredCertificateType2PickMap}" var="dct2" indexVar="key">
+		<option text="{!dct2.value}" 
+		value="{!dct2.key}" 
+		selected="{!dct2.key==v.innerCmpNewRequest.DesiredCertificateType2__c}" />
+		</aura:iteration>
+		</lightning:select>
+	</div>
+	<lightning:input aura:Id="targetSecuritiesNumber3" name="" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber3__c}" label="対象証券番号③" />	
+	<div class="form-group">
+		<lightning:select 
+		aura:id="desiredCertificateType3Picklist" 
+		value="{!v.innerCmpNewRequest.DesiredCertificateType3__c}"
+		name="desiredCertificateType3Picklist" 
+		label="希望証明書種類③" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.desiredCertificateType3PickMap}" var="dct3" indexVar="key">
+		<option text="{!dct3.value}" 
+		value="{!dct3.key}" 
+		selected="{!dct3.key==v.innerCmpNewRequest.DesiredCertificateType3__c}" />
+		</aura:iteration>
+		</lightning:select>
+	</div>
+	<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+</div>
+</aura:component>

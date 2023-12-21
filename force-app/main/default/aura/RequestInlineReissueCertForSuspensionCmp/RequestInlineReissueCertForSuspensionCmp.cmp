@@ -1,0 +1,31 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',	
+																		'PastIssueHistory__c':'',
+																		'OtherInfomation__c':''	
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlineReissueCertForSuspension" action="{!c.saveInlineReissueCertForSuspension}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="pastIssueHistoryPickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">中断証明書再発行</h3> </div>
+	<div class="slds-p-top_medium"></div>
+    <div class="form-group">
+        <lightning:select aura:id="pastIssueHistoryPicklist" value="{!v.innerCmpNewRequest.PastIssueHistory__c}" name="pastIssueHistoryPicklist" label="過去の発行履歴" >
+            <option value="">-- None --</option>
+            <aura:iteration items="{!v.pastIssueHistoryPickMap}" var="issue" indexVar="key">
+                <option text="{!issue.value}" value="{!issue.key}" selected="{!issue.key==v.innerCmpNewRequest.PastIssueHistory__c}" />
+            </aura:iteration>
+        </lightning:select>
+    </div>			
+    <lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+</div>
+</aura:component>

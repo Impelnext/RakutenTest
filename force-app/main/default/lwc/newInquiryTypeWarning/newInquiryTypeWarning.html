@@ -1,0 +1,26 @@
+<template>
+  <template if:false={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form_item">
+        <div style="margin-top: 10px;" if:true={sonpo}>
+          <div style="margin-top: 10px;">
+            事故のご連絡は、以下の事故専用のご連絡フォームを必ずご使用ください。<br>
+            <br>
+            自動車事故のご連絡専用フォームは <a style="text-decoration:underline; color:#0000FF;" href="https://www.rakuten-sonpo.co.jp/contact/tabid/265/Default.aspx">こちら</a><br>
+            火災・傷害・新種保険の事故のご連絡専用フォームは <a style="text-decoration:underline; color:#0000FF;" href="https://www.rakuten-sonpo.co.jp/contact/tabid/546/Default.aspx">こちら</a><br>
+            <br>
+            ※緊急の場合はお電話にて「楽天保険の総合窓口あんしんダイヤル」にご連絡ください。<br>
+            　あんしんダイヤル　0120-120-555　24時間365日<br>
+            （当社提携業者が実施しています。ご利用時には、お名前・証券番号をお知らせください。）<br>
+            ※お問合せフォームで事故のご連絡をいただきますと、ご回答まで遅くなる可能性がございます。<br>
+          </div>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template if:true={confirmPhase}>
+    <section class="p-section">
+    </section>
+  </template>
+</template>

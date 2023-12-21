@@ -1,0 +1,132 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 64px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-section {
+        margin-bottom: 40px;
+    }
+}
+
+.weight4 {
+    font-weight: 400;
+}
+
+.c-list_input {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -4px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .c-list_input._nocolSP {
+        display: block;
+        margin: 0;
+    }
+
+    .p-form_item {
+        padding: 0;
+    }
+
+    .c-list_input._nocolSP > li {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.c-list_input > li {
+    list-style-type: none;
+    flex: 0 1 calc(50% - 8px);
+    margin: 0 4px 8px 4px;
+}
+
+.c-form_radio {
+    display: none;
+}
+
+.c-form_radio + label {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    display: block;
+    height: 100%;
+}
+
+.c-form_radio:checked + label {
+    border: 2px solid #002896;
+}
+
+input {
+    font-family: 'Hiragino Kaku Gothic ProN',Meiryo,MS-PGothic,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+@media  (max-width: 420px) {
+    .c-form_radio+label {
+    padding-left: 2.5em;
+    text-indent: -2em;
+    }
+}
+
+.c-form_radio.display_radio {
+    position: absolute;
+    opacity: 0;
+}
+
+.u-icon_require {
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    background-color: #bf0000;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.p-form_itemLabel {
+    margin-bottom: 8px;
+}
+
+.c-form_radio:checked+label::before {
+    background-color: #002896;
+}
+
+.c-form_radio.display_radio+label::before {
+    content: '';
+    background: #fff;
+    border-radius: 100%;
+    border: 1px solid #333333;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    position: relative;
+    top: 0.2em;
+    margin-right: 1em;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+}
+
+.c-form_radio.display_radio:checked+label::before {
+    background-color: #1364FF;
+    box-shadow: inset 0 0 0 4px #fff;
+}

@@ -1,0 +1,12 @@
+.THIS .subContainer {
+	border-radius: 10px;
+	margin: 5px;
+	padding: 5px;
+}
+.THIS .searchTable > tr > td {
+    vertical-align: initial;
+    width: 33%;
+}
+.THIS .bk-Color-lightblue {
+	background-color: lightblue;
+}

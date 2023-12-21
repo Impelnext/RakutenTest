@@ -1,0 +1,26 @@
+<template>
+  <div class="gen_faq_search_result gen_area">
+    <div class="l-wrapper">
+      <div class="l-main">
+        <div class="l-inner">
+          <div class="p-section">
+            <div if:false={isHideTitle} class="c-ttl_sec _contact">お問合せ</div>
+            <div class="p-form_item">
+              <p class="u-txt_c">
+                <a href={urlChatbot} target="_blank" class="c-btn_red">
+                  チャットボットでお問合せ
+                </a>
+              </p>
+            </div>
+          </div>
+          <div if:true={isDisplayBackToSupportTOP} class="p-section u-txt_c">
+            <a href={faqUrl} class="c-btn_red">よくあるご質問トップへ戻る</a>
+          </div>
+          <div if:true={isDisplayBackToPreviousPage} class="p-section u-txt_c">
+            <a href="#" class="c-btn_red" onclick={handlePageBackClick}>前のページに戻る</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

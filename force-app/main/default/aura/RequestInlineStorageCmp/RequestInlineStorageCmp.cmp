@@ -1,0 +1,12 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest"  type="Request__c" default="{ 
+                                                                      'sObjectType': 'Request__c'													                                                        
+                                                                      }"/>	
+
+																		
+<aura:method name="Storage" action="{!c.saveStorage}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+    <c:InlineRequestContent parentNewRequest="{!v.innerCmpNewRequest}"/>   
+</aura:component>

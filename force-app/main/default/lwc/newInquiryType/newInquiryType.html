@@ -1,0 +1,28 @@
+<template>
+  <template if:false={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form">
+        <div class="p-form_item">
+          <ul class="c-list_input _nocolSP">
+            <template for:each={typeOptions} for:item="opt">
+              <li key={opt.id}>
+                <input type="radio" name={tagnameRadioInquiryType}
+                  id={opt.id}
+                  value={opt.value}
+                  onchange={changeValueHandler}
+                  class="c-form_radio display_radio">
+                <label for={opt.id} class="radio-label">{opt.label}</label>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template if:true={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form_item">{value}</div>
+    </section>
+  </template>
+</template>

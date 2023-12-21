@@ -1,0 +1,121 @@
+<!-- ChatBot -->
+<link href="/shared/uisdk/botchat_ip.css" rel="stylesheet" />
+<div id="BotChatGoesHere"></div>
+<script  type="text/JavaScript" src="/shared/uisdk/botchat.js"></script>
+<script type="text/JavaScript">
+
+    /*
+     *1. default language properties. As for one language bot, cofigure these.
+     */
+
+    var webClientApi = {
+        domain: 'https://gateway-api.global.rakuten.com/bot/web/v3/api',
+        secret: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnRJZCI6Imluc3VyYW5jZV9mYXFfbiIsImVudmlyb25tZW50IjoicHJvZHVjdGlvbiJ9.JJ7HxqjLMydtBMN_e1CIciuvfaJX7U18HsGccpYDmrg',
+        uiSdkWlcmMsgEnabled: false,  // トピックありの場合、必ずfalseを設定ください。trueの場合UISDKが起動できません。
+        initMessage: '',
+        showInitMessage: false
+    };
+
+    var session = {
+        enabled: false,
+        duration: 60,
+        urls: []
+    }
+
+    var suggestionApi = {
+        domain: 'https://gateway-api.global.rakuten.com/bot/suggestion',
+        target: 'insurance_faq_n',
+        enabled: true,
+        interval: 500
+    };
+
+    var kpiAnalyticsApi = {
+        domain: 'https://tracking.ai.rakuten.co.jp/answer/web',
+        survey: {
+            enabled: false,
+            //label: 'Is it helpful?'
+        }
+    };
+
+    var iconMessages = {
+        // enabled: false, // enabled by default
+        messages: []
+    };
+
+    // var openKeywords = ['index', 'contact', 'email', 'call'];
+
+    var defaultLocale = 'ja-JP';
+
+    var ui = {
+        backToCategoriesLabel: "問合せトピック選択に戻る",
+        headerTitle: "AI保険ナビ",
+        inputMaxLength: 700,    // for message input form
+        placeholder: "ここにメッセージを入力",
+        reminderMessage: "最初からやり直しますか？やり直すときはこちらをお選びください。",
+        reminderMessageButton: "やり直す",
+        reminderMessageIdleTime: 60, // seconds
+        reminderMessagePerSession: true,
+        sendBtnName: "送信"
+    };
+
+    var msg={
+        WELCOME:'カスタマイズメッセージWELCOME',
+        ERR_400:'カスタマイズエラーメッセージERR_400',
+        ERR_401:'カスタマイズエラーメッセージERR_401',
+        ERR_403:'カスタマイズエラーメッセージERR_403',
+        ERR_404:'カスタマイズエラーメッセージERR_404',
+        ERR_409:'カスタマイズエラーメッセージERR_409',
+        ERR_429:'カスタマイズエラーメッセージERR_429',
+        ERR_500:'カスタマイズエラーメッセージERR_500',
+        ERR_502:'カスタマイズエラーメッセージERR_502',
+        ERR_503:'カスタマイズエラーメッセージERR_503',
+        ERR_NW:'カスタマイズエラーメッセージERR_NW'
+    };
+
+    var operator = {
+        uiSdkResEnabled:true,
+        menuTitle:'オペレーターとチャット',
+        responseMsg:'以下のページよりお問い合わせください。[メールでお問い合わせする](http://www.rakuten.co.jp/ "direct")',
+        sendMsg:'オペレーターとチャットする'
+    }
+    var mail = {
+        uiSdkResEnabled:true,
+        menuTitle:'メールでお問い合わせ',
+        responseMsg:'以下のページよりお問い合わせください。[メールでお問い合わせする](mailto:sample@mail.rakuten.com "direct") ',
+        sendMsg:'メールでお問い合わせ'
+    }
+    var tel = {
+        uiSdkResEnabled:true,
+        menuTitle:'電話でお問い合わせ',
+        responseMsg:'以下のページよりお問い合わせください。[電話でお問い合わせする](http://www.rakuten.co.jp/ "direct") ',
+        sendMsg:'電話でお問い合わせ'
+    }
+
+    BotChat.App({
+        webClientApi,
+        session,
+        suggestionApi,
+        msg,
+        ui,
+        operator,
+        mail,
+        tel,
+        defaultLocale,
+        kpiAnalyticsApi,
+        iconMessages
+    }, document.getElementById('BotChatGoesHere'));
+
+
+</script>
+<script type="text/javascript">
+  $(".help_container").append("<span class='minimumTxt'>AI保険ナビ</span><span class='minimumToggle'></span>");
+  $(".minimumToggle").on('click', function(){
+    var parentEls = $(".minimumToggle").parents();
+    if (parentEls.hasClass('minimum')){
+      $(".help_container").removeClass('minimum');
+    } else {
+      $(".help_container").addClass('minimum');
+    }
+  });
+</script>
+<!-- /ChatBot -->

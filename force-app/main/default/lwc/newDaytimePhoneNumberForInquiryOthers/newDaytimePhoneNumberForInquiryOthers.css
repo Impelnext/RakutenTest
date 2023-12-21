@@ -1,0 +1,164 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.weight4 {
+    font-weight: 400;
+}
+
+.u-icon_require {
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    background-color: #bf0000;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_item {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+}
+
+.p-form_itemLabel {
+    margin-bottom: 8px;
+}
+
+.c-list_input {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+}
+
+.c-list_input._nocol {
+    margin: 0;
+}
+
+.c-list_input._nocol > li {
+    flex: 100%;
+    margin: 0 0 8px 0;
+}
+
+.c-list_input>li {
+    flex: 0 1 calc(50% - 8px);
+    margin: 0 4px 8px 4px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.c-form_radio {
+    display: none;
+}
+
+.c-form_radio:checked+label {
+    border: 2px solid #002896;
+}
+
+.c-form_radio:checked+label .u-hide {
+    display: block;
+}
+
+.c-form_radio:checked+label::before {
+    background-color: #002896;
+}
+
+.c-form_radio + label {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 16px 8px 16px;
+    display: block;
+}
+
+.c-form_text.blank {
+    background-color: #ffdddd;
+}
+
+.c-form_text:focus {
+    outline: none;
+    border: 2px solid #002896;
+}
+
+.c-form_text {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fafafa;
+    padding: 8px 16px;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 16px;
+}
+
+/* .u-hide {
+    display: none;
+} */
+
+.c-form_radio:checked + label.u-hide {
+    display: block;
+}
+
+.c-form_radio+label input {
+    margin-top: 8px;
+}
+
+.p-form_itemNote {
+    /* margin-top: 8px; */
+    font-size: 14px;
+}
+
+input {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+
+input::placeholder {
+    color: #808080;
+}
+
+.p-form_item span.p-form_itemNote {
+    font-weight: bold;
+}
+
+.p-form_item span.p-form_itemNote span {
+    font-weight: bold;
+}
+
+@media  (max-width: 420px) {
+    .c-form_radio+label {
+      padding-left: 2.5em;
+      text-indent: -2em;
+    }
+}
+
+.errorMsg {
+    display: none;
+    margin-left: 15%;
+}
+
+.errorMsg.show {
+    display: block;
+    color: red;
+    font-weight: bold;
+    margin-left: 15%;
+}

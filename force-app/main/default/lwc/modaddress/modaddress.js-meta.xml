@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ご住所の変更</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKeyPostCode" label="郵便番号" type="String" description="郵便番号" />
+            <property name="itemKeyPrefectures" label="都道府県" type="String" description="都道府県" />
+            <property name="itemKeyAddress" label="ご住所" type="String" description="ご住所" />
+            <property name="itemKeyOtherAddress" label="上記以降のご住所" type="String" description="上記以降のご住所" />
+            <property name="itemKeyMoveDay" label="転居日" type="String" description="転居日" />
+            <property name="itemkeyCheckBox" label="チェックボックス項目キー" type="String" description="チェックボックス項目キー" />
+            <property name="yearUnit" label="年記号" type="String" description="年記号" />
+            <property name="monthUnit" label="月記号" type="String" description="月記号" />
+            <property name="dayUnit" label="日記号" type="String" description="日記号" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

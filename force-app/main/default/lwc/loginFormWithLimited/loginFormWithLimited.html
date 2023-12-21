@@ -1,0 +1,32 @@
+<template>
+  <template if:true={isDisplay}>
+
+    <div class="dist_password_form_wrapper">
+      <div class="dist_password_form">
+        <div class="dist_password_title">
+          パスワードが必要です
+        </div>
+        <div id="passwordForm" >
+          <input type="hidden" name="compositePageName" value="O0000004usAs/a/O00000004pYR/vi3fYHZjxjltcw5gHm_22h5JbjlNAISlzcZOJjCk7Ao">
+                <input type="hidden" name="internal" value="">
+
+                <label for="dpt" class="requiredInput inputMessage">
+                  アクセスするには、SMS（ショートメッセージ）で提供されたパスワードを入力してください。
+                  <br>
+                  ※楽天IDのパスワードとは異なります。
+                </label>
+
+                <div class="requiredInput">
+                  <div class="requiredBlock"></div>
+                  <input type="password" class="passwordField text" name="dpt" id="dpt" value="" onchange={onChangePass} lang="" maxlength="255">
+                  <span class="errorMsg" id="dptMessage">{errorMsg}</span>
+                </div>
+                      &nbsp;
+
+          <input id="submitBtn" class="buttons" type="submit" value="Go!" onclick={clickLogin} >
+        </div>
+      </div>
+    </div>
+
+  </template>
+</template>

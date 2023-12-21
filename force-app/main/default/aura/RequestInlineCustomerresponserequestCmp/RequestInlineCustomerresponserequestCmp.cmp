@@ -1,0 +1,18 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+ <aura:attribute name="innerCmpNewRequest"  type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                      'SeihoRequestContents__c':'',
+                                                                      'DetailsOfRequest__c':'',
+                                                                      'EmergencyFlag__c':'',
+                                                                      'CallBackStartTime__c':'',
+                                                                      'CallBackEndTime__c':'',
+                                                                      'ReturnContact__c':''
+                                                                      }"/>	 
+
+													 					
+<aura:method name="CustomerResponseRequest" action="{!c.saveCustomerResponseRequest}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+   
+    <c:InlineRequestContentCustomerResponseRequest parentNewRequest="{!v.innerCmpNewRequest}"/>
+</aura:component>

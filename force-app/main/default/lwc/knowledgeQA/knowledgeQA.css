@@ -1,0 +1,77 @@
+.c-list_faqChild {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+}
+
+.c-list_faqHead {
+    color: #134FF3;
+    position: relative;
+    padding: 0 0 0 24px;
+}
+
+.js-open_qa {
+    cursor: pointer;
+}
+
+.c-list_faqHead::before {
+    content: "Q.";
+    color: #134FF3;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.js-open_qa + div {
+    display: none;
+}
+
+.c-list_faqBody {
+    position: relative;
+    margin-top: 8px;
+    padding: 0 0 0 24px;
+}
+
+.c-list_faqBody::before {
+    content: "A.";
+    color: #bf0000;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.c-list_faqBody p {
+    margin-bottom: 1em;
+}
+
+.c-list_image {
+    margin-left: 2px;
+    margin-bottom: 5px;
+}
+
+p {
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.u-txt_c {
+    text-align: center;
+}
+
+.c-btn_red {
+    border: 1px solid #bf0000;
+    text-align: center;
+    color: #bf0000;
+    background-color: #fff;
+    border-radius: 3px;
+    display: inline-block;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.c-btn_red:hover {
+    background-color: #bf0000;
+    color: #fff;
+}

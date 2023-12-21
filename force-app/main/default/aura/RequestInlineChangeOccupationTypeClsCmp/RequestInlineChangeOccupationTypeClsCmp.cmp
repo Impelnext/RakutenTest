@@ -1,0 +1,46 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+														                'DateOfChange__c':'',
+																		'ChangeInformation__c':'',
+																		'OtherInfomation__c':'',
+																		'CurrentJob__c':'',
+																		'WorkAfterChange__c':'',
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineChangeOccupationTypeCls" action="{!c.saveInlineChangeOccupationTypeCls}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+<!--Declare Attributes-->	
+            <!--Picklist Attributes-->	
+<aura:attribute name="ChangeInformationPickMap" type="Map"/>
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更情報</h3> </div>
+    <div class="slds-p-top_medium"></div>
+    <lightning:input aura:Id="dateOfChange" type="date" name="dateOfChange" value="{!v.innerCmpNewRequest.DateOfChange__c}" label="変更日" />
+	<div class="form-group">
+		<lightning:select 
+		aura:id="changeInformationPicklist" 
+		value="{!v.innerCmpNewRequest.ChangeInformation__c}"
+		name="changeInformationPicklist" 
+		label="変更情報" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.ChangeInformationPickMap}" var="chi" indexVar="key">
+		<option text="{!chi.value}" 
+		value="{!chi.key}" 
+		selected="{!chi.key==v.innerCmpNewRequest.ChangeInformation__c}" />
+		</aura:iteration>
+		</lightning:select>
+     </div>
+	<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">職作業の変更</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<lightning:input aura:Id="currentJob" name="" type="text" value="{!v.innerCmpNewRequest.CurrentJob__c}" label="現在の職作業" />
+	<lightning:input aura:Id="workAfterChange" name="" type="text" value="{!v.innerCmpNewRequest.WorkAfterChange__c}" label="変更後の職作業" />
+</div>
+</aura:component>

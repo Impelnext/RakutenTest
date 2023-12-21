@@ -1,0 +1,3 @@
+<aura:event type="COMPONENT" description="EventTemplate" > 
+<aura:attribute name="newRequestEvt" type="Request__c"/> 
+</aura:event>

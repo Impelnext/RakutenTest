@@ -1,0 +1,58 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>再発行を希望される年</div>
+			          <div class="p-form_itemNote">※複数年選択可</div>
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="checkbox" name="nmYear[]" id="Year1" value={reissueYear01} class="c-form_checkbox c-form_checkSimple fill" onchange={changeValueHandler1}>
+                        <label for="Year1">{reissueYear01}年</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="nmYear[]" id="Year2" value={reissueYear02} class="c-form_checkbox c-form_checkSimple fill" onchange={changeValueHandler2}>
+                        <label for="Year2">{reissueYear02}年</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="nmYear[]" id="Year3" value={reissueYear03} class="c-form_checkbox c-form_checkSimple fill" onchange={changeValueHandler3}>
+                        <label for="Year3">{reissueYear03}年</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="nmYear[]" id="Year4" value={reissueYear04} class="c-form_checkbox c-form_checkSimple fill" onchange={changeValueHandler4}>
+                        <label for="Year4">{reissueYear04}年</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="nmYear[]" id="Year5" value={reissueYear05} class="c-form_checkbox c-form_checkSimple fill" onchange={changeValueHandler5}>
+                        <label for="Year5">{reissueYear05}年</label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">再発行を希望される年度</span><br>
+                    <template if:true={disp1}>
+                        {reissueYear01}年<br>
+                    </template>
+                    <template if:true={disp2}>
+                        {reissueYear02}年<br> 
+                    </template>
+                    <template if:true={disp3}>
+                        {reissueYear03}年<br>
+                    </template>
+                    <template if:true={disp4}>
+                        {reissueYear04}年<br>
+                    </template>
+                    <template if:true={disp5}>
+                        {reissueYear05}年<br>
+                    </template>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</template>

@@ -1,0 +1,62 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',	
+																		'MyPageProposal__c':'',
+																		'ChangeHistory__c':'',
+																		'Issue__c':'',
+																		'TargetEndorsementNumber1__c':'',
+																		'TargetEndorsementNumber2__c':'',
+																		'TargetEndorsementNumber3__c':'',
+																		'TargetEndorsementNumber4__c':'',
+																		'TargetEndorsementNumber5__c':'',
+																		'OtherInfomation__c':''	
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlineReissueApproval" action="{!c.saveInlineReissueApproval}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+    
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="myPageProposalPickMap" type="Map"/>
+<aura:attribute name="changeHistoryPickMap" type="Map"/>
+<aura:attribute name="issuePickMap" type="Map"/>
+<aura:attribute name="issuePickList" type="List" default="['--- None ---']"/>    
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">再発行情報</h3> </div>
+	<div class="slds-p-top_medium"></div>
+    <div class="form-group">
+        <lightning:select aura:id="myPageProposalPicklist" value="{!v.innerCmpNewRequest.MyPageProposal__c}" name="myPageProposalPicklist" label="マイページ提案" >
+            <option value="">-- None --</option>
+            <aura:iteration items="{!v.myPageProposalPickMap}" var="my" indexVar="key">
+                <option text="{!my.value}" value="{!my.key}" selected="{!my.key==v.innerCmpNewRequest.MyPageProposal__c}" />
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <div class="form-group">
+        <lightning:select aura:id="changeHistoryPicklist" value="{!v.innerCmpNewRequest.ChangeHistory__c}" name="changeHistoryPicklist" label="異動履歴" >
+            <option value="">-- None --</option>
+            <aura:iteration items="{!v.changeHistoryPickMap}" var="my" indexVar="key">
+                <option text="{!my.value}" value="{!my.key}" selected="{!my.key==v.innerCmpNewRequest.ChangeHistory__c}" />
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <div class="form-group">
+        <lightning:select aura:id="issuePickList" value="{!v.innerCmpNewRequest.Issue__c}" label="発行">
+            <aura:iteration items="{!v.issuePickList}" var="pro" >
+                <option  value="{!pro}"> {!pro} </option>		
+            </aura:iteration>
+        </lightning:select>
+    </div>
+    <lightning:input aura:Id="targetEndorsementNumber1" name="" type="text" value="{!v.innerCmpNewRequest.TargetEndorsementNumber1__c}" label="対象裏書番号１"/>
+    <lightning:input aura:Id="targetEndorsementNumber2" name="" type="text" value="{!v.innerCmpNewRequest.TargetEndorsementNumber2__c}" label="対象裏書番号2"/>
+    <lightning:input aura:Id="targetEndorsementNumber3" name="" type="text" value="{!v.innerCmpNewRequest.TargetEndorsementNumber3__c}" label="対象裏書番号3"/>
+    <lightning:input aura:Id="targetEndorsementNumber4" name="" type="text" value="{!v.innerCmpNewRequest.TargetEndorsementNumber4__c}" label="対象裏書番号4"/>
+    <lightning:input aura:Id="targetEndorsementNumber5" name="" type="text" value="{!v.innerCmpNewRequest.TargetEndorsementNumber5__c}" label="対象裏書番号5"/>
+    <lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+
+</div>
+</aura:component>

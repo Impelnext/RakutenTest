@@ -1,0 +1,27 @@
+<template>
+  <div style={dispTitle}>
+    <div style={styleInput}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生年月日</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+
+
+    <template if:true={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">生年月日</span>
+            <br>
+            {confirmValue}
+          </div>
+        </div>
+      </section>
+    </template>
+  </div>
+</template>

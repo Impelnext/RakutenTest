@@ -1,0 +1,85 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'RelocationDate__c':'',
+																		'Use__c':'',
+																		'SeparateForPrivateAndusinessUse__c':'',
+																		'VehicleAfterChangeOtherInformation__c':'',
+																		'Procedure__c':'',
+																		'AdditionalRefundPremiumYen__c':'',
+																		'TransferDivision__c':'',
+																		'AdditionalAndReturnAccount__c':'',
+																		'VirtualAccountPaymentDueDate__c':'',
+																		'BillingMonth__c':'',
+																		'NecessityOfReceipt__c':'',
+																		'PrintingSequenceNumber__c':'',
+																		'EndorsementNumber__c':'',
+																		'TransferApprovalDate__c':'',
+                                                                        'AppLicationModelFreeText__c':'',
+																		'ProcedureMethodOtherInfo__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineChangeModelCmp" action="{!c.saveInlineChangeModelCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+
+<!--Picklist attributes-->
+<aura:attribute name="usePickMap" type="Map"/>
+<aura:attribute name="usePickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="separateForPrivateAndusinessUsePickMap" type="Map"/>
+<aura:attribute name="procedurePickMap" type="Map"/>
+<aura:attribute name="transferDivisionPickMap" type="Map"/>
+<aura:attribute name="additionalAndReturnAccountPickMap" type="Map"/>
+<aura:attribute name="necessityOfReceiptPickMap" type="Map"/>
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更後車両情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:input aura:Id="relocationDate" type="date" name="relocationDate" value="{!v.innerCmpNewRequest.RelocationDate__c}" label="移転日" />
+		   <lightning:input aura:Id="appLicationModelFreeText" name="" type="text" value="{!v.innerCmpNewRequest.AppLicationModelFreeText__c}" label="用途車種（フリー入力）" />
+			<lightning:select aura:Id="separateForPrivateAndusinessUsePickMap" value="{!v.innerCmpNewRequest.SeparateForPrivateAndusinessUse__c}" label="自家用・事業用の別" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.separateForPrivateAndusinessUsePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.SeparateForPrivateAndusinessUse__c}"/>
+				</aura:iteration>
+			</lightning:select>
+		    <lightning:textarea aura:Id="vehicleAfterChangeOtherInfo" name="" type="text" value="{!v.innerCmpNewRequest.VehicleAfterChangeOtherInformation__c}" label="変更後車両　その他情報" class="customHeight"/>	
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">手続き方法</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:select aura:Id="procedurePickMap" value="{!v.innerCmpNewRequest.Procedure__c}" label="手続き方法" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.procedurePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.Procedure__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AdditionalRefundPremiumYen__c}" label="追加・返還保険料（円）"/>
+			<lightning:select aura:Id="transferDivisionPickMap" value="{!v.innerCmpNewRequest.TransferDivision__c}" label="異動分割" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.transferDivisionPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.TransferDivision__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="additionalAndReturnAccountPickMap" value="{!v.innerCmpNewRequest.AdditionalAndReturnAccount__c}" label="追徴・返還先口座" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.additionalAndReturnAccountPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.AdditionalAndReturnAccount__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="virtualAccountPaymentDueDate" type="date" name="virtualAccountPaymentDueDate" value="{!v.innerCmpNewRequest.VirtualAccountPaymentDueDate__c}" label="仮想口座入金期日" />
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.BillingMonth__c}" label="請求月（請求開始月）"/>
+			<lightning:select aura:Id="necessityOfReceiptPickMap" value="{!v.innerCmpNewRequest.NecessityOfReceipt__c}" label="領収証の要否（お客様から要望があったもの）" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.necessityOfReceiptPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.NecessityOfReceipt__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.PrintingSequenceNumber__c}" label="印刷連番"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.EndorsementNumber__c}" label="裏書番号"/>
+			<lightning:input aura:Id="transferApprovalDate" type="date" name="transferApprovalDate" value="{!v.innerCmpNewRequest.TransferApprovalDate__c}" label="異動承認日" />
+			<lightning:textarea aura:Id="procedureMethodOtherInfo" name="" type="text" value="{!v.innerCmpNewRequest.ProcedureMethodOtherInfo__c}" label="手続き方法　その他情報" class="customHeight"/>
+</div>
+</aura:component>

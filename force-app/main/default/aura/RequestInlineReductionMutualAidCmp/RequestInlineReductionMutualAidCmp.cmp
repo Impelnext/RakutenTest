@@ -1,0 +1,594 @@
+<!--
+  @File Name          : RequestInlineReductionMutualAidCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/23/2019, 12:52:50 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/23/2019   SRM     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ChangeDetails1__c':'',
+																		'ChangeDetails2__c':'',
+                                                                        'ChangeDetails3__c':'',
+                                                             			'ChangeDetails4__c':'',
+                                                                        'ChangeDetails5__c':'',
+																		'ChangeDetails6__c':'',
+																		'ChangeDetails7__c':'',
+                                                                        'ChangeDetails8__c':'',
+                                                             			'ChangeDetails9__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRequestReductionMutualAid" action="{!c.saveInlineRequestReductionMutualAid}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+     <!--Event Handler-->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+    
+<!--Declare Attributes-->	
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>
+
+<!--ChangeDetails1 attributes-->   
+<aura:attribute name="productName1" type="String" default=""  />
+<aura:attribute name="beforeOpening1" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements1" type="String" default=""/>
+<aura:attribute name="afterMouthReduction1" type="Integer" />		
+
+<!--ChangeDetails2 attributes-->   
+<aura:attribute name="productName2" type="String" default=""  />
+<aura:attribute name="beforeOpening2" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements2" type="String" default=""/>
+<aura:attribute name="afterMouthReduction2" type="Integer" />	
+
+<!--ChangeDetails3 attributes-->   
+<aura:attribute name="productName3" type="String" default=""  />
+<aura:attribute name="beforeOpening3" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements3" type="String" default=""/>
+<aura:attribute name="afterMouthReduction3" type="Integer" />	
+
+<!--ChangeDetails4 attributes-->   
+<aura:attribute name="productName4" type="String" default=""  />
+<aura:attribute name="beforeOpening4" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements4" type="String" default=""/>
+<aura:attribute name="afterMouthReduction4" type="Integer" />	
+
+<!--ChangeDetails5 attributes-->   
+<aura:attribute name="productName5" type="String" default=""  />
+<aura:attribute name="beforeOpening5" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements5" type="String" default=""/>
+<aura:attribute name="afterMouthReduction5" type="Integer" />	
+
+<!--ChangeDetails6 attributes-->   
+<aura:attribute name="productName6" type="String" default=""  />
+<aura:attribute name="beforeOpening6" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements6" type="String" default=""/>
+<aura:attribute name="afterMouthReduction6" type="Integer" />
+
+<!--ChangeDetails7 attributes-->   
+<aura:attribute name="productName7" type="String" default=""  />
+<aura:attribute name="beforeOpening7" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements7" type="String" default=""/>
+<aura:attribute name="afterMouthReduction7" type="Integer" />
+
+<!--ChangeDetails8 attributes-->   
+<aura:attribute name="productName8" type="String" default=""  />
+<aura:attribute name="beforeOpening8" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements8" type="String" default=""/>
+<aura:attribute name="afterMouthReduction8" type="Integer" />
+
+<!--ChangeDetails9 attributes-->   
+<aura:attribute name="productName9" type="String" default=""  />
+<aura:attribute name="beforeOpening9" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements9" type="String" default=""/>
+<aura:attribute name="afterMouthReduction9" type="Integer" />
+
+<!--ChangeDetails10 attributes-->   
+<aura:attribute name="productName10" type="String" default=""  />
+<aura:attribute name="beforeOpening10" type="Integer" />
+<aura:attribute name="reducingMouthAndOtherSupplements10" type="String" default=""/>
+<aura:attribute name="afterMouthReduction10" type="Integer" />
+ <!--Error Attributes-->
+<aura:attribute name="afterOpeningMouth1" type="boolean" default="false"/>
+<aura:attribute name="afterOpeningMouth2" type="boolean" default="false"/> 
+<aura:attribute name="afterOpeningMouth3" type="boolean" default="false"/> 
+<aura:attribute name="afterOpeningMouth4" type="boolean" default="false"/>
+<aura:attribute name="afterOpeningMouth5" type="boolean" default="false"/>
+<aura:attribute name="afterOpeningMouth6" type="boolean" default="false"/>  
+<aura:attribute name="afterOpeningMouth7" type="boolean" default="false"/>
+<aura:attribute name="afterOpeningMouth8" type="boolean" default="false"/> 
+<aura:attribute name="afterOpeningMouth9" type="boolean" default="false"/> 
+<aura:attribute name="afterOpeningMouth10" type="boolean" default="false"/>
+<aura:attribute name="beforeOpeningMouth1" type="boolean" default="false"/>
+<aura:attribute name="beforeOpeningMouth2" type="boolean" default="false"/> 
+<aura:attribute name="beforeOpeningMouth3" type="boolean" default="false"/> 
+<aura:attribute name="beforeOpeningMouth4" type="boolean" default="false"/>
+<aura:attribute name="beforeOpeningMouth5" type="boolean" default="false"/>
+<aura:attribute name="beforeOpeningMouth6" type="boolean" default="false"/>  
+<aura:attribute name="beforeOpeningMouth7" type="boolean" default="false"/>
+<aura:attribute name="beforeOpeningMouth8" type="boolean" default="false"/> 
+<aura:attribute name="beforeOpeningMouth9" type="boolean" default="false"/> 
+<aura:attribute name="beforeOpeningMouth10" type="boolean" default="false"/>
+
+<aura:attribute name="prod1" type="boolean" default="false"/>
+<aura:attribute name="prod2" type="boolean" default="false"/>
+<aura:attribute name="prod3" type="boolean" default="false"/>
+<aura:attribute name="prod4" type="boolean" default="false"/>
+<aura:attribute name="prod5" type="boolean" default="false"/>
+<aura:attribute name="prod6" type="boolean" default="false"/>
+<aura:attribute name="prod7" type="boolean" default="false"/>
+<aura:attribute name="prod8" type="boolean" default="false"/>
+<aura:attribute name="prod9" type="boolean" default="false"/>
+<aura:attribute name="prod10" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_ProductName_SECTION_INPUT" type="String"  default="商品名を入力したセクションの全ての項目を入力してください。"/>
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+<aura:attribute name="ERR_MSG_HERIGUCHIMAE_SECTION_INPUT" type="String"  default="減口前は小数点１桁の半角数値で入力してください"/>
+<aura:attribute name="ERR_MSG_HERIGUCHIATO_SECTION_INPUT" type="String"  default="減口後は小数点１桁の半角数値で入力してください"/>
+
+<div class="slds-box slds-theme_default">
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）①</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName1" name="productName1" onchange="{!c.handleProductName1Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+					
+				</lightning:select>
+				<aura:if isTrue="{!v.prod1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening1" value="{!v.beforeOpening1}" label="減口前" change="{!c.handlebeforeOpeningMouth1}"/>-->
+				<lightning:input aura:Id="beforeOpening1" type="integer" value="{!v.beforeOpening1}" label="減口前" onchange="{!c.handlebeforeOpeningMouth1}" />
+                    <aura:if isTrue="{!v.beforeOpeningMouth1}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements1" name="reducingMouthAndOtherSupplements1" type="text" value="{!v.reducingMouthAndOtherSupplements1}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction1" value="{!v.afterMouthReduction1}" label="減口後" change="{!c.handleafterOpeningMouth1}"/>-->
+				<lightning:input aura:Id="afterMouthReduction1" type="integer" value="{!v.afterMouthReduction1}" label="減口後" onchange="{!c.handleafterOpeningMouth1}" />			
+			
+            <aura:if isTrue="{!v.afterOpeningMouth1}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>	
+   			</div>	
+      </div>
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）②</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName2" name="productName2" onchange="{!c.handleProductName2Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening2" value="{!v.beforeOpening2}" label="減口前" change="{!c.handlebeforeOpeningMouth2}"/>-->
+				<lightning:input aura:Id="beforeOpening2" type="integer" value="{!v.beforeOpening2}" label="減口前" onchange="{!c.handlebeforeOpeningMouth2}" />
+				 <aura:if isTrue="{!v.beforeOpeningMouth2}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements2" name="reducingMouthAndOtherSupplements2" type="text" value="{!v.reducingMouthAndOtherSupplements2}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction2" value="{!v.afterMouthReduction2}" label="減口後" change="{!c.handleafterOpeningMouth2}"/>-->
+				<lightning:input aura:Id="afterMouthReduction2" type="integer" value="{!v.afterMouthReduction2}" label="減口後" onchange="{!c.handleafterOpeningMouth2}" />
+			
+             <aura:if isTrue="{!v.afterOpeningMouth2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>
+    </div>
+    
+    
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）③</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName3" name="productName3" onchange="{!c.handleProductName3Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening3" value="{!v.beforeOpening3}" label="減口前" change="{!c.handlebeforeOpeningMouth3}"/>-->
+				<lightning:input aura:Id="beforeOpening3" type="integer" value="{!v.beforeOpening3}" label="減口前" onchange="{!c.handlebeforeOpeningMouth3}" />
+				 <aura:if isTrue="{!v.beforeOpeningMouth3}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements3" name="reducingMouthAndOtherSupplements3" type="text" value="{!v.reducingMouthAndOtherSupplements3}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction3" value="{!v.afterMouthReduction3}" label="減口後" change="{!c.handleafterOpeningMouth3}"/>-->
+				<lightning:input aura:Id="afterMouthReduction3" type="integer" value="{!v.afterMouthReduction3}" label="減口後" onchange="{!c.handleafterOpeningMouth3}" />
+			
+            <aura:if isTrue="{!v.afterOpeningMouth3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>
+    </div>
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）④</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName4" name="productName4" onchange="{!c.handleProductName4Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening4" value="{!v.beforeOpening4}" label="減口前" change="{!c.handlebeforeOpeningMouth4}"/>-->
+				<lightning:input aura:Id="beforeOpening4" type="integer" value="{!v.beforeOpening4}" label="減口前" onchange="{!c.handlebeforeOpeningMouth4}" />
+				 <aura:if isTrue="{!v.beforeOpeningMouth4}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements4" name="reducingMouthAndOtherSupplements4" type="text" value="{!v.reducingMouthAndOtherSupplements4}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction4" value="{!v.afterMouthReduction4}" label="減口後" change="{!c.handleafterOpeningMouth4}"/>-->
+				<lightning:input aura:Id="afterMouthReduction4" type="integer" value="{!v.afterMouthReduction4}" label="減口後" onchange="{!c.handleafterOpeningMouth4}" />
+			
+            <aura:if isTrue="{!v.afterOpeningMouth4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>	
+            </div>
+    
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑤</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName5" name="productName5" onchange="{!c.handleProductName5Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening5" value="{!v.beforeOpening5}" label="減口前" change="{!c.handlebeforeOpeningMouth5}"/>-->
+				<lightning:input aura:Id="beforeOpening5" type="integer" value="{!v.beforeOpening5}" label="減口前" onchange="{!c.handlebeforeOpeningMouth5}" />
+				<aura:if isTrue="{!v.beforeOpeningMouth5}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements5" name="reducingMouthAndOtherSupplements5" type="text" value="{!v.reducingMouthAndOtherSupplements5}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction5" value="{!v.afterMouthReduction5}" label="減口後" change="{!c.handleafterOpeningMouth5}"/>-->
+				<lightning:input aura:Id="afterMouthReduction5" type="integer" value="{!v.afterMouthReduction5}" label="減口後" onchange="{!c.handleafterOpeningMouth5}" />
+			
+            <aura:if isTrue="{!v.afterOpeningMouth5}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+			</div>
+            </div>
+    
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑥</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName6" name="productName6" onchange="{!c.handleProductName6Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening6" value="{!v.beforeOpening6}" label="減口前" change="{!c.handlebeforeOpeningMouth6}"/>-->
+				<lightning:input aura:Id="beforeOpening6" type="integer" value="{!v.beforeOpening6}" label="減口前" onchange="{!c.handlebeforeOpeningMouth6}" />
+				 <aura:if isTrue="{!v.beforeOpeningMouth6}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements6" name="reducingMouthAndOtherSupplements6" type="text" value="{!v.reducingMouthAndOtherSupplements6}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction6" value="{!v.afterMouthReduction6}" label="減口後" change="{!c.handleafterOpeningMouth6}"/>-->
+				<lightning:input aura:Id="afterMouthReduction6" type="integer" value="{!v.afterMouthReduction6}" label="減口後" onchange="{!c.handleafterOpeningMouth6}" />
+		
+            <aura:if isTrue="{!v.afterOpeningMouth6}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>	
+    	</div>
+    
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑦</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName7" name="productName7" onchange="{!c.handleProductName7Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening7" value="{!v.beforeOpening7}" label="減口前" change="{!c.handlebeforeOpeningMouth7}"/>-->
+				<lightning:input aura:Id="beforeOpening7" type="integer" value="{!v.beforeOpening7}" label="減口前" onchange="{!c.handlebeforeOpeningMouth7}" />
+				<aura:if isTrue="{!v.beforeOpeningMouth7}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements7" name="reducingMouthAndOtherSupplements7" type="text" value="{!v.reducingMouthAndOtherSupplements7}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+				<!--<ui:inputNumber aura:Id="afterMouthReduction7" value="{!v.afterMouthReduction7}" label="減口後" change="{!c.handleafterOpeningMouth7}"/>-->
+				<lightning:input aura:Id="afterMouthReduction7" type="integer" value="{!v.afterMouthReduction7}" label="減口後" onchange="{!c.handleafterOpeningMouth7}" />
+			
+            <aura:if isTrue="{!v.afterOpeningMouth7}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>	
+    </div>
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑧</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName8" name="productName8" onchange="{!c.handleProductName8Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening8" value="{!v.beforeOpening8}" label="減口前" change="{!c.handlebeforeOpeningMouth8}"/>-->
+				<lightning:input aura:Id="beforeOpening8" type="integer" value="{!v.beforeOpening8}" label="減口前" onchange="{!c.handlebeforeOpeningMouth8}" />
+				<aura:if isTrue="{!v.beforeOpeningMouth8}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements8" name="reducingMouthAndOtherSupplements8" type="text" value="{!v.reducingMouthAndOtherSupplements8}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction8" value="{!v.afterMouthReduction8}" label="減口後" change="{!c.handleafterOpeningMouth8}"/>-->
+				<lightning:input aura:Id="afterMouthReduction8" type="integer" value="{!v.afterMouthReduction8}" label="減口後" onchange="{!c.handleafterOpeningMouth8}" />
+			
+            <aura:if isTrue="{!v.afterOpeningMouth8}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>
+    </div>
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑨</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName9" name="productName9" onchange="{!c.handleProductName9Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening9" value="{!v.beforeOpening9}" label="減口前" change="{!c.handlebeforeOpeningMouth9}"/>-->
+				<lightning:input aura:Id="beforeOpening9" type="integer" value="{!v.beforeOpening9}" label="減口前" onchange="{!c.handlebeforeOpeningMouth9}" />
+				<aura:if isTrue="{!v.beforeOpeningMouth9}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements9" name="reducingMouthAndOtherSupplements9" type="text" value="{!v.reducingMouthAndOtherSupplements9}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+				<!--<ui:inputNumber aura:Id="afterMouthReduction9" value="{!v.afterMouthReduction9}" label="減口後" change="{!c.handleafterOpeningMouth9}"/>-->
+				<lightning:input aura:Id="afterMouthReduction9" type="integer" value="{!v.afterMouthReduction9}" label="減口後" onchange="{!c.handleafterOpeningMouth9}" />
+		
+            <aura:if isTrue="{!v.afterOpeningMouth9}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>
+    </div>
+    
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">減口（共済）⑩</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="productName10" name="productName10" onchange="{!c.handleProductName10Pick}" label="商品名">
+					<option value="">-- None --</option>
+					<option value="ＭＥ（メディエイド）">ＭＥ（メディエイド）</option>
+					<option value="α（メディエイドα）">α（メディエイドα）</option>
+					<option value="ＭＡ（マックエイド）">ＭＡ（マックエイド）</option>
+					<option value="ＲＥ（リバイブ）">ＲＥ（リバイブ）</option>
+				</lightning:select>
+				<aura:if isTrue="{!v.prod10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<!--<ui:inputNumber aura:Id="beforeOpening10" value="{!v.beforeOpening10}" label="減口前" change="{!c.handlebeforeOpeningMouth10}"/>-->
+				<lightning:input aura:Id="beforeOpening10" type="integer" value="{!v.beforeOpening10}" label="減口前" onchange="{!c.handlebeforeOpeningMouth10}" />
+				<aura:if isTrue="{!v.beforeOpeningMouth10}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIMAE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+                <lightning:input aura:Id="reducingMouthAndOtherSupplements10" name="reducingMouthAndOtherSupplements10" type="text" value="{!v.reducingMouthAndOtherSupplements10}" label="減口その他補足"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <!--<ui:inputNumber aura:Id="afterMouthReduction10" value="{!v.afterMouthReduction10}" label="減口後" change="{!c.handleafterOpeningMouth10}"/>-->
+				<lightning:input aura:Id="afterMouthReduction10" type="integer" value="{!v.afterMouthReduction10}" label="減口後" onchange="{!c.handleafterOpeningMouth10}" />
+
+            <aura:if isTrue="{!v.afterOpeningMouth10}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_HERIGUCHIATO_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		    </div>		
+ 			</div>   
+    
+     <div class="slds-p-top_medium"></div>
+     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+						<lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+							<aura:iteration items="{!v.processingPicklist}" var="pro" >
+								<option  value="{!pro}"> {!pro} </option>		
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                            <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                                <option  value="{!pro}"> {!pro} </option>		
+                            </aura:iteration>
+                        </lightning:select>
+				</div>			
+				<div class="form-group">
+						<lightning:select aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}" name="dateOfShipmentPicklist" label="発送日" disabled="true">
+							<option value="">-None-</option>
+							<aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+								<option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}" name="shippingMethodPicklist" label="発送方法" disabled="true">
+							<option value="">-None-</option>
+							<aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+								<option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+			</div>	
+			<div class="slds-col">
+                <div class="slds-p-top_medium"></div><div class="slds-p-top--small"></div>
+			    <div class="slds-p-top--large"></div>
+				<!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+				<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数" onchange="{!c.handleNoOfCopies}" disabled="true"/>
+				<aura:if isTrue="{!v.noOfCopiesErr}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+				
+            </div>
+		</div>	
+</div>
+</aura:component>

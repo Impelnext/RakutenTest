@@ -1,0 +1,21 @@
+.position-img {
+    max-width: none;
+    position: relative;
+    top: -50%;
+    left: -50%;
+}
+
+.position-button {
+    top: 0%;
+}
+
+.c-form_text {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    /*background-color: #fafafa;*/
+    padding: 8px 16px;
+    width: 100%;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+  }

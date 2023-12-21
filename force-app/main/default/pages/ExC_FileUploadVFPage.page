@@ -1,0 +1,41 @@
+<apex:page showHeader="false" sidebar="false" applyBodyTag="false" standardStylesheets="false" controller="ExC_FileUploadController"  >
+
+    <apex:form >
+        
+          <apex:outputPanel id="message">
+              <div>message:<apex:outputText value="{!message}"></apex:outputText></div>
+              <div>siteProcessId:<apex:outputText value="{!siteProcessId}"></apex:outputText></div>
+              <div>fileName:<apex:outputText value="{!fileName}"></apex:outputText></div>
+              <script>
+                console.log('#### uploadend');
+                window.parent.postMessage('uploadend', "*")
+              </script>
+              <!--<div>fileBody:<apex:outputText value="{!fileBody}"></apex:outputText></div>-->
+          </apex:outputPanel>
+        
+        <apex:actionFunction name="upload" action="{!uploadFile}" reRender="message">
+            <apex:param name="key" value="" assignTo="{!key}" />
+            <apex:param name="pass" value="" assignTo="{!pass}" />
+            <apex:param name="siteProcessId" value="" assignTo="{!siteProcessId}" />
+            <apex:param name="fileName" value="" assignTo="{!fileName}" />
+            <apex:param name="fileBody" value="" assignTo="{!fileBody}" />
+        </apex:actionFunction>
+    </apex:form>
+    <a onclick="uploadFile()">link</a>
+    
+    <script>
+        window.addEventListener('message', (message)=>{
+            console.log(message.data);
+            var file = message.data;
+            
+          console.log('#### uploadstart');
+            //console.log('### file.fileBody',file.fileBody)
+          upload(file.key, file.pass, file.recordId, file.fileName , encodeURIComponent(file.fileBody));
+            
+        });
+        
+    </script>
+
+
+    <body></body>
+</apex:page>

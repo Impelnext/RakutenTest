@@ -1,0 +1,9 @@
+.THIS.theme_msg{
+    
+    color: rgb(0, 0, 0); 
+    background-color: rgb(235,149,52);
+    text-align:center;
+    border-radius: .25rem;
+    font-size: 1.3em;
+    padding: 8px;
+}

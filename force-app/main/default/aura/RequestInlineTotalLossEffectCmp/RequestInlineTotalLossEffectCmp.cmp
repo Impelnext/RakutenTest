@@ -1,0 +1,54 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',	
+																		'RevocationCategory__c':'',
+																		'ExpirationDateDeathOrRecognition__c':'',
+																		'CallerName__c':'',
+																		'RelationshipWithContractor__c':'',
+																		'ContactName__c':'',
+																		'ContactPhoneNumber__c':'',
+																		'PostalAddressWhereDocumentsAreSent__c':'',
+																		'SendingDocumentsToPrefectures__c':'',
+																		'CityWhereTheDocumentIsSent__c':'',
+																		'DocumentAddress1__c':'',
+																		'NameOfBuildingToWhichDocumentsAreSent__c':'',
+																		'ReflectMailingAddress__c':''
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlineTotalLossEffect" action="{!c.saveInlineTotalLossEffect}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>    
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="revocationCategoryPickMap" type="Map"/>
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">全損失効</h3> </div>
+	<div class="slds-p-top_medium"></div>
+		
+			<div class="form-group">
+				<lightning:select aura:Id="revocationCategoryPicklist" value="{!v.innerCmpNewRequest.RevocationCategory__c}" label="失効区分" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.revocationCategoryPickMap}" var="rc" indexVar="key">
+						<option text="{!rc.value}" value="{!rc.key}" selected="{!rc.key==v.innerCmpNewRequest.RevocationCategory__c}"/>
+					</aura:iteration>
+				</lightning:select>
+			</div>	
+			<lightning:input aura:Id="expirationDateDeath" type="date" name="expirationDateDeath" value="{!v.innerCmpNewRequest.ExpirationDateDeathOrRecognition__c}" label="失効日（傷害の場合死亡日または後遺障害1級認定日）"/>
+			<lightning:input aura:Id="callerName" type="text" value="{!v.innerCmpNewRequest.CallerName__c}" label="入電者氏名"/>
+			<lightning:input aura:Id="relationshipWithContractor" type="text" value="{!v.innerCmpNewRequest.RelationshipWithContractor__c}" label="契約者との続柄"/>
+			<lightning:input aura:Id="contactName" type="text" value="{!v.innerCmpNewRequest.ContactName__c}" label="連絡先氏名"/>
+			<ui:inputPhone aura:id="contactPhoneNumber" label="連絡先電話番号" class="field" value="{!v.innerCmpNewRequest.ContactPhoneNumber__c}"/>
+			<lightning:input aura:Id="callerName" type="text" onblur="{!c.handleAreaInfo}"  value="{!v.innerCmpNewRequest.PostalAddressWhereDocumentsAreSent__c}" label="書類送付先郵便番号　　注）変更後の郵便番号は000-0000の形式で入力してください"/>
+			<lightning:input aura:Id="relationshipWithContractor" type="text" value="{!v.innerCmpNewRequest.SendingDocumentsToPrefectures__c}" label="書類送付先都道府県"/>
+			<lightning:input aura:Id="contactName" type="text" value="{!v.innerCmpNewRequest.CityWhereTheDocumentIsSent__c}" label="書類送付先市区町村"/> 
+			<lightning:input aura:Id="contactName" type="text" value="{!v.innerCmpNewRequest.DocumentAddress1__c}" label="書類送付先住所１　　注）全角で入力してください"/>
+			<lightning:input aura:Id="contactName" type="text" value="{!v.innerCmpNewRequest.NameOfBuildingToWhichDocumentsAreSent__c}" label="書類送付先建物名　　注）全角で入力してください"/>
+			<ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"/>			
+
+			
+</div>
+</aura:component>

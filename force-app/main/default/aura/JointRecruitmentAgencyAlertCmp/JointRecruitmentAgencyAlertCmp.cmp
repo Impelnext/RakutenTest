@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="JointRecruitmentAgencyAlertController">
+    
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="showJointAgencyMsg" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="contractCountMap" type="Map" />
+    
+    <aura:if isTrue="{!v.showJointAgencyMsg}">
+        <div class="theme_msg">
+            共同募集に該当する代理店の契約が存在します。契約情報から取扱の範囲を確認してください。<br />
+            該当契約：生保（{!v.contractCountMap.lifeCnt}）　損保（{!v.contractCountMap.damageCnt}）　少短（{!v.contractCountMap.littleCnt}）<br />
+        </div>
+    </aura:if>
+</aura:component>

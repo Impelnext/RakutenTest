@@ -1,0 +1,57 @@
+.p-head_page {
+    background-color: inherit;
+    color: #000;
+    padding: 24px 0;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-head_page {
+        border-bottom: none;
+        padding: 20px 20px 0 0;
+        margin: 0;
+        background-color: transparent;
+    }
+}
+
+.p-head_pageInner {
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-head_pageInner {
+        border-bottom: unset;
+    }
+}
+
+.p-head_page h1 {
+    font-size: 36px;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-head_page h1 {
+        font-size: 18px;
+    }
+}
+
+.sp_border {
+    display: none;
+}
+  
+@media only screen and (max-width: 756px) {
+    .sp_border {
+        display: block;
+        width: calc(100% + 32px);
+        height: 1px;
+        background: #BFBFBF;
+        margin: 16px -16px;
+    }
+}
+
+h1 {
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}

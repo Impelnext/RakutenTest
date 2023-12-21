@@ -1,0 +1,35 @@
+<!--
+  @File Name          : RequestInlinePhoneNumberChangeCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/20/2019, 5:56:35 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/20/2019          SRM                 Initial Version
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                              'Tel1__c':'',
+                                                              'Tel2__c':''
+															}"/>
+<aura:method name="phoneNumberChange" action="{!c.savePhoneNumberChange}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>														
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">電話番号変更</h3></div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div class="form-group">
+                <lightning:input aura:Id="phone1" type="tel" value="{!v.innerCmpNewRequest.Tel1__c}" label="電話番号1　　注）半角で〔000-0000-0000〕の形式で入力" />
+				<lightning:input aura:Id="phone2" type="tel" value="{!v.innerCmpNewRequest.Tel2__c}" label="電話番号2　　注）半角で〔000-0000-0000〕の形式で入力" />
+                <div class="slds-p-bottom_medium"></div>
+            </div>
+		</div>
+        <div class="slds-col">
+        </div>
+    </div>
+</div>
+</aura:component>

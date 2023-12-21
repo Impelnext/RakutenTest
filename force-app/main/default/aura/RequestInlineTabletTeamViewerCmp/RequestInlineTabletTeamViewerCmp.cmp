@@ -1,0 +1,58 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest"  type="Request__c" default="{ 
+                                                                      'sObjectType': 'Request__c',
+																		'TeamViewer__c':false,
+                                                             			'TabletOperation__c':false,
+																		'TabletError__c':false,
+																		'TabletCheck__c':false,
+																		'TabletPolicy__c':false,
+																		'TabletReserve__c':false													                                                        
+                                                                      }"/>	
+
+																		
+<aura:method name="TabletTeamViewer" action="{!c.saveTabletTeamviewer}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+																																						
+<div class="slds-box slds-theme_default">
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">タブレット・Team Viewer</h3> </div>
+	 <div class="slds-grid slds-gutters">
+		 <div class="slds-col slds-size_1-of-2">
+			<div class="slds-p-top_medium"/>
+            	<div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="TeamViewer" name="TeamViewer" aura:id="checkbox" label="TeamViewer" checked="" onchange="{!c.setValues}" />
+                    
+                </div>
+             <br/>
+             <br/>
+                <div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="TabletOperation" name="TabletOperation" aura:id="checkbox" label="タブレット 操作方法" checked="" onchange="{!c.setValues}"  />
+                </div>
+             <br/>
+             <br/>
+                <div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="TabletError" name="TabletError" aura:id="checkbox" label="タブレット エラー障害" checked="" onchange="{!c.setValues}" />
+
+                </div>
+             <br/>
+             <br/>
+               	<div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="TabletCheck" name="TabletCheck" aura:id="checkbox" label="タブレット チェック定義" checked="" onchange="{!c.setValues}" />
+                </div>
+			</div>
+	 	<div class="slds-col">
+			<div class="slds-p-top_medium"/>
+				<div class="slds-p-top_xx-small"/>
+             		 <div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="TabletPolicy" name="TabletPolicy" aura:id="checkbox" label="タブレット 制度・施策" checked="" onchange="{!c.setValues}" />
+                </div>
+            <br/>
+            <br/>
+            	<div class="slds-checkbox">
+                    <lightning:input type="checkbox" name="TabletReserve" aura:id="checkbox" label="タブレット 代理店控え" checked="" onchange="{!c.setValues}" />
+                </div>
+		 	</div>
+	 	</div>
+</div>
+    <c:InlineRequestContent parentNewRequest="{!v.innerCmpNewRequest}"/>   
+</aura:component>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ページガイダンス</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+        <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="guideForInput" label="入力画面ガイド" type="String" description="" />
+            <property name="guideForConfirm" label="確認画面ガイド" type="String" description="" />
+            <property name="confirmPhaseKey" label="確認フェーズキー" type="String" description="" />
+            <property name="alignCenter" label="中央寄せ" type="Boolean" description="" />
+        </targetConfig>
+    </targetConfigs>   
+</LightningComponentBundle>

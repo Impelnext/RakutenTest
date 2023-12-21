@@ -1,0 +1,138 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="ContractSearchCustomController" >
+	<aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+	<aura:attribute name="sv" type="List" />
+	<aura:attribute name="dtos" type="List" />
+	<aura:attribute name="listSize" type="Integer" default="0"/>
+
+	<lightning:card iconName="custom:custom21">
+		<aura:set attribute="title">
+			<span class="slds-card__header-link slds-truncate">
+				検索条件
+			</span>
+		</aura:set>
+		<table class="searchTable">
+			<tr>
+				<td>
+					<div class="subContainer bk-Color-lightblue">
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="insuraPolicyNo" name="insuraPolicyNo" label="証券番号/会員番号" value="{!v.sv.insuraPolicyNo}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="contractorNameKana" name="contractorNameKana" label="契約者名カナ（姓名）" value="{!v.sv.contractorNameKana}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="insuredNameKana" name="insuredNameKana" label="被保険者名カナ（姓名）" value="{!v.sv.insuredNameKana}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="contractorNameKanji" name="contractorNameKanji" label="契約者名漢字（姓名）" value="{!v.sv.contractorNameKanji}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="insuredNameKanji" name="insuredNameKanji" label="被保険者名漢字（姓名）" value="{!v.sv.insuredNameKanji}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="date" aura:id="subscriberDateOfBirth" name="subscriberDateOfBirth" label="契約者生年月日（西暦）" value="{!v.sv.subscriberDateOfBirth}"/>
+							<lightning:input class="slds-p-left_small" type="date" aura:id="insuredBirthdate" name="insuredBirthdate" label="被保険者生年月日（西暦）" value="{!v.sv.insuredBirthdate}"/>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div class="subContainer bk-Color-lightblue">
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="tel" aura:id="phone" name="phone" label="電話番号" value="{!v.sv.phone}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="insuredBody" name="insuredBody" label="被保険体（ペット名）" value="{!v.sv.insuredBody}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="postalCode" name="postalCode" label="郵便番号" value="{!v.sv.postalCode}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="carNo" name="carNo" label="車両ナンバー（損保）" value="{!v.sv.carNo}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="applicationNumber" name="applicationNumber" label="申込書番号" value="{!v.sv.applicationNumber}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="agencyCode" name="agencyCode" label="代理店コード" value="{!v.sv.agencyCode}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="CSID" name="CSID" label="顧客ID" value="{!v.sv.CSID}"/>
+							<lightning:input class="slds-p-left_small" type="text" aura:id="agency" name="agency" label="代理店名" value="{!v.sv.agency}"/>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div class="subContainer bk-Color-lightblue">
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="insuraType" name="insuraType" label="保険種目" value="{!v.sv.insuraType}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="name" name="name" label="商品名" value="{!v.sv.name}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="contractTerm" name="contractTerm" label="保険期間" value="{!v.sv.contractTerm}"/>
+						</div>
+						<div class="slds-grid slds-m-bottom_x-small searchArea">
+							<lightning:input class="slds-p-left_small" type="text" aura:id="status" name="status" label="ステータス" value="{!v.sv.status}"/>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="subContainer">
+			<lightning:button aura:id="life" class="slds-m-right_small" label="生保契約検索" onclick="{!c.doSearch}" variant="brand"/>
+			<lightning:button aura:id="damage" class="slds-m-right_small" label="損保契約検索" onclick="{!c.doSearch}" variant="brand"/>
+			<lightning:button aura:id="little" class="slds-m-right_small" label="少短契約検索" onclick="{!c.doSearch}" variant="brand"/>
+		</div>
+	</lightning:card>
+	<lightning:card iconName="custom:custom18">
+		<lightning:spinner class="slds-hide" variant="brand" aura:Id="spinner"/>
+		<aura:set attribute="title">
+			<span class="slds-card__header-link slds-truncate">
+				検索結果（{!v.listSize}）
+			</span>
+		</aura:set>
+        <div class="slds-scrollable_x">
+		<table class="slds-table slds-table_bordered slds-table_striped slds-table_cell-buffer ">
+			<thead>
+				<tr class="slds-text-heading_label">
+					<th scope="col"><div class="slds-truncate" title="証券番号">証券番号/会員番号</div></th>
+					<th scope="col"><div class="slds-truncate" title="申込書番号">申込書番号</div></th>
+					<th scope="col"><div class="slds-truncate" title="保険種目">保険種目</div></th>
+					<th scope="col"><div class="slds-truncate" title="商品名">商品名</div></th>
+					<th scope="col"><div class="slds-truncate" title="ステータス">ステータス</div></th>
+					<th scope="col"><div class="slds-truncate" title="保険期間">保険期間</div></th>
+					<th scope="col"><div class="slds-truncate" title="顧客ID">顧客ID</div></th>
+					<th scope="col"><div class="slds-truncate" title="契約者名カナ（姓名）">契約者名カナ（姓名）</div></th>
+					<th scope="col"><div class="slds-truncate" title="契約者名漢字（姓名）">契約者名漢字（姓名）</div></th>
+					<th scope="col"><div class="slds-truncate" title="契約者生年月日（西暦）">契約者生年月日（西暦）</div></th>
+					<th scope="col"><div class="slds-truncate" title="電話番号">電話番号</div></th>
+					<th scope="col"><div class="slds-truncate" title="郵便番号">郵便番号</div></th>
+					<th scope="col"><div class="slds-truncate" title="被保険者名カナ（姓名）">被保険者名カナ（姓名）</div></th>
+					<th scope="col"><div class="slds-truncate" title="被保険者名漢字（姓名）">被保険者名漢字（姓名）</div></th>
+					<th scope="col"><div class="slds-truncate" title="被保険者生年月日（西暦）">被保険者生年月日（西暦）</div></th>
+					<th scope="col"><div class="slds-truncate" title="被保険体（ペット名）">被保険体（ペット名）</div></th>
+					<th scope="col"><div class="slds-truncate" title="車両ナンバー（損保）">車両ナンバー（損保）</div></th>
+					<th scope="col"><div class="slds-truncate" title="代理店コード">代理店コード</div></th>
+					<th scope="col"><div class="slds-truncate" title="代理店名">代理店名</div></th>
+				</tr>
+			</thead>
+			<tbody>
+				<aura:iteration items="{!v.dtos}" var="d">
+					<tr>
+						<td class="slds-tile__title slds-truncate" title="{!d.insuraPolicyNo}"><a onclick="{!c.gotoSobject}" data-targetId="{!d.contractId}">{!d.insuraPolicyNo}</a></td>
+						<td><div class="slds-truncate" title="{!d.applicationNumber}">{!d.applicationNumber}</div></td>
+						<td><div class="slds-truncate" title="{!d.insuraType}">{!d.insuraType}</div></td>
+						<td><div class="slds-truncate" title="{!d.name}">{!d.name}</div></td>
+						<td><div class="slds-truncate" title="{!d.status}">{!d.status}</div></td>
+						<td><div class="slds-truncate" title="{!d.contractTerm}">{!d.contractTerm}</div></td>
+						<td><div class="slds-truncate" title="{!d.CSID}">{!d.CSID}</div></td>
+						<td><div class="slds-truncate" title="{!d.contractorNameKana}">{!d.contractorNameKana}</div></td>
+						<td><div class="slds-truncate" title="{!d.contractorNameKanji}">{!d.contractorNameKanji}</div></td>
+						<td><div class="slds-truncate" title="{!d.subscriberDateOfBirth}">{!d.subscriberDateOfBirth}</div></td>
+						<td><div class="slds-truncate" title="{!d.phone}">{!d.phone}</div></td>
+						<td><div class="slds-truncate" title="{!d.postalCode}">{!d.postalCode}</div></td>
+						<td><div class="slds-truncate" title="{!d.insuredNameKana}">{!d.insuredNameKana}</div></td>
+						<td><div class="slds-truncate" title="{!d.insuredNameKanji}">{!d.insuredNameKanji}</div></td>
+						<td><div class="slds-truncate" title="{!d.insuredBirthdate}">{!d.insuredBirthdate}</div></td>
+						<td><div class="slds-truncate" title="{!d.insuredBody}">{!d.insuredBody}</div></td>
+						<td><div class="slds-truncate" title="{!d.carNo}">{!d.carNo}</div></td>
+						<td><div class="slds-truncate" title="{!d.agencyCode}">{!d.agencyCode}</div></td>
+						<td><div class="slds-truncate" title="{!d.agency}">{!d.agency}</div></td>
+					</tr>
+				</aura:iteration>
+			</tbody>
+		</table>
+    	</div>
+	</lightning:card>
+</aura:component>

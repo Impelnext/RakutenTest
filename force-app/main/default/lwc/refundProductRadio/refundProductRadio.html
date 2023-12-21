@@ -1,0 +1,58 @@
+<template>
+    <div style={styleInput}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="mt30 js-refund-content">
+                    <h2 class="c-ttl_subsec">解約払戻金のあるご契約の確認</h2>
+                    <div class="p-form_item pl0">
+                        <a class="js-modal-open" onclick={openModal}>解約払戻金とは？</a>
+                        <div class={containerClass} id="AboutRefundModal" onclick={closeModal}>
+                            <div class="modal-body" onclick={clickDialog}>
+                                <div class="modal-close pc js-modal-close" onclick={closeModal}></div>
+                                <div class="modal-content weight4">
+                                    解約払戻金とは、契約期間中に生命保険契約を解約した場合に、保険契約者に対して払い戻しされるお金のことです。<br>
+                                    解約払戻金のある保険商品を解約し、解約払戻金のお支払いが発生する場合にはご指定口座にお支払いいたしますので予めご了承ください。
+                                </div>
+                                <div class="modal-close sp js-modal-close"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-form_item pl0">
+                        <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約される契約の中に以下の商品の契約はありますか？</div>
+                        <div class="c-box_guide refund">
+                            <h3 class="center bold u-fs18">解約払戻金のある商品</h3>
+                            <div>
+                                <div class="bold">・楽天生命スーパー医療保険戻るんです</div>
+                                <div class="weight4">※終身医療保険2018健康還付特則付［無配当］</div>
+                                <div class="bold">・楽天生命スーパー終身保険</div>
+                                <div class="weight4">※低解約払戻金型終身保険［無配当］</div>
+                                <div class="bold">・楽天生命医療保険1095α　のうち保険期間と保険料払込期間が異なる契約で保険料払込期間満了日までの保険料が払い込まれている場合</div>
+                                <div class="weight4"> ※医療保険1095（払戻金なし）[無配当]</div>
+                            </div>
+                        </div>
+                        <ul class="c-list_input">
+                            <template for:each={options} for:item="opt">
+                                <li key={opt.id}>
+                                    <input type="radio" name="nmIsContractProduct" id={opt.id} value={opt.value} class="c-form_radio display_radio js-toggle-refund-bank" onchange={changeRadioHandler}>
+                                    <label for={opt.id} class="center">{opt.label}</label>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <template if:true={confirmPhase}>
+        <c-section-title title="解約払戻金のあるご契約の確認"></c-section-title>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">解約払戻金のある商品はありますか？</span><br>
+                    {value}
+                </div>
+            </div>
+        </section>
+    </template>
+</template>

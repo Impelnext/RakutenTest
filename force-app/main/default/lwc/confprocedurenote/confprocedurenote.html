@@ -1,0 +1,14 @@
+<template>
+    <template if:false={confirmPhase}>
+
+        <div class="custom-box slds-box" style="text-align: center; background-color:#ffe4c4;">
+            <p>ご契約者さま・受取人さま・指定代理人さまのご変更は、書面によるお手続きが必要です。</p>
+            <p>書面を送付させていただくにあたり、ご入力をお願いします。</p>
+        </div>
+
+    </template>
+
+    <template if:true={confirmPhase}>
+    </template>
+  
+</template>

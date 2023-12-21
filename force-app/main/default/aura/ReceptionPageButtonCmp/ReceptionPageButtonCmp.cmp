@@ -1,0 +1,28 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,force:lightningQuickAction" access="global" Controller="ReceptionPageButtonCmpController">
+<aura:attribute name="pageReference" type="Object"/>
+<aura:attribute name="pageReference2" type="Object"/>
+<aura:handler name="init" value="{! this }" action="{! c.init }"/> 
+<aura:attribute name="recordId" type="Id"/>
+<aura:attribute name="accountId" type="Id"/>
+<!-- 有人チャット start -->
+<lightning:omniToolkitAPI aura:id="omniToolkit" />
+<aura:handler event="lightning:omniChannelStatusChanged" action="{! c.onStatusChanged }"/>
+<aura:handler event="lightning:omniChannelLogout" action="{! c.onLogout }"/>
+<aura:attribute name="loginFlg" type="String" default = "logout"/>
+<!-- 有人チャット end --> 
+<lightning:navigation aura:id="navCreateRequest"/> 
+<form class="slds-box slds-theme_default">
+    <div class ="slds-float--right">
+        <lightning:button aura:id="btnSeihoHozen" variant="neutral" label="生命(保全)一覧" title="生命(保全)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSeihoHokenkin" variant="neutral" label="生命(保険金)一覧" title="生命(保険金)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSeihoTokuyaku" variant="neutral" label="生命(特約)一覧" title="生命(特約)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSonpo" variant="neutral" label="損保一覧" title="損保一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSyotan" variant="neutral" label="少短一覧" title="少短一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <!--ONYXシステム対応で追加　開始-->
+        <lightning:button variant="destructive" label="受付情報複製" onclick="{!c.handleReceptionCopy}"/>
+        <!--ONYXシステム対応で追加　終了-->
+        <lightning:button variant="destructive" label="リクエスト登録" onclick="{!c.handleClick}"/>
+        
+    </div>
+</form>
+</aura:component>

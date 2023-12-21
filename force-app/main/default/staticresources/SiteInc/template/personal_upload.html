@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>入力内容の確認</title>
+<link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="/appjs/agencyControl.js"></script>
+<!--#include virtual="/shared/inc/common_head_r.html" -->
+</head>
+
+<body>
+<!--#include virtual="/shared/inc/header_r.html" -->
+<div id="l-wrapper">
+  
+  <div class="p-head_page">
+    <div class="p-head_pageInner">
+      <h1>楽天保険の総合窓口からのご案内・ご依頼</h1>
+    </div>
+  </div>
+  <main class="l-main">
+    <div class="l-inner_s">
+      <div class="p-section">
+        <p class="p-personal_name">楽天 　生命　さま</p>
+        <p>楽天保険の総合　窓口お問い合わせをご利用いただきましてありがとうございます。</p>
+        <p>お客様から頂いた内容に関して、下記を楽天保険の担当者よりご回答を記載していますので、ご確認ください。</p>
+      </div>
+    </div>
+    <div class="l-inner">
+      <section class="p-section">
+        <h2 class="c-ttl_sec">お客さまご入力欄</h2>
+        <div class="p-form_item">
+          <div class="p-form_item">
+            <textarea name="nmCustomerMessage" rows="10" class="c-form_textarea" id="CustomerMessage"></textarea>
+          </div>
+        </div>
+      </section>
+      <section class="p-section">
+        <div class="c-box_guide">
+          <p class="u-txt_c">スマートフォンでアップロードする場合</p>
+          <div class="c-cols_input">
+            <div>
+              <ol class="c-list_num">
+                <li>お持ちのスマートフォンで右のQRコードを撮影してください。</li>
+                <li>スマートフォンの画面の手順に従って、【アルバムから選択】【写真を撮影】を選択してください。</li>
+              </ol>
+            </div>
+            <div id="js-qrcode"></div>
+          </div>
+        </div>
+      </section>
+      <div class="p-form_btn">
+        <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit" id="ButtonConfirmationPage" value="この内容で送信する">
+      </div>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-inner">
+      <!-- <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div> -->
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<!--#include virtual="/shared/inc/footer_r.html" -->
+<!--#include virtual="/shared/inc/footer_group_r.html" -->
+<!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+</html>

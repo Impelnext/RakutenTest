@@ -1,0 +1,35 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId" access="global" controller="LifeContractAlertCmpController">
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/> 
+    <aura:attribute name="ageClassCd" type="String"/>
+    <aura:attribute name="ageClassCdForInsured" type="String"/>
+
+    <aura:if isTrue="{!or(and((v.ageClassCd == '0'), (v.ageClassCdForInsured == '0')), and((v.ageClassCd == '9'), (v.ageClassCdForInsured == '9')))}">
+        <aura:set attribute="else">
+            <form class="slds-box slds-theme_default">
+                <p style="padding-left: 10px; font-size: large; font-weight: bold; color: red;">
+                    契：
+                    <aura:if isTrue="{!(v.ageClassCd == '0')}">
+                        成年
+                    </aura:if>
+                    <aura:if isTrue="{!(v.ageClassCd == '1')}">
+                        未成年
+                    </aura:if>
+                    <aura:if isTrue="{!(v.ageClassCd == '9')}">
+                        &nbsp;&nbsp;
+                    </aura:if>
+                    &nbsp;&nbsp;&nbsp;&nbsp;被：
+                    <aura:if isTrue="{!(v.ageClassCdForInsured == '0')}">
+                        成年
+                    </aura:if>
+                    <aura:if isTrue="{!(v.ageClassCdForInsured == '1')}">
+                        未成年
+                    </aura:if>
+                    <aura:if isTrue="{!(v.ageClassCdForInsured == '9')}">
+                        &nbsp;&nbsp;
+                    </aura:if>
+                </p>
+            </form>
+        </aura:set>
+    </aura:if>
+</aura:component>

@@ -1,0 +1,103 @@
+<template>
+   
+  <lightning-spinner alternative-text="Loading" size="large" if:true={isLoading}></lightning-spinner>
+
+  <template if:true={isDisplay}>
+    <div if:false={isConfirm}>
+      <div >
+        <c-section-title title="提出書類のアップロード"></c-section-title>
+      </div>
+
+      <div class="p-form_item">
+        <p style="font-size: 14px;">お手続きやお問合せ内容によって、当社より書類の提出をお願いする場合がございます。その際に書類をアップロードください。</p>
+        <p class="u-fs12">※アップロードできるファイル数は5枚です。<br>
+          ※画像容量は最大で10MBです。画像の種類（拡張子）は、jpg、gif、png のいずれかで保存をお願いします。</p>
+        <br>
+        <br>
+        <p class="u-txt_c">{InsuranceCompany}の個人情報の取扱いについて<br>
+          <a href={privacyPolicy} target="_blank">プライバシーポリシー</a><img src={linkIcon} alt="外部サイトへ移動します" height="18" width="18"><br>
+        </p>
+      </div>
+
+      <div class="p-section margin50p spnone">
+        <div class="c-box_guide l-inner_s">
+          <p class="u-txt_c span">スマートフォンで<span>アップロードする場合</span></p>
+          <div class="c-cols_qr">
+            <div class="c-cols_qrTxt">
+              <ol class="c-list_num">
+                <li>お持ちのスマートフォンでQRコードを撮影してください。</li>
+                <li>スマートフォンの画面の手順に従って、【アルバムから選択】【写真を撮影】を選択してください。</li>
+              </ol>
+            </div>
+            <div class="c-cols_qrImg personal_qr" data-id="js-qrcode"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <ul class="c-list_upfiles">
+        
+        <template for:each={imgdata} for:item="img">
+
+          <li key={img.key} if:true={img.disp}>
+            <div>
+              <div><strong>{img.label}</strong></div>
+              <label class="c-form_fileup">
+                <template if:false={img.value}>
+                  <div data-mfp-src="#preview-modal" data-id={img.key} class="c-form_filePreview">
+                  </div>
+                </template>
+                <template if:true={img.value}>
+                  <div data-mfp-src="#preview-modal" data-id={img.key} class="c-form_filePreview uploaded">
+                    <img if:true={img.value} src={img.value} >
+                  </div>
+                </template>
+                <lightning-input data-id={img.key} type="file" label="ファイル添付" onchange={imageChange} class="filesend" accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"></lightning-input>
+
+              </label>
+              <div class="u-txt_c">
+                <span class="c-btn_red js-fileDelete" data-id={img.key} onclick={fileDelete}>削除する</span>
+              </div>
+            </div>
+          </li>
+
+        </template>
+      </ul>
+
+    </div>
+
+    <div if:true={isConfirm}>
+      <div >
+        <c-section-title title="確認書類の提出"></c-section-title>
+      </div>
+
+      <p class="u-txt_c">{InsuranceCompany}の個人情報の取扱いについて<br>
+        <a href={privacyPolicy} target="_blank">プライバシーポリシー</a><img src={linkIcon} alt="外部サイトへ移動します" height="18" width="18"><br>
+      </p>
+
+      <ul class="c-list_upfiles">
+        <template for:each={imgdata} for:item="img">
+
+          <li key={img.key} if:true={img.confirm}>
+            <div>
+              <div><strong>{img.label}</strong></div>
+              <label class="c-form_fileup">
+                <div data-mfp-src="#preview-modal" class="c-form_filePreview js-fileModal uploaded">
+                  <template if:true={img.value}>
+                    <img src={img.value} >
+                  </template>
+                </div>
+              </label>
+              <p class="img_name" if:true={img.fileName}>{img.fileName}</p>
+            </div>
+          </li>
+                  
+        </template>
+      </ul>
+      <!--<div style="text-align: center;">-->
+      <!--</div>-->
+
+    </div>
+
+  </template>
+</template>

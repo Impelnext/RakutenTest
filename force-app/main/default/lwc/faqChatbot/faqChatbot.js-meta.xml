@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>FAQ Chatbot</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="isDisplayBackToSupportTOP" type="Boolean" default="false" label="お客様サポートTOPへ戻る表示フラグ" />
+            <property name="isDisplayBackToPreviousPage" type="Boolean" default="false" label="前のページに戻る表示フラグ" />
+            <property name="siteName" type="String" label="サイト名" datasource="FAQLife,FAQSonpo,FAQPet" required="true"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

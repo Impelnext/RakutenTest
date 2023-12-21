@@ -1,0 +1,59 @@
+.ip-button_yes {
+    background: #BF0000;
+    border: 1px solid #BF0000;
+    border-radius: 3px;
+    width: 140px;
+    height: 40px;
+
+    font-family: 'Inder';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #FFFFFF;
+}
+
+.ip-button_no {
+    box-sizing: border-box;
+
+    background: #FFFFFF;
+    border: 1px solid #606060;
+    border-radius: 4px;
+    width: 140px;
+    height: 40px;
+
+    font-family: 'Inder';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #717171;
+}
+
+:host {
+    --slds-c-textarea-sizing-min-height: 200px;
+}
+
+.padding-small {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.c-form_textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    padding: 16px;
+    font-size: 16px;
+    appearance: none;
+    -webkit-appearance: none;
+  }

@@ -1,0 +1,1011 @@
+<!--
+  @File Name          : RequestInlineSpecialCancellationCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/23/2019, 2:26:32 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/23/2019   SRM     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'PolicyNumber1__c':'',
+                                                             			'ChangeDetails1__c':'',
+																		'PolicyNumber2__c':'',
+                                                                        'ChangeDetails2__c':'',
+                                                                        'PolicyNumber3__c':'',
+																		'ChangeDetails3__c':'',
+                                                             			'PolicyNumber4__c':'',
+																		'ChangeDetails4__c':'',
+                                                                        'PolicyNumber5__c':'',
+                                                                        'ChangeDetails5__c':'',
+																		'PolicyNumber6__c':'',
+                                                             			'ChangeDetails6__c':'',
+																		'PolicyNumber7__c':'',
+                                                                        'ChangeDetails7__c':'',
+                                                                        'PolicyNumber8__c':'',
+																		'ChangeDetails8__c':'',
+                                                             			'PolicyNumber9__c':'',
+																		'ChangeDetails9__c':'',
+                                                                        'PolicyNumber10__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineSpecialCancellation" action="{!c.saveInlineSpecialCancellation}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Event Method -->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+
+<!--Declare Attributes-->
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>	
+
+<aura:attribute name="PolicyNumberValidate1" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate2" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate3" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate4" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate5" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate6" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate7" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate8" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate9" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate10" type="boolean" default="false"/>
+
+<aura:attribute name="options" type="List" />
+    
+<aura:attribute name="selectedValue" type="String" default="変更無"/>
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+    
+<div class="slds-box slds-theme_default">
+
+      <div class="slds-p-top_medium"></div>
+	  <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約①</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="policyNumber1" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber1__c}" label="証券番号①"/>            
+            <lightning:select aura:id="livingNeedsSpecialAgreement1"  name="livingNeedsSpecialAgreement1" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement1}"  >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest1"  name="specialProxyRequest1" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest1}" >
+					<aura:iteration items="{!v.options}" var="spl">
+					<option text="{!spl.label}" value="{!spl.value}" selected="{!spl.selected}"/>
+				</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties1"  name="advancedMedicalSpecialties1" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract1"  name="cancerContract1" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract1}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction1"  name="acuteMyocardialInfarction1" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement1"  name="outpatientSpecialAgreement1" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement1"  name="cancerHospitalizationSpecialAgreement1" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital1"  name="dischargeHospital1" label="退院・通院特約"  onchange="{!c.handledischargeHospital1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement1"  name="sevenDiseaseSpecialAgreement1" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption1"  name="threeMajorDiseasesPExemption1" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract1"  name="continuousDiscountSpecialContract1" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract1}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract1"  name="longTermCareBnefitSpecialContract1" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract1}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract1"  name="hospitalWithMentalIllnessSpecialContract1" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract1}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract1"  name="accidentFreeBenefitSpecialContract1" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract1}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+            <lightning:select aura:id="hospitalLumpSumRider1"  name="HospitalLumpSumRider1" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider1}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+            </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約②</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="policyNumber2" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber2__c}" label="証券番号②"/>  
+            <lightning:select aura:id="livingNeedsSpecialAgreement2"  name="livingNeedsSpecialAgreement2" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest2"  name="specialProxyRequest2" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties2"  name="advancedMedicalSpecialties2" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract2"  name="cancerContract2" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction2"  name="acuteMyocardialInfarction2" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement2"  name="outpatientSpecialAgreement2" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement2"  name="cancerHospitalizationSpecialAgreement2" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital2"  name="dischargeHospital2" label="退院・通院特約"  onchange="{!c.handledischargeHospital2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement2"  name="sevenDiseaseSpecialAgreement2" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption2"  name="threeMajorDiseasesPExemption2" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract2"  name="continuousDiscountSpecialContract2" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract2}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract2"  name="longTermCareBnefitSpecialContract2" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract2}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract2"  name="hospitalWithMentalIllnessSpecialContract2" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract2}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract2"  name="accidentFreeBenefitSpecialContract2" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract2}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider2"  name="HospitalLumpSumRider2" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider2}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約③</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="policyNumber3" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber3__c}" label="証券番号③"/>  
+            <lightning:select aura:id="livingNeedsSpecialAgreement3"  name="livingNeedsSpecialAgreement3" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest3"  name="specialProxyRequest3" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties3"  name="advancedMedicalSpecialties3" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract3"  name="cancerContract3" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction3"  name="acuteMyocardialInfarction3" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement3"  name="outpatientSpecialAgreement3" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement3}" >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement3"  name="cancerHospitalizationSpecialAgreement3" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement3}">
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital3"  name="dischargeHospital3" label="退院・通院特約"  onchange="{!c.handledischargeHospital3}" >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement3"  name="sevenDiseaseSpecialAgreement3" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption3"  name="threeMajorDiseasesPExemption3" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract3"  name="continuousDiscountSpecialContract3" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract3}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract3"  name="longTermCareBnefitSpecialContract3" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract3}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract3"  name="hospitalWithMentalIllnessSpecialContract3" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract3}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract3"  name="accidentFreeBenefitSpecialContract3" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract3}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider3"  name="HospitalLumpSumRider3" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider3}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約④</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="policyNumber4" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber4__c}" label="証券番号④"/>       
+            <lightning:select aura:id="livingNeedsSpecialAgreement4"  name="livingNeedsSpecialAgreement4" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest4"  name="specialProxyRequest4" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties4"  name="advancedMedicalSpecialties4" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract4"  name="cancerContract4" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction4"  name="acuteMyocardialInfarction4" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement4"  name="outpatientSpecialAgreement4" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement4"  name="cancerHospitalizationSpecialAgreement4" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital4"  name="dischargeHospital4" label="退院・通院特約"  onchange="{!c.handledischargeHospital4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement4"  name="sevenDiseaseSpecialAgreement4" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption4"  name="threeMajorDiseasesPExemption4" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract4"  name="continuousDiscountSpecialContract4" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract4}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract4"  name="longTermCareBnefitSpecialContract4" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract4}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract4"  name="hospitalWithMentalIllnessSpecialContract4" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract4}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract4"  name="accidentFreeBenefitSpecialContract4" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract4}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider4"  name="HospitalLumpSumRider4" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider4}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑤</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="policyNumber5" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber5__c}" label="証券番号⑤"/>        
+            <lightning:select aura:id="livingNeedsSpecialAgreement5"  name="livingNeedsSpecialAgreement5" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest5"  name="specialProxyRequest5" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties5"  name="advancedMedicalSpecialties5" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract5"  name="cancerContract5" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction5"  name="acuteMyocardialInfarction5" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement5"  name="outpatientSpecialAgreement5" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement5"  name="cancerHospitalizationSpecialAgreement5" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital5"  name="dischargeHospital5" label="退院・通院特約"  onchange="{!c.handledischargeHospital5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement5"  name="sevenDiseaseSpecialAgreement5" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption5"  name="threeMajorDiseasesPExemption5" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption5}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract5"  name="continuousDiscountSpecialContract5" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract5}" >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract5"  name="longTermCareBnefitSpecialContract5" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract5}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract5"  name="hospitalWithMentalIllnessSpecialContract5" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract5}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract5"  name="accidentFreeBenefitSpecialContract5" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract5}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider5"  name="HospitalLumpSumRider5" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider5}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑥</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input aura:Id="policyNumber6" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber6__c}" label="証券番号⑥"/>       
+            <lightning:select aura:id="livingNeedsSpecialAgreement6"  name="livingNeedsSpecialAgreement6" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest6"  name="specialProxyRequest6" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties6"  name="advancedMedicalSpecialties6" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract6"  name="cancerContract6" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction6"  name="acuteMyocardialInfarction6" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement6"  name="outpatientSpecialAgreement6" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement6"  name="cancerHospitalizationSpecialAgreement6" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital6"  name="dischargeHospital6" label="退院・通院特約"  onchange="{!c.handledischargeHospital6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement6"  name="sevenDiseaseSpecialAgreement6" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption6"  name="threeMajorDiseasesPExemption6" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract6"  name="continuousDiscountSpecialContract6" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract6}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract6"  name="longTermCareBnefitSpecialContract6" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract6}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract6"  name="hospitalWithMentalIllnessSpecialContract6" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract6}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract6"  name="accidentFreeBenefitSpecialContract6" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract6}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider6"  name="HospitalLumpSumRider6" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider6}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑦</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+          <lightning:input aura:Id="policyNumber7" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber7__c}" label="証券番号⑦"/>       
+            <lightning:select aura:id="livingNeedsSpecialAgreement7"  name="livingNeedsSpecialAgreement7" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest7"  name="specialProxyRequest7" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties7"  name="advancedMedicalSpecialties7" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract7"  name="cancerContract7" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction7"  name="acuteMyocardialInfarction7" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement7"  name="outpatientSpecialAgreement7" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement7"  name="cancerHospitalizationSpecialAgreement7" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital7"  name="dischargeHospital7" label="退院・通院特約"  onchange="{!c.handledischargeHospital7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement7"  name="sevenDiseaseSpecialAgreement7" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption7"  name="threeMajorDiseasesPExemption7" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract7"  name="continuousDiscountSpecialContract7" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract7}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract7"  name="longTermCareBnefitSpecialContract7" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract7}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract7"  name="hospitalWithMentalIllnessSpecialContract7" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract7}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract7"  name="accidentFreeBenefitSpecialContract7" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract7}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider7"  name="HospitalLumpSumRider7" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider7}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑧</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+          <lightning:input aura:Id="policyNumber8" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber8__c}" label="証券番号⑧"/>  
+            <lightning:select aura:id="livingNeedsSpecialAgreement8"  name="livingNeedsSpecialAgreement8" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest8"  name="specialProxyRequest8" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties8"  name="advancedMedicalSpecialties8" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract8"  name="cancerContract8" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction8"  name="acuteMyocardialInfarction8" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement8"  name="outpatientSpecialAgreement8" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement8"  name="cancerHospitalizationSpecialAgreement8" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital8"  name="dischargeHospital8" label="退院・通院特約"  onchange="{!c.handledischargeHospital8}" >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement8"  name="sevenDiseaseSpecialAgreement8" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption8"  name="threeMajorDiseasesPExemption8" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract8"  name="continuousDiscountSpecialContract8" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract8}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract8"  name="longTermCareBnefitSpecialContract8" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract8}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract8"  name="hospitalWithMentalIllnessSpecialContract8" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract8}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract8"  name="accidentFreeBenefitSpecialContract8" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract8}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider8"  name="HospitalLumpSumRider8" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider8}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑨</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+          <lightning:input aura:Id="policyNumber9" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber9__c}" label="特約解約⑨"/>  
+            <lightning:select aura:id="livingNeedsSpecialAgreement9"  name="livingNeedsSpecialAgreement9" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement9}" >
+				<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest9"  name="specialProxyRequest9" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties9"  name="advancedMedicalSpecialties9" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties9}" > 
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract9"  name="cancerContract9" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract9}" > 
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction9"  name="acuteMyocardialInfarction9" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement9"  name="outpatientSpecialAgreement9" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement9"  name="cancerHospitalizationSpecialAgreement9" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital9"  name="dischargeHospital9" label="退院・通院特約"  onchange="{!c.handledischargeHospital9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement9"  name="sevenDiseaseSpecialAgreement9" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption9"  name="threeMajorDiseasesPExemption9" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract9"  name="continuousDiscountSpecialContract9" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract9}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract9"  name="longTermCareBnefitSpecialContract9" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract9}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract9"  name="hospitalWithMentalIllnessSpecialContract9" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract9}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract9"  name="accidentFreeBenefitSpecialContract9" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract9}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider9"  name="HospitalLumpSumRider9" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider9}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+		
+		
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">特約解約⑩</h3> </div>
+		 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+          <lightning:input aura:Id="policyNumber10" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber10__c}" label="証券番号⑩"/>  
+            <lightning:select aura:id="livingNeedsSpecialAgreement10"  name="livingNeedsSpecialAgreement10" label="リビングニーズ特約"  onchange="{!c.handlelivingNeedsSpecialAgreement10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="specialProxyRequest10"  name="specialProxyRequest10" label="指定代理請求特約"  onchange="{!c.handlespecialProxyRequest10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="advancedMedicalSpecialties10"  name="advancedMedicalSpecialties10" label="先進医療特約関連"  onchange="{!c.handleadvancedMedicalSpecialties10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerContract10"  name="cancerContract10" label="がん特約/がん診断給付特約/がん特約Ⅱ"  onchange="{!c.handlecancerContract10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			  <lightning:select aura:id="acuteMyocardialInfarction10"  name="acuteMyocardialInfarction10" label="急性心筋梗塞・脳卒中特約"  onchange="{!c.handleacuteMyocardialInfarction10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="outpatientSpecialAgreement10"  name="outpatientSpecialAgreement10" label="通院特約"  onchange="{!c.handleoutpatientSpecialAgreement10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="cancerHospitalizationSpecialAgreement10"  name="cancerHospitalizationSpecialAgreement10" label="がん入院特約"  onchange="{!c.handlecancerHospitalizationSpecialAgreement10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="dischargeHospital10"  name="dischargeHospital10" label="退院・通院特約"  onchange="{!c.handledischargeHospital10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="sevenDiseaseSpecialAgreement10"  name="sevenDiseaseSpecialAgreement10" label="7疾病特約"  onchange="{!c.handlesevenDiseaseSpecialAgreement10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="threeMajorDiseasesPExemption10"  name="threeMajorDiseasesPExemption10" label="3大疾病P免特約"  onchange="{!c.handlethreeMajorDiseasesPExemption10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+			 <lightning:select aura:id="continuousDiscountSpecialContract10"  name="continuousDiscountSpecialContract10" label="継続割引特約"  onchange="{!c.handlecontinuousDiscountSpecialContract10}" >
+					<aura:iteration items="{!v.options}" var="item">
+					<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+					</aura:iteration>
+			 </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+			 <lightning:select aura:id="longTermCareBnefitSpecialContract10"  name="longTermCareBnefitSpecialContract10" label="介護給付特約"  onchange="{!c.handleLongTermCareBnefitSpecialContract10}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="hospitalWithMentalIllnessSpecialContract10"  name="hospitalWithMentalIllnessSpecialContract10" label="精神疾患併発入院特約"  onchange="{!c.handleHospitalWithMentalIllnessSpecialContract10}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+			 <lightning:select aura:id="accidentFreeBenefitSpecialContract10"  name="accidentFreeBenefitSpecialContract10" label="無事故給付特約"  onchange="{!c.handleAccidentFreeBenefitSpecialContract10}" >
+				<aura:iteration items="{!v.options}" var="item">
+				<option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+				</aura:iteration>
+		     </lightning:select>
+<!-- 認知症保険PT Ph1 -->
+<!-- 入院一時金特約PT -->
+             <lightning:select aura:id="hospitalLumpSumRider10"  name="HospitalLumpSumRider10" label="入院一時金特約"  onchange="{!c.handleHospitalLumpSumRider10}" >
+	            <aura:iteration items="{!v.options}" var="item">
+	            <option text="{!item.label}" value="{!item.value}" selected="{!item.selected}"/>
+	            </aura:iteration>
+             </lightning:select>
+<!-- 入院一時金特約PT -->
+        </div>
+		</div>
+
+	 <div class="slds-p-top_medium"></div>
+     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+	    <div class="form-group">
+                <lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+					<aura:iteration items="{!v.processingPicklist}" var="pro" >
+						<option  value="{!pro}"> {!pro} </option>		
+					</aura:iteration>
+				</lightning:select>
+        </div>
+		<div class="form-group">
+                <lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                    <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                        <option  value="{!pro}"> {!pro} </option>		
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		
+		<div class="form-group">
+                <lightning:select aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}" name="dateOfShipmentPicklist" label="発送日" disabled="true">
+                    <option value="">-None-</option>
+                    <aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+                        <option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div class="form-group">
+                <lightning:select aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}" name="shippingMethodPicklist" label="発送方法" disabled="true">
+                    <option value="">-None-</option>
+                    <aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+                        <option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		</div>
+        <div class="slds-col">
+            <div class="slds-p-top_medium"></div><div class="slds-p-top--small"></div>
+			<div class="slds-p-top--large"></div>
+            <!--<lightning:input aura:Id="numberOfCopies" name="" type="integer" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/> -->
+            <!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+    		<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数"  disabled="true" onchange="{!c.handleNoOfCopies}" />
+            <aura:if isTrue="{!v.noOfCopiesErr}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+        </div>
+        </div>		
+</div>
+</aura:component>

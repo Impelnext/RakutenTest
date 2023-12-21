@@ -1,0 +1,18 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <h2 class={marginClass}>
+                <span class="u-icon_require" if:true={dispRequired}>{requiredIcon}</span>
+                {inputTitle}
+            </h2>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <h2 class={marginClass}>
+                {confirmTitle}
+            </h2>
+        </section>
+    </template>
+</template>

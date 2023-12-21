@@ -1,0 +1,33 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <div class="p-form_itemLabel" ><span class="u-icon_any">任意</span>{insuranceNumber}</div>
+                    <div if:true={life} class="errorMsg">[半角数字8桁もしくは10桁]で入力してください。</div>
+                    <div if:false={life} class="errorMsg">[半角の英数字]で入力してください。</div>
+                    <div class="p-form_itemNote" if:true={dispComment}>{itemComment}</div>
+                    <div class="c-number-form">
+                        <input name="nmNumber" type="text" class="c-form_text js-numCheck" data-num-type="8-10" id={itemKey} value={value} onchange={changeValueHandler}>
+                    </div>
+                    <div class="p-form_itemNote">
+                        <lightning-formatted-rich-text value={insuranceNotes}></lightning-formatted-rich-text><!--このタグじゃないと改行されませんでした。-->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <template if:true={dispConfirm}>
+            <section class="p-section">
+                <div class="p-form">
+                    <div class="p-form_item">
+                        <span class="weight4">ご契約の証券番号、または会員（証書）番号</span>
+                        <br>{value}
+                    </div>
+                </div>
+            </section>
+        </template>
+    </template>
+</template>

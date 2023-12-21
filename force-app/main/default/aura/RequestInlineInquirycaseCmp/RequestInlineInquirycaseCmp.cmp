@@ -1,0 +1,27 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'OverviewOfInquirySeimei__c':'',
+                                                             			}"/>																			
+<!--Declare Method-->
+<aura:method name="inlineInquirycase" action="{!c.saveRequestInlineInquirycase}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+<!--Declare Attributes-->	
+<aura:attribute name="OverviewOfInquirySeimeiPickList" type="List" default="[]" />																																								
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">問合わせケース </h3> </div>
+    <div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectOverviewOfInquirySeimei"
+			name="OverviewOfInquirySeimei"
+			label="問合わせ概要（生命）"
+			sourceLabel="選択可能"
+			selectedLabel="選択済み"
+			options="{!v.OverviewOfInquirySeimeiPickList}"
+			size="3"
+			value="{!v.innerCmpNewRequest.OverviewOfInquirySeimei__c}"/>
+	</div>	   
+</div>
+</aura:component>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>再発行を希望される年</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKey" label="項目キー" type="String" description="項目キー" />
+            <property name="reissueYear01" label="再発行年度1" type="String" description="西暦数字4桁" />
+            <property name="reissueYear02" label="再発行年度2" type="String" description="西暦数字4桁" />
+            <property name="reissueYear03" label="再発行年度3" type="String" description="西暦数字4桁" />
+            <property name="reissueYear04" label="再発行年度4" type="String" description="西暦数字4桁" />
+            <property name="reissueYear05" label="再発行年度5" type="String" description="西暦数字4桁" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

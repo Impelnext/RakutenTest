@@ -1,0 +1,42 @@
+<template>
+  <template if:true={dispTitle}>
+    <template if:false={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>ご契約者のお名前（カナ）</div>
+            <div class="c-cols_input">
+              <div>
+                <div style="display: flex;">
+                  <label for={itemKeySei}>セイ</label>
+                  <div class="errorMsgSei">[全角のカタカナ]で入力してください。</div>
+                </div>
+                <input id={itemKeySei} name="nmFuriganaLast" type="text" class="c-form_text" value={lastNameKana} placeholder="例）ラクテン" onchange={changeHandlerForLastName} maxlength="255">
+              </div>
+              <div>
+                <div style="display: flex;">
+                  <label for={itemKeyMei}>メイ</label>
+                  <div class="errorMsgMei">[全角のカタカナ]で入力してください。</div>
+                </div>
+                <input id={itemKeyMei} name="nmFuriganaFirst" type="text" class="c-form_text" value={firstNameKana} placeholder="例）ハナコ" onchange={changeHandlerForFirstName} maxlength="255">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
+
+
+    <template if:true={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">ご契約者のお名前（カナ）</span>
+            <br>
+            <span>{lastNameKana}</span><span style="margin-left: 5px;">{firstNameKana}</span>
+          </div>
+        </div>
+      </section>
+    </template>
+  </template>
+</template>

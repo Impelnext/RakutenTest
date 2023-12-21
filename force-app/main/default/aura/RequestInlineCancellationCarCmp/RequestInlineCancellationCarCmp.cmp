@@ -1,0 +1,120 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'CancellationReason__c':'',
+																		'CancellationDate__c':'',
+																		'InterruptionCertificateRequirement__c':'',
+																		'CancellationPremiumYen__c':'',
+																		'EndorsementNumber__c':'',
+																		'TransferApprovalDate__c':'',
+																		'PrintingSequenceNumber__c':'',
+																		'OtherInfomation__c':'',
+																		'ReturnAccount__c':'',
+																		'RegistrationAccountConversionPropriety__c':'',
+																		'PersonOneselfOrOther__c':'',
+																		'AccountHolderPaymentKana__c':'',
+																		'AccountHolderPayment__c':'',
+																		'FinancialInstitutionsName__c':'',
+																		'ReturnAccountFinancialInstitutionCode__c':'',
+																		'BranchNamePayment__c':'',
+																		'ReturnAccountBranchCode__c':'',
+																		'DepositTypePayment__c':'',
+																		'AccountNumberPayment__c':'',
+																		'ReturnAccountYucho_AllNumbers__c':'',
+																		'PhoneNumberAfterChange__c':'',
+																		'ChangedMailAddress__c':'',
+																		'OtherChanges__c':'',
+																		'Notices__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineCancellationCarCmp" action="{!c.saveInlineCancellationCarCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:handler name="bankMasterSearchCmpEvt" event="c:BankMasterSearchResultCmpEvt" action="{!c.handleBankMasterResultCmpEvt}" />
+    
+
+<!--Picklist attributes-->
+<aura:attribute name="cancellationReasonPickMap" type="Map"/>
+<aura:attribute name="interruptionCertificateReqPickMap" type="Map"/>
+<aura:attribute name="cancellationPremiumYenPickMap" type="Map"/>
+<aura:attribute name="returnAccountPickMap" type="Map"/>
+<aura:attribute name="registAccConversionProprietyPickMap" type="Map"/>
+<aura:attribute name="personOneselfOrOtherPickMap" type="Map"/>
+<aura:attribute name="depositTypePaymentPickMap" type="Map"/>
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">解約情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		    <lightning:select aura:Id="cancellationReasonPickMap" value="{!v.innerCmpNewRequest.CancellationReason__c}" label="解約理由" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.cancellationReasonPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.CancellationReason__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="cancellationDate" type="date" name="cancellationDate" value="{!v.innerCmpNewRequest.CancellationDate__c}" label="解約日"/>
+			<lightning:select aura:Id="interruptionCertificateReqPickMap" value="{!v.innerCmpNewRequest.InterruptionCertificateRequirement__c}" label="中断証明書の必要有無" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.interruptionCertificateReqPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.InterruptionCertificateRequirement__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="cancellationPremiumYenPickMap" value="{!v.innerCmpNewRequest.CancellationPremiumYen__c}" label="解約保険料（円）" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.cancellationPremiumYenPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.CancellationPremiumYen__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.EndorsementNumber__c}" label="裏書番号"/>
+			<lightning:input aura:Id="transferApprovalDate" type="date" name="transferApprovalDate" value="{!v.innerCmpNewRequest.TransferApprovalDate__c}" label="異動承認日"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.PrintingSequenceNumber__c}" label="印刷連番"/>
+			<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>	
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">返還先口座情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		    <lightning:select aura:Id="returnAccountPickMap" value="{!v.innerCmpNewRequest.ReturnAccount__c}" label="返還先口座" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.returnAccountPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.ReturnAccount__c}"/>
+				</aura:iteration>
+			</lightning:select>
+		    <lightning:select aura:Id="registAccConversionProprietyPickMap" value="{!v.innerCmpNewRequest.RegistrationAccountConversionPropriety__c}" label="登録口座への返還可否" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.registAccConversionProprietyPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.RegistrationAccountConversionPropriety__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="personOneselfOrOtherPickMap" value="{!v.innerCmpNewRequest.PersonOneselfOrOther__c}" label="返還口座は本人か" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.personOneselfOrOtherPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.PersonOneselfOrOther__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountHolderPaymentKana__c}" label="【返戻口座】口座名義人フリガナ"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountHolderPayment__c}" label="【返戻口座】口座名義人漢字"/>
+			<lightning:formattedText value="金融機関検索" /><br/><br/><lightning:button variant="neutral" label="検索" aura:Id="bankMastersearchId" onclick="{!c.openBankMasterSearch}"/><br/><br/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.FinancialInstitutionsName__c}" label="【返戻口座】金融機関名"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ReturnAccountFinancialInstitutionCode__c}" label="【返戻口座】金融機関コード"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.BranchNamePayment__c}" label="【返戻口座】支店名"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ReturnAccountBranchCode__c}" label="【返戻口座】支店コード"/>
+			<lightning:select aura:Id="depositTypePaymentPickMap" value="{!v.innerCmpNewRequest.DepositTypePayment__c}" label="【返戻口座】預金種類" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.depositTypePaymentPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.DepositTypePayment__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountNumberPayment__c}" label="【返戻口座】口座番号"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ReturnAccountYucho_AllNumbers__c}" label="【返戻口座】（ゆうちょのみ）番号全部"/>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">振込用紙再送</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		    <ui:inputPhone aura:id="phone" label="変更後電話番号" class="field" value="{!v.innerCmpNewRequest.PhoneNumberAfterChange__c}"/>
+			<ui:inputEmail aura:id="email" label="変更後メールアドレス" class="field" value="{!v.innerCmpNewRequest.ChangedMailAddress__c}"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.OtherChanges__c}" label="その他変更項目"/>
+			<!--<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.Notices__c}" label="特記事項" class="customHeight"/>	-->
+			<div aura:Id="bankMasterPopup">
+				{!v.body}
+			</div>
+</div>
+</aura:component>

@@ -1,0 +1,666 @@
+<!--
+  @File Name          : RequestInlineRetentionCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/23/2019, 12:44:26 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ContractorNameKanaSei__c':'',
+                                                             			'ContractorNameKanaMei__c':'',
+																		'ContinuationProposal__c':'',
+																		'ReasonForProposal__c':'',
+																		'ProposalContent__c':'',
+                                                                        'CancellationReason__c':'',
+                                                                        'ContentsOfGuidance__c':'',
+																		'FinalResultReason__c':'',
+																		'Comment2__c':'',
+																		'Ret1_PolicyNumber__c':'',
+																		'Ret1_FirstOffer__c':'',
+																		'Ret1_InsuranceFee__c':'',
+																		'Ret1_FinalResults__c':'',
+																		'Ret1_ChangedInsuranceFee__c':'',
+																		'Ret1_CancellationRequestEndOfMonth__c':'',
+																		'Ret1_RejectReceiving__c':'',
+																		'Ret1_CancellationRequestConditional__c':'',
+																		'Ret1_Cancel__c':'',
+																		'Ret2_PolicyNumber__c':'',
+																		'Ret2_FirstOffer__c':'',
+																		'Ret2_InsuranceFee__c':'',
+																		'Ret2_FinalResults__c':'',
+																		'Ret2_ChangedInsuranceFee__c':'',
+																		'Ret2_CancellationRequestEndOfMonth__c':'',
+																		'Ret2_RejectReceiving__c':'',
+																		'Ret2_CancellationRequestConditional__c':'',
+																		'Ret2_Cancel__c':'',
+																		'Ret3_PolicyNumber__c':'',
+																		'Ret3_FirstOffer__c':'',
+																		'Ret3_InsuranceFee__c':'',
+																		'Ret3_FinalResults__c':'',
+																		'Ret3_ChangedInsuranceFee__c':'',
+																		'Ret3_CancellationRequestEndOfMonth__c':'',
+																		'Ret3_RejectReceiving__c':'',
+																		'Ret3_CancellationRequestConditional__c':'',
+																		'Ret3_Cancel__c':'',
+																		'Ret4_PolicyNumber__c':'',
+																		'Ret4_FirstOffer__c':'',
+																		'Ret4_InsuranceFee__c':'',
+																		'Ret4_FinalResults__c':'',
+																		'Ret4_ChangedInsuranceFee__c':'',
+																		'Ret4_CancellationRequestEndOfMonth__c':'',
+																		'Ret4_RejectReceiving__c':'',
+																		'Ret4_CancellationRequestConditional__c':'',
+																		'Ret4_Cancel__c':'',
+																		'Ret5_PolicyNumber__c':'',
+																		'Ret5_FirstOffer__c':'',
+																		'Ret5_InsuranceFee__c':'',
+																		'Ret5_FinalResults__c':'',
+																		'Ret5_ChangedInsuranceFee__c':'',
+																		'Ret5_CancellationRequestEndOfMonth__c':'',
+																		'Ret5_RejectReceiving__c':'',
+																		'Ret5_CancellationRequestConditional__c':'',
+																		'Ret5_Cancel__c':'',
+																		'Ret6_PolicyNumber__c':'',
+																		'Ret6_FirstOffer__c':'',
+																		'Ret6_InsuranceFee__c':'',
+																		'Ret6_FinalResults__c':'',
+																		'Ret6_ChangedInsuranceFee__c':'',
+																		'Ret6_CancellationRequestEndOfMonth__c':'',
+																		'Ret6_RejectReceiving__c':'',
+																		'Ret6_CancellationRequestConditional__c':'',
+																		'Ret6_Cancel__c':'',
+																		'Ret7_PolicyNumber__c':'',
+																		'Ret7_FirstOffer__c':'',
+																		'Ret7_InsuranceFee__c':'',
+																		'Ret7_FinalResults__c':'',
+																		'Ret7_ChangedInsuranceFee__c':'',
+																		'Ret7_CancellationRequestEndOfMonth__c':'',
+																		'Ret7_RejectReceiving__c':'',
+																		'Ret7_CancellationRequestConditional__c':'',
+																		'Ret7_Cancel__c':'',
+																		'Ret8_PolicyNumber__c':'',
+																		'Ret8_FirstOffer__c':'',
+																		'Ret8_InsuranceFee__c':'',
+																		'Ret8_FinalResults__c':'',
+																		'Ret8_ChangedInsuranceFee__c':'',
+																		'Ret8_CancellationRequestEndOfMonth__c':'',
+																		'Ret8_RejectReceiving__c':'',
+																		'Ret8_CancellationRequestConditional__c':'',
+																		'Ret8_Cancel__c':'',
+																		'Ret9_PolicyNumber__c':'',
+																		'Ret9_FirstOffer__c':'',
+																		'Ret9_InsuranceFee__c':'',
+																		'Ret9_FinalResults__c':'',
+																		'Ret9_ChangedInsuranceFee__c':'',
+																		'Ret9_CancellationRequestEndOfMonth__c':'',
+																		'Ret9_RejectReceiving__c':'',
+																		'Ret9_CancellationRequestConditional__c':'',
+																		'Ret9_Cancel__c':'',
+																		'Ret10_PolicyNumber__c':'',
+																		'Ret10_FirstOffer__c':'',
+																		'Ret10_InsuranceFee__c':'',
+																		'Ret10_FinalResults__c':'',
+																		'Ret10_ChangedInsuranceFee__c':'',
+																		'Ret10_CancellationRequestEndOfMonth__c':'',
+																		'Ret10_RejectReceiving__c':'',
+																		'Ret10_CancellationRequestConditional__c':'',
+                                                                     	'CancellationReasonFree__c':'',
+																		'Ret10_Cancel__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRetention" action="{!c.saveInlineRetention}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+
+<aura:attribute name="subDepContentsOfGuidanceFieldMap" type="map" default="{}"/> 
+<aura:attribute name="listSubDepContentsOfGuidance" type="list" default="['--- None ---']"/>
+<!--Declare Event Handlers-->
+<aura:handler name="init" action="{!c.init}" value="{!this}" />
+    
+<!--Declare Attributes-->
+<aura:attribute name="continuationProposalPickMap" type="Map" default="{}"/>	
+<aura:attribute name="continuationProposalPickList" type="list" default="['--- None ---']"/>
+<aura:attribute name="reasonForProposalPickMap" type="Map"/>
+<aura:attribute name="reasonForProposalPickList" type="list" default="['--- None ---']"/>
+<aura:attribute name="proposalContentPicklist" type="list" default="['--- None ---']"/>
+<aura:attribute name="cancellationReasonPickMap" type="Map"/>
+<aura:attribute name="finalResultReasonPickMap" type="Map"/>
+<aura:attribute name="ret1FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret1FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret2FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret2FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret3FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret3FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret4FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret4FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret5FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret5FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret6FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret6FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret7FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret7FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret8FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret8FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret9FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret9FinalResultsPickMap" type="Map"/>
+<aura:attribute name="ret10FirstOfferPickMap" type="Map"/>
+<aura:attribute name="ret10FinalResultsPickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">案内内容</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<!--<lightning:input aura:Id="contractorNameKanaSei" name="" type="text" value="{!v.innerCmpNewRequest.ContractorNameKanaSei__c}" label="契約者氏名カナ（姓）　　注）全角で入力"/>-->
+			<div > 
+				<lightning:select aura:id="continuationProposalPickMap" value="{!v.innerCmpNewRequest.ContinuationProposal__c}"  name="continuationProposalPicklist" label="継続提案">
+						<aura:iteration items="{!v.continuationProposalPickList}" var="con" indexVar="key">
+							<option value="{!con}">{!con}</option>	
+						</aura:iteration>
+				</lightning:select>
+				<lightning:select aura:id="reasonForProposalPickMap" value="{!v.innerCmpNewRequest.ReasonForProposal__c}" name="reasonForProposalPicklist" label="申出理由">
+						<aura:iteration items="{!v.reasonForProposalPickList}" var="reason" >
+							<option  value="{!reason}"> {!reason} </option>	
+						</aura:iteration>
+				</lightning:select>
+			</div>
+			<lightning:input aura:Id="cancellationReason" name="cancellationReason" type="text" value="{!v.innerCmpNewRequest.CancellationReasonFree__c}" label="解約理由（フリー入力）"/> 
+			<div class="form-group">
+				<lightning:select aura:id="finalResultReasonPickMap" value="{!v.innerCmpNewRequest.FinalResultReason__c}"  name="finalResultReasonPicklist" label="最終結果理由" >
+					<option value="">-- None --</option>
+						<aura:iteration items="{!v.finalResultReasonPickMap}" var="sim" indexVar="key">
+							<option text="{!sim.value}" value="{!sim.key}" selected="{!sim.key==v.innerCmpNewRequest.FinalResultReason__c}" />
+						</aura:iteration>
+				</lightning:select>
+			</div>	
+			<div class="form-group">
+				<lightning:select aura:id="contentsOfGuidancePickMap" value="{!v.innerCmpNewRequest.ContentsOfGuidance__c}"  name="contentsOfGuidancePicklist" label="案内内容" >
+						<aura:iteration items="{!v.listSubDepContentsOfGuidance}" var="gui" indexVar="key">
+							<option value="{!gui}">{!gui}</option>	
+						</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+		
+		<div class="slds-col">
+			<!--<lightning:input aura:Id="contractorNameKanaMei" name="" type="text" value="{!v.innerCmpNewRequest.ContractorNameKanaMei__c}" label="契約者氏名カナ（名）　　注）全角で入力"/>-->
+			<div class="slds-p-top--xx-large"></div>
+			<div class="slds-p-top--x-small"></div>
+			<div class="slds-align_absolute-left">
+				<lightning:dualListbox aura:id="proposalContentPickMap"
+					name="proposalContent"
+					label="申出内容"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.proposalContentPicklist}"
+					value="{!v.innerCmpNewRequest.ProposalContent__c}"
+					onchange="{!c.handleProposalContentPicklistChange}"
+					size="3"/>
+			</div>				
+		</div>
+	</div>
+	<lightning:textarea aura:Id="comment2" name="" type="text" value="{!v.innerCmpNewRequest.Comment2__c}" label="コメント" class="customHeight"/>
+	<!-- Retention 1 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention①</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<lightning:input aura:Id="ret1PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret1_PolicyNumber__c}" label="Retention➀_証券番号"/> 
+			<div class="form-group">
+				<lightning:select aura:id="ret1FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret1_FirstOffer__c}"  name="ret1FirstOfferPickList" label="Retention➀_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret1FirstOfferPickMap}" var="rff1" indexVar="key">
+						<option text="{!rff1.value}" value="{!rff1.key}" selected="{!rff1.key==v.innerCmpNewRequest.Ret1_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret1FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret1_FinalResults__c}" name="ret1FinalResultsPickList" label="Retention➀_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret1FinalResultsPickMap}" var="rfr1" indexVar="key">
+						<option text="{!rfr1.value}" value="{!rfr1.key}" selected="{!rfr1.key==v.innerCmpNewRequest.Ret1_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret1CanReqEndMonth" label="Retention➀_月末解約希望" value="{!v.innerCmpNewRequest.Ret1_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret1CanReqCon" label="Retention➀_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret1_CancellationRequestConditional__c}"/>
+			</div>		
+		</div>
+		<div class="slds-col">
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="ret1InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret1_InsuranceFee__c}" label="Retention➀_保険料"/> 
+			<lightning:input aura:Id="ret1ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret1_ChangedInsuranceFee__c}" label="Retention➀_変更後保険料"/> 
+			<div>
+				<ui:inputCheckbox aura:id="ret1RejRec" label="Retention➀_更新拒否受付" value="{!v.innerCmpNewRequest.Ret1_RejectReceiving__c}"/>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret1Cancel" label="Retention➀_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret1_Cancel__c}"/>
+			</div>		
+		</div>
+	</div>
+
+	<!-- Retention 2 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention②</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div>
+				<lightning:input aura:Id="ret2PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret2_PolicyNumber__c}" label="Retention②_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret2FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret2_FirstOffer__c}" name="ret2FirstOfferPickList" label="Retention②_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret2FirstOfferPickMap}" var="rff2" indexVar="key">
+						<option text="{!rff2.value}" value="{!rff2.key}" selected="{!rff2.key==v.innerCmpNewRequest.Ret2_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret2FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret2_FinalResults__c}" name="ret2FinalResultsPickList" label="Retention②_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret2FinalResultsPickMap}" var="rfr2" indexVar="key">
+						<option text="{!rfr2.value}" value="{!rfr2.key}" selected="{!rfr2.key==v.innerCmpNewRequest.Ret2_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret2CanReqEndMonth" label="Retention②_月末解約希望" value="{!v.innerCmpNewRequest.Ret2_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret2CanReqCon" label="Retention②_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret2_CancellationRequestConditional__c}"/>
+			</div>
+
+		</div>
+		<div class="slds-col">
+			<div >
+                 <div class="slds-p-top--xx-large"></div>
+                 <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="ret2InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret2_InsuranceFee__c}" label="Retention②_保険料"/> 
+			</div>
+			<div >
+				<lightning:input aura:Id="ret2ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret2_ChangedInsuranceFee__c}" label="Retention②_変更後保険料"/> 
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret2RejRec" label="Retention②_更新拒否受付" value="{!v.innerCmpNewRequest.Ret2_RejectReceiving__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret2Cancel" label="Retention②_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret2_Cancel__c}"/>
+			</div>
+		</div>
+	</div>
+
+	<!-- Retention 3 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention③</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div>
+				<lightning:input aura:Id="ret3PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret3_PolicyNumber__c}" label="Retention③_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret3FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret3_FirstOffer__c}"  name="ret3FirstOfferPickList" label="Retention③_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret3FirstOfferPickMap}" var="rff3" indexVar="key">
+						<option text="{!rff3.value}" value="{!rff3.key}" selected="{!rff3.key==v.innerCmpNewRequest.Ret3_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret3FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret3_FinalResults__c}"  name="ret3FinalResultsPickList" label="Retention③_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret3FinalResultsPickMap}" var="rfr3" indexVar="key">
+						<option text="{!rfr3.value}" value="{!rfr3.key}" selected="{!rfr3.key==v.innerCmpNewRequest.Ret3_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret3CanReqEndMonth" label="Retention③_月末解約希望" value="{!v.innerCmpNewRequest.Ret3_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret3CanReqCon" label="Retention③_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret3_CancellationRequestConditional__c}"/>
+			</div>
+		</div>
+		<div class="slds-col">
+			<div>
+                 <div class="slds-p-top--xx-large"></div>
+                 <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="ret3InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret3_InsuranceFee__c}" label="Retention③_保険料"/> 
+			</div>
+			<div>
+				<lightning:input aura:Id="ret3ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret3_ChangedInsuranceFee__c}" label="Retention③_変更後保険料"/> 
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret3RejRec" label="Retention③_更新拒否受付" value="{!v.innerCmpNewRequest.Ret3_RejectReceiving__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret3Cancel" label="Retention③_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret3_Cancel__c}"/>
+			</div>
+		</div>
+	</div>
+
+	<!-- Retention 4 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention④</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div>
+				<lightning:input aura:Id="ret4PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret4_PolicyNumber__c}" label="Retention④_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret4FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret4_FirstOffer__c}"  name="ret4FirstOfferPickList" label="Retention④_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret4FirstOfferPickMap}" var="rff4" indexVar="key">
+						<option text="{!rff4.value}" value="{!rff4.key}" selected="{!rff4.key==v.innerCmpNewRequest.Ret4_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret4FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret4_FinalResults__c}"  name="ret4FinalResultsPickList" label="Retention④_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret4FinalResultsPickMap}" var="rfr4" indexVar="key">
+						<option text="{!rfr4.value}" value="{!rfr4.key}" selected="{!rfr4.key==v.innerCmpNewRequest.Ret4_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret4CanReqEndMonth" label="Retention④_月末解約希望" value="{!v.innerCmpNewRequest.Ret4_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret4CanReqCon" label="Retention④_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret4_CancellationRequestConditional__c}"/>
+			</div>
+		</div>
+		<div class="slds-col">
+			<div>
+                 <div class="slds-p-top--xx-large"></div>
+                 <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="ret4InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret4_InsuranceFee__c}" label="Retention④_保険料"/> 
+			</div>
+			<div >
+				<lightning:input aura:Id="ret4ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret4_ChangedInsuranceFee__c}" label="Retention④_変更後保険料"/> 
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret4RejRec" label="Retention④_更新拒否受付" value="{!v.innerCmpNewRequest.Ret4_RejectReceiving__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret4Cancel" label="Retention④_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret4_Cancel__c}"/>
+			</div>
+			
+		</div>
+	</div>
+
+	<!-- Retention 5 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑤</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div >
+				<lightning:input aura:Id="ret5PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret5_PolicyNumber__c}" label="Retention⑤_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret5FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret5_FirstOffer__c}" name="ret5FirstOfferPickList" label="Retention⑤_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret5FirstOfferPickMap}" var="rff5" indexVar="key">
+						<option text="{!rff5.value}" value="{!rff5.key}" selected="{!rff5.key==v.innerCmpNewRequest.Ret5_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret5FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret5_FinalResults__c}" name="ret5FinalResultsPickList" label="Retention⑤_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret5FinalResultsPickMap}" var="rfr5" indexVar="key">
+						<option text="{!rfr5.value}" value="{!rfr5.key}" selected="{!rfr5.key==v.innerCmpNewRequest.Ret5_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret5CanReqEndMonth" label="Retention⑤_月末解約希望" value="{!v.innerCmpNewRequest.Ret5_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret5CanReqCon" label="Retention⑤_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret5_CancellationRequestConditional__c}"/>
+			</div>
+			
+		</div>
+		<div class="slds-col">
+			 <div >
+                  <div class="slds-p-top--xx-large"></div>
+                  <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="ret5InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret5_InsuranceFee__c}" label="Retention⑤_保険料"/> 
+			</div>
+			 <div>
+				<lightning:input aura:Id="ret5ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret5_ChangedInsuranceFee__c}" label="Retention⑤_変更後保険料"/> 
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret5RejRec" label="Retention⑤_更新拒否受付" value="{!v.innerCmpNewRequest.Ret5_RejectReceiving__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret5Cancel" label="Retention⑤_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret5_Cancel__c}"/>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- Retention 6 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑥</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div >
+				<lightning:input aura:Id="ret6PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret6_PolicyNumber__c}" label="Retention⑥_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret6FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret6_FirstOffer__c}" name="ret6FirstOfferPickList" label="Retention⑥_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret6FirstOfferPickMap}" var="rff6" indexVar="key">
+						<option text="{!rff6.value}" value="{!rff6.key}" selected="{!rff6.key==v.innerCmpNewRequest.Ret6_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret6FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret6_FinalResults__c}" name="ret6FinalResultsPickList" label="Retention⑥_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret6FinalResultsPickMap}" var="rfr6" indexVar="key">
+						<option text="{!rfr6.value}" value="{!rfr6.key}" selected="{!rfr6.key==v.innerCmpNewRequest.Ret6_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret6CanReqEndMonth" label="Retention⑥_月末解約希望" value="{!v.innerCmpNewRequest.Ret6_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret6CanReqCon" label="Retention⑥_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret6_CancellationRequestConditional__c}"/>
+			</div>
+			
+		</div>
+		<div class="slds-col">
+			<div>
+                 <div class="slds-p-top--xx-large"></div>
+                 <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="ret6InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret6_InsuranceFee__c}" label="Retention⑥_保険料"/> 
+			</div>
+			<div>
+				<lightning:input aura:Id="ret6ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret6_ChangedInsuranceFee__c}" label="Retention⑥_変更後保険料"/> 
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret6RejRec" label="Retention⑥_更新拒否受付" value="{!v.innerCmpNewRequest.Ret6_RejectReceiving__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret6Cancel" label="Retention⑥_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret6_Cancel__c}"/>
+			</div>
+		</div>
+	</div>
+
+	<!-- Retention 7 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑦</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div>
+				<lightning:input aura:Id="ret7PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret7_PolicyNumber__c}" label="Retention⑦_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret7FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret7_FirstOffer__c}" name="ret7FirstOfferPickList" label="Retention⑦_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret7FirstOfferPickMap}" var="rff7" indexVar="key">
+						<option text="{!rff7.value}" value="{!rff7.key}" selected="{!rff7.key==v.innerCmpNewRequest.Ret7_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret7FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret7_FinalResults__c}" name="ret7FinalResultsPickList" label="Retention⑦_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret7FinalResultsPickMap}" var="rfr7" indexVar="key">
+						<option text="{!rfr7.value}" value="{!rfr7.key}" selected="{!rfr7.key==v.innerCmpNewRequest.Ret7_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret7CanReqEndMonth" label="Retention⑦_月末解約希望" value="{!v.innerCmpNewRequest.Ret7_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			 <div>
+				<ui:inputCheckbox aura:id="ret7CanReqCon" label="Retention⑦_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret7_CancellationRequestConditional__c}"/>
+			</div>
+		</div>
+		<div class="slds-col">
+             <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="ret7InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret7_InsuranceFee__c}" label="Retention⑦_保険料"/> 
+			<lightning:input aura:Id="ret7ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret7_ChangedInsuranceFee__c}" label="Retention⑦_変更後保険料"/> 
+			<ui:inputCheckbox aura:id="ret7RejRec" label="Retention⑦_更新拒否受付" value="{!v.innerCmpNewRequest.Ret7_RejectReceiving__c}"/>	
+			<ui:inputCheckbox aura:id="ret7Cancel" label="Retention⑦_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret7_Cancel__c}"/>
+		</div>
+	</div>
+
+	<!-- Retention 8 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑧</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<div >
+				<lightning:input aura:Id="ret8PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret8_PolicyNumber__c}" label="Retention⑧_証券番号"/> 
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret8FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret8_FirstOffer__c}" name="ret8FirstOfferPickList" label="Retention⑧_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret8FirstOfferPickMap}" var="rff8" indexVar="key">
+						<option text="{!rff8.value}" value="{!rff8.key}" selected="{!rff8.key==v.innerCmpNewRequest.Ret8_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret8FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret8_FinalResults__c}" name="ret8FinalResultsPickList" label="Retention⑧_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret8FinalResultsPickMap}" var="rfr8" indexVar="key">
+						<option text="{!rfr8.value}" value="{!rfr8.key}" selected="{!rfr8.key==v.innerCmpNewRequest.Ret8_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret8CanReqEndMonth" label="Retention⑧_月末解約希望" value="{!v.innerCmpNewRequest.Ret8_CancellationRequestEndOfMonth__c}"/>
+			</div>
+			<div>
+				<ui:inputCheckbox aura:id="ret8CanReqCon" label="Retention⑧_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret8_CancellationRequestConditional__c}"/>
+			</div>
+		</div>
+		<div class="slds-col">
+             <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="ret8InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret8_InsuranceFee__c}" label="Retention⑧_保険料"/> 
+			<lightning:input aura:Id="ret8ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret8_ChangedInsuranceFee__c}" label="Retention⑧_変更後保険料"/> 
+			<ui:inputCheckbox aura:id="ret8RejRec" label="Retention⑧_更新拒否受付" value="{!v.innerCmpNewRequest.Ret8_RejectReceiving__c}"/>
+			<ui:inputCheckbox aura:id="ret8Cancel" label="Retention⑧_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret8_Cancel__c}"/>
+		</div>
+	</div>
+
+	<!-- Retention 9 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑨</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<lightning:input aura:Id="ret9PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret9_PolicyNumber__c}" label="Retention⑨_証券番号"/> 
+			<div class="form-group">
+				<lightning:select aura:id="ret9FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret9_FirstOffer__c}" name="ret9FirstOfferPickList" label="Retention⑨_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret9FirstOfferPickMap}" var="rff9" indexVar="key">
+						<option text="{!rff9.value}" value="{!rff9.key}" selected="{!rff9.key==v.innerCmpNewRequest.Ret9_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret9FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret9_FinalResults__c}"  name="ret9FinalResultsPickList" label="Retention⑨_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret9FinalResultsPickMap}" var="rfr9" indexVar="key">
+						<option text="{!rfr9.value}" value="{!rfr9.key}" selected="{!rfr9.key==v.innerCmpNewRequest.Ret9_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<ui:inputCheckbox aura:id="ret9CanReqEndMonth" label="Retention⑨_月末解約希望" value="{!v.innerCmpNewRequest.Ret9_CancellationRequestEndOfMonth__c}"/>
+			<ui:inputCheckbox aura:id="ret9CanReqCon" label="Retention⑨_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret9_CancellationRequestConditional__c}"/>
+		</div>
+		<div class="slds-col">
+             <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="ret9InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret9_InsuranceFee__c}" label="Retention⑨_保険料"/> 
+			<lightning:input aura:Id="ret9ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret9_ChangedInsuranceFee__c}" label="Retention⑨_変更後保険料"/> 
+			<ui:inputCheckbox aura:id="ret9RejRec" label="Retention⑨_更新拒否受付" value="{!v.innerCmpNewRequest.Ret9_RejectReceiving__c}"/>
+			<ui:inputCheckbox aura:id="ret9Cancel" label="Retention⑨_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret9_Cancel__c}"/>
+		</div>
+	</div>
+
+	<!-- Retention 10 -->
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">Retention⑩</h3> </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<lightning:input aura:Id="ret10PolicyNumber" name="" type="text" value="{!v.innerCmpNewRequest.Ret10_PolicyNumber__c}" label="Retention⑩_証券番号"/> 
+			<div class="form-group">
+				<lightning:select aura:id="ret10FirstOfferPickList" value="{!v.innerCmpNewRequest.Ret10_FirstOffer__c}" name="ret10FirstOfferPickList" label="Retention⑩_当初申出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret10FirstOfferPickMap}" var="rff10" indexVar="key">
+						<option text="{!rff10.value}" value="{!rff10.key}" selected="{!rff10.key==v.innerCmpNewRequest.Ret10_FirstOffer__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="ret10FinalResultsPickList" value="{!v.innerCmpNewRequest.Ret10_FinalResults__c}" name="ret10FinalResultsPickList" label="Retention⑩_最終結果" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.ret10FinalResultsPickMap}" var="rfr10" indexVar="key">
+						<option text="{!rfr10.value}" value="{!rfr10.key}" selected="{!rfr10.key==v.innerCmpNewRequest.Ret10_FinalResults__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<ui:inputCheckbox aura:id="ret10CanReqEndMonth" label="Retention⑩_月末解約希望" value="{!v.innerCmpNewRequest.Ret10_CancellationRequestEndOfMonth__c}"/>
+			<ui:inputCheckbox aura:id="ret10CanReqCon" label="Retention⑩_条件付き解約希望" value="{!v.innerCmpNewRequest.Ret10_CancellationRequestConditional__c}"/>
+		</div>
+		<div class="slds-col">
+             <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="ret10InsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret10_InsuranceFee__c}" label="Retention⑩_保険料"/> 
+			<lightning:input aura:Id="ret10ChangedInsuranceFee" name="" type="text" value="{!v.innerCmpNewRequest.Ret10_ChangedInsuranceFee__c}" label="Retention⑩_変更後保険料"/> 
+			<ui:inputCheckbox aura:id="ret10RejRec" label="Retention⑩_更新拒否受付" value="{!v.innerCmpNewRequest.Ret10_RejectReceiving__c}"/>
+			<ui:inputCheckbox aura:id="ret10Cancel" label="Retention⑩_同日解約取り消し" value="{!v.innerCmpNewRequest.Ret10_Cancel__c}"/>
+		</div>
+	</div>
+
+</div>
+</aura:component>

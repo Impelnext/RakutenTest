@@ -1,0 +1,55 @@
+<template>
+	<!-- Spinner -->
+	<div if:true={loading} class="demo-only demo-only_viewport" style="height:6rem;position:relative">
+		<div role="status" class="slds-spinner slds-spinner_medium">
+			<span class="slds-assistive-text">Loading</span>
+			<div class="slds-spinner__dot-a"></div>
+			<div class="slds-spinner__dot-b"></div>
+		</div>
+	</div>
+	<!-- QA area -->
+	<div if:false={loading} class="gen_area_top">
+		<div class="l-wrapper">
+			<main class="l-main">
+				<div class="l-inner">
+					<section class="p-section">
+						<div if:true={isDisplaySearchLabel} class="c-ttl_sec">{recordCount}件</div>
+						<div if:true={isDisplayCategoryLabel} class="c-ttl_sec">全{recordCount}件</div>
+						<div class="p-form_item">
+							<div class="c-list_faq">
+								<!-- No Results -->
+								<div if:true={isNoResults} >
+									<div><p>該当する検索結果は見つかりませんでした。</p>
+									</div>
+								</div>
+								<!-- List Q and A -->
+								<template for:each={displayKnowledges} for:item="knowlede">
+									<div key={knowlede.Id} class="c-list_faqChild">
+										<!-- Question -->
+										<div class="c-list_faqHead">
+											<a onclick={navigateToDetailPage} data-id={knowlede.Id}>
+												<lightning-formatted-rich-text value={knowlede.Question__c}>
+												</lightning-formatted-rich-text>
+											</a>
+										</div>
+										<!-- Answer -->
+										<div class="c-list_faqBody">
+											<p>
+												<lightning-formatted-rich-text value={knowlede.Answer__c}>
+												</lightning-formatted-rich-text>
+											</p>
+										</div>
+									</div>
+								</template>
+								<!-- Button Load more -->
+							</div>
+							<p if:true={isDisplayButton} class="u-txt_c">
+								<a onclick={addMoreKnowledges} class="c-btn_red">さらに表示</a>
+							</p>
+						</div>
+					</section>
+				</div>
+			</main>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,52 @@
+<template>
+    <div style={styleInput}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item u-hide js-cancellation-content" id="CancellationContent2" style="display: block;">
+                    <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>共済商品</div>
+                    <div>以下の共済商品の中から解約希望商品をご選択ください。</div>
+                    <div class="p-form_itemNote">
+                        ※１商品を複数口お持ちである場合でも、商品単位ですべての口数が解約されます。<br>
+                        ※複数選択可
+                    </div>
+                    <ul class="c-list_input _nocol mt5">
+                        <template for:each={options} for:item="opt">
+                            <li key={opt.id}>
+                                <input type="checkbox" name="Products" id={opt.id} data-id={opt.id} value={opt.value} class="c-form_checkbox c-form_checkSimple fill" onchange={changeCheckedHandler}>
+                                <label for={opt.id}>{opt.label}</label>
+                            </li>
+                        </template>
+                    </ul>
+                </div>              
+            </div>
+        </section>
+    </div>
+    <template if:true={dispConfirm}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">共済商品</span><br>
+                    <template if:true={disp1}>
+                        終身・定期総合医療共済／メディエイド（旧エディ）<br>
+                    </template>
+                    <template if:true={disp2}>
+                        災害保障共済　／　キュアエイド<br>
+                    </template>
+                    <template if:true={disp3}>
+                        重度障害共済　／　ライフエイド<br>
+                    </template>
+                    <template if:true={disp4}>
+                        介護保障付特定疾病医療特約　／　メディエイドα<br>
+                    </template>
+                    <template if:true={disp5}>
+                        ガン保障付生命共済　／　マックエイド（旧マック）<br>
+                    </template>
+                    <template if:true={disp6}>
+                        10年定期生命共済　／　リバイブ（旧アライブ）
+                    </template>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</template>

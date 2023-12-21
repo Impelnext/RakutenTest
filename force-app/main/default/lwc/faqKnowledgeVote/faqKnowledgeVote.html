@@ -1,0 +1,65 @@
+<template>
+  <template if:true={isLoaded}>
+    <div class="l-wrapper">
+      <main class="l-main">
+        <div class="l-inner">
+          <div class="p-faq">
+            <div class="p-faq_enq">
+              <!-- Header -->
+              <p class="u-fs12 u-txt_c">アンケートにご協力ください</p>
+              <template if:true={isCompleted}>
+                <p class="p-faq_enqHead">この回答は役に立ちましたか？</p>
+                <p class="p-faq_enqHead">ご回答ありがとうございました。</p>
+              </template>
+              <!-- Vote -->
+              <template if:false={isVoted}>
+                <p class="p-faq_enqHead">この回答は役に立ちましたか？</p>
+                <ul class="p-faq_enqBtns">
+                  <li if:false={isDisableUpsertGoodCount}><a class="c-btn_red _rv" onclick={upVote}>はい</a></li>
+                  <li if:true={isDisableUpsertGoodCount}><a class="c-btn_red _rv">はい</a></li>
+                  <li if:false={isDisableUpsertBadCount}><a class="c-btn_red" onclick={downVote}>いいえ</a></li>
+                  <li if:true={isDisableUpsertBadCount}><a class="c-btn_red">いいえ</a></li>
+                </ul>
+                <p class="u-fs12 u-txt_c">
+                  {goodCount}人のかたの参考になっています。
+                </p>
+              </template>
+              <!-- Bad Reason -->
+              <template if:true={isBad}>
+                <p class="p-faq_enqHead">
+                  ご回答ありがとうございました。<br />
+                  今回の回答を選択した理由など、ご意見をお聞かせください。
+                </p>
+                <div class="p-faq_textarea">
+                  <textarea name="textarea" onkeyup={handleInput} rows="10" class="c-form_textarea" id="textarea"
+                    placeholder="">{textBadReason}</textarea>
+                </div>
+                <div class="p-faq_enqNote">
+                  <p>
+                    〇〇の説明がわかりにくかった、もっと〇〇の情報があればよかった等<br />
+                    ※返信はいたしかねます。個人情報※1のご記入、お問合せはご遠慮ください。<br />
+                    ※1
+                    個人情報「氏名、電話番号、住所、クレジットカード番号」など<br />
+                    ※ いただいたご意見は今後の改善に利用させていただきます。
+                  </p>
+                </div>
+                <div class="u-txt_c">
+                  <button if:false={isDisableInsertBadReason} onclick={sendBadReason} disabled={disabled}
+                    class="c-btn_red _rv u-w100 padding-small">
+                    送信
+                  </button>
+                  <button if:true={isDisableInsertBadReason} disabled={disabled}
+                    class="c-btn_red _rv u-w100 padding-small">
+                    送信
+                  </button>
+                </div>
+              </template>
+            </div>
+          </div>
+          <c-faq-chatbot if:true={isBad} is-display-back-to-support-t-o-p="true" site-name={siteName} is-hide-title="true">
+          </c-faq-chatbot>
+        </div>
+      </main>
+    </div>
+  </template>
+</template>

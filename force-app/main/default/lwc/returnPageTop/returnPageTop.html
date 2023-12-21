@@ -1,0 +1,13 @@
+<template>
+    <template if:false={confirmPhase}>
+        <div class="l-inner" if:true={dispInput}>
+            <div class="p-pagetop"><a class="js-scroll" onclick={moveToTop}>{labelForInput}</a></div>
+        </div>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <div class="l-inner" if:true={dispConfirm}>
+            <div class="p-pagetop"><a class="js-scroll" onclick={moveToTop}>{labelForConfirm}</a></div>
+        </div>
+    </template>
+</template>

@@ -1,0 +1,21 @@
+<template>
+
+  <template if:false={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form_item">
+        <textarea name={itemKey} id={itemKey}
+          rows="10" class="c-form_textarea"
+          onchange={changeValueHandler} onfocusout={onfocusout}
+          placeholder={placeholder} maxlength="32768"
+        >{value}</textarea>
+      </div>
+    </section>
+  </template>
+
+  <template if:true={confirmPhase}>
+    <section class="p-section">
+       <div class="p-form_item" style="white-space: pre-wrap;word-break: break-all;">{value}</div>
+    </section>
+  </template>
+
+</template>

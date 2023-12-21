@@ -1,0 +1,68 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'RelocationDate__c':'',
+																		'ChangedPostNumber__c':'',
+																		'ChangedPrefecture__c':'',
+																		'ChangedMunicipality__c':'',
+																		'ChangedAddress1__c':'',
+																		'ChangedBuildingName__c':'',
+																		'ChangedAddress__c':'',
+																		'ReflectMailingAddress__c':'',
+																		'Use__c':'',
+																		'Industry__c':'',
+																		'Construction__c':'',
+																		'Area_m2__c':'',
+																		'AgeOfAbuilding__c':'',
+																		'AppLetterShipGuidance__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineSimultaneousChangOfAddrsCmp" action="{!c.saveInlineSimultaneousChangOfAddrsCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+
+<!--Picklist attributes-->
+<aura:attribute name="usePickMap" type="Map"/>
+<aura:attribute name="usePickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="constructionPickMap" type="Map"/>
+<aura:attribute name="appLetterShipGuidancePickMap" type="Map"/>
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'chome': '', 'municipality': ''}"/>
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更後住所情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		    <lightning:input aura:Id="relocationDate" type="date" name="relocationDate" value="{!v.innerCmpNewRequest.RelocationDate__c}" label="移転日" />
+			<lightning:input aura:Id="note" type="text" onblur="{!c.handleAreaInfo}" value="{!v.innerCmpNewRequest.ChangedPostNumber__c}" label="変更後郵便番号　　注）変更後の郵便番号は000-0000の形式で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedPrefecture__c}" label="変更後都道府県"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedMunicipality__c}" label="変更後市区町村"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedAddress1__c}" label="変更後住所1　　注）全角で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedBuildingName__c}" label="変更後建物名　　注）全角で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedAddress__c}" label="変更後住所カナ"/>
+			<ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"/>
+			<lightning:select aura:id="usePickList" value="{!v.innerCmpNewRequest.Use__c}" label="用途">
+                <aura:iteration items="{!v.usePickList}" var="pro" >
+                    <option  value="{!pro}"> {!pro} </option>		
+                </aura:iteration>
+            </lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.Industry__c}" label="業種"/>
+			<lightning:select aura:Id="constructionPickMap" value="{!v.innerCmpNewRequest.Construction__c}" label="構造" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.constructionPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.Construction__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.Area_m2__c}" label="面積（㎡）"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AgeOfAbuilding__c}" label="築年数（年）"/>
+			<lightning:select aura:Id="appLetterShipGuidancePickMap" value="{!v.innerCmpNewRequest.AppLetterShipGuidance__c}" label="承認書発送案内" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.appLetterShipGuidancePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.AppLetterShipGuidance__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+</div>
+</aura:component>

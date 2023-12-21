@@ -1,0 +1,17 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: -40px;
+    padding: 0 24px;
+    margin-top: -10px;
+}
+
+.p-form_itemNote {
+    margin-top: 8px;
+    font-size: 12px;
+    color: red;
+}

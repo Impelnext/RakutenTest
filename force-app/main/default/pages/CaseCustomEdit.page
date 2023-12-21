@@ -1,0 +1,59 @@
+<apex:page standardController="Case" extensions="CaseEditController" lightningStylesheets="true">
+    <apex:includeScript value="{!$Resource.jqueryJs}"/>
+    <script>
+        function NoSubmit(e){
+            if(!e) var e = window.event;
+            if(e.keyCode==13){
+                if(e.srcElement.type!='submit' && e.srcElement.type!='textarea'){
+                    if(e.srcElement.type!='image' && e.srcElement.type!='button'){
+                        return false;
+                    }
+                }
+            }
+        }
+    	function disableDoubleClick(btn){
+            setTimeout(function(){
+                btn.disabled = "disabled";
+                btn.class = "btnDisabled";
+            },1);
+       　}
+    </script>
+    <apex:sectionHeader title="ケース基本情報登録" subTitle="{!case.Id}" />
+    <apex:form id="form" onkeydown="return NoSubmit(event);">
+        <!-- アクションファンクション定義　-->
+        <apex:actionFunction name="acfChangePostalCode" action="{!searchPostalCode}" reRender="txtPrefecture,txtMunicipality,txtChome,txtBuildingName"/>
+        <apex:pageBlock >
+            <apex:pageMessages id="messagearea" showDetail="false" />
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="保存" action="{!doSave}" reRender="form" onclick="disableDoubleClick(this)" />
+                <apex:commandButton value="キャンセル" action="{!URLFOR('/500/o')}" immediate="true" />
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="基本情報">
+                <apex:selectList value="{!caseObj.class__c}" size="1">
+                    <apex:selectOptions value="{!ctrlClassPickListOptions}"/>
+                    <apex:actionSupport event="onchange" rerender="lstType"/>
+                </apex:selectList>
+                <apex:selectList value="{!caseObj.type__c}" size="1" id="lstType">
+                    <apex:selectOptions value="{!depTypePickListOptions}"/>
+                    <apex:actionSupport event="onchange" reRender="addressPanel" />
+                </apex:selectList>
+                <apex:selectList value="{!caseObj.Origin}" size="1">
+                    <apex:selectOptions value="{!ctrlOriginPickListOptions}"/>
+                </apex:selectList>
+                <apex:selectList value="{!caseObj.Status}" size="1">
+                    <apex:selectOptions value="{!ctrlStatusPickListOptions}"/>
+                </apex:selectList>
+            </apex:pageBlockSection>
+            <apex:outputPanel id="addressPanel">
+                <apex:pageBlockSection title="住所" columns="2" rendered="{!inputAddressFlg}">
+                    <apex:inputText value="{!caseObj.PostNumber__c}" onchange="return acfChangePostalCode()"/>
+                    <td></td>
+                    <apex:inputText id="txtPrefecture" value="{!caseObj.Prefecture__c}"/>
+                    <apex:inputText id="txtMunicipality" value="{!caseObj.Municipality__c}"/>
+                    <apex:inputText id="txtChome" value="{!caseObj.Address1__c}"/>
+                    <apex:inputText id="txtBuildingName" value="{!caseObj.BuildingName__c}"/>1
+                </apex:pageBlockSection>
+            </apex:outputPanel>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

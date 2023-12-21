@@ -1,0 +1,48 @@
+.THIS {
+    background-color: white;
+}
+
+.THIS .hozon {
+    display: block;
+    text-align: right;
+}
+
+.THIS label.slds-form-element__label {
+    display: none;
+}
+
+.THIS .smstitle {
+    border: 1px solid #000000;
+    background-color: #eeeeee;
+    margin: 15px;
+    padding: 5px;
+}
+
+.THIS .smsh2 {
+    border: 0px solid #000000;
+    background-color: #eeeeee;
+    margin-top: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    padding: 3px;
+}
+
+
+.THIS .tabletitle {
+    border: 1px solid #000000;
+    background-color: #888888;
+}
+
+.THIS .zentai {
+    padding: 13px;
+}
+
+.THIS .zentai_td {
+    border: 0px solid #000000;
+    margin: 10px;
+    padding: 20px;
+}
+
+.THIS .slds-textarea {
+    height: 100px;
+}

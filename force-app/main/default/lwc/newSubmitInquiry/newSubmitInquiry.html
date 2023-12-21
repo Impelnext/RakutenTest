@@ -1,0 +1,25 @@
+<template>
+  <lightning-spinner alternative-text="Loading" size="large" if:true={isLoading}></lightning-spinner>
+    <div class="p-form_btn">
+      <div class="error-img">
+          <img src={submitErrorURL}>
+      </div>
+      <input type="button" name="nmButtonConfirmationPage" class="c-btn_submit" id="ButtonConfirmationPage" data-id="ButtonConfirmationPage" value={labelConfirmButton} onclick={clickConfirm} style="display: none;" disabled>
+    </div>
+
+  <template if:true={confirmPhase}>
+    <div class="p-form_btn">
+      <button class="c-btn_rewrite" title="Submit" onclick={clickModify}>{labelModifyButton}</button>
+    </div>
+    <div class="p-form_add l-inner_s">
+      <p>{labelRegistNote}</p>
+    </div>
+    <div class="p-form_btn">
+
+      <button class="c-btn-submit" title="Submit" onclick={clickRegist}>{labelRegistInquiryButton}</button>
+    </div>
+  </template>
+
+  <input data-id="CompanyName" id="CompanyName" type="hidden" value="楽天生命">
+
+</template>

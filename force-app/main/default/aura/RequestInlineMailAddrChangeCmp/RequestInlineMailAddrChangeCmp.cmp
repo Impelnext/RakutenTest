@@ -1,0 +1,28 @@
+<!--
+  @File Name          : RequestInlineMailAddrChangeCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/20/2019, 6:00:12 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/20/2019            SRM                Initial Version
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                             		'ChangedMailAddress__c':''
+																		}"/>
+<aura:method name="mailAddrChange" action="{!c.saveMailAddrChange}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">メールアドレス変更</h3></div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+        <div class="slds-col">
+            <lightning:input aura:Id="requestField" name="" type="email" value="{!v.innerCmpNewRequest.ChangedMailAddress__c}" label="変更後メールアドレス　　注）半角数字またはアルファベット小文字で入力" />
+        </div>                                                             
+    </div>          		
+</div>
+</aura:component>

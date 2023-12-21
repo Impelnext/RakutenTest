@@ -1,0 +1,18 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Form Theme Layout">
+    <aura:attribute name="newHeader" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="newFooter" type="Aura.Component[]" required="false"/>
+    <aura:attribute name="contentWidth" type="Integer" default="950" />
+
+    <div class="newHeader">
+        {!v.newHeader}
+    </div>
+    
+    <div class="body" style="{!'max-width: '+v.contentWidth+'px;margin-left: auto;margin-right: auto;'}">
+        <form>
+        {!v.body}
+        </form>
+    </div>
+    <div class="newFooter">
+        {!v.newFooter}
+    </div>
+</aura:component>

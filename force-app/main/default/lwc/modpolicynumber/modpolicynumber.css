@@ -1,0 +1,150 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.weight4 {
+    font-weight: 400;
+}
+
+.u-icon_require {
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    background-color: #bf0000;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_item {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+}
+
+.p-form_itemLabel {
+    margin-bottom: 8px;
+}
+
+.p-form_itemNote {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+.c-number-form {
+    display: flex;
+    align-items: center;
+}
+
+.c-number-form .c-form_text {
+    width: 70%;
+    margin-right: 5px;
+}
+
+.c-form_text {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fafafa;
+    padding: 8px 16px;
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 16px;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.c-btn_add {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    gap: 8px;
+    width: 167.5px;
+    height: 59px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.c-btn_remove {
+    padding: 8px 16px;
+    background: #FFFFFF;
+    border: 1px solid #BFBFBF;
+    border-radius: 4px;
+}
+
+input {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+input::placeholder {
+    color: #808080;
+}
+
+
+
+/* 文字数カウントアラート */
+.c-number-form .c-form_text {
+    width: 70%;
+    margin-right: 5px;
+  }
+  .js-numCheck{
+    position: relative;
+  }
+  .c-number-form.is-error input{
+    background: rgb(255, 221, 221);
+  }
+  .js-numCheck__err{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0,-110%);
+    border-radius: 4px;
+    background: black;
+    color: white;
+    font-size: 12px;
+    margin-top: 0;
+    opacity: 0;
+    transition: all .4s;
+  }
+  .js-numCheck__err > div{
+    position: relative;
+    padding: 12px;
+  }
+  .js-numCheck__err > div:before{
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 12px 0 12px;
+    border-color: black transparent transparent transparent;
+    position: absolute;
+    bottom: 1px;
+    left: 30px;
+    transform: translate(0,100%);
+  }
+
+.p-form_itemNote_small {
+    font-size: 10.3px;
+}

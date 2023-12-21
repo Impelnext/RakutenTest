@@ -1,0 +1,48 @@
+<apex:page controller="PersonalDataMaskingController">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 100% of the viewport height */
+            margin: 0;
+        }
+
+        .content {
+            width: 50%; /* Adjust the width as needed */
+        }
+    </style>
+    <script>
+        function validateSelection() {
+            var selectedList = document.getElementById('{!$Component.MaskingForm:selectionBlock:selectionList:objectnamelist:selectedValues}').value;
+
+            if (!selectedList) {
+                alert('Please select one or more list items.');
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <head>
+        <title>Personal Data masking utility page</title>
+    </head>
+    <apex:form id="MaskingForm" styleClass="content">
+        <apex:pageMessages />
+
+        <apex:pageBlock id="selectionBlock" title="Select Object to Mask personal Data fields">
+            <apex:pageBlockSection id="selectionList">
+                <apex:pageBlockSectionItem id="objectnamelist">
+                    <apex:selectList value="{!selectedValues}" multiselect="true" size="10" id="selectedValues">
+                        <apex:selectOptions value="{!selectedValuesOptions}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <div>
+                <p>
+                    <apex:commandButton onclick="return validateSelection();" action="{!runSelectedMaskingBatch}" value="Run Masking Batch Process of Selected Object"  id="btnRunBatch"/>
+                </p>
+            </div>
+        </apex:pageBlock>
+        <apex:pageMessages />
+    </apex:form>
+</apex:page>

@@ -1,0 +1,653 @@
+@charset "UTF-8";
+
+/*L -------------------------------------*/
+
+.l-main {
+  padding: 0px;
+}
+
+.l-wrapper {
+  font-size: 14px;
+}
+
+.l-inner {
+  margin: 0 auto;
+}
+
+/*P -------------------------------------*/
+
+.p-subhead_page {
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0 auto 24px;
+  font-weight: bold;
+}
+
+.p-subhead_page br {
+  display: none;
+}
+
+@media only screen and (max-width: 756px) {
+  .p-subhead_page br {
+    display: block;
+  }
+}
+
+.p-form_radioLabelNote {
+  font-size: 12px;
+}
+
+.p-form_requireLabel {
+  display: block;
+  margin-top: -27px;
+  padding-left: 46px;
+  font-size: 18px;
+}
+
+.p-form_numberLabel {
+  display: block;
+  margin-top: -30px;
+  margin-bottom: 16px;
+  padding-left: 40px;
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 756px) {
+  .p-form_numberLabel {
+    margin-bottom: 0;
+  }
+}
+
+.p-form_itemLabelNote {
+  position: relative;
+  padding-left: 20px;
+  font-weight: 400;
+}
+
+.p-form_itemLabelNote::before {
+  content: "※";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+/*C -------------------------------------*/
+
+.c-ttl_sec {
+  background-color: #d4d4d4;
+}
+
+.c-form_radio+label {
+  display: flex;
+  align-items: center;
+}
+
+.c-form_radio.display_radio+label::before {
+  top: auto;
+}
+
+.c-form_radio+label>span {
+  display: block;
+  width: calc(100% - 34px);
+}
+
+@media only screen and (max-width: 756px) {
+  .c-form_radio+label>span {
+    width: calc(100% - 28px);
+  }
+}
+
+.c-form_radio+label>span strong {
+  font-weight: 700;
+}
+
+.c-btn_close {
+  position: relative;
+  padding-right: 40px;
+}
+
+.c-btn_close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  margin-top: -2px;
+  border-top: 1px solid #606060;
+  border-right: 1px solid #606060;
+  width: 9px;
+  height: 9px;
+  transform: rotate(-45deg);
+}
+
+
+/*U -----------------------------------------------------*/
+.u-icon_number {
+  background-color: #BF0000;
+  padding: 6px 9px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+/* Add 2023/09/19 【RIPCRM-1012】解約フォーム_共済商品解約時「メディエイドα特約」部分の不利益同意内容の修正 By 張 Start*/
+.weight4_1{
+  margin-block: 5px;
+}
+.weight4_2{
+  font-size: 13px;
+  margin-left: -40px;
+  margin-top: -30px;
+  font-weight: 400;
+}
+/* Add 2023/09/19 【RIPCRM-1012】解約フォーム_共済商品解約時「メディエイドα特約」部分の不利益同意内容の修正 By End*/
+
+/*その他 -------------------------------------*/
+
+.circumstance-ttl {
+  padding-top: 14px;
+  padding-bottom: 20px;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 756px) {
+  .circumstance-ttl {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
+
+.warning-info {
+  margin-bottom: 24px;
+  background: #FEF0DD;
+  color: #A35E04;
+}
+
+.warning-ttl {
+  position: relative;
+  margin: 0;
+  border-bottom: 1px solid #F2E5D3;
+  padding: 12px 16px;
+  padding-left: 40px;
+  font-weight: 300;
+}
+
+.warning-ttl::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_caution.svg");
+  background-size: cover;
+  margin-top: -7px;
+  width: 14px;
+  height: 15px;
+}
+
+.warning-txt {
+  margin: 0;
+  padding: 12px 16px;
+  font-weight: 300;
+}
+
+.warning-lst {
+  margin-bottom: 16px;
+}
+
+.warning-item {
+  position: relative;
+  margin-bottom: 16px;
+  padding-left: 1.2em;
+  font-size: 16px;
+}
+
+.warning-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.warning-item strong {
+  font-weight: 700;
+  color: #077DB8;
+}
+
+.warning-note {
+  position: relative;
+  margin-bottom: 0 !important;
+  padding-left: 20px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.warning-note::before {
+  content: "※";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cta {
+  margin-top: 24px;
+}
+
+.cta_warning {
+  margin-top: 16px;
+  margin-left: -1.2em;
+  margin-bottom: 24px;
+}
+
+.cta-multi {
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.cta-single {
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.cta-btn {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #bf0000;
+  padding: 12px;
+  width: 140px;
+  font-size: 16px;
+  text-align: center;
+  color: #bf0000 !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background-color: #bf0000;
+  color: #fff !important;
+}
+
+.cta-tel {
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 4px;
+  border: 1px solid #077DB8;
+  padding: 12px;
+  width: 100%;
+  max-width: 296px;
+  font-size: 16px;
+  text-align: center;
+  color: #077DB8 !important;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-tel:hover {
+  background-color: #077DB8;
+  color: #fff !important;
+}
+
+.cta-tel span {
+  position: relative;
+  padding-left: 25px;
+}
+
+.cta-tel span::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: block;
+  margin-top: -7px;
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_tel.svg");
+  background-size: cover;
+  width: 14px;
+  height: 14px;
+}
+
+.cta-tel:hover span::before {
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_tel_white.svg");
+}
+
+.cta-note {
+  margin-top: 8px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.cta-submit {
+  display: inline-block;
+  background-color: #bf0000;
+  border-radius: 4px;
+  border: 1px solid #bf0000;
+  padding: 16px;
+  width: 100%;
+  max-width: 280px;
+  font-size: 14px;
+  text-align: center;
+  color: #fff !important;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.cta-submit:disabled {
+  background-color: #a7a7a7 !important;
+  border-color: #F0F0F0 !important;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.cta-txt {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 340px;
+}
+
+.understanding-ttl {
+  position: relative;
+  padding-left: 46px;
+}
+
+.understanding-ttl::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 18px;
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_exclamation.svg");
+  background-size: cover;
+  margin-top: -10px;
+  width: 22px;
+  height: 19px;
+}
+
+.understanding-lst {
+  margin-bottom: 16px;
+}
+
+.understanding-item {
+  position: relative;
+  margin-bottom: 8px;
+  padding-left: 15px;
+  font-weight: 400;
+}
+
+.understanding-item::before {
+  position: absolute;
+  content: "";
+  top: 0.6em;
+  left: 0;
+  display: block;
+  background: #000000;
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+}
+
+.understanding-accordion {
+  position: relative;
+  margin-bottom: 32px;
+  background-color: #E6F3FA;
+  padding: 16px 32px 16px 24px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 756px) {
+  .understanding-accordion {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: 24px;
+    padding: 16px 32px 16px 16px;
+    font-size: 20px;
+  }
+}
+
+.understanding-accordion::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  margin-top: -8px;
+  background-color: #134FF3;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+}
+
+.understanding-accordion::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  margin-top: -4px;
+  border-top: 1px solid #FFFFFF;
+  border-right: 1px solid #FFFFFF;
+  width: 5.6568px;
+  height: 5.6568px;
+  transform: rotate(135deg);
+}
+
+.understanding-accordion.open::after {
+  margin-top: -2px;
+  transform: rotate(-45deg);
+}
+
+.consideration-ttl {
+  position: relative;
+  margin-bottom: 32px;
+  background-color: #E6F3FA;
+  padding: 16px 24px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media only screen and (max-width: 756px) {
+  .consideration-ttl {
+    margin-left: -16px;
+    margin-right: -16px;
+    margin-bottom: 24px;
+    padding: 16px;
+    font-size: 20px;
+  }
+}
+
+.consideration-ttl::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  border: 10px solid transparent;
+  border-top: 10px solid #E6F3FA;
+}
+
+.consideration-content{
+  margin-bottom: 40px;
+}
+
+.consideration-subttl {
+  margin-bottom: 24px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  color: #077DB8;
+}
+
+.consideration-img {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.consideration-txt {
+  margin-bottom: 8px !important;
+  font-size: 16px;
+}
+
+.consideration-txt strong {
+  font-weight: 700;
+  color: #077DB8;
+}
+
+.consideration-lst {
+  margin-bottom: 16px;
+}
+
+.consideration-item {
+  position: relative;
+  margin-bottom: 4px;
+  padding-left: 15px;
+  font-size: 16px;
+}
+
+.consideration-item::before {
+  position: absolute;
+  content: "";
+  top: 0.6em;
+  left: 0;
+  display: block;
+  background: #077DB8;
+  border-radius: 50%;
+  width: 6px;
+  height: 6px;
+}
+
+.consideration-note {
+  position: relative;
+  margin-top: 0px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.consideration-note::before {
+  content: "※";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.counseling-content {
+  margin-bottom: 40px;
+}
+
+.counseling-ttl {
+  margin-bottom: 24px;
+  border-bottom: 1px solid #077DB8;
+  padding-bottom: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.counseling-number{
+  margin-right: 0.2em;
+}
+
+.counseling-img {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 24px;
+  width: 162px;
+  text-align: center;
+}
+
+.counseling-txt {
+  margin-bottom: 0 !important;
+  font-size: 16px;
+}
+
+.counseling-note {
+  position: relative;
+  margin-top: 8px;
+  padding-left: 20px;
+  font-size: 14px;
+}
+
+.counseling-note::before {
+  content: "※";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.counseling-way {
+  margin-top: 24px;
+  margin-bottom: 60px;
+}
+
+.counseling-subttl {
+  margin-bottom: 30px;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.counseling-item {
+  margin-bottom: 28px;
+}
+
+.counseling-link {
+  position: relative;
+  margin-bottom: 12px;
+  padding-left: 64px;
+  color: #077DB8 !important;
+}
+
+.counseling-link::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  background-size: cover;
+  margin-top: -24px;
+  width: 48px;
+  height: 48px;
+}
+
+.counseling-link_chat::before {
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_counseling_chat.svg");
+}
+
+.counseling-link_tel::before {
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_counseling_tel.svg");
+}
+
+.counseling-link_mail::before {
+  background-image: url("/sfsites/c/resource/siteprc/template/images/icon_counseling_mail.svg");
+}
+
+.counseling-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  margin-top: -4px;
+  border-top: 1px solid #077DB8;
+  border-right: 1px solid #077DB8;
+  width: 8px;
+  height: 8px;
+  transform: rotate(45deg);
+}
+
+.counseling-box {
+  padding-left: 64px;
+}
+
+.counseling-explanation {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.counseling-tel {
+  font-size: 18px;
+  color: #077DB8 !important;
+  text-decoration: underline !important;
+}

@@ -1,0 +1,87 @@
+.embeddedServiceHelpButton .helpButton .uiButton {
+    background-color: #bf0000;
+    font-family: "Arial", sans-serif;
+}
+.embeddedServiceHelpButton .helpButton .uiButton:focus {
+    outline: 1px solid #bf0000;
+}
+
+.embeddedServiceHelpButton .helpButton {
+    bottom: 50% !important;
+    right: 35% !important;
+}
+.embeddedServiceSidebar.layout-docked .dockableContainer {
+    height: 100% !important;
+    left: 0px !important;
+    right: 0px !important;
+    margin: 0px !important;
+    max-width: 100% !important;
+}
+
+.embeddedServiceSidebar.layout-float .dockableContainer {
+    max-width: 100% !important;
+}
+
+.dockableContainer, .showDockableContainer {
+    height: 100% !important;
+}
+
+.embeddedServiceLiveAgentStateChatAvatar.isCommunitiesContext{
+    background-color: white !important;
+}
+
+:root {
+    --lwc-sidebarHeight: 100vh !important;
+    --lwc-sidebarWidth: 100vw !important;
+}
+
+div.btc-button a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 1em 2em;
+    width: 50%;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    background-color: #bf0000;
+    border-radius: 50vh;
+}
+  
+div.btc-button a::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-top: 3px solid white;
+    border-right: 3px solid white;
+    transform: rotate(45deg);
+}
+  
+div.btc-button a:hover {
+    text-decoration: none;
+    background-color: #bf0000;
+}
+
+div.chat-content.agent {
+    text-align: left;
+}
+
+/* チャットボットのタイムアウト警告表示対応 */
+[embeddedservice-chatheader_chatheader-host] {
+    background-color: white !important;
+}
+.sidebarHeader[embeddedService-chatHeader_chatHeader] {
+    display: none !important;
+}
+.headerAnnouncement[embeddedService-chatHeader_chatHeader] {
+    background-color: rgb(34, 34, 34);
+}
+.embeddedServiceSidebar.layout-docked .dockableContainer > [embeddedservice-chatheader_chatheader-host] {
+    display: contents !important;
+}
+
+/* チャットボット選択肢 左寄せ対応 */
+.embeddedServiceLiveAgentStateChatMenuMessage .rich-menu-item, .embeddedServiceLiveAgentStateChatMenuMessage .rich-menu-itemOptionIsClicked {
+    text-align: left !important;
+}

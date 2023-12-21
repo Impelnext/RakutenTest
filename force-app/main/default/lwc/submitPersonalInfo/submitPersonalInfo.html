@@ -1,0 +1,29 @@
+<template>
+
+  <template if:true={isDisplay}>
+    <lightning-spinner alternative-text="Loading" size="large" if:true={isLoading}></lightning-spinner>
+
+    <div if:true={isConfirm}>
+      <div class="p-form_btn">
+        <button class="c-btn_rewrite" title="Submit" onclick={onClickModify}>修正する</button>
+      </div>
+      <div class="p-form_add l-inner_s">
+        <p>お問合せ内容によっては回答にお時間をいただく場合があります。また、ご質問内容や、入力内容の確認のため、お電話やショートメッセージ（SMS）でご連絡する場合がございます。あらかじめご了承ください。</p>
+      </div>
+      <div class="p-form_btn">
+        <button class="c-btn_submit" title="Submit" onclick={handleFileup}>この内容で送信する</button>
+      </div>
+    </div>
+
+
+    <div style="display:none;">
+      <lightning-button label="ファイルアップロード" title="Submit" onclick={handleFileup} variant="destructive" ></lightning-button>
+      
+      <div if:true={isLoading}>
+        {submitStatus}
+      </div>
+      <iframe src="../ExC_FileUploadVFPage"></iframe>
+    </div>
+
+  </template>
+</template>

@@ -1,0 +1,43 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+        <div class="p-form_item">
+            保険料のお支払い方法の変更は書面でのお手続きとなります。書類が到着後、ご記入の上、ご返送ください。
+        </div>
+        <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>{majorItemName}</div>
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="radio" name="nmChangePayment" id="ChangePayment1" value="クレジットカード払い" class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandlerPaymentMethod}>
+                        <label for="ChangePayment1">クレジットカード払い</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmChangePayment" id="ChangePayment2" value="口座振替" class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandlerPaymentMethod}>
+                        <label for="ChangePayment2">口座振替</label>
+                    </li>
+                </ul>
+                <div class="c-box_info _orange w95" if:true={dispNote}>
+                    <div class="caution">
+                        <img src={cautionIcon} alt="caution">
+                        <div class="caution_text">
+                            ＜ご注意ください＞<br>
+                            共済契約である、メディエイド・キュアエイド・ライフエイド・メディエイドα・マックエイド・リバイブは、保険料お支払い方法をクレジットカードへ変更することはできません。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">保険料のお支払い方法の変更</span><br>
+                    {valueRadio}
+                </div>
+            </div>
+        </section>
+    </template>
+
+</template>

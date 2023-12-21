@@ -1,0 +1,35 @@
+<template>
+  <div class="l-wrapper">
+    <footer class="l-footer">
+      <div class="l-inner">
+        <div class="p-pagetop">
+          <a onclick={moveToTop} class="js-scroll">ページトップへ戻る</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <!-- FAQLife -->
+  <template if:true={isFAQLife}>
+    <footer class="p-rf-f" role="contentinfo">
+      <div class="p-rf-f__inner -top">
+        <div class="l-rf-container">
+          <div class="p-rf-f_notation"><p>商号等：楽天生命保険株式会社</p></div>
+          <p class="p-rf-f_copyright">&copy; Rakuten Life Insurance Co., Ltd.</p>
+        </div>
+      </div>
+    </footer>
+  </template>
+  
+  <!-- FAQPet FAQSonpo -->
+  <template if:true={isFAQPetOrSonpo}>
+    <!-- fintech ui start -->
+    <footer class="p-rf-f" role="contentinfo">
+      <div class="p-rf-f__inner -top">
+        <div class="l-rf-container">
+          <div class="p-rf-f_notation"><p>商号等：楽天損害保険株式会社</p></div>
+          <p class="p-rf-f_copyright">&copy; Rakuten General Insurance Co., Ltd.</p>
+        </div>
+      </div>
+    </footer>    
+  </template>
+</template>

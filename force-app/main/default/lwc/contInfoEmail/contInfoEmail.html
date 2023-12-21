@@ -1,0 +1,27 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>メールアドレス</div>
+                <input name="nmEmail" type="text" class="c-form_text" id={itemKey} value={value} maxlength="80" inputmode="email" onchange={changeValueHandler}>
+                <div class="p-form_itemNote">
+                    ※受付完了のお知らせメールをお送りします。<br>
+                    ※ドメイン指定受信設定や受信拒否設定などをご利用中のお客さまには、楽天保険の総合窓口からの「受付完了のお知らせ」メールを受信できない場合がございます。<br>
+                    「　rakuten-insuarance.co.jp　」からのメールを受信できるよう設定をお願いいたします。
+                </div>
+            </div>
+        </section>
+    </template>
+    
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">メールアドレス</span>
+                    <br>{value}
+                </div>
+            </div>
+        </section>
+    </template>
+    
+</template>

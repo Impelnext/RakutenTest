@@ -1,0 +1,5 @@
+<aura:component implements="forceCommunity:themeLayout" access="global" description="Redirect Theme Layout">
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />.
+    <aura:attribute name="redirectUrl" type="String" default="" />
+
+</aura:component>

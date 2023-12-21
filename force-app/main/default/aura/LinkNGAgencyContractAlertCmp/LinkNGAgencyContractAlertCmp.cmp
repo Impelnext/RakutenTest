@@ -1,0 +1,17 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+                controller="LinkNGAgencyContractAlertController">
+    
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="showError" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <aura:if isTrue="{!v.showError}">
+        <div class="theme_error">
+            <!--2023/05/08 [RIPCRM-885」_損保　取引先画面へのアラート文言の変更 By 範　Start -->
+            <!-- （損保）代理店連携できません（お客様の苦情や強い要望除く） -->
+            <strong>LA受託代理店！法人契約は全件カスタマーセンター対応！</strong><br/>
+            個人契約は代理店連携不可！個人契約の継続は営業課店連携！左記以外はCC対応！
+            <!--2023/05/08 [RIPCRM-885」_損保　取引先画面へのアラート文言の変更 By 範　End -->
+        </div>
+    </aura:if>
+</aura:component>

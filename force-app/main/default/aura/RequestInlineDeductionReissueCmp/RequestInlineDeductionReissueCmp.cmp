@@ -1,0 +1,95 @@
+<!--
+  @File Name          : RequestInlineDeductionReissueCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/19/2019, 3:15:57 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                              'IsHandMade__c':'',
+															  'Note__c':'',
+															  'Processing__c':'',
+                                                              'ShippingDocuments__c':'',
+                                                              'NumberOfCopies__c':'',
+                                                              'DateOfShipment__c':'',
+                                                              'ShippingMethod__c':''
+															}"/>
+
+<aura:method name="deductionReissue" action="{!c.saveDeductionReissue}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Event Method -->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+
+<aura:attribute name="dependantSubject" type="String" access="public" />
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+<aura:attribute name="isHandMadePickMap" type="Map" />
+<aura:attribute name="shippingDocumentsPickMap" type="Map" />
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map" /> 
+<aura:attribute name="shippingMethodPickMap" type="Map" />
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/> 
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+   
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">控除再発行</h3></div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<lightning:select aura:Id="isHandMade" value="{!v.innerCmpNewRequest.IsHandMade__c}" label="手作成対象　　注）（直近の発行年度分から６年以上前は手作成）" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.isHandMadePickMap}" var="han" indexVar="key">
+						<option text="{!han.value}" value="{!han.key}" selected="{!han.key==v.innerCmpNewRequest.IsHandMade__c}" />
+					</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="processing" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+				<aura:iteration items="{!v.processingPicklist}" var="pro" >
+					<option value="{!pro}">{!pro}</option>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                    <option  value="{!pro}"> {!pro} </option>		
+                </aura:iteration>
+            </lightning:select>
+			<lightning:select aura:Id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}" label="発送日" disabled="true">
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.dateOfShipmentPickMap}" var="dat" indexVar="key">
+						<option text="{!dat.value}" value="{!dat.key}" selected="{!dat.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+					</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}" label="発送方法" disabled="true">
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.shippingMethodPickMap}" var="shi" indexVar="key">
+						<option text="{!shi.value}" value="{!shi.key}" selected="{!shi.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+					</aura:iteration>
+			</lightning:select>
+        </div>
+		<div class="slds-col">
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.Note__c}" label="補足　　注）再発行対象年度を西暦で記載〔0000年度分〕" />
+			<div class="slds-p-top--xx-large"></div>           
+            <div class="slds-p-top--x-small"></div>
+			<!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+			<!--<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+    		<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数" onchange="{!c.handleNoOfCopies}" disabled="true"/>
+            <aura:if isTrue="{!v.noOfCopiesErr}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+		</div>
+	</div>		
+</div>
+</aura:component>

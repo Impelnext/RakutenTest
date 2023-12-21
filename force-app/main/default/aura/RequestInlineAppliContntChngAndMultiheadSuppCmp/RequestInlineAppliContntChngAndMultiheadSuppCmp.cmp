@@ -1,0 +1,271 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'Subject__c':'',
+																		'RequestContents__c':'',
+																		'DetailsOfOtherRequests__c':'',
+																		'OtherOrderFlag__c':'',
+																		'OtherRequests__c':'',
+																		'DetailsOfOtherRequestReasons__c':'',
+																		'ReturnContact__c':'',
+																		'ReturnDestinationName__c':'',
+																		'EmergencyFlag__c':'',
+																		'CallBackStartTime__c':'',
+																		'CallBackEndTime__c':'',
+																		'OtherOrderDocFlag__c':'',
+																		'OtherDocumentsToSend__c':'',
+																		'SendingReason__c':'',
+																		'OtherDocumentsAndRemarks__c':'',
+																		'WhetherDestinationInformationChanged__c':'',
+																		'PersonToBeChanged__c':'',
+																		'ChangePoint__c':'',
+																		'FullNameKanjiAfterChange__c':'',
+																		'FullNameKanaAfterChange__c':'',
+																		'ChangedPostNumber__c':'',
+																		'ChangedPrefecture__c':'',
+																		'ChangedMunicipality__c':'',
+																		'ChangedAddress1__c':'',
+																		'ChangedAddress2__c':'',
+																		'ReflectMailingAddress__c':'',
+																		'PhoneNumberAfterChange__c':'',
+																		'ChangedMailAddress__c':'',
+																		'ChangedPetInformation__c':'',
+																		'OtherChanges__c':'',
+																		'OtherRequestReason__c':'',
+																		'RefundUponCancellationFlag__c':'',
+																		'RefundAccountCreditCard__c':'',
+																		'AccountHolderKana__c':'',
+																		'AccountHolderKanji__c':'',
+																		'FinancialInstitutionSearch__c':'',
+																		'FinancialName__c':'',
+																		'BankCode__c':'',
+																		'BranchName__c':'',
+																		'BranchCodeStoreNumber__c':'',
+																		'DepositCategory__c':'',
+																		'AccountNumber__c':'',
+																		'JapanPostSymbol__c':'',
+																		'DirectOwnership__c':'',
+																		'SpecialConsiderationPaidRefundAccount__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineAppliContntChngAndMultiheadSupp" action="{!c.saveRequestInlineAppliContntChngAndMultiheadSuppCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+    
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+<aura:attribute name="subDepRequestContentsFieldMap" type="map" default="{}"/> 
+<aura:attribute name="requestContentsPicklist" type="List" default="['--- None ---']"/>
+
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:handler name="bankMasterSearchCmpEvt" event="c:BankMasterSearchResultCmpEvt" action="{!c.handleBankMasterResultCmpEvt}" />
+
+<!--Picklist attributes-->
+<aura:attribute name="subjectPickMap" type="Map"/>
+<aura:attribute name="otherOrderFlagPickMap" type="Map"/>
+<aura:attribute name="otherRequestsPickList" type="List" default="[]" />
+<aura:attribute name="otherOrderDocFlagPickMap" type="Map"/>
+<aura:attribute name="otherDocumentsToSendPickList" type="List" default="[]" />
+<aura:attribute name="sendingReasonPickMap" type="Map"/>
+<aura:attribute name="whetherDestiInformationChngdPickMap" type="Map"/>
+<aura:attribute name="personToBeChangedPickList" type="List" default="[]" />
+<aura:attribute name="changePointPickList" type="List" default="[]" />
+<aura:attribute name="refundAccountCreditCardPickMap" type="Map"/>
+<aura:attribute name="refundAccountCreditCardPicklist" type="List" default="['--- None ---']"/>
+<aura:attribute name="depositCategoryPickMap" type="Map"/>
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'chome': '', 'municipality': ''}"/>
+<aura:attribute name="lstOtherDocumentsToSend" type="List" default="[]"/>    
+
+
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">申込内容変更・新規多頭対応</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		<!--<div class="slds-grid slds-gutters">
+			<div class="slds-col">
+				<lightning:select aura:Id="subjectPickMap" value="{!v.innerCmpNewRequest.Subject__c}" label="件名" >
+					<aura:iteration items="{!v.subjectPickMap}" var="inq" indexVar="key">
+						<option text="{!inq.value}" value="{!inq.key}" selected="{!inq.key==v.innerCmpNewRequest.Subject__c}" />
+					</aura:iteration>
+			    </lightning:select>
+			</div>
+			<div class="slds-col">
+				
+			</div>
+		</div>-->
+		<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectrequestContents"
+					name="RequestContents"
+					label="依頼内容"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.requestContentsPicklist}"
+					size="3"
+					value="{!v.innerCmpNewRequest.RequestContents__c}"/>
+		</div>
+		<lightning:textarea aura:Id="detailsOfOtherRequest" name="" type="text" value="{!v.innerCmpNewRequest.DetailsOfOtherRequests__c}" label="その他依頼内容詳細" />
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">その他の依頼事由</h3> </div>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="otherOrderFlagPickMap" value="{!v.innerCmpNewRequest.OtherOrderFlag__c}" label="他の依頼事由有無" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.otherOrderFlagPickMap}" var="oof" indexVar="key">
+						<option text="{!oof.value}" value="{!oof.key}" selected="{!oof.key==v.innerCmpNewRequest.OtherOrderFlag__c}" />
+					</aura:iteration>
+			    </lightning:select>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectOtherRequests"
+					name="OtherRequests"
+					label="他の依頼内容"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.otherRequestsPickList}"
+					size="3"
+					value="{!v.innerCmpNewRequest.OtherRequests__c}"/>
+				</div>
+			</div>
+			<div class="slds-col">
+				
+			</div>
+		</div>
+		<lightning:textarea aura:Id="detailsOfOtherRequestReasons" name="" type="text" value="{!v.innerCmpNewRequest.DetailsOfOtherRequestReasons__c}" label="他の依頼事由内容詳細" />
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ReturnContact__c}" label="折り返し連絡先　　注）半角で〔000-0000-0000〕の形式で入力"/>
+				<ui:inputCheckbox aura:id="emergencyFlag" label="至急対応フラグ(1時間以内対応の場合のみチェック)" value="{!v.innerCmpNewRequest.EmergencyFlag__c}"  />
+				<ui:inputDateTime aura:Id="callBackStartTime" value="{!v.innerCmpNewRequest.CallBackStartTime__c}" label="折り返し　開始" displayDatePicker="true"/>
+				<lightning:select aura:Id="otherOrderDocFlagPickMap" value="{!v.innerCmpNewRequest.OtherOrderDocFlag__c}" label="他の依頼事由書類送付あり" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.otherOrderDocFlagPickMap}" var="oodf" indexVar="key">
+						<option text="{!oodf.value}" value="{!oodf.key}" selected="{!oodf.key==v.innerCmpNewRequest.OtherOrderDocFlag__c}" />
+					</aura:iteration>
+			    </lightning:select>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectotherDocumentsToSend"
+					name="OtherDocumentsToSend"
+					label="他の送付書類等"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.otherDocumentsToSendPickList}"
+					size="3"
+					value="{!v.lstOtherDocumentsToSend}"/>
+				</div>
+			</div>
+			<div class="slds-col">
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ReturnDestinationName__c}" label="折り返し先名"/>
+                <div class="slds-p-top--x-large"></div>
+                <div class="slds-p-top--xxx-small"></div>
+				<ui:inputDateTime aura:Id="callBackEndTime" value="{!v.innerCmpNewRequest.CallBackEndTime__c}" label="折り返し　期限" displayDatePicker="true"/>
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--x-small"></div>
+				<lightning:select aura:Id="sendingReasonPickMap" value="{!v.innerCmpNewRequest.SendingReason__c}" label="送付理由　　注）他の送付書類がある場合入力必須" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.sendingReasonPickMap}" var="srea" indexVar="key">
+						<option text="{!srea.value}" value="{!srea.key}" selected="{!srea.key==v.innerCmpNewRequest.SendingReason__c}" />
+					</aura:iteration>
+			    </lightning:select>
+			</div>
+		</div>
+       <lightning:textarea aura:Id="OtherDocumentsAndRemarks" name="" type="text" value="{!v.innerCmpNewRequest.OtherDocumentsAndRemarks__c}" label="その他送付書類・備考　　注）定型文言で入力" />		
+	   <div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<lightning:select aura:Id="whetherDestiInformationChngdPickMap" value="{!v.innerCmpNewRequest.WhetherDestinationInformationChanged__c}" label="送付先情報他変更有無" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.whetherDestiInformationChngdPickMap}" var="wdi" indexVar="key">
+						<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.WhetherDestinationInformationChanged__c}" />
+					</aura:iteration>
+			    </lightning:select>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectPersonToBeChanged"
+					name="PersonToBeChanged"
+					label="変更対象者"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.personToBeChangedPickList}"
+					size="3"
+					value="{!v.innerCmpNewRequest.PersonToBeChanged__c}"/>
+				</div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.FullNameKanjiAfterChange__c}" label="変更後氏名漢字"/>
+				<lightning:input aura:Id="note" type="text" onblur="{!c.handleAreaInfo}" value="{!v.innerCmpNewRequest.ChangedPostNumber__c}" label="変更後郵便番号　　注）半角で〔000-0000〕の形式で入力"/>
+				<lightning:input aura:Id="changedprefecture" type="text" value="{!v.innerCmpNewRequest.ChangedPrefecture__c}" label="変更後都道府県　　注）全角で入力" />
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--x-small"></div>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectChangePoint"
+					name="ChangePoint"
+					label="変更箇所"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					options="{!v.changePointPickList}"
+					size="3"
+					value="{!v.innerCmpNewRequest.ChangePoint__c}"/>
+				</div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.FullNameKanaAfterChange__c}" label="変更後氏名カナ"/>
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="changedMunicipality" type="text" value="{!v.innerCmpNewRequest.ChangedMunicipality__c}" onchange="" label="変更後市区町村　　注）全角で入力" />
+			</div>
+		</div>
+		<lightning:input aura:Id="changedAddress1" type="text" value="{!v.innerCmpNewRequest.ChangedAddress1__c}" label="変更後住所1　　注）全角で入力" />
+		<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedAddress2__c}" label="変更後住所2　　注）全角で入力"/>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"/>
+				<ui:inputPhone aura:id="phone" label="変更後電話番号　　注）半角で〔000-0000-0000〕の形式で入力" class="field" value="{!v.innerCmpNewRequest.PhoneNumberAfterChange__c}"/>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.ChangedPetInformation__c}" label="変更後ペット情報"/>
+			</div>
+			<div class="slds-col">
+                <div class="slds-p-top--x-large"></div>
+                <div class="slds-p-top--xxx-small"></div>
+				<ui:inputEmail aura:id="email" label="変更後メールアドレス　　注）半角数字または半角アルファベットで入力" class="field" value="{!v.innerCmpNewRequest.ChangedMailAddress__c}"/>
+			</div>
+		</div>
+		<lightning:textarea aura:Id="note" type="text" value="{!v.innerCmpNewRequest.OtherChanges__c}" label="その他変更項目"/>
+		<lightning:textarea aura:Id="OtherRequestReason" name="" type="text" value="{!v.innerCmpNewRequest.OtherRequestReason__c}" label="その他の依頼事由に関する特記事項"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">入金済み返金口座</h3> </div>
+	<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<ui:inputCheckbox aura:id="refundUponCancellationFlag" label="キャンセル時返金　有り" value="{!v.innerCmpNewRequest.RefundUponCancellationFlag__c}"/>
+                <div class="slds-p-top--large"></div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountHolderKana__c}" label="口座名義人（カナ）"/>
+				<!--金融機関検索&emsp;: <ui:outputText value="{!v.accDetails.FinancialInstitutionSearch__c}"/>-->
+                <div class="slds-p-top--xx-small"></div>
+                金融機関検索 <br /><br/><lightning:button variant="neutral" label="検索" aura:Id="bankMastersearchId" onclick="{!c.openBankMasterSearch}"/>
+                <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.FinancialName__c}" label="金融機関名"/>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.BranchName__c}" label="支店名"/>
+				<lightning:select aura:Id="depositCategoryPickMap" value="{!v.innerCmpNewRequest.DepositCategory__c}" label="預金種目" >
+				<option value="">-- None --</option>
+					<aura:iteration items="{!v.depositCategoryPickMap}" var="srea" indexVar="key">
+						<option text="{!srea.value}" value="{!srea.key}" selected="{!srea.key==v.innerCmpNewRequest.DepositCategory__c}" />
+					</aura:iteration>
+			    </lightning:select>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.JapanPostSymbol__c}" label="ゆうちょ記号"/>
+			</div>
+			<div class="slds-col">
+				<lightning:select aura:Id="refundAccountCreditCardPicklist" value="{!v.innerCmpNewRequest.RefundAccountCreditCard__c}" label="返金口座/クレカ">
+					<aura:iteration items="{!v.refundAccountCreditCardPicklist}" var="val" indexVar="key">
+						<option value="{!val}">{!val}</option>	
+					</aura:iteration>
+			    </lightning:select>
+				<div class="slds-p-top_xx-small"></div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountHolderKanji__c}" label="口座名義人（漢字）"/>
+                <div class="slds-p-top_xx-large"></div>
+            	<div class="slds-p-top_x-large"></div>
+            	<div class="slds-p-top_xxx-small"></div>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.BankCode__c}" label="金融機関コード"/>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.BranchCodeStoreNumber__c}" label="支店コード（店番）"/>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AccountNumber__c}" label="口座番号"/>
+				<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.DirectOwnership__c}" label="ゆうちょ番号"/>
+			</div>
+		</div>
+		<lightning:textarea aura:Id="OtherRequestReason" name="" type="text" value="{!v.innerCmpNewRequest.SpecialConsiderationPaidRefundAccount__c}" label="入金済み返金口座に関する特記事項"/>
+		<div aura:Id="bankMasterPopup">
+			{!v.body}
+		</div>
+</div>
+</aura:component>

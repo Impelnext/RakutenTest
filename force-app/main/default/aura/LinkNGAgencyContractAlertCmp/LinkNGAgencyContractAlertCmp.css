@@ -1,0 +1,11 @@
+.THIS.theme_error{
+    color: rgb(255, 255, 255);
+    /* 2023/05/08 [RIPCRM-885」_損保　取引先画面へのアラート文言の変更 By 範　Start */
+    /* background-color: orange;  */
+    background-color: fuchsia;
+    /* 2023/05/08 [RIPCRM-885」_損保　取引先画面へのアラート文言の変更 By 範　End */
+    text-align:center;
+    border-radius: .25rem;
+    font-size: 1.5em;
+    padding: 8px;
+}

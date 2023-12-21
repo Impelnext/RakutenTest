@@ -1,0 +1,28 @@
+<template>
+  <div class="gen_area gen_category_sub">
+    <div class="l-wrapper">
+      <main class="l-main">
+        <div class="l-inner">
+          <section class="p-section">
+            <h2 class="c-ttl_sec _contact">別の条件で絞り込む</h2>
+            <div class="p-form_item">
+              <div class="p-catSelect">
+                <div class="p-form_item">
+                  <ul class="c-list_category">
+                    <template for:each={subCategories} for:item="subCategory">
+                      <li key={subCategory.categoryApiName}>
+                        <a if:true={subCategory.classActive} class={subCategory.classActive} style="pointer-events: none;">{subCategory.categoryName}</a>
+                        <a if:false={subCategory.classActive} data-category={subCategory.categoryApiName} data-name={subCategory.categoryName}
+                          onclick={navigateToTopicPage}>{subCategory.categoryName}</a>
+                      </li>
+                    </template>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</template>

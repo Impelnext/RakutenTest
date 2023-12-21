@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                             		'RequestDetails__c':''
+																		}"/>
+<aura:method name="requestDetails" action="{!c.saveRequestDetails}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<form class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"> <h3 class="slds-section-title--divider">情報連携内容</h3></div>
+	<div class="slds-grid slds-gutters">
+        <div class="slds-col">
+            <lightning:input aura:Id="requestField" name="" type="text" value="{!v.innerCmpNewRequest.RequestDetails__c}" label="対応依頼内容" />
+        </div>                                                             
+    </div>          		
+</form>
+</aura:component>

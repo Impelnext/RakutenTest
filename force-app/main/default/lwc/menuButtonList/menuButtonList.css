@@ -1,0 +1,143 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 64px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_item {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+}
+
+.p-form_privacy {
+    border: 1px solid #ccc;
+    height: 280px;
+    overflow: auto;
+    padding: 16px;
+}
+
+.c {
+    text-align: center;
+}
+
+.p-form_btn {
+    text-align: center;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_btn {
+        margin-bottom: 40px;
+    }
+}
+  
+.p-form_btn:last-child {
+    margin-bottom: 0;
+}
+  
+.c-form_checkbox.agree_checkbox {
+    display: none;
+}
+
+.c-form_checkbox.agree_checkbox+label {
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.c-form_checkbox.agree_checkbox:checked+label {
+    border: 2px solid #002896;
+}
+  
+.c-form_checkbox+label {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 16px 8px 40px !important;
+    display: block;
+    line-height: 24px;
+}
+
+.c-form_checkbox+label:before {
+    content: "" !important;
+    top: 10px !important;
+    left: 10px !important;
+    border: 1px solid #ccc !important;
+}
+
+.c-form_checkbox+label:after {
+    content: "" !important;
+    left: 16px !important;
+    top: 11px !important;
+}
+
+.c-form_checkSimple:checked+label::after {
+    opacity: 1 !important;
+}
+
+.c-form_checkSimple+label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding: 0 0 0 32px;
+    line-height: 20px;
+}
+
+.c-form_checkSimple+label::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+  
+.c-form_checkSimple+label::after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    width: 8px;
+    height: 12px;
+    border: solid #002896;
+    border-width: 0 2px 2px 0;
+    left: 6px;
+    top: 2px;
+    transform: rotate(45deg);
+}
+  
+.c-form_checkSimple.fill+label::before {
+    content: "";
+    width: 20px;
+    height: 20px;
+    border: 1px solid #002896;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+  
+.c-form_checkSimple:checked.fill+label::before {
+    background-color: #002896;
+}
+  
+.c-form_checkSimple.fill+label::after {
+    content: "";
+    position: absolute;
+    opacity: 0;
+    width: 8px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    left: 6px;
+    top: 2px;
+    transform: rotate(45deg);
+}

@@ -1,0 +1,58 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item list_item">
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="checkbox" name="nmChangeTargetsLastName[]" id={itemkeyCheckBox} class="c-form_checkbox c-form_checkSimple fill" onchange={changeCheckBoxValueHandler}>
+                        <label for={itemkeyCheckBox}>お名前の変更（改姓）</label>
+                        <div class="ml10" style={styleName} >
+                          <div class="p-form mt20">
+                            <div class="p-form_item">
+                              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前</div>
+                              <div>
+                                <label for="ChangeLastName">ご変更後の姓（漢字）</label>
+                                <input type="text" name="nmChangeLastName" id={itemKeyName} value={valueName} maxlength="255" class="c-form_text" onchange={changeValueHandlerName}>
+                              </div>
+                              <div class="mt10">
+                                <label for="FuriganaChangeLastName">ご変更後の姓（カナ）</label>
+                                <input type="text" name="nmFuriganaChangeLastName" id={itemKeyNameKana} value={valueNameKana} maxlength="255"  class="c-form_text" onchange={changeValueHandlerNameKana}>                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                </ul>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <div if:true={dispName}>
+            <section class="p-section" if:true={dispSection}>
+                <h2 class="c-ttl_sec">{confirmSection}</h2>
+                <div class="p-form">
+                    <div class="p-form_item">
+                       <span class="weight4">ご変更後の姓（漢字）</span><br>
+                       {valueName}
+                    </div>
+                    <div class="p-form_item">
+                       <span class="weight4">ご変更後の姓（カナ）</span><br>
+                       {valueNameKana}
+                    </div>
+                </div>
+            </section>
+            <section class="p-section" if:false={dispSection}>
+                <div class="p-form">
+                    <div class="p-form_item">
+                        <span class="weight4">変更する名前（改姓）</span>
+                        <br>
+                        ご変更後の姓（漢字）<br>
+                        {valueName}<br>
+                        ご変更後の姓（カナ）<br>
+                        {valueNameKana}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+</template>

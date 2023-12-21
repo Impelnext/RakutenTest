@@ -1,0 +1,852 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <title>ご解約手続き | 楽天生命保険専用手続きフォーム</title>
+  <link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../css/style.css?5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script type="text/javascript" src="/appjs/agencyControl.js"></script>
+  <!--#include virtual="/shared/inc/common_head_r.html" -->
+</head>
+
+<body id="form_area" class="form_area_top">
+<!--#include virtual="/shared/inc/header_r.html" -->
+<div id="l-wrapper">
+  <div class="p-head_page">
+    <div class="p-head_pageInner">
+      <h1>楽天生命保険専用手続きフォーム</h1>
+    </div>
+  </div>
+  <div class="sp_border"></div>
+  <main class="l-main">
+    <div class="l-inner">
+      <div class="p-subhead_page">
+        <h3>ご解約手続き</h3>
+      </div>
+      <form method="post" action="#">
+        <!-- ご契約者さまの情報入力 -->
+        <section class="p-section">
+          <h2 class="c-ttl_sec">ご契約者さまの情報入力</h2>
+          <div class="p-form">
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（漢字）</div>
+              <div class="c-cols_input">
+                <div>
+                  <label for="LastName">姓</label>
+                  <input name="nmLastName" type="text" class="c-form_text" id="LastName">
+                </div>
+                <div>
+                  <label for="FirstName">名</label>
+                  <input name="nmFirstName" type="text" class="c-form_text" id="FirstName">
+                </div>
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（カナ）</div>
+              <div class="c-cols_input">
+                <div>
+                  <label for="FuriganaLast">セイ</label>
+                  <input name="nmFuriganaLast" type="text" class="c-form_text" id="FuriganaLast">
+                </div>
+                <div>
+                  <label for="FuriganaFirst">メイ</label>
+                  <input name="nmFuriganaFirst" type="text" class="c-form_text" id="FuriganaFirst">
+                </div>
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生年月日</div>
+              <input type="date" name="nmBirthday" id="Birthday" class="c-form_text">
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>メールアドレス</div>
+              <input name="nmEmail" type="email" class="c-form_text" id="Email" inputmode="email">
+              <div class="p-form_itemNote">
+                ※受付完了のお知らせメールをお送りします。<br>
+                ※ドメイン指定受信設定や受信拒否設定などをご利用中のお客さまには、楽天保険の総合窓口からの「受付完了のお知らせ」メールを受信できない場合がございます。<br>
+                「　rakuten-insuarance.co.jp　」からのメールを受信できるよう設定をお願いいたします。
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>楽天生命に電話番号の登録はありますか？</div>
+              <ul class="c-list_input _nocol">
+                <li>
+                  <input type="radio" name="nmHasRegisterPhoneNumber" id="HasRegisterPhoneNumberYes"
+                         value="登録がある" class="c-form_radio display_radio js-register-phone" data-value="1" checked>
+                  <label for="HasRegisterPhoneNumberYes">登録がある</label>
+                  <div class="u-hide">
+                    <div class="mt5 mb5">登録している電話番号を入力してください。</div>
+                    <input name="nmRegisterPhoneNumber" type="tel" class="c-form_text " id="RegisterPhoneNumber">
+                    <div class="mt5">例：09012345678</div>
+                  </div>
+                </li>
+                <li>
+                  <input type="radio" name="nmHasRegisterPhoneNumber" id="HasRegisterPhoneNumberNo"
+                         value="登録がない / わからない" class="c-form_radio display_radio js-register-phone" data-value="0">
+                  <label for="HasRegisterPhoneNumberNo">登録がない / わからない</label>
+                </li>
+              </ul>
+            </div>
+
+            <div class="u-hide p-form_item js-is-same-phone">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>日中連絡先は上記の電話番号と同じですか？
+              </div>
+              <ul class="c-list_input">
+                <li>
+                  <input type="radio" name="nmIsRegisterPhoneNumber" id="IsRegisterPhoneNumberYes"
+                         value="上記と同じ" class="c-form_radio display_radio js-toggle-display"
+                         data-target="DaytimePhoneNumber" data-display="none">
+                  <label for="IsRegisterPhoneNumberYes" class="center">上記と同じ</label>
+                </li>
+                <li>
+                  <input type="radio" name="nmIsRegisterPhoneNumber" id="IsRegisterPhoneNumberNo"
+                         value="別の電話番号" class="c-form_radio display_radio js-toggle-display"
+                         data-target="DaytimePhoneNumber" data-display="block">
+                  <label for="IsRegisterPhoneNumberNo" class="center">別の電話番号</label>
+                </li>
+              </ul>
+              <div class="u-hide" id="DaytimePhoneNumber">
+                <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text">
+                <span>例：09012345678</span>
+              </div>
+            </div>
+
+            <div class="u-hide p-form_item js-input-phone">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>日中連絡先を入力してください。</div>
+              <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text">
+              <span>例：09012345678</span>
+            </div>
+          </div>
+        </section>
+        <!-- /ご契約者さまの情報入力 -->
+        <!-- ご契約の解約 -->
+        <section class="p-section">
+          <h2 class="c-ttl_sec">ご契約の解約</h2>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約するご契約種別</div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmCancellationType" id="CancellationType1" value="生命保険契約のみ"
+                       class="c-form_radio display_radio js-cancellation-type" data-target="CancellationContent1">
+                <label for="CancellationType1">生命保険契約のみ</label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationType" id="CancellationType2" value="変更がない"
+                       class="c-form_radio display_radio js-cancellation-type" data-target="CancellationContent2">
+                <label for="CancellationType2">共済契約のみ</label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationType" id="CancellationType3" value="保険と共済の両方"
+                       class="c-form_radio display_radio js-cancellation-type" data-target="Both">
+                <label for="CancellationType3">生命保険契約と共済契約の両契約</label>
+              </li>
+            </ul>
+          </div>
+          <!-- 解約するご契約種別が保険もしくは両方の場合表示 -->
+          <div class="p-form_item u-hide js-cancellation-content" id="CancellationContent1">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生命保険商品</div>
+            <div class="p-form_itemNote">
+              解約希望商品の証券番号をご入力ください。<br>
+              複数解約を希望される場合、それぞれの証券番号を入力してください。
+            </div>
+            <div class="js-number-list">
+              <div class="number-list__item">
+                <label for="Number">証券番号<span class="js-number-text">1</span></label>
+                <div class="c-number-form">
+                  <input type="text" name="nmNumber[]" id="Number" class="c-form_text">
+                </div>
+              </div>
+            </div>
+            <div class="p-form_itemNote">
+              ※数字8桁<br>
+              お手元の証券番号が12桁の場合は、中央の8桁のみ入力してください。（例：XXX-12345678-X）
+            </div>
+            <button type="button" class="c-btn_add mt10 center js-add-number">
+              <span>証券番号を追加する</span>
+              <img src="../images/icon_plus.svg" alt="追加"/>
+            </button>
+          </div>
+          <!-- /解約するご契約種別が保険もしくは両方の場合表示 -->
+          <!-- 解約するご契約種別が共済もしくは両方の場合表示 -->
+          <div class="p-form_item u-hide js-cancellation-content" id="CancellationContent2">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>共済商品</div>
+            <div>以下の共済商品の中から解約希望商品をご選択ください。</div>
+            <div class="p-form_itemNote">
+              ※１商品を複数口お持ちである場合でも、商品単位ですべての口数が解約されます。<br>
+              ※複数選択可
+            </div>
+            <ul class="c-list_input _nocol mt5">
+              <li>
+                <input type="checkbox" name="nmProducts[]" id="Product1" value="終身・定期総合医療共済／メディエイド（旧エディ)"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Product1">終身・定期総合医療共済／メディエイド（旧エディ)</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmProducts[]" id="Product2" value="災害保障共済　／　キュアエイド"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Product2">災害保障共済　／　キュアエイド</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmProducts[]" id="Product3" value="重度障害共済　／　ライフエイド"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Product3">重度障害共済　／　ライフエイド</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmProducts[]" id="Product4" value="介護保障付特定疾病医療特約　／　メディエイドα"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Product4">介護保障付特定疾病医療特約　／　メディエイドα</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmProducts[]" id="Product5" value="10年定期生命共済　／　リバイブ（旧アライブ）"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Product5">10年定期生命共済　／　リバイブ（旧アライブ）</label>
+              </li>
+            </ul>
+          </div>
+          <!-- /解約するご契約種別が共済もしくは両方の場合表示 -->
+        </section>
+        <!-- /ご契約の解約 -->
+        <!-- ご解約の理由 -->
+        <section class="p-section">
+          <h2 class="c-ttl_subsec"><span class="u-icon_any">任意</span>ご解約の理由</h2>
+          <p>今後のサービスの参考にさせていただきますので、解約理由を教えてください。</p>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel">保険料について</div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmCancellationReasonPrice" id="CancellationReasonPrice1"
+                       value="現在の保険料が負担と感じるため" class="c-form_radio display_radio">
+                <label for="CancellationReasonPrice1"><span>現在の保険料が負担と感じるため</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonPrice" id="CancellationReasonPrice2"
+                       value="更新後の保険料が負担と感じるため" class="c-form_radio display_radio">
+                <label for="CancellationReasonPrice2"><span>更新後の保険料が負担と感じるため</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonPrice" id="CancellationReasonPrice3"
+                       value="保険料が安い楽天生命の別の保険へ加入・検討" class="c-form_radio display_radio">
+                <label for="CancellationReasonPrice3"><span>保険料が安い楽天生命の別の保険へ加入・検討</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonPrice" id="CancellationReasonPrice4"
+                       value="楽天生命以外の保険料が安い保険へ加入・検討" class="c-form_radio display_radio">
+                <label for="CancellationReasonPrice4">楽天生命以外<span>の保険料が安い保険へ加入・検討</span></label>
+              </li>
+            </ul>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel">保障内容について</div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent1"
+                       value="保障の良い楽天生命の別の保険へ加入・検討" class="c-form_radio display_radio">
+                <label for="CancellationReasonContent1"><span>保障の良い楽天生命の別の保険へ加入・検討</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent2"
+                       value="楽天生命以外の保障の良い保険へ加入・検討" class="c-form_radio display_radio">
+                <label for="CancellationReasonContent2">楽天生命以外<span>の保障の良い保険へ加入・検討</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent3"
+                       value="保障が過剰だと感じたため" class="c-form_radio display_radio">
+                <label for="CancellationReasonContent3"><span>保障が過剰だと感じたため</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonContent" id="CancellationReasonContent4"
+                       value="環境が変わり、保障が不要になったため" class="c-form_radio display_radio">
+                <label for="CancellationReasonContent4"><span>環境が変わり、保障が不要になったため</span></label>
+              </li>
+            </ul>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel">その他</div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmCancellationReasonOther" id="CancellationReasonOther1"
+                       value="楽天生命のサービスにご不安・不満足" class="c-form_radio display_radio">
+                <label for="CancellationReasonOther1"><span>楽天生命のサービスにご不安・不満足</span></label>
+              </li>
+              <li>
+                <input type="radio" name="nmCancellationReasonOther" id="CancellationReasonOther2" value="その他"
+                       class="c-form_radio display_radio">
+                <label for="CancellationReasonOther2"><span>その他</span></label>
+              </li>
+            </ul>
+          </div>
+          <p class="p-form_item">なお、解約されるご契約に、取扱代理店がいる場合は担当代理店に情報が連携されますので、予めご承知おきください。</p>
+        </section>
+        <!-- /ご解約の理由 -->
+        <!-- 解約完了のお知らせについて -->
+        <section class="p-section">
+          <h2 class="c-ttl_sec">解約完了のお知らせについて</h2>
+          <p class="p-form_item">
+            解約手続きの完了後、約１週間程度で「解約完了のお知らせ」をご送付いたします。<br>
+            なお、楽天IDをお持ちで、なお、楽天IDを登録、かつお客さま情報にメールアドレスを登録されている方には、メールにて当該お知らせを送信いたします。
+          </p>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約完了のお知らせ送付先</div>
+            <label>ご登録住所に変更はございますか？</label>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmIsChangeAddress" id="IsChangeAddress1" value="変更がある / わからない"
+                       class="c-form_radio display_radio js-toggle-display" data-target="ChangeAddress" data-display="block">
+                <label for="IsChangeAddress1">変更がある / わからない</label>
+              </li>
+              <li>
+                <input type="radio" name="nmIsChangeAddress" id="IsChangeAddress2" value="変更がない"
+                       class="c-form_radio display_radio js-toggle-display" data-target="ChangeAddress" data-display="none">
+                <label for="IsChangeAddress2">変更がない</label>
+              </li>
+            </ul>
+            <!-- 登録住所に変更がある場合表示 -->
+            <div class="u-hide" id="ChangeAddress">
+              <p>転居先住所に登録変更し、手続き書類を発送しますのでご入力ください。</p>
+              <div class="p-form mt20">
+                <div class="p-form_item ml10">
+                  <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>変更先住所</div>
+                  <div class="c-cols_input zipcode">
+                    <div>
+                      <label for="ZipCode">郵便番号</label>
+                      <input name="nmZipCode" type="text" class="c-form_text " id="ZipCode">
+                    </div>
+                    <div class="">
+                      <a href="https://www.post.japanpost.jp/zipcode/" class="c-link_with_icon" target="_blank">郵便番号検索</a><br>
+                      <input name="nmButtonSearchAddress" type="button" class="c-btn_fill js-zip-search"
+                             id="ButtonSearchAddress"
+                             value="住所検索">
+                    </div>
+                  </div>
+                  <div class="mt10">
+                    <label for="Prefecture">都道府県</label>
+                    <select name="nmPrefecture" id="Prefecture" class="c-form_select">
+                      <option value="" selected></option>
+                      <option value="北海道">北海道</option>
+                      <option value="青森県">青森県</option>
+                      <option value="岩手県">岩手県</option>
+                      <option value="宮城県">宮城県</option>
+                      <option value="秋田県">秋田県</option>
+                      <option value="山形県">山形県</option>
+                      <option value="福島県">福島県</option>
+                      <option value="茨城県">茨城県</option>
+                      <option value="栃木県">栃木県</option>
+                      <option value="群馬県">群馬県</option>
+                      <option value="埼玉県">埼玉県</option>
+                      <option value="千葉県">千葉県</option>
+                      <option value="東京都">東京都</option>
+                      <option value="神奈川県">神奈川県</option>
+                      <option value="新潟県">新潟県</option>
+                      <option value="富山県">富山県</option>
+                      <option value="石川県">石川県</option>
+                      <option value="福井県">福井県</option>
+                      <option value="山梨県">山梨県</option>
+                      <option value="長野県">長野県</option>
+                      <option value="岐阜県">岐阜県</option>
+                      <option value="静岡県">静岡県</option>
+                      <option value="愛知県">愛知県</option>
+                      <option value="三重県">三重県</option>
+                      <option value="滋賀県">滋賀県</option>
+                      <option value="京都府">京都府</option>
+                      <option value="大阪府">大阪府</option>
+                      <option value="兵庫県">兵庫県</option>
+                      <option value="奈良県">奈良県</option>
+                      <option value="和歌山県">和歌山県</option>
+                      <option value="鳥取県">鳥取県</option>
+                      <option value="島根県">島根県</option>
+                      <option value="岡山県">岡山県</option>
+                      <option value="広島県">広島県</option>
+                      <option value="山口県">山口県</option>
+                      <option value="徳島県">徳島県</option>
+                      <option value="香川県">香川県</option>
+                      <option value="愛媛県">愛媛県</option>
+                      <option value="高知県">高知県</option>
+                      <option value="福岡県">福岡県</option>
+                      <option value="佐賀県">佐賀県</option>
+                      <option value="長崎県">長崎県</option>
+                      <option value="熊本県">熊本県</option>
+                      <option value="大分県">大分県</option>
+                      <option value="宮崎県">宮崎県</option>
+                      <option value="鹿児島県">鹿児島県</option>
+                      <option value="沖縄県">沖縄県</option>
+                    </select>
+                  </div>
+                  <div class="mt10">
+                    <label for="Address">ご住所</label>
+                    <input type="text" name="nmAddress" id="Address" class="c-form_text">
+                    <div class="mt5 p-form_itemNote">例：港区南青山二丁目</div>
+                  </div>
+                  <div class="mt10">
+                    <label for="Address2">上記以降のご住所</label>
+                    <input type="text" name="nmAddress2" id="Address2" class="c-form_text">
+                    <div class="mt5 p-form_itemNote">※ビル名・マンション名・アパート名および部屋番号までご入力ください。</div>
+                  </div>
+                </div>
+                <div class="p-form_item">
+                  <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>転居日の確認</div>
+                  <ul class="c-list_input _nocol">
+                    <li>
+                      <input type="radio" name="nmIsMoved" id="IsMoved1" value="転居済み"
+                             class="c-form_radio display_radio js-toggle-display" data-target="MoveCaution" data-display="none">
+                      <label for="IsMoved1">転居済み</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="nmIsMoved" id="IsMoved2" value="転居予定"
+                             class="c-form_radio display_radio js-toggle-display" data-target="MoveCaution" data-display="block">
+                      <label for="IsMoved2">転居予定</label>
+                    </li>
+                  </ul>
+                  <div id="MoveCaution" class="u-hide">
+                    <input name="nmMoveDate" type="date" class="c-form_text" id="MoveDate">
+                    <div class="p-form_itemNote">
+                      ※本日より1ヵ月以内の日付の場合に住所変更を承ります。<br>
+                      ※転居予定日が1ヵ月以降の場合は、1ヵ月以内になりましたら改めてご住所変更お手続きをお願いいたします。<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 登録住所に変更がある場合表示 -->
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_any">任意</span>ご契約者さま情報の変更</div>
+            <label>ご契約者さま情報に変更がある場合には併せてご入力をお願いいたします。</label>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="checkbox" name="nmChangeTargets[]" id="ChangeTargets2" value="電話番号の変更"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="ChangeTargets2">電話番号の変更</label>
+                <div class="u-hide ml10">
+                  <div class="p-form mt20">
+                    <div class="p-form_item">
+                      お客さまにご連絡を差し上げる場合に必要になりますので必ず最新の番号をご入力ください。
+                    </div>
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>ご自宅電話番号</div>
+                      <ul class="c-list_input _nocol">
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber1"
+                                 value="1111111111" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber1">変更なし</label>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber2"
+                                 value="" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber2">変更・登録する</label>
+                          <div class="u-hide mt10">
+                            <input name="nmChangePhoneNumber" type="tel" class="c-form_text " id="ChangePhoneNumber" value="">
+                            <span>例：0312345678</span>
+                          </div>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber3"
+                                 value="0000000000" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber3">ご自宅電話番号の利用なし</label>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>携帯電話番号</div>
+                      <ul class="c-list_input _nocol">
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber1"
+                                 value="1111111111" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber1">変更なし</label>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber2"
+                                 value="" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber2">変更・登録する</label>
+                          <div class="u-hide mt10">
+                            <input name="nmChangeMobilePhoneNumber" type="tel" class="c-form_text" id="ChangeMobilePhoneNumber" value="">
+                            <span>例：09012345678</span>
+                          </div>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber3"
+                                 value="0000000000" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber3">携帯電話番号の利用なし</label>
+                        </li>
+                      </ul>
+                      <div class="p-form_itemNote">※お電話やショートメッセージにてご契約の確認など連絡する場合がございます。
+                        つながりやすい携帯電話番号のご登録をお願いいたします。</div>
+                      <div class="p-form_itemNote text-red js-change-phone-error"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" name="nmChangeTargets[]" id="ChangeTargets3" value="お名前の変更（改姓）"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="ChangeTargets3">お名前の変更（改姓）</label>
+                <div class="u-hide ml10">
+                  <div class="p-form mt20">
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前</div>
+                      <div>
+                        <label for="ChangeLastName">ご変更後の姓（漢字）：</label>
+                        <input type="text" name="nmChangeLastName" id="ChangeLastName" class="c-form_text">
+                      </div>
+                      <div class="mt10">
+                        <label for="FuriganaChangeLastName">ご変更後の姓（カナ）：</label>
+                        <input type="text" name="nmFuriganaChangeLastName" id="FuriganaChangeLastName" class="c-form_text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <!-- /解約完了のお知らせについて -->
+        <!-- 解約時の保険料の返金について -->
+        <section class="p-section">
+          <h2 class="c-ttl_sec"><span class="u-icon_require">必須</span>解約時の保険料の返金について</h2>
+          <div class="p-form_item">
+            <div class="c-box_info _orange w95" id="CreditCaution">
+              <div class="caution">
+                <img src="../images/icon_caution.svg" alt="caution" />
+                <div class="caution_text">
+                  解約されるご契約のお支払い方法が口座振替の場合、ご登録の口座に返金いたします。<br>
+                  お支払い方法がクレジットカードの場合、返金先口座を指定してください。
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約される契約の中にクレジットカード払い契約はありますか？</div>
+            <ul class="c-list_input">
+              <li>
+                <input type="radio" name="nmIsContractCredit" id="IsContractCredit1"
+                       value="契約がある" class="c-form_radio display_radio js-toggle-display js-credit-contract"
+                       data-target="InsuranceBankForm" data-display="block" data-value="1">
+                <label for="IsContractCredit1">契約がある</label>
+              </li>
+              <li>
+                <input type="radio" name="nmIsContractCredit" id="IsContractCredit2"
+                       value="契約がない" class="c-form_radio display_radio js-toggle-display js-credit-contract"
+                       data-target="InsuranceBankForm" data-display="none" data-value="0">
+                <label for="IsContractCredit2">契約がない</label>
+              </li>
+            </ul>
+            <div class="p-form_itemNote">※契約者さまご本人名義の口座をご指定ください。</div>
+
+            <!-- クレジットカードの支払い契約がある場合表示 -->
+            <div class="u-hide mt30" id="InsuranceBankForm">
+              <div class="p-form_item pl0">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>保険料の返金先口座</div>
+                <ul class="c-list_input">
+                  <li>
+                    <input type="radio" name="nmInsuranceBank" id="InsuranceBank1" value="ゆうちょ銀行"
+                           class="c-form_radio display_radio js-bank-1" data-target="InsuranceJapanPostBank" data-value="1">
+                    <label for="InsuranceBank1" class="center">ゆうちょ銀行</label>
+                  </li>
+                  <li>
+                    <input type="radio" name="nmInsuranceBank" id="InsuranceBank2" value="その他銀行"
+                           class="c-form_radio display_radio js-bank-1" data-target="InsuranceOtherBank" data-value="2">
+                    <label for="InsuranceBank2" class="center">その他銀行</label>
+                  </li>
+                </ul>
+                <div class="u-hide ml10 js-bank-content-1" id="InsuranceJapanPostBank">
+                  <div class="p-form">
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel">記号</div>
+                      <div class="c-cols_input align_items_baseline">
+                        <div>
+                          <input name="nmInsuranceJapanPostBankNumber1" type="text" class="c-form_text js-japan-post-bank-number-1"
+                                 id="InsuranceJapanPostBankNumber1">
+                          <div class="p-form_itemNote">※数字5桁</div>
+                        </div>
+                        <span>ー</span>
+                        <div class="">
+                          <input name="nmInsuranceJapanPostBankNumber2" type="text" class="c-form_text js-japan-post-bank-number-2"
+                                 id="InsuranceJapanPostBankNumber2">
+                          <div class="p-form_itemNote">
+                            ※6桁、7桁の方は、頭に0を追加して8桁にしてください。<br>
+                            例：123451→00123451　末尾は必ず1
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="u-hide ml10 js-bank-content-1" id="InsuranceOtherBank">
+                  <div class="p-form">
+                    <div class="p-form_item">
+                      <div>
+                        <label for="InsuranceOtherBankName">金融機関</label>
+                        <input type="text" name="nmInsuranceOtherBankName" id="InsuranceOtherBankName"
+                               class="c-form_text js-other-bank-name">
+                      </div>
+                      <div class="mt10">
+                        <label for="InsuranceOtherBankBranchName">支店名</label>
+                        <input type="text" name="nmInsuranceOtherBankBranchName" id="InsuranceOtherBankBranchName"
+                               class="c-form_text js-other-bank-branch-name">
+                      </div>
+                      <div class="mt10">
+                        <label for="InsuranceOtherBankBranchName">預金種別</label>
+                        <select name="nmOtherBankType" id="nmInsuranceOtherBankType" class="c-form_select js-other-bank-type">
+                          <option value="普通預金">普通預金</option>
+                          <option value="当座預金">当座預金</option>
+                        </select>
+                      </div>
+                      <div class="mt10">
+                        <label for="InsuranceOtherBankBranchName">口座番号</label>
+                        <input type="text" name="nmInsuranceOtherBankNumber" id="InsuranceOtherBankNumber"
+                               class="c-form_text js-other-bank-number">
+                        <div class="p-form_itemNote">
+                          ※数字7桁  例：1234567
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /クレジットカードの支払い契約がある場合表示 -->
+
+            <div class="mt30 u-hide js-refund-content">
+              <h2 class="c-ttl_subsec">解約払戻金のあるご契約の確認</h2>
+              <div class="p-form_item pl0">
+                <a href="javascript:void(0)" class="js-modal-open" data-target="AboutRefundModal">解約払戻金とは？</a>
+                <div class="form-modal modal-container" id="AboutRefundModal">
+                  <div class="modal-body">
+                    <div class="modal-close pc js-modal-close" data-target="CancelModal"></div>
+                    <div class="modal-content weight4">
+                      解約払戻金とは、契約期間中に生命保険契約を解約した場合に、保険契約者に対して払い戻しされるお金のことです。<br>
+                      解約払戻金のある保険商品を解約し、解約払戻金のお支払いが発生する場合にはご指定口座にお支払いいたしますので予めご了承ください。
+                    </div>
+                    <div class="modal-close sp js-modal-close" data-target="CancelModal"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-form_item pl0">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約される契約の中に以下の商品の契約はありますか？</div>
+                <div class="c-box_guide refund">
+                  <h3 class="center bold u-fs18">解約払戻金のある商品</h3>
+                  <div>
+                    <div class="bold">・楽天生命スーパー医療保険戻るんです</div>
+                    <div class="weight4">終身医療保険2018健康還付特則付［無配当］</div>
+                    <div class="bold">・楽天生命スーパー終身保険</div>
+                    <div class="weight4">低解約払戻金型終身保険［無配当］</div>
+					 <div class="bold">・楽天生命医療保険1095α</div>
+                    <div class="weight4">医療保険1095（払戻金なし）［無配当］</div>
+                    <div class="weight4">※保険期間と保険料払込期間が異なる契約</div>
+                  </div>
+                </div>
+                <ul class="c-list_input">
+                  <li>
+                    <input type="radio" name="nmIsContractProduct" id="IsContractProduct1" value="契約がある"
+                           class="c-form_radio display_radio js-toggle-refund-bank" data-value="1">
+                    <label for="IsContractProduct1" class="center">契約がある</label>
+                  </li>
+                  <li>
+                    <input type="radio" name="nmIsContractProduct" id="IsContractProduct2" value="契約がない"
+                           class="c-form_radio display_radio js-toggle-refund-bank" data-value="0">
+                    <label for="IsContractProduct2" class="center">契約がない</label>
+                  </li>
+                </ul>
+                <div class="p-form_itemNote">
+                  ※解約払戻金のお支払いが発生する場合は、ご指定の口座にお支払いいたします。
+                </div>
+              </div>
+              <!-- クレジット契約がある かつ 解約払戻金のある商品の契約がある場合表示 -->
+              <div class="u-hide p-form_item pl0 js-refund-select-form">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約払戻金のお支払い先口座を選択</div>
+                <ul class="c-list_input _nocol">
+                  <li>
+                    <input type="radio" name="nmIsSameBank" id="IsSameBank1" value="上記で入力した保険料の返金先口座と同じ"
+                           class="c-form_radio display_radio js-toggle-display js-is-same-refund-bank" data-target="refundBankForm" data-display="none" data-value="1">
+                    <label for="IsSameBank1">上記で入力した保険料の返金先口座と同じ</label>
+                    <div class="u-hide js-refund-bank-info mt5">
+
+                    </div>
+                  </li>
+                  <li>
+                    <input type="radio" name="nmIsSameBank" id="IsSameBank2" value="上記で入力した口座とは別の口座を入力する"
+                           class="c-form_radio display_radio js-toggle-display js-is-same-refund-bank" data-target="refundBankForm" data-display="block" data-value="0">
+                    <label for="IsSameBank2">上記で入力した口座とは別の口座を入力する</label>
+                  </li>
+                </ul>
+				  <div class="p-form_itemNote">
+                  ※契約者さまご本人名義の口座をご指定ください。
+                </div>
+              </div>
+              <!-- /クレジット契約がある かつ 解約払戻金のある商品の契約がある場合表示 -->
+
+              <!-- (クレジット契約がある かつ 解約払戻金のある商品の契約がある かつ 別の口座を指定する) もしくは (クレジット契約がない かつ 解約払戻金のある商品の契約がある)の場合表示  -->
+              <div class="u-hide p-form_item pl0 js-refund-bank-form" id="refundBankForm">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約払戻金のお支払い先口座</div>
+                <ul class="c-list_input">
+                  <li>
+                    <input type="radio" name="nmRefundBank" id="nmRefundBank1" value="ゆうちょ銀行"
+                           class="c-form_radio display_radio js-bank-2" data-target="RefundJapanPostBank">
+                    <label for="nmRefundBank1" class="center">ゆうちょ銀行</label>
+                  </li>
+                  <li>
+                    <input type="radio" name="nmRefundBank" id="nmRefundBank2" value="その他銀行"
+                           class="c-form_radio display_radio js-bank-2" data-target="RefundOtherBank">
+                    <label for="nmRefundBank2" class="center">その他銀行</label>
+                  </li>
+                </ul>
+				  <div class="p-form_itemNote">※契約者さまご本人名義の口座をご指定ください。</div>
+                <!-- ゆうちょの場合表示 -->
+                <div class="u-hide ml10 js-bank-content-2" id="RefundJapanPostBank">
+                  <div class="p-form">
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel">記号</div>
+                      <div class="c-cols_input align_items_baseline">
+                        <div>
+                          <input name="nmJapanPostBankNumber1" type="text" class="c-form_text "
+                                 id="JapanPostBankNumber1">
+                          <div class="p-form_itemNote">※数字5桁</div>
+                        </div>
+                        ー
+                        <div class="">
+                          <input name="nmJapanPostBankNumber2" type="text" class="c-form_text "
+                                 id="JapanPostBankNumber2">
+                          <div class="p-form_itemNote">
+                            ※6桁、7桁の方は、頭に0を追加して8桁にしてください。<br>
+                            例：123451→00123451　末尾は必ず1
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /ゆうちょの場合表示 -->
+                <!-- その他銀行の場合表示 -->
+                <div class="u-hide ml10 js-bank-content-2" id="RefundOtherBank">
+                  <div class="p-form">
+                    <div class="p-form_item">
+                      <div class="mt10">
+                        <label for="OtherBankName">金融機関</label>
+                        <input type="text" name="nmOtherBankName" id="OtherBankName" class="c-form_text">
+                      </div>
+                      <div class="mt10">
+                        <label for="OtherBankBranchName">支店名</label>
+                        <input type="text" name="nmOtherBankBranchName" id="OtherBankBranchName" class="c-form_text">
+                      </div>
+                      <div class="mt10">
+                        <label for="OtherBankBranchName">預金種別</label>
+                        <select name="nmOtherBankType" id="nmOtherBankType" class="c-form_select">
+                          <option value="普通預金">普通預金</option>
+                          <option value="当座預金">当座預金</option>
+                        </select>
+                      </div>
+                      <div class="mt10">
+                        <label for="OtherBankBranchName">口座番号</label>
+                        <input type="text" name="nmOtherBankNumber" id="OtherBankNumber" class="c-form_text">
+                        <div class="p-form_itemNote">
+                          ※数字7桁  例：1234567
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /その他銀行の場合表示 -->
+              </div>
+              <!-- /解約払戻金のある商品の契約がある場合表示 -->
+            </div>
+          </div>
+        </section>
+        <!-- /解約時の保険料の返金について -->
+
+        <section class="p-section">
+          <h2 class="c-ttl_sec">個人情報の取り扱いおよびサービスに関する同意事項</h2>
+          <div class="p-form_item">
+            <div class="p-form_privacy js-scrollArea" id="js-terms">
+              WEB手続フォームのご利用にあたっての同意事項<br>
+              <br>
+              「WEB手続きフォームのご利用にあたっての同意事項(以下、「同意事項」とします)」は、WEB手続きフォーム(以下、「本サービス」とします)をお客さまがご利用いただくための条件を定めるものです。<br>
+              同意事項にご同意いただけない場合は、お客さまは本サービスをご利用いただくことはできません。なお、本サービスを実際に利用された場合、同意事項に同意したものとします。<br>
+              ※本サービスは、パソコン、スマートフォン、タブレット端末で利用可能です。<br>
+              【個人情報保護方針（プライバシーポリシー）】 プライバシーポリシー<br>
+              楽天生命保険株式会社（以下、「当社」とします）では、個人情報の保護取扱に関する「プライバシーポリシー」を策定し、これに即して業務を行なっています。「プライバシーポリシー」の内容については、当社ホーム<br>
+              ページプライバシーポリシーをご確認ください。当社は、取得した個人情報を、次の各五王の目的（以下、「利用目的」といいます。）に必要な範囲を超えて利用しません。<br>
+              また、当社は取得した個人譲歩王について、共同利用させていただく場合があります。「共同利用」の内容については、当社ホームページプライバシーポリシーをご確認ください。<br>
+              また、利用目的は、ホームページで公表するほか、申込書等に記載します。さらに、理代王目的を変更する場合には、その内容をご本人に通知するか、ホームページ等により公表します。<br>
+            </div>
+          </div>
+          <div class="c">
+            <div class="p-form_btn check">
+              <input type="checkbox" name="nmConsentPersonalInformation" id="ConsentPersonalInformation"
+                     class="c-form_checkbox c-form_checkSimple fill agree_checkbox js-agree" disabled>
+              <label for="ConsentPersonalInformation" class="checkbox">内容を確認し、同意します。</label>
+            </div>
+          </div>
+        </section>
+        <div class="p-form_btn mb40">
+          <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit _blue js-submit-btn" id="ButtonConfirmationPage"
+                 value="入力内容を確認する" disabled>
+        </div>
+        <div class="p-form_btn">
+          <input name="nmButtonCancel" type="button" class="c-btn_outline _gray js-modal-open" data-target="CancelModal"
+                 id="ButtonCancel"
+                 value="手続きの取消">
+          <div class="form-modal modal-container" id="CancelModal">
+            <div class="modal-body">
+              <div class="modal-close pc js-modal-close" data-target="CancelModal"></div>
+              <div class="modal-content">
+                <p class="weight7">すべてのお手続きが取り消されますがよろしいでしょうか？</p>
+                <div class="flex flex-center">
+                  <a class="c-btn_outline _red js-modal-close" data-target="CancelModal">お手続きを続ける</a>
+                  <a class="c-btn_outline _red ml5" href="javascript:void(0)">お手続きを取り消す</a>
+                </div>
+              </div>
+              <div class="modal-close sp js-modal-close" data-target="CancelModal"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-box_guide phone_number">
+          <div class="mb-8">お問い合わせは、以下の電話番号で承ります。</div>
+          <div class="bold mb-8">
+            楽天保険の総合窓口<br>
+            0120-977-010
+          </div>
+          <div>受付時間：9:00～18:00（年末年始を除く）</div>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-inner">
+      <!-- <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div> -->
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib.js"></script>
+<script type="text/javascript" src="../js/common.js?6"></script>
+<script type="text/javascript" src="../js/ajaxzip3.js"></script>
+<script>
+    flatpickr('#js-datepicker', {
+        locale: 'ja',
+        dateFormat: 'Y/m/d'
+    })
+
+    $('.js-zip-search').click(function () {
+        AjaxZip3.zip2addr('nmZipCode', '', 'nmPrefecture', 'nmAddress')
+
+        AjaxZip3.onSuccess = function () {
+            setTimeout(function () {
+                $('[name=nmAddress2]').focus();
+            }, 10)
+        };
+
+        AjaxZip3.onFailure = function () {
+            console.error('郵便番号に該当する住所が見つかりません')
+        }
+
+        return false
+    })
+</script>
+<!--#include virtual="/shared/inc/footer_r.html" -->
+<!--#include virtual="/shared/inc/footer_group_r.html" -->
+<!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+</html>

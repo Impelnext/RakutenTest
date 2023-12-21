@@ -1,0 +1,68 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+	<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                              'SeihoRequestContents__c':'',
+                                                              'DetailsOfRequest__c':'',
+                                                              'EmergencyFlag__c':false,
+                                                              'CallBackStartTime__c	':'',
+                                                              'CallBackEndTime__c':'',
+                                                              'ReturnName__c':'',
+                                                              'ReturnContact__c':'',
+                                                              
+															}"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    
+     <!--Aura method declaration for saving value in parent cmp only for maintenance and update-->
+    <aura:method name="ReqContent" action="{!c.saveReqContent}" access="PUBLIC">
+	<aura:attribute name="parentNewRequestFromInqTyp" type="Request__c" />
+	</aura:method>
+    
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+    <!--List for picklist value entry-->
+    <aura:attribute name="RequestContentsPLValues" type="list" default="[]" />
+
+    <!--Setting Display-->
+     <div class="slds-p-top_medium"/>   
+    <div class="slds-box slds-theme_default">
+         <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">依頼内容</h3> </div>
+         <div class="slds-grid slds-gutters">
+           	<div class="slds-col slds-size_1-of-2">
+             	<div class="slds-p-top_medium"/>
+           			<lightning:select name="SeihoRequestContents"  label="依頼内容"  value="{!v.innerCmpNewRequest.SeihoRequestContents__c}" onchange="{!c.onRequestContentChange}">
+        				<aura:iteration items="{!v.RequestContentsPLValues}" var="req" >
+                			<option  value="{!req}">{!req}</option>
+            			</aura:iteration>
+    				</lightning:select> 
+                    
+       		</div>           
+        </div> 
+        		<br/>
+             	<br/> 
+           	 <div>  	
+                 <lightning:textarea name="DetailsOfRequest" label="依頼内容詳細" value="{!v.innerCmpNewRequest.DetailsOfRequest__c}" onchange="{!c.setParentCmpValues}" />
+                	<br/>
+                    <br/>
+              </div>
+		<div class="slds-grid slds-gutters">
+           	<div class="slds-col slds-size_1-of-2">
+					<lightning:input type="checkbox" value="EmergencyFlag"  name="EmergencyFlag" aura:id="EmergencyChk" label="至急対応フラグ(1時間以内対応の場合のみチェック)" checked="{!v.innerCmpNewRequest.EmergencyFlag__c}" onchange="{!c.setParentCmpValues}"  />
+                	<br/>           	
+             		<br/>
+                
+                	<lightning:input aura:Id="CallBackStartTime" type="datetime" disabled="true" name="CallBackStartTime" label="折り返し　開始" value="{!v.innerCmpNewRequest.CallBackStartTime__c}" onchange="{!c.setParentCmpValues}"  />
+             		<br/>
+            		<br/>
+                
+                	<lightning:input  aura:Id="ReturnName" name="ReturnName"  disabled="true"  value="{!v.innerCmpNewRequest.ReturnName__c}" label="折り返し先氏名　　注）全角で入力／姓と名の間はスペース"  onchange="{!c.setParentCmpValues}" />
+            </div>
+            <div class="slds-col ">
+                <br/><br/><br/>
+            	<lightning:input type="datetime"  aura:Id="CallBackEndTime" disabled="true" name="CallBackEndTime" label="折り返し　期限" value="{!v.innerCmpNewRequest.CallBackEndTime__c}" onchange="{!c.setParentCmpValues}"  />
+                <br/>
+                <br/>
+                
+                <lightning:input name="ReturnContact"  aura:Id="ReturnContact" disabled="true"  value="{!v.innerCmpNewRequest.ReturnContact__c}" label="折り返し連絡先 　　注）半角で〔000-0000-0000〕の形式で入力" onchange="{!c.setParentCmpValues}" />
+            </div></div>
+            <div class="slds-p-bottom--medium"/>
+    </div>  	
+</aura:component>

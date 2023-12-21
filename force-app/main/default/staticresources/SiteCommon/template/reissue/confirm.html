@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <title>入力内容のご確認</title>
+  <link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../css/style.css?4">
+  <script type="text/javascript" src="/appjs/agencyControl.js"></script>
+  <!--#include virtual="/shared/inc/common_head_r.html" -->
+</head>
+
+<body id="form_area">
+<!--#include virtual="/shared/inc/header_r.html" -->
+<div id="l-wrapper">
+  
+  <div class="p-head_page sp_no_border">
+    <div class="p-head_pageInner">
+      <h1>入力内容のご確認</h1>
+    </div>
+  </div>
+  <div class="sp_border"></div>
+  <main class="l-main">
+    <div class="l-inner">
+      <div class="p-section">
+        <p class="u-txt_c">入力いただいた内容をご確認のうえ「入力内容を送信する」ボタンを押してください。</p>
+      </div>
+      <section class="p-section">
+        <h2 class="c-ttl_sec">ご契約者さまの情報</h2>
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">お名前（漢字）</span><br>
+            楽天 生命
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">お名前（カナ）</span><br>
+            ラクテン セイメイ
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">生年月日</span><br>
+            1989年1月13日
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">メールアドレス</span><br>
+            aaaa@example.ne.jp
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">楽天生命に電話番号の登録はありますか？</span><br>
+            登録がある<br>09012345678
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">日中連絡の連絡先は上記の電話番号でよろしいでしょうか？</span><br>
+            別の電話番号<br>09012345678
+          </div>
+        </div>
+      </section>
+
+      <section class="p-section">
+        <h2 class="c-ttl_sec">控除証明書の再発行</h2>
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">再発行を希望される年度</span><br>
+            2020年
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">ご登録住所に変更はございますか？</span><br>
+            変更がある / わからない
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">転居先の新住所（ご変更先住所）</span><br>
+            〒111‐1111<br>
+            東京都港区南青山二丁目6番21号<br>
+            楽天クリムゾンハウス青山
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">転居日の確認</span><br>
+            転居予定<br>
+            2022年10月1日
+          </div>
+        </div>
+      </section>
+
+      <section class="p-section">
+        <h2 class="c-ttl_sec">変更する電話番号</h2>
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">ご自宅電話番号</span><br>
+            変更なし
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">携帯電話番号</span><br>
+            変更・登録する<br>
+            09012345678
+          </div>
+        </div>
+      </section>
+
+      <section class="p-section">
+        <h2 class="c-ttl_sec">変更する名前（改姓）</h2>
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">ご変更後の姓（漢字）</span><br>
+            楽天
+          </div>
+          <div class="p-form_item">
+            <span class="weight4">ご変更後の姓（カナ）</span><br>
+            ラクテン
+          </div>
+        </div>
+      </section>
+
+      <div class="border"></div>
+
+      <div class="p-form_btn">
+        <input type="button" name="button" id="button" value="入力内容を修正する" class="c-btn_outline _gray">
+      </div>
+      <div class="p-form_add l-inner_s c-box_info _orange">
+        <div class="caution">
+          <img src="../images/icon_caution.svg" alt="caution" />
+          <div class="caution_text">
+            ＜入力内容の確認＞<br>
+            上記のご入力内容にお間違いがなければ、「入力内容を送信する」をご選択ください。<br>
+            ※「入力内容を送信する」をご選択いただくと受付が完了し、「受付のお知らせ」メールを送信いたします。<br>
+            ※ドメイン指定受信設定や受信拒否設定などをご利用中のお客様には、当社からの「受付のお知らせ」メールを受信できない場合がございます。
+          </div>
+        </div>
+      </div>
+
+      <div class="p-form_btn phone_number mb40">
+        <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit _blue" id="ButtonConfirmationPage"
+               value="入力内容を送信する">
+      </div>
+      <div class="p-form_btn">
+        <input name="nmButtonCancel" type="button" class="c-btn_outline _gray js-modal-open" data-target="CancelModal"
+               id="ButtonCancel"
+               value="手続きの取消">
+        <div class="form-modal modal-container" id="CancelModal">
+          <div class="modal-body">
+            <div class="modal-close pc js-modal-close" data-target="CancelModal"></div>
+            <div class="modal-content">
+              <p class="weight7">すべてのお手続きが取り消されますがよろしいでしょうか？</p>
+              <div class="flex flex-center">
+                <a class="c-btn_outline _red js-modal-close" data-target="CancelModal">お手続きを続ける</a>
+                <a class="c-btn_outline _red ml5" href="javascript:void(0)">お手続きを取り消す</a>
+              </div>
+            </div>
+            <div class="modal-close sp js-modal-close" data-target="CancelModal"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-box_guide phone_number">
+        <div class="mb-8">お問い合わせは、以下の電話番号で承ります。</div>
+        <div class="bold mb-8">
+          楽天保険の総合窓口<br>
+          0120-977-010
+        </div>
+        <div>受付時間：9:00～18:00（年末年始を除く）</div>
+      </div>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-inner">
+      <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div>
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="../js/lib.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<!--#include virtual="/shared/inc/footer_r.html" -->
+<!--#include virtual="/shared/inc/footer_group_r.html" -->
+<!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+</html>

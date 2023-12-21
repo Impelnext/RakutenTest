@@ -1,0 +1,146 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'AutoChangeDate__c ':'',
+																		'AutoInsuredAfterChange__c':'',
+																		'AutoInsuredPersonNameAfterChangeKana__c':'',
+																		'AutoInsuredPersonNameAfterChangeKanji__c':'',
+																		'AutoInsuredPersonBirthAfterChange__c':'',
+																		'AutoGenderOfInsuredAfterChange__c':'',
+																		'ReflectTheAddressOfTheInsuredPerson__c':'',
+																		'AutoInsuredPostalCodeAfterChange__c':'',
+																		'CarPrefectureOfTheInsuredAfterChange__c':'',
+																		'AutoInsuredCityAfterChange__c':'',
+																		'AutoInsuredPersonsAddressAfterChange1__c':'',
+																		'AutoInsuredBuildingNameAfterChange__c':'',
+																		'InsuredPersonsLicenseColorAfterChange__c':'',
+																		'RelationshipInsuredPersonBeforeChange__c':'',
+																		'AdRelationshipInsuredPersonBefChange__c':'',
+																		'CarDriverAgeConditionChange__c':'',
+																		'ChangeOfAutoDriverLimitedCategory__c':'',
+																		'CarOtherInformation__c':'',
+																		'OtherChangeDate__c':'',
+																		'OtherInsuredPersonAfterChange__c':'',
+																		'OtherNameInsuredPersonAfterChangeKana__c':'',
+																		'OtherInsuredPersonNameAfterChangeKnj__c':'',
+																		'OtherInsuredPersonBirthAfterChange__c':'',
+																		'OtherGenderOfInsuredAfterChange__c':'',
+																		'OtherPostCodeInsuredPersonAfterChange__c':'',
+																		'OtherPrefectureOfInsuredAfterChange__c':'',
+																		'OtherInsuredCityAfterChange__c':'',
+																		'OtherInsuredPersonAddressAfterChange1__c':'',
+																		'OtherInsuredPersonAddressAfterChange2__c':'',
+																		'OtherReflectAdresPersonAfterChange__c':'',
+																		'OtherRelationshipInsuredBeforeChange__c':'',
+																		'AddOtherRelationshipInsuredBefoChange__c':'',
+																		'OtherOtherInformation__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineInsuredPersonChangeCmp" action="{!c.saveInlineInsuredPersonChangeCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+
+<!--Picklist attributes-->
+<aura:attribute name="autoInsuredAfterChangePickMap" type="Map"/>
+<aura:attribute name="autoGenderOfInsuredAfterChangePickMap" type="Map"/>
+<aura:attribute name="insurPersonsLicenseColorAftChngPickMap" type="Map"/>
+<aura:attribute name="relatshpInsPersonBeforeChnPickMap" type="Map"/>
+<aura:attribute name="carDriverAgeConditionChngPickMap" type="Map"/>
+<aura:attribute name="chngOfAutoDriverLtdCatgryPickMap" type="Map"/>
+<aura:attribute name="otherInsuredPersonAfterChangePickMap" type="Map"/>
+<aura:attribute name="otherGenOfInsAfrChngPickMap" type="Map"/>
+<aura:attribute name="otherRelatnInsBefChngPickMap" type="Map"/>
+<aura:attribute name="getAutoAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+<aura:attribute name="getOtherAreaInfoMap" type="Map" default="{'prefecture1': '', 'municipality': '', 'chome': ''}"/>
+
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（自動車）変更後被保険者情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:input aura:Id="autoChangeDate" type="date" name="autoChangeDate" value="{!v.innerCmpNewRequest.AutoChangeDate__c}" label="自動車_変更日" />
+			<lightning:select aura:Id="autoInsuredAfterChangePickMap" value="{!v.innerCmpNewRequest.AutoInsuredAfterChange__c}" label="自動車_変更後被保険者" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.autoInsuredAfterChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.AutoInsuredAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AutoInsuredPersonNameAfterChangeKana__c}" label="自動車_変更後被保険者氏名（カナ）"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AutoInsuredPersonNameAfterChangeKanji__c}" label="自動車_変更後被保険者氏名（漢字）"/>
+			<lightning:input aura:Id="autoInsuredPersonBirthAfterChange" type="date" name="autoInsuredPersonBirthAfterChange" value="{!v.innerCmpNewRequest.AutoInsuredPersonBirthAfterChange__c}" label="自動車_変更後被保険者生年月日" />
+			<lightning:select aura:Id="autoGenderOfInsuredAfterChangePickMap" value="{!v.innerCmpNewRequest.AutoGenderOfInsuredAfterChange__c}" label="自動車_変更後被保険者の性別" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.autoGenderOfInsuredAfterChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.AutoGenderOfInsuredAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<ui:inputCheckbox aura:id="ReflectTheAddrOfTheInsurPerson" label="自動車_変更後被保険者の住所を受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectTheAddressOfTheInsuredPerson__c}"/>
+			<lightning:input aura:Id="note" type="text"  onblur="{!c.handleAutoAreaInfo}" value="{!v.innerCmpNewRequest.AutoInsuredPostalCodeAfterChange__c}" label="自動車_変更後被保険者の郵便番号　　注）変更後の郵便番号は000-0000の形式で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getAutoAreaInfoMap.prefecture}" label="自動車_変更後被保険者の都道府県"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getAutoAreaInfoMap.municipality}" label="自動車_変更後被保険者の市区町村"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getAutoAreaInfoMap.chome}" label="自動車_変更後被保険者の住所１　　注）全角で入力してください"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AutoInsuredBuildingNameAfterChange__c}" label="自動車_変更後被保険者の建物名　　注）全角で入力してください"/>
+			<lightning:select aura:Id="insurPersonsLicenseColorAftChngPickMap" value="{!v.innerCmpNewRequest.InsuredPersonsLicenseColorAfterChange__c}" label="自動車_変更後被保険者の免許証の色" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.insurPersonsLicenseColorAftChngPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.InsuredPersonsLicenseColorAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="relatshpInsPersonBeforeChnPickMap" value="{!v.innerCmpNewRequest.RelationshipInsuredPersonBeforeChange__c}" label="自動車_変更前被保険者との続柄" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.relatshpInsPersonBeforeChnPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.RelationshipInsuredPersonBeforeChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AdRelationshipInsuredPersonBefChange__c}" label="自動車_変更前被保険者との続柄（前項①以外の場合、具体的に）"/>
+			<lightning:select aura:Id="carDriverAgeConditionChngPickMap" value="{!v.innerCmpNewRequest.CarDriverAgeConditionChange__c}" label="自動車_運転者年齢条件の変更" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.carDriverAgeConditionChngPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.CarDriverAgeConditionChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="chngOfAutoDriverLtdCatgryPickMap" value="{!v.innerCmpNewRequest.ChangeOfAutoDriverLimitedCategory__c}" label="自動車_運転者限定区分の変更" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.chngOfAutoDriverLtdCatgryPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.ChangeOfAutoDriverLimitedCategory__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:textarea aura:Id="CarOtherInformation" name="" type="text" value="{!v.innerCmpNewRequest.CarOtherInformation__c}" label="自動車_その他情報" class="customHeight"/>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（その他）変更後被保険者情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:input aura:Id="autoChangeDate" type="date" name="autoChangeDate" value="{!v.innerCmpNewRequest.OtherChangeDate__c}" label="その他_変更日" />
+			<lightning:select aura:Id="otherInsuredPersonAfterChangePickMap" value="{!v.innerCmpNewRequest.OtherInsuredPersonAfterChange__c}" label="その他_変更後被保険者" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.otherInsuredPersonAfterChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.OtherInsuredPersonAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.OtherNameInsuredPersonAfterChangeKana__c}" label="その他_変更後被保険者氏名（カナ）"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.OtherInsuredPersonNameAfterChangeKnj__c}" label="その他_変更後被保険者氏名（漢字）"/>
+			<lightning:input aura:Id="otherInsPersonBirthAfrChng" type="date" name="otherInsPersonBirthAfrChng" value="{!v.innerCmpNewRequest.OtherInsuredPersonBirthAfterChange__c}" label="その他_変更後被保険者生年月日" />
+			<lightning:select aura:Id="otherGenOfInsAfrChngPickMap" value="{!v.innerCmpNewRequest.OtherGenderOfInsuredAfterChange__c}" label="その他_変更後被保険者の性別" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.otherGenOfInsAfrChngPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.OtherGenderOfInsuredAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" onblur="{!c.handleOtherAreaInfo}" value="{!v.innerCmpNewRequest.OtherPostCodeInsuredPersonAfterChange__c}" label="その他_変更後被保険者の郵便番号"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getOtherAreaInfoMap.prefecture}" label="その他_変更後被保険者の都道府県"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getOtherAreaInfoMap.municipality}" label="その他_変更後被保険者の市区町村"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.getOtherAreaInfoMap.chome}" label="その他_変更後被保険者の住所①"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.OtherInsuredPersonAddressAfterChange2__c}" label="その他_変更後被保険者の住所②"/>
+			<ui:inputCheckbox aura:id="otherReflectAdresPersonAfterChange" value="{!v.innerCmpNewRequest.OtherReflectAdresPersonAfterChange__c}" label="その他_変更後被保険者の住所を受付情報の送付先住所に反映する"/>
+			<lightning:select aura:Id="otherRelatnInsBefChngPickMap" value="{!v.innerCmpNewRequest.OtherRelationshipInsuredBeforeChange__c}" label="その他_変更前被保険者との続柄" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.otherRelatnInsBefChngPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.OtherRelationshipInsuredBeforeChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.AddOtherRelationshipInsuredBefoChange__c}" label="その他_変更前被保険者との続柄（前項①以外の場合、具体的に）"/>
+			<lightning:textarea aura:Id="otherOtherInformation" name="" type="text" value="{!v.innerCmpNewRequest.OtherOtherInformation__c}" label="その他_その他情報" class="customHeight"/>
+
+</div>
+</aura:component>

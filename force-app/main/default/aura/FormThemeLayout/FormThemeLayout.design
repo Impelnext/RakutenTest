@@ -1,0 +1,3 @@
+<design:component label="フォームテーマレイアウト">
+   <design:attribute name="contentWidth" label="コンテンツ幅(px)" />
+</design:component>

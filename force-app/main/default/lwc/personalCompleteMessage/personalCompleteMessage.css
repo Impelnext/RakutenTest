@@ -1,0 +1,24 @@
+.l-inner_s {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.p-section {
+    margin-bottom: 64px;
+}
+
+.l-inner_s p {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p {
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 1.5em;
+}

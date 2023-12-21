@@ -1,0 +1,8 @@
+<apex:page controller="BatchBCP_PetFreeConsentCSV">
+<apex:form >
+<B>ペットフリー保険_有効メールアドレス出力</B>
+<br/>
+<br/>
+ <apex:commandButton value="Run Batch" action="{!executeBatchBCP_PetFreeConsentCSV}"/>
+</apex:form>
+</apex:page>

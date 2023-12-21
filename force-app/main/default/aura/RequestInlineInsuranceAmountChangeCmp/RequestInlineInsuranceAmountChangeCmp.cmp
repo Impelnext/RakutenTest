@@ -1,0 +1,138 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'DateOfChange__c':'',
+																		'VehicleInsuranceAmount__c':'',
+																		'Interpersonal__c':'',
+																		'Objective__c':'',
+																		'Disclaimer__c':'',
+																		'PersonalInjury__c':'',
+																		'PersonalInjuryExternalCompensation__c':'',
+																		'PassengerInjuryDaysPartDoublePayment__c':'',
+																		'PassengerInjuryInsuranceAmount__c':'',
+																		'PassengerInjuryDayOfHospitalization__c':'',
+																		'PassengerInjuryDailyFee__c':'',
+																		'ChangeInsuranceAmountOtherInformation__c':'',
+																		'Procedure__c':'',
+																		'AdditionalRefundPremiumYen__c':'',
+																		'TransferDivision__c':'',
+																		'AdditionalAndReturnAccount__c':'',
+																		'VirtualAccountPaymentDueDate__c':'',
+																		'BillingMonth__c':'',
+																		'NecessityOfReceipt__c':'',
+																		'PrintingSequenceNumber__c':'',
+																		'EndorsementNumber__c':'',
+																		'TransferApprovalDate__c':'',
+																		'ProcedureMethodOtherInfo__c':''
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineInsuranceAmountChange" action="{!c.saveInlineInsuranceAmountChange}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+<!--Declare Attributes-->	
+            <!--Picklist Attributes-->	
+<aura:attribute name="personalInjuryExternalCompensationPickMap" type="Map"/>
+<aura:attribute name="procedurePickMap" type="Map"/>
+<aura:attribute name="transferDivisionPickMap" type="Map"/>
+<aura:attribute name="additionalAndReturnAccountPickMap" type="Map"/>
+<aura:attribute name="necessityOfReceiptPickMap" type="Map"/>
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更保険金額情報</h3> </div>
+    <div class="slds-p-top_medium"></div>
+    <lightning:input aura:Id="dateOfChange" type="date" name="dateOfChange" value="{!v.innerCmpNewRequest.DateOfChange__c}" label="変更日" />
+	<lightning:input aura:Id="vehicleInsuranceAmount" name="" type="text" value="{!v.innerCmpNewRequest.VehicleInsuranceAmount__c}" label="車両保険金額" />
+	<lightning:input aura:Id="interpersonal" name="" type="text" value="{!v.innerCmpNewRequest.Interpersonal__c}" label="対人" />
+	<lightning:input aura:Id="objective" name="" type="text" value="{!v.innerCmpNewRequest.Objective__c}" label="対物" />
+	<lightning:input aura:Id="disclaimer" name="" type="text" value="{!v.innerCmpNewRequest.Disclaimer__c}" label="対物免責" />
+	<lightning:input aura:Id="personalInjury" name="" type="text" value="{!v.innerCmpNewRequest.PersonalInjury__c}" label="人身傷害" />
+	<div class="form-group">
+		<lightning:select 
+		aura:id="personalInjuryExternalCompensationPicklist" 
+		value="{!v.innerCmpNewRequest.PersonalInjuryExternalCompensation__c}"
+		name="personalInjuryExternalCompensationPicklist" 
+		label="人身傷害車外補償" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.personalInjuryExternalCompensationPickMap}" var="pie" indexVar="key">
+		<option text="{!pie.value}" 
+		value="{!pie.key}" 
+		selected="{!pie.key==v.innerCmpNewRequest.PersonalInjuryExternalCompensation__c}" />
+		</aura:iteration>
+		</lightning:select>
+    </div>
+	<lightning:input aura:Id="passengerInjuryDaysPartDoublePayment" name="" type="text" value="{!v.innerCmpNewRequest.PassengerInjuryDaysPartDoublePayment__c}" label="搭乗者傷害（日数払・部位払・部位別倍額払）" />
+	<lightning:input aura:Id="passengerInjuryInsuranceAmount" name="" type="text" value="{!v.innerCmpNewRequest.PassengerInjuryInsuranceAmount__c}" label="搭乗者傷害（保険金額）" />
+	<lightning:input aura:Id="passengerInjuryDayOfHospitalization" name="" type="text" value="{!v.innerCmpNewRequest.PassengerInjuryDayOfHospitalization__c}" label="搭乗者傷害（入院日額）" />
+	<lightning:input aura:Id="passengerInjuryDailyFee" name="" type="text" value="{!v.innerCmpNewRequest.PassengerInjuryDailyFee__c}" label="搭乗者傷害（通院日額）" />
+	<lightning:textarea aura:Id="changeInsuranceAmountOtherInformation" name="" type="text" value="{!v.innerCmpNewRequest.ChangeInsuranceAmountOtherInformation__c}" label="変更保険金額　その他情報" class="customHeight"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">手続き方法</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="form-group">
+		<lightning:select 
+		aura:id="procedurePicklist" 
+		value="{!v.innerCmpNewRequest.Procedure__c}"
+		name="procedurePicklist" 
+		label="手続き方法" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.procedurePickMap}" var="pro" indexVar="key">
+		<option text="{!pro.value}" 
+		value="{!pro.key}" 
+		selected="{!pro.key==v.innerCmpNewRequest.Procedure__c}" />
+		</aura:iteration>
+		</lightning:select>
+    </div>
+	<lightning:input aura:Id="additionalRefundPremiumYen" name="" type="text" value="{!v.innerCmpNewRequest.AdditionalRefundPremiumYen__c}" label="追加・返還保険料（円）" />
+	<div class="form-group">
+		<lightning:select 
+		aura:id="transferDivisionPicklist" 
+		value="{!v.innerCmpNewRequest.TransferDivision__c}"
+		name="transferDivisionPicklist" 
+		label="異動分割" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.transferDivisionPickMap}" var="trd" indexVar="key">
+		<option text="{!trd.value}" 
+		value="{!trd.key}" 
+		selected="{!trd.key==v.innerCmpNewRequest.TransferDivision__c}" />
+		</aura:iteration>
+		</lightning:select>
+    </div>
+    <div class="form-group">
+		<lightning:select 
+		aura:id="additionalAndReturnAccountPicklist" 
+		value="{!v.innerCmpNewRequest.AdditionalAndReturnAccount__c}"
+		name="additionalAndReturnAccountPicklist" 
+		label="追徴・返還先口座" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.additionalAndReturnAccountPickMap}" var="ara" indexVar="key">
+		<option text="{!ara.value}" 
+		value="{!ara.key}" 
+		selected="{!ara.key==v.innerCmpNewRequest.AdditionalAndReturnAccount__c}" />
+		</aura:iteration>
+		</lightning:select>
+    </div>
+	<lightning:input aura:Id="virtualAccountPaymentDueDate" name="" type="Date" value="{!v.innerCmpNewRequest.VirtualAccountPaymentDueDate__c}" label="仮想口座入金期日" />
+    <lightning:input aura:Id="billingMonth" name="" type="text" value="{!v.innerCmpNewRequest.BillingMonth__c}" label="請求月（請求開始月）" />
+	<div class="form-group">
+		<lightning:select 
+		aura:id="necessityOfReceiptPicklist" 
+		value="{!v.innerCmpNewRequest.NecessityOfReceipt__c}"
+		name="necessityOfReceiptPicklist" 
+		label="領収証の要否（お客様から要望があったもの）" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.necessityOfReceiptPickMap}" var="ara" indexVar="key">
+		<option text="{!ara.value}" 
+		value="{!ara.key}" 
+		selected="{!ara.key==v.innerCmpNewRequest.NecessityOfReceipt__c}" />
+		</aura:iteration>
+		</lightning:select>
+    </div>
+	<lightning:input aura:Id="printingSequenceNumber" name="" type="text" value="{!v.innerCmpNewRequest.PrintingSequenceNumber__c}" label="印刷連番" />
+    <lightning:input aura:Id="endorsementNumber" name="" type="text" value="{!v.innerCmpNewRequest.EndorsementNumber__c}" label="裏書番号" />
+	<lightning:input aura:Id="transferApprovalDate" type="date" name="transferApprovalDate" value="{!v.innerCmpNewRequest.TransferApprovalDate__c}" label="異動承認日"/>
+    <lightning:textarea aura:Id="procedureMethodOtherInfo" name="" type="text" value="{!v.innerCmpNewRequest.ProcedureMethodOtherInfo__c}" label="手続き方法　その他情報" class="customHeight"/>
+</div>
+</aura:component>

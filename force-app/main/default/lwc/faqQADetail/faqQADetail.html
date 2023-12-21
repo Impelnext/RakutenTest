@@ -1,0 +1,24 @@
+<template>
+    <div class="gen_area">
+        <div class="l-wrapper">
+            <main class="l-main">
+                <div class="l-inner">
+                    <!-- Question -->
+                    <div class="p-faq_q">
+                        <lightning-formatted-rich-text value={question}></lightning-formatted-rich-text>
+                    </div>
+                    <!-- Answer -->
+                    <div class="p-faq_a">
+                        <lightning-formatted-rich-text value={answer}></lightning-formatted-rich-text>
+                    </div>
+                    <!-- Error -->
+                    <template if:true={error}>
+                        <div class="slds-text-color_error">
+                            {error}
+                        </div>
+                    </template>
+                </div>
+            </main>
+        </div>
+    </div>
+</template>

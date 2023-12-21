@@ -1,0 +1,453 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'InsuranceTypeAsapPap__c':'',
+																		'DeliveryDate__c':'',
+																		'CarOwnerType__c':'',
+																		'CarOwnerKana__c':'',
+																		'CarOwnerKanji__c':'',
+																		'AppLicationModel__c':'',
+																		'MaximumLoadingCapacity__c':'',
+																		'CarBodyShape__c':'',
+																		'CarBOdyShapeOther__c':'',
+																		'AfterChangedCase__c':'',
+																		'CarNumberShikyokuKanji__c':'',
+																		'CarNumberShikyokuKana__c':'',
+																		'CarNumberBunrui__c':'',
+																		'CarNumberKana__c':'',
+																		'CarNumberNumber__c':'',
+																		'FirstRegistrationDate1__c':'',
+																		'FirstRegistrationDate2__c':'',
+																		'CarBodyNoLeft__c':'',
+																		'CarBodyNoRight__c':'',
+																		'Model__c':'',
+																		'Displacement__c':'',
+																		'FuelTypeCar__c':'',
+																		'FuelTypeCarOther__c':'',
+																		'AddVehicleUserKana__c':'',
+																		'AddVehicleUserKanji__c':'',
+																		'HybridCar__c':'',
+																		'CarName__c':'',
+																		'TotalAmount__c':'',
+																		'WelfareVehicles__c':'',
+																		'IsElectricOrHydrogen__c':'',
+																		'AutomaticBrake__c':'',
+																		'VehicleInsuranceType__c':'',
+																		'VehicleInsuranceAmountPer10K__c':'',
+																		'ExemptionAmount1st__c':'',
+																		'ExemptionAmount2nd__c':'',
+																		'VehicleNegligence__c':'',
+																		'ExtraordinaryLosses__c':'',
+																		'NewCarAcquisitionCost__c':'',
+																		'InterpersonalCompensation__c':'',
+																		'ObjectiveCompensation__c':'',
+																		'OverObjectiveRepairCosts__c':'',
+																		'IsEarthquakeEruptionTsunami__c':'',
+																		'RequestForCompensationOtherInfo__c':'',
+																		'Procedure__c':'',
+																		'AdditionalRefundPremiumYen__c':'',
+																		'TransferDivision__c':'',
+																		'AdditionalAndReturnAccount__c':'',
+																		'VirtualAccountPaymentDueDate__c':'',
+																		'BillingMonth__c':'',
+																		'NecessityOfReceipt__c':'',
+																		'PrintingSequenceNumber__c':'',
+																		'EndorsementNumber__c':'',
+																		'TransferApprovalDate__c':'',
+																		'ProcedureMethodOtherInfo__c':'',
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineVehicleReplacement" action="{!c.saveInlineVehicleReplacement}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+
+<aura:attribute name="listControllingValues" type="list" default="[]" description="to store controller field values"/>
+<aura:attribute name="listDependingValues" type="list" default="['--- None ---']" description="to store dependent field values"/>
+<aura:attribute name="depnedentFieldMap" type="map" description="map to store dependent values with controlling value"/>
+<aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/> 
+	
+<!--Declare Attributes-->	
+            <!--Picklist Attributes-->	
+<aura:attribute name="insuranceTypeAsapPapPickMap" type="Map"/>
+<aura:attribute name="carOwnerTypePickMap" type="Map"/>
+<aura:attribute name="appLicationModelPickMap" type="Map"/>
+<aura:attribute name="carBodyShapePickMap" type="Map"/>
+<aura:attribute name="afterChangedCasePickMap" type="Map"/>
+<aura:attribute name="afterChangedCasePickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="firstRegistrationDate1PickMap" type="Map"/>
+<aura:attribute name="fuelTypeCarPickMap" type="Map"/>
+<aura:attribute name="hybridCarPickMap" type="Map"/>
+<aura:attribute name="welfareVehiclesPickMap" type="Map"/>
+<aura:attribute name="isElectricOrHydrogenPickMap" type="Map"/>
+<aura:attribute name="automaticBrakePickMap" type="Map"/>
+<aura:attribute name="vehicleInsuranceTypePickMap" type="Map"/>
+<aura:attribute name="vehicleNegligencePickMap" type="Map"/>
+<aura:attribute name="extraordinaryLossesPickMap" type="Map"/>
+<aura:attribute name="newCarAcquisitionCostPickMap" type="Map"/>
+<aura:attribute name="interpersonalCompensationPickMap" type="Map"/>
+<aura:attribute name="objectiveCompensationPickMap" type="Map"/>
+<aura:attribute name="overObjectiveRepairCostsPickMap" type="Map"/>
+<aura:attribute name="isEarthquakeEruptionTsunamiPickMap" type="Map"/>
+<aura:attribute name="procedurePickMap" type="Map"/>
+<aura:attribute name="transferDivisionPickMap" type="Map"/>
+<aura:attribute name="additionalAndReturnAccountPickMap" type="Map"/>
+<aura:attribute name="necessityOfReceiptPickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更後車両情報</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	   <div class="form-group">
+		<!--Controller Field-->
+			<lightning:select name="controllerFld"
+								value="{!v.innerCmpNewRequest.InsuranceTypeAsapPap__c}"
+								label="保険種類（ASAP／PAP）"
+								onchange="{!c.onControllerFieldChange}">
+				<aura:iteration items="{!v.listControllingValues}" var="val">
+					<option value="{!val}">{!val}</option>
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<lightning:input aura:Id="deliveryDate" type="date" name="deliveryDate" value="{!v.innerCmpNewRequest.DeliveryDate__c}" label="車両納車日" />
+	   <div class="form-group">
+		<lightning:select 
+					 aura:id="carOwnerTypePicklist" 
+					 value="{!v.innerCmpNewRequest.CarOwnerType__c}"
+					 name="carOwnerTypePicklist" 
+					 label="車両所有者区分" >
+			<option value="">-- None --</option>
+			<aura:iteration items="{!v.carOwnerTypePickMap}" var="cot" indexVar="key">
+				<option text="{!cot.value}" 
+				        value="{!cot.key}" 
+						selected="{!cot.key==v.innerCmpNewRequest.CarOwnerType__c}" />
+			</aura:iteration>
+		</lightning:select>
+		</div>
+        <lightning:input aura:Id="carOwnerKana" name="" type="text" value="{!v.innerCmpNewRequest.CarOwnerKana__c}" label="車両所有者名（カナ）　　注）全角で入力してください" />		
+		<lightning:input aura:Id="carOwnerKanji" name="" type="text" value="{!v.innerCmpNewRequest.CarOwnerKanji__c}" label="車両所有者名（漢字）" />
+	    <div class="form-group">
+		<!--Dependent Field-->
+			<lightning:select name="dependentFld"
+								value="{!v.innerCmpNewRequest.AppLicationModel__c}"
+								label="用途車種"
+								disabled="{!v.bDisabledDependentFld}">
+				<aura:iteration items="{!v.listDependingValues}" var="val">
+					<option value="{!val}">{!val}</option>
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<lightning:input aura:Id="maximumLoadingCapacity" name="" type="text" value="{!v.innerCmpNewRequest.MaximumLoadingCapacity__c}" label="（貨物の場合のみ）最大積載量" />	
+		<div class="form-group">
+		<lightning:select 
+					 aura:id="carBodyShapePicklist" 
+					 value="{!v.innerCmpNewRequest.CarBodyShape__c}"
+					 name="carBodyShapePicklist" 
+					 label="車体の形状" >
+			<option value="">-- None --</option>
+			<aura:iteration items="{!v.carBodyShapePickMap}" var="cbs" indexVar="key">
+				<option text="{!cbs.value}" 
+				        value="{!cbs.key}" 
+						selected="{!cbs.key==v.innerCmpNewRequest.CarBodyShape__c}" />
+			</aura:iteration>
+		</lightning:select>
+		</div>
+		<lightning:input aura:Id="carBodyShapeOther" name="" type="text" value="{!v.innerCmpNewRequest.CarBOdyShapeOther__c}" label="車体の形状（その他）" />	
+		<div class="form-group">
+		<lightning:select aura:id="afterChangedCasePickList" value="{!v.innerCmpNewRequest.AfterChangedCase__c}" label="変更後の車">
+            <aura:iteration items="{!v.afterChangedCasePickList}" var="pro" >
+                <option  value="{!pro}"> {!pro} </option>		
+            </aura:iteration>
+        </lightning:select>
+      </div>
+		<lightning:input aura:Id="carNumberShikyokuKanji" name="" type="text" value="{!v.innerCmpNewRequest.CarNumberShikyokuKanji__c}" label="車両ナンバー　運輸支局名（漢字）" />
+		<lightning:input aura:Id="carNumberShikyokuKana" name="" type="text" value="{!v.innerCmpNewRequest.CarNumberShikyokuKana__c}" label="車両ナンバー　運輸支局名（カナ）" />
+		<lightning:input aura:Id="carNumberBunrui" name="" type="text" value="{!v.innerCmpNewRequest.CarNumberBunrui__c}" label="車両ナンバー　分類番号" />
+		<lightning:input aura:Id="carNumberKana" name="" type="text" value="{!v.innerCmpNewRequest.CarNumberKana__c}" label="車両ナンバー　カナ　　注）全角カナで入力してください" />
+		<lightning:input aura:Id="carNumberNumber" name="" type="text" value="{!v.innerCmpNewRequest.CarNumberNumber__c}" label="車両ナンバー　番号　　注）半角数字で入力してください" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="firstRegistrationDate1Picklist" 
+						 value="{!v.innerCmpNewRequest.FirstRegistrationDate1__c}"
+						 name="firstRegistrationDate1Picklist" 
+						 label="初年度登録年月　年号選択" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.firstRegistrationDate1PickMap}" var="frd" indexVar="key">
+					<option text="{!frd.value}" 
+							value="{!frd.key}" 
+							selected="{!frd.key==v.innerCmpNewRequest.FirstRegistrationDate1__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>		
+		<lightning:input aura:Id="firstRegistrationDate2" name="" type="text" value="{!v.innerCmpNewRequest.FirstRegistrationDate2__c}" label="初年度登録年月　　注）半角数字4桁で入力してください" />
+		<lightning:input aura:Id="carBodyNoFront" name="" type="text" value="{!v.innerCmpNewRequest.CarBodyNoLeft__c}" label="車台番号　前半（ハイフンの左側）　　注）半角英数で入力してください" />
+		<lightning:input aura:Id="carBodyNoEnd" name="" type="text" value="{!v.innerCmpNewRequest.CarBodyNoRight__c}" label="車台番号　後半（ハイフンの右側）※ハイフンがない場合は後半に入力　　注）半角英数で入力してください" />
+		<lightning:input aura:Id="model" name="" type="text" value="{!v.innerCmpNewRequest.Model__c}" label="型式　　注）半角英数またはハイフンのみで入力してください" />
+		<lightning:input aura:Id="displacement" name="" type="text" value="{!v.innerCmpNewRequest.Displacement__c}" label="排気量（ℓKW)" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="fuelTypeCarPicklist" 
+						 value="{!v.innerCmpNewRequest.FuelTypeCar__c}"
+						 name="fuelTypeCarPicklist" 
+						 label="燃料の種類" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.fuelTypeCarPickMap}" var="ftc" indexVar="key">
+					<option text="{!ftc.value}" 
+							value="{!ftc.key}" 
+							selected="{!ftc.key==v.innerCmpNewRequest.FuelTypeCar__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>		
+		<lightning:input aura:Id="fuelTypeCarOther" name="" type="text" value="{!v.innerCmpNewRequest.FuelTypeCarOther__c}" label="燃料の種類（その他）" />
+		<lightning:input aura:Id="addVehicleUserKana" name="" type="text" value="{!v.innerCmpNewRequest.AddVehicleUserKana__c}" label="車両使用者（カナ）" />
+		<lightning:input aura:Id="addVehicleUserKanji" name="" type="text" value="{!v.innerCmpNewRequest.AddVehicleUserKanji__c}" label="車両使用者（漢字）" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="hybridCarPicklist" 
+						 value="{!v.innerCmpNewRequest.HybridCar__c}"
+						 name="hybridCarPicklist" 
+						 label="ハイブリッド車" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.hybridCarPickMap}" var="hyc" indexVar="key">
+					<option text="{!hyc.value}" 
+							value="{!hyc.key}" 
+							selected="{!hyc.key==v.innerCmpNewRequest.HybridCar__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>		
+		<lightning:input aura:Id="carName" name="" type="text" value="{!v.innerCmpNewRequest.CarName__c}" label="車種　※プリウス、ヴォクシー　等" />
+		<lightning:input aura:Id="totalAmount" name="" type="text" value="{!v.innerCmpNewRequest.TotalAmount__c}" label="車体本体価格と付属品価格の合計金額" />
+		<div class="form-group">
+		  <lightning:select 
+						 aura:id="welfareVehiclesPicklist" 
+						 value="{!v.innerCmpNewRequest.WelfareVehicles__c}"
+						 name="welfareVehiclesPicklist" 
+						 label="福祉車両" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.welfareVehiclesPickMap}" var="wfv" indexVar="key">
+					<option text="{!wfv.value}" 
+							value="{!wfv.key}" 
+							selected="{!wfv.key==v.innerCmpNewRequest.WelfareVehicles__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="isElectricOrHydrogenPicklist" 
+						 value="{!v.innerCmpNewRequest.IsElectricOrHydrogen__c}"		 
+						 name="isElectricOrHydrogenPicklist" 
+						 label="電気または圧縮水素自動車" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.isElectricOrHydrogenPickMap}" var="ieh" indexVar="key">
+					<option text="{!ieh.value}" 
+							value="{!ieh.key}" 
+							selected="{!ieh.key==v.innerCmpNewRequest.IsElectricOrHydrogen__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="automaticBrakePicklist" 
+						 value="{!v.innerCmpNewRequest.AutomaticBrake__c}"						
+						 name="automaticBrakePicklist" 
+						 label="自動ブレーキの有無" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.automaticBrakePickMap}" var="aub" indexVar="key">
+					<option text="{!aub.value}" 
+							value="{!aub.key}" 
+							selected="{!aub.key==v.innerCmpNewRequest.AutomaticBrake__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		
+		 <div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">補償希望内容</h3> </div>
+       <div class="slds-p-top_medium"></div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="vehicleInsuranceTypePicklist" 
+						 value="{!v.innerCmpNewRequest.VehicleInsuranceType__c}"			
+						 name="vehicleInsuranceTypePicklist" 
+						 label="車両保険種類" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.vehicleInsuranceTypePickMap}" var="vit" indexVar="key">
+					<option text="{!vit.value}" 
+							value="{!vit.key}" 
+							selected="{!vit.key==v.innerCmpNewRequest.VehicleInsuranceType__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		
+		<lightning:input aura:Id="vehicleInsuranceAmountPer10K" name="" type="text" value="{!v.innerCmpNewRequest.VehicleInsuranceAmountPer10K__c}" label="車両保険金額（万円）" />
+		<lightning:input aura:Id="exemptionAmount1st" name="" type="text" value="{!v.innerCmpNewRequest.ExemptionAmount1st__c}" label="免責金額1回目（万円）" />
+		<lightning:input aura:Id="exemptionAmount2nd" name="" type="text" value="{!v.innerCmpNewRequest.ExemptionAmount2nd__c}" label="免責金額2回目以降（万円）" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="vehicleNegligencePicklist" 
+						 value="{!v.innerCmpNewRequest.VehicleNegligence__c}"						 
+						 name="vehicleNegligencePicklist" 
+						 label="車両無過失事故" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.vehicleNegligencePickMap}" var="ven" indexVar="key">
+					<option text="{!ven.value}" 
+							value="{!ven.key}" 
+							selected="{!ven.key==v.innerCmpNewRequest.VehicleNegligence__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="extraordinaryLossesPicklist" 
+						 value="{!v.innerCmpNewRequest.ExtraordinaryLosses__c}"
+						 name="extraordinaryLossesPicklist" 
+						 label="全損臨時費用" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.extraordinaryLossesPickMap}" var="exl" indexVar="key">
+					<option text="{!exl.value}" 
+							value="{!exl.key}" 
+							selected="{!exl.key==v.innerCmpNewRequest.ExtraordinaryLosses__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="newCarAcquisitionCostPicklist" 
+						 value="{!v.innerCmpNewRequest.NewCarAcquisitionCost__c}"					
+						 name="newCarAcquisitionCostPicklist" 
+						 label="新車取得費用" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.newCarAcquisitionCostPickMap}" var="nca" indexVar="key">
+					<option text="{!nca.value}" 
+							value="{!nca.key}" 
+							selected="{!nca.key==v.innerCmpNewRequest.NewCarAcquisitionCost__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="interpersonalCompensationPicklist" 
+						 value="{!v.innerCmpNewRequest.InterpersonalCompensation__c}"						
+						 name="interpersonalCompensationPicklist" 
+						 label="対人賠償" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.interpersonalCompensationPickMap}" var="ipc" indexVar="key">
+					<option text="{!ipc.value}" 
+							value="{!ipc.key}" 
+							selected="{!ipc.key==v.innerCmpNewRequest.InterpersonalCompensation__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="objectiveCompensationPicklist" 
+						 value="{!v.innerCmpNewRequest.ObjectiveCompensation__c}"						 
+						 name="objectiveCompensationPicklist" 
+						 label="対物賠償" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.objectiveCompensationPickMap}" var="obc" indexVar="key">
+					<option text="{!obc.value}" 
+							value="{!obc.key}" 
+							selected="{!obc.key==v.innerCmpNewRequest.ObjectiveCompensation__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="overObjectiveRepairCostsPicklist" 
+						 value="{!v.innerCmpNewRequest.OverObjectiveRepairCosts__c}"						 
+						 name="overObjectiveRepairCostsPicklist" 
+						 label="対物超過修理費用" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.overObjectiveRepairCostsPickMap}" var="oor" indexVar="key">
+					<option text="{!oor.value}" 
+							value="{!oor.key}" 
+							selected="{!oor.key==v.innerCmpNewRequest.OverObjectiveRepairCosts__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="isEarthquakeEruptionTsunamiPicklist" 
+						 value="{!v.innerCmpNewRequest.IsEarthquakeEruptionTsunami__c}"
+						 name="isEarthquakeEruptionTsunamiPicklist" 
+						 label="地震・噴火・津波車両補償" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.isEarthquakeEruptionTsunamiPickMap}" var="iee" indexVar="key">
+					<option text="{!iee.value}" 
+							value="{!iee.key}" 
+							selected="{!iee.key==v.innerCmpNewRequest.IsEarthquakeEruptionTsunami__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<lightning:textarea aura:Id="requestForCompensationOtherInfo" name="" type="text" value="{!v.innerCmpNewRequest.RequestForCompensationOtherInfo__c}" label="補償希望　その他情報" class="customHeight"/>
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">手続き方法</h3> </div>
+        <div class="slds-p-top_medium"></div>
+		<div class="form-group">
+			<lightning:select 
+					 aura:id="procedurePicklist" 
+					 value="{!v.innerCmpNewRequest.Procedure__c}"
+					 name="procedurePicklist" 
+					 label="手続き方法" >
+			<option value="">-- None --</option>
+			<aura:iteration items="{!v.procedurePickMap}" var="pro" indexVar="key">
+				<option text="{!pro.value}" 
+						value="{!pro.key}" 
+						selected="{!pro.key==v.innerCmpNewRequest.Procedure__c}" />
+			</aura:iteration>
+			</lightning:select>
+		</div>
+		<lightning:input aura:Id="additionalRefundPremiumYen" name="" type="text" value="{!v.innerCmpNewRequest.AdditionalRefundPremiumYen__c}" label="追加・返還保険料（円）" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="transferDivisionPicklist" 
+						 value="{!v.innerCmpNewRequest.TransferDivision__c}"
+						 name="transferDivisionPicklist" 
+						 label="異動分割" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.transferDivisionPickMap}" var="trd" indexVar="key">
+					<option text="{!trd.value}" 
+							value="{!trd.key}" 
+							selected="{!trd.key==v.innerCmpNewRequest.TransferDivision__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>		
+		<div class="form-group">
+		<lightning:select 
+				 aura:id="additionalAndReturnAccountPicklist" 
+				 value="{!v.innerCmpNewRequest.AdditionalAndReturnAccount__c}"
+				 name="additionalAndReturnAccountPicklist" 
+				 label="追徴・返還先口座" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.additionalAndReturnAccountPickMap}" var="ara" indexVar="key">
+			<option text="{!ara.value}" 
+					value="{!ara.key}" 
+					selected="{!ara.key==v.innerCmpNewRequest.AdditionalAndReturnAccount__c}" />
+		</aura:iteration>
+		</lightning:select>
+		</div>
+		<lightning:input aura:Id="virtualAccountPaymentDueDate" name="" type="date" value="{!v.innerCmpNewRequest.VirtualAccountPaymentDueDate__c}" label="仮想口座入金期日" />
+		<lightning:input aura:Id="billingMonth" name="" type="text" value="{!v.innerCmpNewRequest.BillingMonth__c}" label="請求月（請求開始月）" />
+		<div class="form-group">
+			<lightning:select 
+						 aura:id="necessityOfReceiptPicklist" 
+						 value="{!v.innerCmpNewRequest.NecessityOfReceipt__c}"
+						 name="necessityOfReceiptPicklist" 
+						 label="領収証の要否（お客様から要望があったもの）" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.necessityOfReceiptPickMap}" var="ncr" indexVar="key">
+					<option text="{!ncr.value}" 
+							value="{!ncr.key}" 
+							selected="{!ncr.key==v.innerCmpNewRequest.NecessityOfReceipt__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>	
+		<lightning:input aura:Id="printingSequenceNumber" name="" type="text" value="{!v.innerCmpNewRequest.PrintingSequenceNumber__c}" label="印刷連番" />
+		<lightning:input aura:Id="endorsementNumber" name="" type="text" value="{!v.innerCmpNewRequest.EndorsementNumber__c}" label="裏書番号" />
+	    <lightning:input aura:Id="transferApprovalDate" type="date" name="transferApprovalDate" value="{!v.innerCmpNewRequest.TransferApprovalDate__c}" label="異動承認日" />
+	    <lightning:textarea aura:Id="procedureMethodOtherInfo" name="" type="text" value="{!v.innerCmpNewRequest.ProcedureMethodOtherInfo__c}" label="手続き方法　その他情報" class="customHeight"/>
+	
+</div>
+</aura:component>

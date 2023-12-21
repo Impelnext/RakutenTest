@@ -1,0 +1,84 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRequestRejectUpdate" action="{!c.saveInlineRequestRejectUpdate}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<!--Event Method -->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+    
+<!--Declare Attributes-->	
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>	
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+
+<div class="slds-box slds-theme_default">
+     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">更新拒否（共通）</h3> </div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col">
+                <div class="form-group">
+                   <lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+						<aura:iteration items="{!v.processingPicklist}" var="pro" >
+							<option  value="{!pro}"> {!pro} </option>		
+						</aura:iteration>
+					</lightning:select>
+                </div>
+                <div class="form-group">
+                    <lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                        <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                            <option  value="{!pro}"> {!pro} </option>		
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                
+                <div class="form-group">
+                    <lightning:select aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}" name="dateOfShipmentPicklist" label="発送日" disabled="true">
+                        <option value="">-- None --</option>
+                        <aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+                            <option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="form-group">
+                    <lightning:select aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}" name="shippingMethodPicklist" label="発送方法" disabled="true">
+                        <option value="">-- None --</option>
+                        <aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+                            <option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+        </div>
+        <div class="slds-col">
+		    <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--xxx-small"></div>
+         <!--   <lightning:input aura:Id="numberOfCopies" name="" type="integer" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/> -->
+            <!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+    		<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数"  disabled="true" onchange="{!c.handleNoOfCopies}" />
+            <aura:if isTrue="{!v.noOfCopiesErr}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+			
+        </div>
+    </div>  			
+</div>
+</aura:component>

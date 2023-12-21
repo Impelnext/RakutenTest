@@ -1,0 +1,56 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_privacy js-scrollArea" id="js-terms" onscroll={scrollToBottomHandler}>
+                    楽天生命WEBサイトのご契約者マイページより各種手続きをされた方には楽天ポイントを進呈しております。<br>
+                    ご契約者さま向けマイページで対象のお手続きをされた場合には楽天ポイントが50ポイント進呈されます。
+                  <br>
+                  <br>
+                  当手続きフォームでお手続きには楽天ポイントは進呈されませんので下記概要をお読みいただき、ご了承いただいた上で当手続きフォームをご利用ください。
+                  <br>
+                  <br>
+                  【楽天ポイント進呈の対象】<br>
+                  ご契約いただいている個人向けのすべての保険商品（共済契約を含む）<br>
+                  ※団体信用生命保険、1年定期がん保険（楽天ミニ保険）、楽天みんなの超～割引保険（専用ページからの手続き）は除きます。<br>
+                  （１）入院給付金/通院給付金、一時金等の各種支払請求<br>
+                  ※死亡保険金の請求は除きます。<br>
+                  ※指定代理請求人からの請求は除きます。<br>
+                  ※証券番号等を誤って請求したものは除きます。<br>
+                  （２）保険料払込方法の変更<br>
+                  ※共済契約の払込方法の変更（掛金振替口座変更）は除きます。<br>
+                  （３）住所変更<br>
+                  ※電話番号のみの変更は除きます。<br>
+                  <br>
+                  【ポイント進呈について】<br>
+                  以下の1と2の両方を満たす場合に、ポイント進呈の対象となります。<br>
+                  1．対象のお手続きの申出完了<br>
+                  当社の所定ウェブサイトまたはご契約者マイページ経由で対象のお手続きの申出が完了していること。<br>
+                  2．楽天ID連携<br>
+                  ・マイページでのお手続きの場合、対象のお手続きの申出が完了した時点及びポイント進呈判定時点で有効な楽天IDが対象保険契約に連携されていること。<br>
+                  ・給付金請求の場合、ポイント進呈判定時点で有効な楽天IDが対象保険契約に連携されていること。<br>
+                  ※上記の楽天IDは契約者ご本人名義のものに限ります。<br>
+                  ※ポイント進呈判定時点とは当社の定める期日となります。<br>
+                  ※契約者の変更の取扱：対象のお手続きの申出完了後に契約者を変更し、変更後の契約者の楽天IDの連携が完了していた場合、ポイントは変更後の契約者に進呈されます。<br>
+                  ※保険契約の解約の取扱：ポイント進呈判定時点で保険契約を解約していた場合でもポイントは進呈されます。<br>
+                  ※進呈ポイントは50ポイント。ただし、ポイント倍率アップのキャンペーン等は適用されません。<br>
+                  ※ポイントの種類は期間限定ポイントになります。進呈日から6ヵ月間ご利用できる期間限定ポイントとなります。
+                  <br>
+                  <br>
+                  【楽天IDをお持ちのご契約者さま用　楽天生命 ご契約さま向けマイページへ】
+                  <br>
+                  <a href="https://www.rakuten-life.co.jp/applicant/procedure/" target="_blank">楽天生命 ご契約者さま向けマイページ
+      </a><img src="/sfsites/c/resource/SitePrc/template/images/icon_link.svg" alt="外部サイトへ移動します" height="18" width="18">
+                  </div>
+            </div>
+
+          <div class="p-form_btn">
+            <button type="button" class="c-btn_submit" title="Submit" onclick={moveToPage} disabled={disableFlag}>注意事項を確認し、<br>お手続きへ進む</button>
+            <!-- <input type="button" class="c-btn_submit" title="Submit" onclick={moveToPage} disabled={disableFlag} value="注意事項を確認し、&#13;&#10;お手続きへ進む"> -->
+          </div>
+          <div>
+            <p class="c-menu-content">注意事項を最後まで確認いただくとボタンが赤く表示されて押せます。</p>
+          </div>
+        </section>
+    </template>
+  </template>

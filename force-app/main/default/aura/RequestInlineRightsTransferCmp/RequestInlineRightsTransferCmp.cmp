@@ -1,0 +1,74 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'DateOfChange__c':'',
+																		'Changes__c':'',
+																		'RelationshipChangedContractor__c':'',
+																		'NameAfterChangeOfNameKana__c':'',
+																		'NameAfterChangeOfNameKanji__c':'',
+																		'GenderAfterChange__c':'',
+																		'DateOfBirthAfterChange__c':'',
+																		'AccountCreditCardChange__c':'',
+																		'RecipientChange__c':'',
+																		'NenrinOnlyChangeInBeneficiary__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRightsTransferCmp" action="{!c.saveInlineRightsTransferCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<!--Picklist attributes-->
+<aura:attribute name="changesPickMap" type="Map"/>
+<aura:attribute name="changesPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="relationshipChngContractPickMap" type="Map"/>
+<aura:attribute name="genderAfterChangePickMap" type="Map"/>
+<aura:attribute name="accountCreditCardChangePickMap" type="Map"/>
+<aura:attribute name="recipientChangePickMap" type="Map"/>
+<aura:attribute name="nenrinOnlyChangeInBeneficiaryPickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">変更後内容</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:input aura:Id="dateOfChange" type="date" name="dateOfChange" value="{!v.innerCmpNewRequest.DateOfChange__c}" label="変更日" />
+			<lightning:select aura:id="changesPickList" value="{!v.innerCmpNewRequest.Changes__c}" label="変更内容">
+                <aura:iteration items="{!v.changesPickList}" var="pro" >
+                    <option  value="{!pro}"> {!pro} </option>		
+                </aura:iteration>
+            </lightning:select>
+			<lightning:select aura:Id="relationshipChngContractPickMap" value="{!v.innerCmpNewRequest.RelationshipChangedContractor__c}" label="現契約者との続柄（契約者契約者を別人に変更する場合）" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.relationshipChngContractPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.RelationshipChangedContractor__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.NameAfterChangeOfNameKana__c}" label="名義変更後氏名（カナ）"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.NameAfterChangeOfNameKanji__c}" label="名義変更後氏名（漢字）"/>
+			<lightning:select aura:Id="genderAfterChangePickMap" value="{!v.innerCmpNewRequest.GenderAfterChange__c}" label="変更後性別" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.genderAfterChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.GenderAfterChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:input aura:Id="dateOfBirthAfterChange" type="date" name="dateOfBirthAfterChange" value="{!v.innerCmpNewRequest.DateOfBirthAfterChange__c}" label="変更後生年月日" />
+			<lightning:select aura:Id="accountCreditCardChangePickMap" value="{!v.innerCmpNewRequest.AccountCreditCardChange__c}" label="口座、クレジットカード変更" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.accountCreditCardChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.AccountCreditCardChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="recipientChangePickMap" value="{!v.innerCmpNewRequest.RecipientChange__c}" label="受取人変更" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.recipientChangePickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.RecipientChange__c}"/>
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select aura:Id="nenrinOnlyChangeInBeneficiaryPickMap" value="{!v.innerCmpNewRequest.NenrinOnlyChangeInBeneficiary__c}" label="（ねんりんのみ）給付金受取人変更" >
+			<option value="">-- None --</option>
+				<aura:iteration items="{!v.nenrinOnlyChangeInBeneficiaryPickMap}" var="wdi" indexVar="key">
+					<option text="{!wdi.value}" value="{!wdi.key}" selected="{!wdi.key==v.innerCmpNewRequest.NenrinOnlyChangeInBeneficiary__c}"/>
+				</aura:iteration>
+			</lightning:select>
+</div>
+</aura:component>

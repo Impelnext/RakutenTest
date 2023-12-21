@@ -1,0 +1,10 @@
+<aura:event type="COMPONENT" description="テンプレートのメッセージをLightningコンポネートへ送信するイベント">
+    <aura:attribute name="smssubject" type="String"/>
+    <aura:attribute name="smsmessage" type="String"/>
+    <!--
+    <aura:attribute name="SendSubject" type="String"/>
+    <aura:attribute name="SendSubject__c" type="String"/>
+    <aura:attribute name="SendContents" type="String"/>
+    <aura:attribute name="SendContents__c" type="String"/>
+    -->
+</aura:event>

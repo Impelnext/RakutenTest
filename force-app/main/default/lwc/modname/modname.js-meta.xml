@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>お名前の変更（改姓）</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKeyName" label="ご変更の姓（漢字）：" type="String" description="ご変更の姓（漢字）：" />
+            <property name="itemKeyNameKana" label="ご変更の姓（カナ）：" type="String" description="ご変更の姓（カナ）：" />
+            <property name="itemkeyCheckBox" label="チェックボックス項目キー" type="String" description="チェックボックス項目キー" />
+            <property name="confirmSection" label="確認ページセクションタイトル" type="String" description="確認ページにセクション見出しを表示" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>変更・解約するご契約</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="majorItemName" label="大項目名" type="String" description="大項目名" />
+            <property name="confirmItemName" label="確認用項目名" type="String" description="確認画面に表示する項目名" />
+            <property name="itemGuide1" label="項目ガイド1" type="String" description="項目ガイド1行目" />
+            <property name="itemGuide2" label="項目ガイド2" type="String" description="項目ガイド2行目" />
+            <property name="itemKeyPolicyNumber" label="ご契約の証券番号、または会員（証書）番号1" type="String" description="ご契約の証券番号、または会員（証書）番号nml1" />
+            <property name="linkComponentName" label="表示連動項目名" type="String" description="表示切替に使うメッセージのコンポーネント名" />
+            <property name="lifeOnly" label="生命保険のみ" type="Boolean" description="" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

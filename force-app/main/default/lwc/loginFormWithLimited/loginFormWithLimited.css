@@ -1,0 +1,60 @@
+.dist_password_form_wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dist_password_form {
+    height: auto;
+    border-radius: 8px;
+    background-color: rgb(246,246,246);
+    box-shadow: 2px 1px 4px 0 grey;
+    padding: 30px 30px 0 30px;
+    max-width: 350px;
+}
+
+.dist_password_title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.dist_password_form label.requiredInput {
+    width: 100%;
+    text-align: left;
+}
+
+.dist_password_form label.inputMessage {
+    font-size: 0.8em;
+}
+
+.dist_password_form .passwordField {
+    width: 98%;
+    background: #f9f9f9;
+    border-width: 1px;
+    border-color: #e0e0e0;
+    margin-top: 25px;
+    font-size: 22pt;
+    padding-left: 5px;
+}
+
+.dist_password_form .buttons {
+    width: 100%;
+    background-color: rgb(69,141,238);
+    border-radius: 4px;
+    border-width: 1px;
+    opacity: .7;
+    color: white;
+    font-size: 20px;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.dist_password_form .errorMsg {
+    color: red;
+    font-size: 80%;
+    text-align: center;
+    white-space: pre ;
+    margin-top: 4px;
+    height: 20px;
+}

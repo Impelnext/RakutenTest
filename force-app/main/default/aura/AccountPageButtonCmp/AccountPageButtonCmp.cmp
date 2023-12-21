@@ -1,0 +1,89 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,force:lightningQuickAction" access="global" controller="AccountPageButtonCmpAuraController">
+<aura:attribute name="pageReference" type="Object"/>
+<aura:attribute name="recordId" type="Id" />
+<aura:attribute name="faqPageReference" type="Object"/>
+<aura:attribute name="showNewAppointment" type="boolean" default="false"/>
+
+<aura:handler name="init" value="{! this }" action="{! c.init }"/> 
+<!-- 有人チャット start -->
+<lightning:omniToolkitAPI aura:id="omniToolkit" />
+<aura:handler event="lightning:omniChannelStatusChanged" action="{! c.onStatusChanged }"/>
+<aura:handler event="lightning:omniChannelLogout" action="{! c.onLogout }"/>
+<aura:attribute name="loginFlg" type="String" default = "logout"/>
+<!-- 有人チャット end --> 
+<lightning:navigation aura:id="navCreateReception"/>
+<lightning:notificationsLibrary aura:id="notifLib"/>
+<aura:attribute name="ageClassCd" type="String"/>
+<aura:attribute name="appDlCd" type="String"/>
+
+<form class="slds-box slds-theme_default">
+    <table>
+        <tr>
+            <td rowspan="2" style="vertical-align: middle;">
+                <aura:if isTrue="{!(v.ageClassCd == '1')}">
+                    <p style="margin: 3px 0px; padding-left: 5px; font-size: large; font-weight: bold; color: red;">未成年</p>
+                </aura:if>
+                <aura:if isTrue="{!(v.appDlCd == '1')}">
+                    <p style="margin: 3px 0px; padding-left: 5px; font-size: large; font-weight: bold; color: red;">現年齢の保険料での申込は今月末日まで</p>
+                </aura:if>
+            </td>
+            <td style="padding: 2px;">
+    <div class ="slds-float--right">
+        <lightning:button aura:id="btnSeihoHozen" variant="neutral" label="生命(保全)一覧" title="生命(保全)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSeihoHokenkin" variant="neutral" label="生命(保険金)一覧" title="生命(保険金)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <!--ONYXシステム対応で追加　開始-->
+        <lightning:button aura:id="btnSeihoDaisa" variant="neutral" label="生命(代サ)一覧" title="生命(代サ)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <!--ONYXシステム対応で追加　終了-->
+        <lightning:button aura:id="btnSeihoTokuyaku" variant="neutral" label="生命(特約)一覧" title="生命(特約)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSonpo" variant="neutral" label="損保一覧" title="損保一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSyotan" variant="neutral" label="少短一覧" title="少短一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+    </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 2px;">
+    <div class ="slds-float--right">
+        <lightning:workspaceAPI aura:id="workspace"/>
+        <lightning:button aura:id="btnKnowledgeFAQ" variant="neutral" label="ナレッジFAQ" title="ナレッジFAQ" onclick="{!c.handleFAQClick}" class="slds-hide"/>
+        <lightning:button aura:id="btnSendSMS" variant="neutral" label="SMS送信" title="SMS送信" onclick="{!c.handleSMSClick}"/>
+        <lightning:button aura:id="btnReception" variant="destructive" label="受付登録" onclick="{!c.handleClick}"/>
+        <lightning:button aura:id="btnNewAppointment" variant="destructive" label="対面誘導生成" onclick="{!c.handleClickNewAppointment}"/>
+                    <aura:if isTrue="{!v.showNewAppointment}">
+                            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                                <div class="slds-modal__container">
+                                    
+                                    <!--Modal Box Header Start-->
+                                    <header class="slds-modal__header" style="background-color:red;font-size:medium;font-weight:bold">
+                                        <h1 class="slds-text-heading--medium" style="color:white">対面代理店不在地域です。</h1>
+                                    </header>
+                                    <!--Modal Box Header End-->
+                                    
+                                    <!--Modal Box Content Start-->
+                                    <div class="slds-modal__content slds-p-around--medium">
+                                        <center><b>オンラインでの面談が可能か確認の上、作成をお願いします。</b></center>
+                                        
+                                        <!--Modal Box Content End-->
+                                    </div>
+                                    <!--Modal Box Button Start-->
+                                    <footer class="slds-modal__footer">
+                                        <div class="slds-grid slds-grid_align-space" >                                        
+                                            
+                                            <lightning:button aura:id="btnNewAppointmentOk"  name='CreateAppoint' label='作成に進む' onclick='{!c.handleAppointmentPopupOK}'/>                                                                                                                                                                                                                                       
+                                            <lightning:button aura:id="btnNewAppointmentCancel" name='CancelPopup' label='キャンセル' onclick='{!c.handleAppointmentPopupCancel}'/>
+                                            
+                                        </div>
+                                        
+                                    </footer>
+                                    <!--Modal Box Button End-->
+                                    
+                                </div>
+                            </div>
+                            <div class="slds-backdrop slds-backdrop--open"></div> 
+                            
+                        </aura:if>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</aura:component>

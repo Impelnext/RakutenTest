@@ -1,0 +1,112 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約される契約の中にクレジットカード払い契約はありますか？</div>
+                <ul class="c-list_input">
+                    <li>
+                        <input type="radio" name="nmIsContractCredit" id="ContractCredit1" value="契約がある" class="c-form_radio display_radio js-toggle-display js-credit-contract" onchange={changeRadioHandler}>
+                        <label for="ContractCredit1">契約がある</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmIsContractCredit" id="ContractCredit2" value="契約がない" class="c-form_radio display_radio js-toggle-display js-credit-contract" onchange={changeRadioHandler}>
+                        <label for="ContractCredit2">契約がない</label>
+                    </li>
+                </ul>
+                <div class="mt30" id="InsuranceBankForm" style={styleCreditCard} >
+                    <div class="p-form_itemNote">※契約者さまご本人またはクレジットカード名義人の口座をご指定ください。</div>
+                    <div class="p-form_item pl0 mt30">
+                        
+                        <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>保険料の返金先口座</div>
+                        <ul class="c-list_input">
+                            <li>
+                                <input type="radio" name="nmInsuranceBank" id="InsuranceBank1" value="ゆうちょ銀行" class="c-form_radio display_radio js-bank-1" onchange={changeRadioBankTypeHandler} style={styleCreditCard}>
+                                <label for="InsuranceBank1" class="center">ゆうちょ銀行</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="nmInsuranceBank" id="InsuranceBank2" value="その他銀行" class="c-form_radio display_radio js-bank-1" onchange={changeRadioBankTypeHandler} style={styleCreditCard}>
+                                <label for="InsuranceBank2" class="center">その他銀行</label>
+                            </li>
+                        </ul>
+
+                        <div class="ml10 js-bank-content-1" id="InsuranceJapanPostBank" style={stylePostBank} >
+                            <div class="p-form">
+                                <div class="p-form_item">
+                                    <div class="p-form_itemLabel">記号</div>
+                                    <div class="c-cols_input align_items_baseline">
+                                        <div>
+                                            <input type="text" name="nmInsuranceJapanPostBankNumber1" class="c-form_text js-japan-post-bank-number-1" value={valueBookSymbol} maxlength="5" onchange={changeValuePassbookSymbolHandler} disabled={disabledPostBankInputs} style={stylePostBank} >
+                                            <div class="p-form_itemNote">※数字5桁</div>
+                                        </div>
+                                        <span>－</span>
+                                        <div class="">
+                                            <input type="text" name="nmInsuranceJapanPostBankNumber2" class="c-form_text js-japan-post-bank-number-2" value={valueBookNum} maxlength="8" onchange={changeValuePassbookNumHandler} disabled={disabledPostBankInputs} style={stylePostBank} >
+                                            <div class="p-form_itemNote">
+                                            ※6桁、7桁の方は、頭に0を追加して8桁にしてください。<br>
+                                            例：123451→00123451　末尾は必ず1
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ml10 js-bank-content-1" id="InsuranceOtherBank" style={styleOtherBank} >
+                            <div class="p-form">
+                                <div class="p-form_item">
+                                    <div>
+                                        <label for="InsuranceOtherBankName">金融機関</label>
+                                        <input type="text" name="nmInsuranceOtherBankName" class="c-form_text js-other-bank-name" value={valueBank} maxlength="255" onchange={changeValueBankNameHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                    </div>
+                                    <div class="mt10">
+                                        <label for="InsuranceOtherBankBranchName">支店名</label>
+                                        <input type="text" name="nmInsuranceOtherBankBranchName" class="c-form_text js-other-bank-branch-name" value={valueBranch} maxlength="255" onchange={changeValueBranchNameHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                    </div>
+                                    <div class="mt10">
+                                        <label for="InsuranceOtherBankBranchName">預金種別</label>
+                                        <select name="nmInsuranceOtherBankType" class="c-form_select js-other-bank-type" onchange={changeValueDepositTypeHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                            <option value="普通預金">普通預金</option>
+                                            <option value="当座預金">当座預金</option>
+                                        </select>
+                                    </div>
+                                    <div class="mt10">
+                                        <label for="InsuranceOtherBankBranchName">口座番号</label>
+                                        <input type="text" name="nmInsuranceOtherBankNumber" class="c-form_text js-other-bank-number" value={valueAccNum} maxlength="7" onchange={changeValueAccNumHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                        <div class="p-form_itemNote">
+                                            ※数字7桁<br>
+                                            ※5桁、6桁の方は、頭に0を追加して7桁にしてください。<br>
+                                            例：123456→0123456
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>   
+
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <span class="weight4">解約される契約の中にクレジットカード払い契約はありますか？</span><br>
+                    {value}
+                </div>
+                <div class="p-form_item" if:true={dispCreditCard}>
+                    <span class="weight4">保険料の返金先口座</span><br>
+                    {valueBankType}<br>
+                    <template if:true={dispOtherBank}>
+                        {valueBank}<br>
+                        {valueBranch}<br>
+                        {valueDepositType}<br>
+                        {valueAccNum}
+                    </template>
+                    <template if:true={dispPostBank}>
+                        {valueBookSymbol}―{valueBookNum}
+                    </template>
+                </div>
+            </div>
+        </section>
+    </template>   
+</template>

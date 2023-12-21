@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="knowledgeVote">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Knowledge Vote</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+      <targetConfig targets="lightningCommunity__Default">
+            <property name="recordId" type="String" label="Record Id" description="The value should be {!recordId}." />
+            <property name="message_ask" type="String" label="投票前メッセージ" default="この回答は役に立ちましたか？" />
+            <property name="message_thankyou" type="String" label="投票後メッセージ" default="アンケートにご協力いただきありがとうございました。" />
+            <property name="label_choice_yes" type="String" label="賛成ボタンラベル" default="はい" />
+            <property name="label_choice_no" type="String" label="反対ボタンラベル" default="いいえ" />
+      </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

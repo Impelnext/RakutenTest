@@ -1,0 +1,8 @@
+<apex:page controller="BatchBCP_MiniInsuranceDisappearanceCSV">
+<apex:form >
+<B>ミニ保険_有効メールアドレス出力</B>
+<br/>
+<br/>
+ <apex:commandButton value="Run Batch" action="{!executeBatchBCP_MiniInsuranceDisappearanceCSV}"/>
+</apex:form>
+</apex:page>

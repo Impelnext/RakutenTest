@@ -1,0 +1,66 @@
+/*************************************************************************************************************
+ *   Class               :       BatchDeleteOldHealthCertificatePointTest                                    *
+ *   Description         :       健康診断書ポイント-２年過去データの削除バッチクラスのテストクラス                 *
+ *   Created Date        :       Takumi Nagaya                                                               *
+ *   Created By          :       2023/02/06                                                                 *
+ *   Modified Date       :                                                                                   *
+ *   Modified By         :                                                                                   *
+ *************************************************************************************************************/
+@isTest
+public class BatchDeleteOldHealthCertificatePointTest {
+    
+    @IsTest
+    static void deleteOldHealthCertificatePoint(){
+        
+        // Create the Test Data
+        List<HealthCertificatePoint__c> recList = createOldHealthCertificatePointTestData();
+        
+        Test.startTest();
+        // Run the Delete Batch
+        Database.ExecuteBatch(new BatchDeleteOldHealthCertificatePoint());
+        Test.stopTest();
+        
+        // Test 2 Year Old record is Deleted
+        List<HealthCertificatePoint__c> deletedRecList = [SELECT ID FROM HealthCertificatePoint__c WHERE Id = :recList[0].Id];
+        System.assertEquals(deletedRecList.size(), 0);
+        
+        // Test Not 2 Year Old record is NOT Deleted
+        List<HealthCertificatePoint__c> notdeletedRecList = [SELECT ID FROM HealthCertificatePoint__c WHERE Id = :recList[1].Id];
+        System.assertEquals(notdeletedRecList.size(), 1);
+    }
+    
+    
+    static List<HealthCertificatePoint__c> createOldHealthCertificatePointTestData(){
+        
+        Account acc = new Account();
+        acc.LastName = 'test1';
+        acc.FirstName = 'Test2';
+        insert acc;
+            
+        LifeContract__c Life = new LifeContract__c();
+        Life.Name = 'test name';
+        Life.POL_NUM__c = '1234567';
+        Life.PRODUCT_NAME__c = 'test product name';
+        Life.AccountId__c = acc.Id;
+        insert Life;
+        
+        
+        List<HealthCertificatePoint__c> recList =  new List<HealthCertificatePoint__c>();
+        
+        // Test Data that is 2 Year Old
+        HealthCertificatePoint__c twoYrOldRec = new HealthCertificatePoint__c();
+        twoYrOldRec.INSURANCE_YEAR_TO__c = System.Now().addYears(-2).addMonths(-1).format('yyyy/MM');
+        twoYrOldRec.LifeContract__c = life.Id;
+        recList.add(twoYrOldRec);
+        
+        // Test Data that is Not Yet 2 Year Old
+        HealthCertificatePoint__c nottwoYrOldRec = new HealthCertificatePoint__c();
+        nottwoYrOldRec.INSURANCE_YEAR_TO__c = System.Now().addYears(-2).format('yyyy/MM');
+        nottwoYrOldRec.LifeContract__c = life.Id;
+        recList.add(nottwoYrOldRec);
+        
+        Insert recList;
+        
+        return recList;
+    }
+}

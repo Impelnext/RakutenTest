@@ -1,0 +1,103 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>{majorItemName}</div>
+                <label>登録住所に変更はありますか？</label>
+    
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="radio" name="nmIsChangeAddress" id="ChangeAddress1" value={itemName1} class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandler}>
+                        <label for="ChangeAddress1">{itemName1}</label>
+                    </li>
+                    <li>
+                        <input type="radio" name="nmIsChangeAddress" id="ChangeAddress2" value={itemName2} class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandler}>
+                        <label for="ChangeAddress2">{itemName2}</label>
+                    </li>
+                </ul>
+                <div class="ml10" id="ChangeAddress" style={styleModAddress} >
+                    <p>転居先のご住所にご登録住所を変更させていただきます。</p>
+                    <div class="p-form mt20">
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel">転居先の新住所（ご変更先住所）</div>
+                                <div class="c-cols_input zipcode">
+                                    <div>
+                                        <div class="c-cols_zipcode">
+                                            <label for="ZipCode">郵便番号</label><a href="https://www.post.japanpost.jp/zipcode/" class="c-link_with_icon_jp" target="_blank">郵便番号検索<img src="/sfsites/c/resource/SitePrc/template/images/icon_link.svg" height="16" width="16" class="c-link_images"></a><br>
+                                            <input name="nmZipCode" type="text" class="c-form_text " id={itemKeyPostCode} value={valuePostCode} maxlength="7" onchange={changeValueHandlerPostCode}>
+                                        </div>
+                                        <div class="mt5 p-form_itemNote">例：0000000</div>
+                                    </div>
+                                    <div>
+                                        <input name="nmButtonSearchAddress" type="button" class="c-btn_red js-zip-search" id="ButtonSearchAddress" value="住所検索" style="margin-top:24px;" onclick={clickSearchAddressHandler}>
+                                    </div>
+
+                                </div>
+                                <div class="mt10">
+                                    <label for={itemKeyPrefectures}>都道府県</label>
+                                    <select class="c-form_select" name="nmPrefecture" id={itemKeyPrefectures} value={valuePrefectures} maxlength="255" onchange={changeValueHandlerPrefectures}>
+                                        <option value="" selected=""></option>
+                                        <template for:each={PrefectureOptions} for:item="opt">
+                                        <option key={opt.id} value={opt.value}>{opt.label}</option>
+                                        </template>
+                                    </select>
+                                </div>
+                                <div class="mt10">
+                                    <label for={itemKeyAddress}>ご住所</label>
+                                    <input type="text" class="c-form_text" name="nmAddress" id={itemKeyAddress} value={valueAddress} maxlength="255" onchange={changeValueHandlerAddress}>
+                                    <div class="mt5 p-form_itemNote">例：港区南青山二丁目</div>
+                                </div>
+                                <div class="mt10">
+                                    <label for={itemKeyOtherAddress}>上記以降のご住所</label>
+                                    <input type="text" name="nmAddress2" class="c-form_text" id={itemKeyOtherAddress} value={valueOtherAddress} maxlength="255" onchange={changeValueHandlerOtherAddress}>
+                                    <div class="mt5 p-form_itemNote">※ビル名・マンション名・アパート名および部屋番号までご入力ください。</div>
+                                </div>
+                            </div>
+                        <div class="p-form_item">
+                            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>転居日の確認</div>
+                            <ul class="c-list_input _nocol">
+                                <li>
+                                    <input type="radio" name="nmIsMoved" id="IsMoved1" value="転居済み" class="c-form_radio display_radio js-toggle-display"  onchange={changeRadioValueMoveAddress}>
+                                    <label for="IsMoved1">転居済み</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="nmIsMoved" id="IsMoved2" value="転居予定" class="c-form_radio display_radio js-toggle-display"  onchange={changeRadioValueMoveAddress}>
+                                    <label for="IsMoved2">転居予定</label>
+                                </li>
+                            </ul>
+                            <div style={styleMoveDay} >
+                                <input type="date" class="c-form_text" name="nmMoveDate" id={itemKeyMoveDay} value={htmlValueMoveDay} min="1900-01-01" max="2100-12-31" onchange={changeValueHandlerMoveDay}>
+                                <div class="p-form_itemNote">
+                                    ※本日より1ヵ月以内の日付の場合に住所変更を承ります。<br>
+                                    ※転居予定日が1ヵ月以降の場合は、1ヵ月以内になりましたら改めてご住所変更お手続きをお願いいたします。<br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <section class="p-section" if:true={dispModAddress}>
+          <div class="p-form">
+            <div class="p-form_item">
+                <span class="weight4">書類の送付先住所</span><br>
+                {dispPostCode}<br>
+                {valuePrefectures}{valueAddress}<br>
+                {valueOtherAddress}<br>
+            </div>
+            <div class="p-form_item">
+                <span class="weight4">転居日の確認</span><br>
+                {MoveAddress}<br>
+                <template if:true={dispMoveDay}>
+                    {confirmValue}
+                </template>
+            </div>
+          </div>
+        </section>
+    </template>
+  
+ </template>

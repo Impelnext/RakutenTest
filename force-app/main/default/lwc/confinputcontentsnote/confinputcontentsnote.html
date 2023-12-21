@@ -1,0 +1,16 @@
+<template>
+    <template if:false={confirmPhase}>
+
+        <div class="custom-box slds-box" style="text-align: center; background-color:#ffe4c4;">
+            <p>＜入力内容の確認＞</p>
+            <p>上記のお手続き内容に誤りがないかご確認ください。まだ、お手続きは完了しておりませんので、誤りがなければ、「入力内容確認に進む」を</p>
+            <p>選択して入力内容を確認の上、「お手続きを完了」をご選択ください。</p>
+          </div>
+          <br>
+
+    </template>
+
+    <template if:true={confirmPhase}>
+    </template>
+  
+</template>

@@ -1,0 +1,22 @@
+<template>
+  <template if:true={dispTitle}>
+    <template if:true={confirmPhaseKey}>
+      <template if:false={confirmPhase}>
+        <section class="p-section">
+          <h2 class={marginClass}><span class=""></span>{title}</h2>
+        </section>
+      </template>
+      <template if:true={confirmPhase}>
+        <section class="p-section">
+          <h2 class={marginClass}>{title}</h2>
+        </section>
+      </template>
+    </template>
+
+    <template if:false={confirmPhaseKey}>
+        <section class="p-section">
+          <h2 class={marginClass}>{title}</h2>
+        </section>
+    </template>
+  </template>
+</template>

@@ -1,0 +1,61 @@
+<template>
+  <div class="gen_area">
+    <!-- Header -->
+    <template if:true={isResultPage}>
+      <div class="p-head_page">
+        <div class="p-head_pageInner">
+          <div class="m-vertical">
+            <h1>「{searchKeyWord}」の検索結果</h1>
+          </div>
+        </div>
+      </div>
+    </template>
+    <main class="l-main">
+      <div class="l-inner">
+        <section class="p-section">
+          <div class="p-form_item">
+            <div class="slds-form-element">
+              <!-- Input -->
+              <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                <input type="text" placeholder="キーワードを入力してください。" class="c-form_text_right_icon c-form_text"
+                  value={inputSearchKeyWord} oninput={handleInput} onkeypress={handleInput}/>
+                <div class="slds-input__icon-group slds-input__icon-group_right">
+                  <!-- Icon search disable -->
+                  <template if:false={inputSearchKeyWord}>
+                    <div
+                      class="slds-button slds-button_icon slds-input__icon slds-input__spinner slds-m-horizontal_x-small"
+                      title="検索" onclick={searchClick}>
+                      <div class="slds-button__icon slds-icon-text-light" aria-hidden="true">
+                        <img alt="Lens" class="position-img" src={appResources.lens} title="Lens" />
+                      </div>
+                    </div>
+                  </template>
+                  <template if:true={inputSearchKeyWord}>
+                    <!-- Button search -->
+                    <button
+                      class="position-button slds-button slds-button_icon slds-input__icon slds-input__spinner slds-m-horizontal_x-large slds-p-around_medium"
+                      title="検索" onclick={searchClick} disabled={hasError}>
+                      <div class="slds-button__icon slds-icon-text-light" aria-hidden="true">
+                        <img alt="Lens" class="position-img" src={appResources.lens} title="Lens" />
+                      </div>
+                    </button>
+                    <!-- Button clear -->
+                    <button
+                      class="position-button slds-button slds-button_icon slds-input__icon slds-input__icon_right slds-p-around_medium slds-m-horizontal_x-small"
+                      title="クリア" onclick={clearClick}>
+                      <div class="slds-button__icon slds-icon-text-light" aria-hidden="true">
+                        <lightning-icon class="position-img" icon-name="utility:clear" size="small"></lightning-icon>
+                      </div>
+                    </button>
+                  </template>
+                </div>
+              </div>
+            </div>
+            <!-- HowTo Message -->
+            {getHowToMessage}
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+</template>

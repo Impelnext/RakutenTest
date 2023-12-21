@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>ヘッダー：総合窓口</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="normalLogoWidth" label="ロゴ画像の幅" type="String" description="" />
+            <property name="mobileLogoWidth" label="ロゴ画像（モバイル）の幅" type="String" description="" />
+            <property name="dispFAQTop" label="よくある質問を表示" type="Boolean" description="" />
+            <property name="faqUrlForLife" label="よくある質問URL(life)" type="String" description="" />
+            <property name="faqUrlForSonpo" label="よくある質問URL(gen)" type="String" description="" />
+            <property name="faqUrlForPet" label="よくある質問URL(pet)" type="String" description="" />
+            <property name="confirmPageExit" label="ページ離脱アラート" type="Boolean" description="" />
+            <property name="loadJs" label="jsの読み込み" type="Boolean" description="" /> <!-- datepickerを読み込んでいる場合はtrueにすること -->
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

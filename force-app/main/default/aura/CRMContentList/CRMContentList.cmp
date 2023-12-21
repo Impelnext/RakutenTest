@@ -1,0 +1,70 @@
+<aura:component controller="CRMContentListController" implements="force:appHostable,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="lstContent" type="ContentDistribution[]" />
+    <aura:attribute name="dispColumns" type="List"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute access="private" type="Boolean" name="showModal" default="false" />
+    <aura:attribute name="newContent" type="Object"/>
+    <aura:attribute name="dateTimeLimit" type="Date" default=""/>
+    <aura:attribute name="dateTimeLimitDefault" type="Integer" default="3"/>
+
+    <lightning:card class="slds-theme_shade" iconName="standard:collection" title="コンテンツ配信">
+        <aura:set attribute="actions">
+            <lightning:button label="更新" onclick="{!c.doInit}"/>
+            <!--<lightning:button label="新規" onclick="{!c.openContentDistributionWizard}"/>-->
+            <lightning:button label="新規" onclick="{!c.openModal}"/>
+        </aura:set>
+        <lightning:datatable data="{! v.lstContent }"
+                             columns="{! v.dispColumns }"
+                             keyField="id"
+                             hideCheckboxColumn="true"
+                             />
+    </lightning:card>
+
+    <div>
+        <section role="dialog" tabindex="-1" class="{!'slds-modal' + if(v.showModal, ' slds-fade-in-open', '')}">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <lightning:buttonIcon size="large" class="slds-modal__close" iconName="utility:close" variant="bare-inverse" title="close" alternativeText="Close window" onclick="{!c.onCancelClicked}"/>
+                    <h2 class="slds-text-heading_medium slds-hyphenate" id="modalTitle">コンテンツ配信の作成</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <div style="{!'display: ' + if(v.newContent, ' none;', 'block;')}">
+                        <p>アップロードするファイルを選択してください</p>
+                        <p>アップロードが完了すると、このコンテンツは自動的にあなたの非公開ライブラリに保存されます。</p>
+                        <lightning:fileUpload label="アップロードするファイル"
+                                            multiple="false"
+                                            recordId="{! v.recordId }"
+                                            onuploadfinished="{!c.handleUploadFinished}" style="margin: 8px;" />
+                    </div>
+                    <div style="{!'display: ' + if(v.newContent, ' block;', 'none;')}">
+                        <p>ファイル名：{!v.newContent.Name}</p>
+                        <div style="margin-top: 10px;">
+                        	<ui:inputDateTime aura:id="dateTimeLimit" label="アクセス期限" class="field" value="{!v.dateTimeLimit}" displayDatePicker="true" disabled="{!if(v.newContent.Password, ' true', 'false')}"  />
+                        </div>
+
+                        <div id="distributionInfo" style="{!'display: ' + if(v.newContent.DistributionPublicUrlForExC, ' block;', 'none;')+ 'margin-top: 10px;'}">
+                            <p>ダウンロード画面アクセス情報</p>
+                            <div style="border: 1px solid #000; padding: 5px">
+                        		<p style="word-break: break-word;"><a href="{!v.newContent.DistributionPublicUrlForExC}" target="_blank" rel="noopener noreferrer" >{!v.newContent.DistributionPublicUrlForExC}</a></p>
+                        		<p style="{!'display: ' + if(v.newContent.Password, ' block;', 'none;')+'margin-top: 5px;'}">パスワード：<code>{!v.newContent.Password}</code></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning:button aura:id="cancel" label="キャンセル" onclick="{!c.onCancelClicked}" />
+                    <lightning:button aura:id="create" label="{!if(v.newContent.DistributionPublicUrlForExC, '完了', '作成')}" variant="brand" onclick="{!c.onSaveClicked}" disabled="{!if(v.newContent, false, true)}" />
+                </footer>
+            </div>
+             <lightning:spinner aura:id="spinner" class="slds-hide" variant="brand" size="large" />
+        </section>
+        <div class="{!'slds-backdrop' + if(v.showModal, ' slds-backdrop_open', '')}"></div>
+    </div>
+
+
+</aura:component>

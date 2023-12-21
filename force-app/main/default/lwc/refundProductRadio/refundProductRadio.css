@@ -1,0 +1,270 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.weight4 {
+    font-weight: 400;
+}
+
+.mt30 {
+    margin-top: 30px!important;
+}
+
+.pl0 {
+    padding-left: 0!important;
+}
+
+.u-icon_require {
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    background-color: #bf0000;
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+    padding: 5px;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_item {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+}
+
+.c-ttl_subsec {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #134FF3;
+    text-decoration: none;
+}
+
+.form-modal.modal-container {
+    background: rgba(0,0,0,80%);
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    background: rgba(0,0,0,50%);
+    padding: 40px 20px;
+    overflow: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.modal-container.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container:before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.form-modal .modal-body {
+    max-width: 600px;
+}
+
+.modal-body {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 500px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.form-modal .modal-close {
+    right: 8px;
+    top: -48px;
+}
+
+.modal-close {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -40px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    font-size: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.form-modal .modal-close:after {
+    content: url(/sfsites/c/resource/SitePrc/template/images/icon_delete.svg);
+    position: relative;
+    top: 3px;
+    left: 5px;
+}
+
+.form-modal .modal-content {
+    padding: 32px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.modal-content {
+    background: #fff;
+    text-align: left;
+    padding: 30px;
+}
+
+.form-modal .modal-close.sp {
+    display: none;
+}
+
+.p-form_itemLabel {
+    margin-bottom: 8px;
+}
+
+.c-box_guide.refund {
+    background-color: #F0F0F0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.c-box_guide {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 950px;
+    padding: 16px;
+    background-color: #f7f7f7;
+    margin-bottom: 51px;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.u-fs18 {
+    font-size: 18px;
+}
+
+h3 {
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.c-list_input {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.p-form_itemNote {
+    margin-top: 8px;
+    font-size: 12px;
+}
+
+li {
+    list-style-type: none;
+}
+
+.c-list_input>li {
+    flex: 0 1 calc(50% - 8px);
+    margin: 0 4px 8px 4px;
+}
+
+.c-form_radio.display_radio {
+    position: absolute;
+    opacity: 0;
+}
+
+.c-form_radio {
+    display: none;
+}
+
+input {
+    font-family: 'Hiragino Kaku Gothic ProN',Meiryo,MS-PGothic,sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.c-form_radio:checked+label {
+    border: 2px solid #002896;
+}
+
+.c-form_radio+label {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 16px 8px 16px;
+    display: block;
+}
+
+label {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    border: none;
+}
+
+.c-form_radio.display_radio:checked+label::before {
+    background-color: #1364FF;
+    box-shadow: inset 0 0 0 4px #fff;
+}
+
+.c-form_radio.display_radio+label::before {
+    content: '';
+    background: #fff;
+    border-radius: 100%;
+    border: 1px solid #333333;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+    position: relative;
+    top: 0.2em;
+    margin-right: 1em;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media  (max-width: 420px) {
+    .c-form_radio+label {
+      padding-left: 2.5em;
+      text-indent: -2em;
+    }
+}

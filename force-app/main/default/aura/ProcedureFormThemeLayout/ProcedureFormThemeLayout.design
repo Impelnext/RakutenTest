@@ -1,0 +1,11 @@
+<design:component label="解約フォームテーマレイアウト">
+   <design:attribute name="contentWidth" label="コンテンツ幅(px)" />
+   <design:attribute name="redirectUrl" label="リダイレクトURL" />
+   <design:attribute name="targetCompany" label="対象会社識別URLパラメータ値(「,」区切り)" />
+   <design:attribute name="targetReason1" label="保険料識別URLパラメータ値(「,」区切り)" />
+   <design:attribute name="targetReason2" label="保障内容識別URLパラメータ値(「,」区切り)" />
+   <design:attribute name="targetReason3" label="その他識別URLパラメータ値(「,」区切り)" />
+   <!--2023/10/10 Add 不利益事項のチェック内容のオブジェクト連携 By 邵 Start-->
+   <design:attribute name="targetDisadvantageOpt" label="不利益事項" />
+   <!--2023/10/10 Add 不利益事項のチェック内容のオブジェクト連携 By 邵 End-->
+</design:component>

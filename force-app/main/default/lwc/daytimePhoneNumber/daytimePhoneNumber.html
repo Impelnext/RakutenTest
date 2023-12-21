@@ -1,0 +1,64 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <!--<div class="p-form_item js-is-same-phone" if:true={dispRadioButton}>-->
+                <div class="p-form_item js-is-same-phone" style={styleRadioButton}>
+                    <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>当社からご連絡する場合の電話番号（日中もつながる電話番号）
+                    </div>
+                    <ul class="c-list_input">
+                        <li>
+                            <input type="radio" name="nmIsRegisterPhoneNumber" id="DaytimePhoneNumberYes" value="上記と同じ" class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandler}>
+                            <label for="DaytimePhoneNumberYes" class="center">上記と同じ</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="nmIsRegisterPhoneNumber" id="DaytimePhoneNumberNo" value="別の電話番号" class="c-form_radio display_radio js-toggle-display" onchange={changeRadioValueHandler}>
+                            <label for="DaytimePhoneNumberNo" class="center">別の電話番号</label>
+                        </li>
+                    </ul>
+                    <div if:false={dispPhoneNumber}>
+                        <span>※お電話でご連絡を差し上げる場合がございますのでご承知おきください。</span>
+                    </div>
+                    <!--<div if:true={dispPhoneNumber}>-->
+                    <div style={stylePhoneNumber}>
+                        <input name="nmDaytimePhoneNumberOther" type="tel" class="c-form_text" id={itemKey} value={value} onchange={changeValueHandler} maxlength="13">
+                        <span>例：09012345678 <span class="mt5 p-form_itemNote">※ハイフン不要</span></span><br>
+                        <span>※お電話でご連絡を差し上げる場合がございますのでご承知おきください。</span>
+                    </div>
+                </div>
+                <!--<div class="p-form_item js-input-phone" if:false={dispRadioButton}>-->
+                <div class="p-form_item js-input-phone" style={styleTextBox}>
+                    <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>当社からご連絡する場合の電話番号（日中もつながる電話番号）</div>
+                    <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text" id={itemKey} value={value} onchange={changeValueHandler} maxlength="13">
+                    <span>例：09012345678 <span class="mt5 p-form_itemNote">※ハイフン不要</span></span><br>
+                    <span>※お電話でご連絡を差し上げる場合がございますのでご承知おきください。</span>
+                </div>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form">
+                <div class="p-form_item">
+                    <div if:true={dispRadioButton}>
+                        <span class="weight4">当社からご連絡する場合の電話番号（日中もつながる電話番号）</span>
+                        <div if:true={dispPhoneNumber}>
+                            {confirmName1}<br>
+                            {value}
+                        </div>
+                        <div if:false={dispPhoneNumber}>
+                            {confirmName2}
+                        </div>
+                    </div>
+
+                    <div if:false={dispRadioButton}>
+                        <span class="weight4">当社からご連絡する場合の電話番号（日中もつながる電話番号）</span><br>
+                        {value}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+
+</template>

@@ -1,0 +1,20 @@
+/* 年プルダウンの変更 */
+select.ui-datepicker-year{
+    height: 2em!important;      /* 高さ調整 */
+    margin-right:5px!important; /* 「年」との余白設定 */
+    width:70px!important;       /* 幅調整 */
+    color: fieldtext!important;
+    font-size: 16px!important;
+}
+/* 月プルダウンの変更 */
+select.ui-datepicker-month{
+    height: 2em!important;      /* 高さ調整 */
+    margin-left:5px!important;  /* 「年」との余白設定 */
+    width:70px!important;       /* 幅調整 */
+    color: fieldtext!important;
+    font-size: 16px!important;
+}
+
+.ui-datepicker {
+	color: fieldtext!important;
+}

@@ -1,0 +1,27 @@
+<template>
+  <div if:true={isDownload} class="slds-align_absolute-center slds-m-around_xx-large dist_message">{isDownload}</div>
+  <div if:false={isDownload}>
+    <div if:false={isSubmit} class="dist_password_form_wrapper">
+      <div class="dist_password_form">
+        <div class="dist_password_title">
+          パスワードが必要です
+        </div>
+        <form action={crmContentUrl} method="POST" target="contentDistribution">
+          <input type="hidden" name="compositePageName" value={urlStateParameters.id}>
+          <label for="dpt" class="requiredInput">アクセスするには、提供されたパスワードを入力してください。</label>
+          <div class="requiredInput">
+            <div class="requiredBlock"></div>
+            <input type="password" class="passwordField text" name="dpt" value="" oninput={onChangePass} lang=""
+              maxlength="255">
+            <span class="errorMsg">{errorMsg}</span>
+          </div>&nbsp;
+          <input class="buttons" type="submit" value="Go!" onclick={clickSubmit}>
+        </form>
+      </div>
+    </div>
+    <div class={showIframe}>
+      <iframe name="contentDistribution" class="responsive_iframe">
+      </iframe>
+    </div>
+  </div>
+</template>

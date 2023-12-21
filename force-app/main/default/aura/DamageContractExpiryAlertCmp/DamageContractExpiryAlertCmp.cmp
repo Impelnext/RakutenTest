@@ -1,0 +1,12 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" 
+controller="DamageContractExpiryAlertController" >
+	<aura:attribute name="recordId" type="String" />
+	<aura:attribute name="showError" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!--Alert display check-->
+    <aura:if isTrue="{!v.showError}">
+        <div class="theme_error">
+           満期まで2ヵ月以内です！
+        </div>
+    </aura:if>
+</aura:component>

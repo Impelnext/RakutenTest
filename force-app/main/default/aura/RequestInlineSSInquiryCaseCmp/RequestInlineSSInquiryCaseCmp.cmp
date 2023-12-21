@@ -1,0 +1,38 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'InquirySummaryShortTermInsurance__c':'',
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineSSInquiryCase" action="{!c.saveRequestInlineSSInquiryCase}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+<!--Declare Attributes-->	
+            <!--Multipicklist Attributes-->	
+<aura:attribute name="inquirySummaryShortTermInsurancePicklist" type="List" default="[]" />
+
+
+    <div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">問合せ対応</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+	<div class="slds-col">
+	    
+		<div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectInquirySummaryShortTermInsurance"
+			name="requestContents"
+			label="問合せ概要（少短）"
+			sourceLabel="選択可能"
+			selectedLabel="選択済み"
+			options="{!v.inquirySummaryShortTermInsurancePicklist }"
+            size="3"
+			value="{!v.innerCmpNewRequest.InquirySummaryShortTermInsurance__c}"/>
+        </div>
+		
+</div>
+</div>
+    </div>
+</aura:component>

@@ -1,0 +1,8 @@
+<apex:page controller="BatchBCP_DamageCancelCSV">
+<apex:form >
+<B>損保契約情報_有効メールアドレス出力</B>
+<br/>
+<br/>
+ <apex:commandButton value="Run Batch" action="{!executeBatchBCP_DamageCancelCSV}"/>
+</apex:form>
+</apex:page>

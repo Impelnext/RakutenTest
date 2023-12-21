@@ -1,0 +1,20 @@
+.txt_caption {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+.p-form-header {
+    height: auto !important;
+    padding: 10px !important;
+}
+
+.p-rf-h_main__wrap.-right {
+    text-align: right;
+}
+
+@media screen and (max-width: 420px) {
+    .txt_caption {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,54 @@
+.p-section {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.p-form_item {
+    font-weight: bold;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-form_item {
+        padding: 0;
+        margin-bottom: 24px;
+    }
+}
+
+.c-box_info {
+    background: #EBF7FD;
+    color: #015C8F;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.c-box_info.w95 {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.c-box_info._orange {
+    background: #FEF0DD;
+    color: #A35E04;
+}
+
+.c-box_info .caution {
+    display: flex;
+    align-items: start;
+}
+
+.c-box_info .caution > img {
+    margin-top: 3px;
+}
+
+.c-box_info .caution .caution_text {
+    margin-left: 10px;
+}
+
+img {
+    line-height: 1;
+    vertical-align: bottom;
+    border: none;
+}

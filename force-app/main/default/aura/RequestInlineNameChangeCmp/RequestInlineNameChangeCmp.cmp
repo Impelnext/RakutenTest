@@ -1,0 +1,82 @@
+<!--
+  @File Name          : RequestInlineNameChangeCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/20/2019, 5:50:41 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/20/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ProcedureType__c':'',
+                                                             			'AfterChangedNameKanji__c':'',
+																		'AfterChangedNameKana__c':'',
+																		'SimultaneousChanges__c':'',
+																		'AfterChangedNameMinorKanji__c':'',
+                                                                        'AfterChangedNameMinorKana__c':'',
+                                                                        'Processing__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineNameChange" action="{!c.saveInlineName}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" action="{!c.init}" value="{!this}" />
+<aura:attribute name="dependantSubject" type="String" access="public" />
+    
+<!--Declare Attributes-->	
+<aura:attribute name="procedureTypePickMap" type="Map"/>
+<aura:attribute name="simultaneousChangesPickMap" type="Map"/>													
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="['--- None ---']"/>
+<!-- Add 2023/06/06 RIPCRM-893_名義変更ケースの要件変更についての変更 By 張　Start -->
+<aura:attribute name="accountFields" type="object" access="public" />
+<!-- Add 2023/06/06 RIPCRM-893_名義変更ケースの要件変更についての変更 By 張　End -->
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">改姓（名変）</h3> </div>
+        <div class="slds-p-top_medium"></div>
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+                <div class="form-group">
+                    <lightning:select tabindex="0" aura:id="procedureTypePickMap" value="{!v.innerCmpNewRequest.ProcedureType__c}" onchange="{!c.handleProcedureTypePick}" name="procedureTypePicklist" label="手続き種別" >
+                        <option value="">--None--</option>
+                            <aura:iteration items="{!v.procedureTypePickMap}" var="pro" indexVar="key">
+                                    <option text="{!pro.value}" value="{!pro.key}" selected="{!pro.key==v.innerCmpNewRequest.ProcedureType__c}" />
+                            </aura:iteration>
+                    </lightning:select>
+                </div>
+                <lightning:input tabindex="1" aura:Id="afterChangedNameKanji" name="" type="text" value="{!v.innerCmpNewRequest.AfterChangedNameKanji__c}" label="契約者改姓後（漢字）　　注）全角で入力／姓と名の間はスペース"/>
+                <div class="form-group" tabindex="3">
+                    <lightning:select  aura:id="simultaneousChangesPicklist" value="{!v.innerCmpNewRequest.SimultaneousChanges__c}" onchange="{!c.handleSimultaneousChangesPick}" name="simultaneousChangesPicklist" label="未成年同時変更" >
+                        <option value="">--None--</option> 
+                            <aura:iteration items="{!v.simultaneousChangesPickMap}" var="sim" indexVar="key">
+                                <option text="{!sim.value}" value="{!sim.key}" selected="{!sim.key==v.innerCmpNewRequest.SimultaneousChanges__c}" />
+                            </aura:iteration>
+                    </lightning:select>
+                </div>
+                <lightning:input tabindex="4" aura:Id="afterChangedNameMinorKanji" name="" type="text" value="{!v.innerCmpNewRequest.AfterChangedNameMinorKanji__c}" label="未成年改姓後（漢字）　　注）全角で入力／姓と名の間はスペース"/> 
+                <div class="form-group" tabindex="6">
+                    <lightning:select  aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+						<aura:iteration items="{!v.processingPicklist}" var="pro" >
+							<option  value="{!pro}"> {!pro} </option>		
+						</aura:iteration>
+					</lightning:select>
+                </div> 
+            </div>
+            <div class="slds-col slds-size_1-of-2">
+                <div class="slds-p-top_x-large"/>
+                <div class="slds-p-top_medium"/>
+                <div class="slds-p-top_x-small"/>
+                <lightning:input tabindex="2" aura:Id="afterChangedNameKana" name="" type="text" value="{!v.innerCmpNewRequest.AfterChangedNameKana__c}" label="契約者改姓後（カナ）　　注）全角で入力／姓と名の間はスペース"/> 
+                <div class="slds-p-top_x-large"/>
+                <div class="slds-p-top_medium"/>
+                <div class="slds-p-top_x-small"/>
+                <lightning:input tabindex="5" aura:Id="afterChangedNameMinorKana" name="" type="text" value="{!v.innerCmpNewRequest.AfterChangedNameMinorKana__c}" label="未成年改姓後（カナ）　　注）全角で入力／姓と名の間はスペース"/> 
+            </div>
+    </div>	
+</div>
+</aura:component>

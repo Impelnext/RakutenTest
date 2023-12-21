@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>よくあるご質問の検索結果</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKey" label="項目キー" type="String" description="項目キー" />
+            <property name="confirmPhaseKey" label="確認フェーズキー" type="String" description="" />
+            <property name="searchItemKey" label="検索対象項目キー" type="String" description="" />
+        </targetConfig>
+    </targetConfigs>   
+</LightningComponentBundle>

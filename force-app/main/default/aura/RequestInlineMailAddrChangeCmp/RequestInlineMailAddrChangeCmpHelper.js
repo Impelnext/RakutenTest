@@ -1,0 +1,4 @@
+({
+	saveMailAddress : function(component,event) {
+		}
+})

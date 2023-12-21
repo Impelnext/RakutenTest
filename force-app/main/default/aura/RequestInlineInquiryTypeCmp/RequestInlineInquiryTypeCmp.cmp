@@ -1,0 +1,47 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+	<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{
+                                                                      	'sObjectType':'Request__c',
+                                                              			'RequestType__c':'',
+                                                              			
+																		}"/>
+    <!--Init Method -->
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+    <!--Aura method declaration for handling event-->
+    <aura:method name="InquiryTyp" action="{!c.saveInquiryType}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+	</aura:method>
+    
+    <!--values to be received from parent cmp-->
+    <aura:attribute name="recContractWrapper" type="Object"/> 
+    
+    <!--Getting Subject value from RequestDisplay cmp-->
+	<aura:attribute name="dependantSubject" type="String" access="public" />
+    
+    <!--List for picklist value entry-->
+	<aura:attribute name="InquiryTypePLValues" type="list" default="[]" />
+    
+    <!--Map to store dependencies-->
+    <aura:attribute name="subDependingInquiryTypFieldMap" type="Map" default="{}" />
+    
+    <!--Setting Display-->
+     <div class="slds-p-top_medium"/>   
+    <div class="slds-box slds-theme_default">
+         <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">問い合わせケース</h3> </div>
+         <div class="slds-grid slds-gutters">
+           	<div class="slds-col slds-size_1-of-2">
+             	<div class="slds-p-top_medium"/>
+           			<lightning:select name="RequestType" aura:id="RequestType" label="問い合わせ種類"  value="{!v.innerCmpNewRequest.RequestType__c}" onchange="{!c.onRequestTypeChange}">
+        				<aura:iteration items="{!v.InquiryTypePLValues}" var="inquiry" >
+                			<option  value="{!inquiry}">{!inquiry}</option>
+            			</aura:iteration>
+    				</lightning:select> 
+                </div>    
+       	</div>    		
+    </div>
+    
+    <!--Dynamic Cmp to be added here-->
+   <div aura:id="childCmp">
+	{!v.body}
+	</div>
+</aura:component>

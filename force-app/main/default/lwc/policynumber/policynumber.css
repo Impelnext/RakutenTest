@@ -1,0 +1,17 @@
+.required {
+    width: 35px;
+    
+    font-family: 'Hiragino Kaku Gothic Pro';
+    font-style: normal;
+    font-weight: 600;
+    margin-right: 5px;
+    /* identical to box height */
+    text-align: center;
+    
+    color: #FFFFFF;
+}
+
+.red {
+    background: #E40C0C;
+    border-radius: 4px;
+}

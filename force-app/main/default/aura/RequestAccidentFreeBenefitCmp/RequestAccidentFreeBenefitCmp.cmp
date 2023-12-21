@@ -1,0 +1,126 @@
+<!--
+  @File Name          : RequestAccidentFreeBenefitCmp.cmp
+  @Description        : 
+  @Author             : Ryusei Otsubo
+  @Group              : 
+  @Last Modified By   : Ryusei Otsubo
+  @Last Modified On   : 2021/05/10
+  @Modification Log   : 
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes"
+    access="global">
+    <aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                             			'AccountHolderKana__c':'',
+																		'AccountHolderKanji__c':'',
+																		'FinancialInstitutionSearch__c':'',
+																		'FinancialName__c':'',
+                                                                        'BankCode__c':'',
+                                                                        'BranchName__c':'',
+																		'BranchCodeStoreNumber__c':'',
+																		'DepositCategory__c':'',
+																		'AccountNumber__c':'',
+                                                                        'JpNumFirst5__c':'',
+                                                                        'JpNumLast8__c':'',
+																		'Processing__c':'',
+																		'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+																		'DateOfShipment__c':'',
+																		'ShippingMethod__c':'',
+																		}" />
+    <!--Declare Method-->
+    <aura:method name="accidentFreeBenefit" action="{!c.saveAccidentFreeBenefit}" access="PUBLIC">
+        <aura:attribute name="parentNewRequest" type="Request__c" />
+    </aura:method>
+    <!--Declare Event Handlers-->
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+    <aura:handler name="bankMasterSearchCmpEvt" event="c:BankMasterSearchResultCmpEvt"
+        action="{!c.handleBankMasterResultCmpEvt}" />
+    <aura:attribute name="dependantSubject" type="String" access="public" />
+
+    <!--Declare Attributes-->
+    <aura:attribute name="depositCategoryPickMap" type="Map" />
+    <aura:attribute name="processingPickMap" type="Map" />
+    <aura:attribute name="processingPicklist" type="List" default="手動" />
+    <aura:attribute name="shippingDocumentsPickMap" type="Map" />
+    <aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']" />
+    <aura:attribute name="dateOfShipmentPickMap" type="Map" />
+    <aura:attribute name="shippingMethodPickMap" type="Map" />
+
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-text-align--left">
+        <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">口座内容　【本人名義口座のみ】</h3>
+    </div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">口座名義人（カナ）　　<span style="color:red">注）全角で入力／姓と名の間はスペース</span></label>
+            <lightning:input aura:Id="accountHolderKana" name="" type="text" value="{!v.innerCmpNewRequest.AccountHolderKana__c}" style="margin: -12px 0px 0px 0px"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">口座名義人（漢字）　　<span style="color:red">注）全角で入力／姓と名の間はスペース</span></label>
+            <lightning:input aura:Id="accountHolderKanji" name="" type="text" value="{!v.innerCmpNewRequest.AccountHolderKanji__c}"  style="margin: -12px 0px 0px 0px"/>
+        </div> 
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+			<!--金融機関検索&emsp;: <ui:outputText value="{!v.accDetails.FinancialInstitutionSearch__c}"/>-->
+            金融機関検索 <br /><br/><lightning:button variant="neutral" label="検索" aura:Id="bankMastersearchId" onclick="{!c.openBankMasterSearch}"/>
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">金融機関名　　<span style="color:red">注）全角で入力</span></label>
+            <lightning:input aura:Id="financialName" name="" type="text" value="{!v.innerCmpNewRequest.FinancialName__c}" style="margin: -12px 0px 0px 0px"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">金融機関コード　　<span style="color:red">注）半角で入力</span></label>
+            <lightning:input aura:Id="bankCode" name="" type="text" value="{!v.innerCmpNewRequest.BankCode__c}" style="margin: -12px 0px 0px 0px"/>
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">支店名　　<span style="color:red">注）全角で入力</span></label>
+            <lightning:input aura:Id="branchName" name="" type="text" value="{!v.innerCmpNewRequest.BranchName__c}" style="margin: -12px 0px 0px 0px"/>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">支店コード（店番）　　<span style="color:red">注）半角で入力／３桁</span></label>
+            <lightning:input aura:Id="branchCodeStoreNumber" name="" type="text" value="{!v.innerCmpNewRequest.BranchCodeStoreNumber__c}" style="margin: -12px 0px 0px 0px"/>
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="form-group">
+                <lightning:select aura:id="depositCategoryPickMap" value="{!v.innerCmpNewRequest.DepositCategory__c}" label="預金種目">
+                    <option value="">-- None --</option>
+                    <aura:iteration items="{!v.depositCategoryPickMap}" var="pro" indexVar="key">
+                        <option text="{!pro.value}" value="{!pro.key}" selected="{!pro.key==v.innerCmpNewRequest.DepositCategory__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <label style="font-size:12px; color:#3E3E3C">口座番号　　<span style="color:red">注）半角で入力／７桁</span></label>
+            <lightning:input aura:Id="accountNumber" name="" type="text" value="{!v.innerCmpNewRequest.AccountNumber__c}" style="margin: -12px 0px 0px 0px" />
+        </div>
+    </div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-p-top_xx-large"></div>
+            <label style="font-size:12px; color:#3E3E3C">ゆうちょ番号（先頭５桁）　　<span style="color:red">注）半角で入力</span></label>
+            <lightning:input aura:Id="jpNumFirst5" name="" type="text" value="{!v.innerCmpNewRequest.JpNumFirst5__c}" style="margin: -12px 0px 0px 0px" />
+            <label style="font-size:12px; color:#3E3E3C">ゆうちょ番号（末尾８桁）　　<span style="color:red">注）半角で入力</span></label>
+            <lightning:input aura:Id="jpNumLast8" name="" type="text" value="{!v.innerCmpNewRequest.JpNumLast8__c}" style="margin: -12px 0px 0px 0px" />
+            <div class="form-group">
+                <div class="slds-p-top_xx-large"></div>
+                <lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法">
+                    <aura:iteration items="{!v.processingPicklist}" var="pro">
+                        <option value="{!pro}"> {!pro} </option>
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+        </div>
+    </div>
+    <div aura:Id="bankMasterPopup">
+        {!v.body}
+    </div>
+</aura:component>

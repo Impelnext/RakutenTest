@@ -1,0 +1,29 @@
+<aura:component implements = "flexipage:availableForRecordHome,force:hasRecordId" access = "global"
+                controller="ContractJointRecruitmentAgencyController">
+
+    <aura:handler name ="init" value ="{!this}" action="{!c.doInit}" />
+    <aura:attribute name ="recordId" type="String"/>
+    <aura:attribute name = "contractJointAgencyList" type="List"/>
+    <aura:attribute name="contractWrapper" type="Object"/>
+
+    <aura:if isTrue="{!v.contractWrapper.jointAgencyMsgFlag}">
+        <div class="theme_msg">
+            該当契約は共同募集該当の代理店です<br/>
+            ＜以下が共同募集代理店が取扱できる商品範囲です＞<br/>
+        </div>
+        <aura:iteration items="{!v.contractWrapper.agencyMasterList}" var="contract" start="0">
+            <div class="theme_msg">
+               <aura:if isTrue="{!contract.SeihoAgencyCode__c}"> 生保：[{!contract.SeihoAgencyCode__c }]  &nbsp; </aura:if>　<aura:if isTrue="{!contract.SonpoAgencyCode__c}"> 損保：[{!contract.SonpoAgencyCode__c}] <aura:if isTrue="{!contract.SonpoDisplayText__c}">（{!contract.SonpoDisplayText__c}）</aura:if> </aura:if>　<aura:if isTrue="{!contract.ShotanAgencyCode__c}"> 少短：[{!contract.ShotanAgencyCode__c}]</aura:if>
+            </div>
+        </aura:iteration>
+        <aura:if isTrue="{!v.contractWrapper.isExistingAgreementFlag}">
+            <div style="color:red;font-size:small" class="theme_msg">
+                &nbsp;<br/>
+                ※損保契約既存協定あり代理店のため神田オフィスでの募集となります※<br/>
+            </div>
+        </aura:if>
+        <div style="color:red;font-size:small" class="theme_msg">
+                ご希望商品によってエスカレーション先が異なります。SVに確認してください。
+        </div>
+    </aura:if>
+</aura:component>

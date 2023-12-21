@@ -1,0 +1,978 @@
+<!--
+  @File Name          : RequestInlineRecipientmutualaidCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/23/2019, 12:12:43 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                             			'ChangeDetails1__c':'',
+                                                                        'ChangeDetails2__c':'',
+																		'ChangeDetails3__c':'',
+																		'ChangeDetails4__c':'',
+                                                                        'ChangeDetails5__c':'',
+                                                             			'ChangeDetails6__c':'',
+                                                                        'ChangeDetails7__c':'',
+																		'ChangeDetails8__c':'',
+																		'ChangeDetails9__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRecipientmutualaid" action="{!c.saveInlineRecipientmutualaid}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+    
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" />
+    
+<!--Declare Attributes-->	
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/>
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>	
+
+<!--ChangeDetails1 attributes-->   
+<aura:attribute name="productNameMultiPickList1" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]" />
+<aura:attribute name="productNameMultiPickList1Selected" type="List" />
+<aura:attribute name="currentRecipientName1" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary1" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana1" type="String" default=""/>
+<aura:attribute name="newRecipientName1" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee1" type="String" default=""/>
+<aura:attribute name="newReceiptDate1" type="String" default=""/>
+
+<!--ChangeDetails2 attributes-->   
+<aura:attribute name="productNameMultiPickList2" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList2Selected" type="List" />
+<aura:attribute name="currentRecipientName2" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary2" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana2" type="String" default=""/>
+<aura:attribute name="newRecipientName2" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee2" type="String" default=""/>
+<aura:attribute name="newReceiptDate2"  type="String" default="" />
+
+<!--ChangeDetails3 attributes-->   
+<aura:attribute name="productNameMultiPickList3" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList3Selected" type="List" />
+<aura:attribute name="currentRecipientName3" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary3" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana3" type="String" default=""/>
+<aura:attribute name="newRecipientName3" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee3" type="String" default=""/>
+<aura:attribute name="newReceiptDate3"  type="String" default=""/>
+
+<!--ChangeDetails4 attributes-->   
+<aura:attribute name="productNameMultiPickList4" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList4Selected" type="List" />
+<aura:attribute name="currentRecipientName4" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary4" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana4" type="String" default=""/>
+<aura:attribute name="newRecipientName4" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee4" type="String" default=""/>
+<aura:attribute name="newReceiptDate4"  type="String" default=""/>
+
+<!--ChangeDetails5 attributes-->   
+<aura:attribute name="productNameMultiPickList5" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList5Selected" type="List" />
+<aura:attribute name="currentRecipientName5" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary5" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana5" type="String" default=""/>
+<aura:attribute name="newRecipientName5" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee5" type="String" default=""/>
+<aura:attribute name="newReceiptDate5" type="String" default=""/>
+
+<!--ChangeDetails6 attributes-->   
+<aura:attribute name="productNameMultiPickList6" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList6Selected" type="List" />
+<aura:attribute name="currentRecipientName6" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary6" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana6" type="String" default=""/>
+<aura:attribute name="newRecipientName6" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee6" type="String" default=""/>
+<aura:attribute name="newReceiptDate6"  type="String" default=""/>
+
+<!--ChangeDetails7 attributes-->   
+<aura:attribute name="productNameMultiPickList7" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList7Selected" type="List" />
+<aura:attribute name="currentRecipientName7" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary7" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana7" type="String" default=""/>
+<aura:attribute name="newRecipientName7" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee7" type="String" default=""/>
+<aura:attribute name="newReceiptDate7"  type="String" default=""/>
+
+<!--ChangeDetails8 attributes-->   
+<aura:attribute name="productNameMultiPickList8" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList8Selected" type="List" />
+<aura:attribute name="currentRecipientName8" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary8" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana8" type="String" default=""/>
+<aura:attribute name="newRecipientName8" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee8" type="String" default=""/>
+<aura:attribute name="newReceiptDate8"  type="String" default=""/>
+
+<!--ChangeDetails9 attributes-->   
+<aura:attribute name="productNameMultiPickList9" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList9Selected" type="List" />
+<aura:attribute name="currentRecipientName9" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary9" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana9" type="String" default=""/>
+<aura:attribute name="newRecipientName9" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee9" type="String" default=""/>
+<aura:attribute name="newReceiptDate9"  type="String" default=""/>
+
+<!--ChangeDetails10 attributes-->   
+<aura:attribute name="productNameMultiPickList10" type="List" default="[
+{ label: 'ＲＥ（リバイブ）', value: 'ＲＥ（リバイブ）' },
+{ label: 'ＭＡ（マックエイド）', value: 'ＭＡ（マックエイド）' },
+{ label: 'ＬＩ（ライフエイド）', value: 'ＬＩ（ライフエイド）' },
+{ label: 'ＣＵ（キュアエイド）', value: 'ＣＵ（キュアエイド）' }]"/>
+<aura:attribute name="productNameMultiPickList10Selected" type="List" />
+<aura:attribute name="currentRecipientName10" type="String" default=""/>
+<aura:attribute name="relationshipBeneficiary10" type="String" default=""/>
+<aura:attribute name="newRecipientNameKana10" type="String" default=""/>
+<aura:attribute name="newRecipientName10" type="String" default=""/>
+<aura:attribute name="relationshipNewPayee10" type="String" default=""/>
+<aura:attribute name="newReceiptDate10"  type="String" default=""/>
+    
+<!--Errormessages attributes-->
+<aura:attribute name="RecipientNameKana1" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana2" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana3" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana4" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana5" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana6" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana7" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana8" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana9" type="boolean" default="false"/>
+<aura:attribute name="RecipientNameKana10" type="boolean" default="false"/>   
+    
+<aura:attribute name="RecipientName1" type="boolean" default="false"/>
+<aura:attribute name="RecipientName2" type="boolean" default="false"/>
+<aura:attribute name="RecipientName3" type="boolean" default="false"/>
+<aura:attribute name="RecipientName4" type="boolean" default="false"/>
+<aura:attribute name="RecipientName5" type="boolean" default="false"/>
+<aura:attribute name="RecipientName6" type="boolean" default="false"/>
+<aura:attribute name="RecipientName7" type="boolean" default="false"/>
+<aura:attribute name="RecipientName8" type="boolean" default="false"/>
+<aura:attribute name="RecipientName9" type="boolean" default="false"/>
+<aura:attribute name="RecipientName10" type="boolean" default="false"/>    
+
+<aura:attribute name="ReceiptDate1" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate2" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate3" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate4" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate5" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate6" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate7" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate8" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate9" type="boolean" default="false"/>
+<aura:attribute name="ReceiptDate10" type="boolean" default="false"/>    
+    
+<aura:attribute name="prod1" type="boolean" default="false"/>
+<aura:attribute name="prod2" type="boolean" default="false"/>
+<aura:attribute name="prod3" type="boolean" default="false"/>
+<aura:attribute name="prod4" type="boolean" default="false"/>
+<aura:attribute name="prod5" type="boolean" default="false"/>
+<aura:attribute name="prod6" type="boolean" default="false"/>
+<aura:attribute name="prod7" type="boolean" default="false"/>
+<aura:attribute name="prod8" type="boolean" default="false"/>
+<aura:attribute name="prod9" type="boolean" default="false"/>
+<aura:attribute name="prod10" type="boolean" default="false"/>
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+
+<aura:attribute name="ERR_MSG_ProductName_SECTION_INPUT" type="String"  default="商品名を入力したセクションの全ての項目を入力してください。"/>    
+<div class="slds-box slds-theme_default">
+			<div class="slds-text-align--left">
+			<h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;color:whitesmoke">
+				<div class="slds-grid" style="text-align:left;">
+					<div class="slds-col" style="width:10%;font-weight:bold;"> 受取人①</div>
+					<div class="slds-col" style="width:90%">【新受取人かつ現受取人単位】</div>
+				</div>
+			</h3>
+		</div> 			
+		
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber1" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber1__c}" label="証券番号①"/>-->
+				<lightning:dualListbox aura:id="productNameMultiPick1" name="productNameMultiPick1"  label= "商品名"
+							   sourceLabel="選択可能"
+							   selectedLabel="選択済み"
+							   options="{! v.productNameMultiPickList1}"
+							   size="3"
+							   onchange="{! c.handleProductNameMultiPick1}"/>
+                <aura:if isTrue="{!v.prod1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName1" name="currentRecipientName1" type="text" value="{!v.currentRecipientName1}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary1" name="relationshipBeneficiary1" onchange="{!c.handleRelationshipBeneficiary1}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana1" name="newRecipientNameKana1" type="text" value="{!v.newRecipientNameKana1}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana1}"/>                
+                <aura:if isTrue="{!v.RecipientNameKana1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName1" name="newRecipientName1" type="text" value="{!v.newRecipientName1}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName1}"/>
+				<aura:if isTrue="{!v.RecipientName1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee1" name="relationshipNewPayee1" onchange="{!c.handleRelationshipNewPayee1}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate1" name="newReceiptDate1"  value="{!v.newReceiptDate1}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate1}"/>
+				<aura:if isTrue="{!v.ReceiptDate1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>		
+	 <div class="slds-p-top_medium"></div>	
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人②</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber2" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber2__c}" label="証券番号②"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick2" name="productNameMultiPick2"  label= "商品名"
+                           sourceLabel="選択可能"
+                           selectedLabel="選択済み"
+						   options="{! v.productNameMultiPickList2}"
+						   size="3"
+                           onchange="{! c.handleProductNameMultiPick2}"/>
+                <aura:if isTrue="{!v.prod2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName2" name="currentRecipientName2" type="text" value="{!v.currentRecipientName2}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary2" name="relationshipBeneficiary2" onchange="{!c.handleRelationshipBeneficiary2}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana2" name="newRecipientNameKana2" type="text" value="{!v.newRecipientNameKana2}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana2}"/>
+				<aura:if isTrue="{!v.RecipientNameKana2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName2" name="newRecipientName2" type="text" value="{!v.newRecipientName2}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName2}"/>
+				<aura:if isTrue="{!v.RecipientName2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee2" name="relationshipNewPayee2" onchange="{!c.handleRelationshipNewPayee2}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate2" name="newReceiptDate2"  value="{!v.newReceiptDate2}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate2}"/>
+				<aura:if isTrue="{!v.ReceiptDate2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>		
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人③</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber3" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber3__c}" label="証券番号③"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick3" name="productNameMultiPick3"  label= "商品名"
+                           sourceLabel="選択可能"
+                           selectedLabel="選択済み"
+						   options="{! v.productNameMultiPickList3}"
+						   size="3"
+                           onchange="{! c.handleProductNameMultiPick3}"/>
+                <aura:if isTrue="{!v.prod3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName3" name="currentRecipientName3" type="text" value="{!v.currentRecipientName3}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary3" name="relationshipBeneficiary3" onchange="{!c.handleRelationshipBeneficiary3}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana3" name="newRecipientNameKana3" type="text" value="{!v.newRecipientNameKana3}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana3}"/>
+				<aura:if isTrue="{!v.RecipientNameKana3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName3" name="newRecipientName3" type="text" value="{!v.newRecipientName3}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName3}"/>
+				<aura:if isTrue="{!v.RecipientName3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee3" name="relationshipNewPayee3" onchange="{!c.handleRelationshipNewPayee3}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate3" name="newReceiptDate3"  value="{!v.newReceiptDate3}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate3}"/>	   				
+				<aura:if isTrue="{!v.ReceiptDate3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div> 
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人④</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber4" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber4__c}" label="証券番号④"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick4" name="productNameMultiPick4"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList4}"
+                           onchange="{! c.handleProductNameMultiPick4}"/>
+                <aura:if isTrue="{!v.prod4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName4" name="currentRecipientName4" type="text" value="{!v.currentRecipientName4}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary4" name="relationshipBeneficiary4" onchange="{!c.handleRelationshipBeneficiary4}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana4" name="newRecipientNameKana4" type="text" value="{!v.newRecipientNameKana4}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana4}"/>
+				<aura:if isTrue="{!v.RecipientNameKana4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName4" name="newRecipientName4" type="text" value="{!v.newRecipientName4}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName4}"/>
+				<aura:if isTrue="{!v.RecipientName4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee4" name="relationshipNewPayee4" onchange="{!c.handleRelationshipNewPayee4}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate4" name="newReceiptDate4"  value="{!v.newReceiptDate4}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate4}"/>	
+				<aura:if isTrue="{!v.ReceiptDate4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>	
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑤</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber5" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber5__c}" label="証券番号⑤"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick5" name="productNameMultiPick5"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList5}"
+                           onchange="{! c.handleProductNameMultiPick5}"/>
+                <aura:if isTrue="{!v.prod5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName5" name="currentRecipientName5" type="text" value="{!v.currentRecipientName5}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary5" name="relationshipBeneficiary5" onchange="{!c.handleRelationshipBeneficiary5}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana5" name="newRecipientNameKana5" type="text" value="{!v.newRecipientNameKana5}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana5}"/>
+				<aura:if isTrue="{!v.RecipientNameKana5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName5" name="newRecipientName5" type="text" value="{!v.newRecipientName5}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName5}"/>
+				<aura:if isTrue="{!v.RecipientName5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee5" name="relationshipNewPayee5" onchange="{!c.handleRelationshipNewPayee5}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate5" name="newReceiptDate5"  value="{!v.newReceiptDate5}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate5}"/>
+				<aura:if isTrue="{!v.ReceiptDate5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>		
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑥</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber6" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber6__c}" label="証券番号⑥"/>-->
+				<lightning:dualListbox aura:id="productNameMultiPick6" name="productNameMultiPick6"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList6}"
+                           onchange="{! c.handleProductNameMultiPick6}"/>
+                <aura:if isTrue="{!v.prod6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName6" name="currentRecipientName6" type="text" value="{!v.currentRecipientName6}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary6" name="relationshipBeneficiary6" onchange="{!c.handleRelationshipBeneficiary6}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana6" name="newRecipientNameKana6" type="text" value="{!v.newRecipientNameKana6}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana6}"/>
+				<aura:if isTrue="{!v.RecipientNameKana6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName6" name="newRecipientName6" type="text" value="{!v.newRecipientName6}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName6}"/>
+				<aura:if isTrue="{!v.RecipientName6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee6" name="relationshipNewPayee6" onchange="{!c.handleRelationshipNewPayee6}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate6" name="newReceiptDate6"  value="{!v.newReceiptDate6}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate6}"/>				
+				<aura:if isTrue="{!v.ReceiptDate6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div> 
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑦</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber7" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber7__c}" label="証券番号⑦"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick7" name="productNameMultiPick7"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList7}"
+                           onchange="{! c.handleProductNameMultiPick7}"/>
+                <aura:if isTrue="{!v.prod7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName7" name="currentRecipientName7" type="text" value="{!v.currentRecipientName7}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary7" name="relationshipBeneficiary7" onchange="{!c.handleRelationshipBeneficiary7}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana7" name="newRecipientNameKana7" type="text" value="{!v.newRecipientNameKana7}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana7}"/>
+				<aura:if isTrue="{!v.RecipientNameKana7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName7" name="newRecipientName7" type="text" value="{!v.newRecipientName7}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName7}"/>
+				<aura:if isTrue="{!v.RecipientName7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee7" name="relationshipNewPayee7" onchange="{!c.handleRelationshipNewPayee7}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate7" name="newReceiptDate7"  value="{!v.newReceiptDate7}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate7}"/>
+				<aura:if isTrue="{!v.ReceiptDate7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>			
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑧</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber8" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber8__c}" label="証券番号⑧"/>-->
+				<lightning:dualListbox aura:id="productNameMultiPick8" name="productNameMultiPick8"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList8}"
+                           onchange="{! c.handleProductNameMultiPick8}"/>
+                <aura:if isTrue="{!v.prod8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName8" name="currentRecipientName8" type="text" value="{!v.currentRecipientName8}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary8" name="relationshipBeneficiary8" onchange="{!c.handleRelationshipBeneficiary8}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana8" name="newRecipientNameKana8" type="text" value="{!v.newRecipientNameKana8}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana8}"/>
+				<aura:if isTrue="{!v.RecipientNameKana8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName8" name="newRecipientName8" type="text" value="{!v.newRecipientName8}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName8}"/>
+				<aura:if isTrue="{!v.RecipientName8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee8" name="relationshipNewPayee8" onchange="{!c.handleRelationshipNewPayee8}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate8" name="newReceiptDate8"  value="{!v.newReceiptDate8}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate8}"/>
+				<aura:if isTrue="{!v.ReceiptDate8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div> 
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑨</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber9" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber9__c}" label="証券番号⑨"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick9" name="productNameMultiPick9"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList9}"
+                           onchange="{! c.handleProductNameMultiPick9}"/>
+                <aura:if isTrue="{!v.prod9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName9" name="currentRecipientName9" type="text" value="{!v.currentRecipientName9}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary9" name="relationshipBeneficiary9" onchange="{!c.handleRelationshipBeneficiary9}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana9" name="newRecipientNameKana9" type="text" value="{!v.newRecipientNameKana9}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana9}"/>
+				<aura:if isTrue="{!v.RecipientNameKana9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName9" name="newRecipientName9" type="text" value="{!v.newRecipientName9}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName9}"/>
+				<aura:if isTrue="{!v.RecipientName9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee9" name="relationshipNewPayee9" onchange="{!c.handleRelationshipNewPayee9}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate9" name="newReceiptDate9"  value="{!v.newReceiptDate9}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate9}"/>
+				<aura:if isTrue="{!v.ReceiptDate9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>		
+		</div>
+	 <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受取人⑩</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">	
+			<div class="slds-col slds-size_1-of-2">
+				<!--<lightning:input aura:Id="policyNumber10" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber10__c}" label="証券番号⑩"/> -->
+				<lightning:dualListbox aura:id="productNameMultiPick10" name="productNameMultiPick10"  label= "商品名"
+                           sourceLabel="選択可能"
+						   selectedLabel="選択済み"
+						   size="3"
+                           options="{! v.productNameMultiPickList10}"
+                           onchange="{! c.handleProductNameMultiPick10}"/>
+                <aura:if isTrue="{!v.prod10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_ProductName_SECTION_INPUT}</h3>
+                  </div>
+			    </aura:if>
+				<lightning:input aura:Id="currentRecipientName10" name="currentRecipientName10" type="text" value="{!v.currentRecipientName10}" label="現受取人氏名　　注）全角で入力／姓と名の間はスペース"/>
+				<lightning:select aura:Id="relationshipBeneficiary10" name="relationshipBeneficiary10" onchange="{!c.handleRelationshipBeneficiary10}" label="被保険者から見た現受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>		
+				<lightning:input aura:Id="newRecipientNameKana10" name="newRecipientNameKana10" type="text" value="{!v.newRecipientNameKana10}" label="新受取人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientNameKana10}"/>
+				<aura:if isTrue="{!v.RecipientNameKana10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（カナ）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:input aura:Id="newRecipientName10" name="newRecipientName10" type="text" value="{!v.newRecipientName10}" label="新受取人氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleRecipientName10}"/>
+				<aura:if isTrue="{!v.RecipientName10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人氏名（漢字）は全角で入力してください</h3>
+                  </div>
+				</aura:if>
+                <lightning:select aura:Id="relationshipNewPayee10" name="relationshipNewPayee10" onchange="{!c.handleRelationshipNewPayee10}" label="被保険者から見た新受取人の続柄">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>	
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="指定範囲外">指定範囲外</option>
+					<option value="指定なし">指定なし</option>
+				</lightning:select>			
+				<lightning:input aura:Id="newReceiptDate10" name="newReceiptDate10"  value="{!v.newReceiptDate10}" label="新受取人生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleReceiptDate10}"/>
+				<aura:if isTrue="{!v.ReceiptDate10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新受取人生年月日の桁数に誤りがあります</h3>
+                  </div>
+				</aura:if>
+            </div>
+		</div>			
+     <div class="slds-p-top_medium"></div>
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+						<lightning:select aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+							<aura:iteration items="{!v.processingPicklist}" var="pro" >
+								<option  value="{!pro}"> {!pro} </option>		
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+                            <aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+                                <option  value="{!pro}"> {!pro} </option>		
+                            </aura:iteration>
+                        </lightning:select>
+				</div>				
+				<div class="form-group">
+						<lightning:select aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}" name="dateOfShipmentPicklist" label="発送日" disabled="true">
+							<option value="">-- None --</option>
+							<aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+								<option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+				<div class="form-group">
+						<lightning:select aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}"  name="shippingMethodPicklist" label="発送方法" disabled="true">
+							<option value="">-- None --</option>
+							<aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+								<option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+							</aura:iteration>
+						</lightning:select>
+				</div>
+			</div>		
+			<div class="slds-col">
+			   <div class="slds-p-top--xx-large"></div>
+               <div class="slds-p-top--xxx-small"></div>
+				<!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+				<!--<lightning:input aura:Id="numberOfCopies" name="" type="integer" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+				<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数"  disabled="true" onchange="{!c.handleNoOfCopies}" />
+				<aura:if isTrue="{!v.noOfCopiesErr}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+						<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+					</div>
+				</aura:if>
+				
+			</div>
+		</div>	
+	</div>
+</aura:component>

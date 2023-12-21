@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>お問い合わせ内容（new）</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemKey" label="項目キー" type="String" description="項目キー" />
+            <property name="itemKeyInquiryType" label="問合せ種別項目キー" type="String" description="項目キー" />
+            <property name="placeholderMapByInquiryTypeForLife" label="問合せ種別ごとのプレイスホルダー(life)" type="String" description="項目キー" />
+            <property name="placeholderMapByInquiryTypeForGen" label="問合せ種別ごとのプレイスホルダー(gen)" type="String" description="項目キー" />
+            <property name="placeholderMapByInquiryTypeForPet" label="問合せ種別ごとのプレイスホルダー(pet)" type="String" description="項目キー" />
+        </targetConfig>
+    </targetConfigs>  
+</LightningComponentBundle>

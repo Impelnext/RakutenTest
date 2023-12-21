@@ -1,0 +1,148 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item list_item">
+                <ul class="c-list_input _nocol">
+                    <li>
+                        <input type="checkbox" name="nmChangeTargetsPhone[]" id={itemkeyCheckBox} class="c-form_checkbox c-form_checkSimple fill" onchange={changeCheckBoxValueHandler}>
+                        <label for={itemkeyCheckBox}>電話番号の変更</label>
+                        <div class="ml10" style={styleTelNumber} >
+                          <div class="p-form mt20">
+                            <div class="p-form_item">
+                              お客さまにご連絡を差し上げる場合に必要になりますので必ず最新の番号をご入力ください。
+                            </div>
+                            <div class="p-form_item">
+                              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>ご自宅電話番号</div>
+                              <ul class="c-list_input _nocol phone_list">
+                                <li>
+                                  <input type="radio" name="nmIsChangePhoneNumber" id="PhoneNumber1" value="変更なし" class="c-form_radio display_radio js-change-phone" onchange={changeRadioPhoneValueHandler}>
+                                  <label for="PhoneNumber1">変更なし</label>
+                                </li>
+                                <li>
+                                  <input type="radio" name="nmIsChangePhoneNumber" id="PhoneNumber2" value="変更・登録する" class="c-form_radio display_radio js-change-phone" onchange={changeRadioPhoneValueHandler}>
+                                  <label for="PhoneNumber2">変更・登録する</label>
+                                  <div class="mt10" if:true={dispPhoneNumber}>
+                                    <input type="tel" class="c-form_text" name="nmChangePhoneNumber" id={itemKeyTelNumber} value={valueTelNumber} maxlength="11" onchange={changeValueHandlerTelNumber}>
+                                    <span>例：0312345678 <span class="mt5 p-form_itemNote">※ハイフン不要</span></span>
+                                  </div>
+                                </li>
+                                <li>
+                                  <input type="radio" name="nmIsChangePhoneNumber" id="PhoneNumber3" value="ご自宅電話番号の利用なし" class="c-form_radio display_radio js-change-phone no-use" onchange={changeRadioPhoneValueHandler} disabled={disabledPhone}>
+                                  <label for="PhoneNumber3">ご自宅電話番号の利用なし</label>
+                                </li>
+                              </ul>
+                            </div>
+                            <div class="p-form_item">
+                              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>携帯電話番号</div>
+                              <ul class="c-list_input _nocol mobile_phone_list">
+                                <li>
+                                  <input type="radio" name="nmIsChangeMobilePhoneNumber" id="MobilePhoneNumber1" value="変更なし" class="c-form_radio display_radio js-change-phone-2" onchange={changeRadioMobileValueHandler}>
+                                  <label for="MobilePhoneNumber1">変更なし</label>
+                                </li>
+                                <li>
+                                  <input type="radio" name="nmIsChangeMobilePhoneNumber" id="MobilePhoneNumber2" value="変更・登録する" class="c-form_radio display_radio js-change-phone-2" onchange={changeRadioMobileValueHandler}>
+                                  <label for="MobilePhoneNumber2">変更・登録する</label>
+                                  <div class="mt10" if:true={dispMobileNumber}>
+                                    <input type="tel" class="c-form_text" name="nmChangeMobilePhoneNumber" id={itemKeyCellPhoneNumber} value={valueCellPhoneNumber} maxlength="11" onchange={changeValueHandlerCellPhoneNumber}>
+                                    <span>例：09012345678 <span class="mt5 p-form_itemNote">※ハイフン不要</span></span>
+                                  </div>
+                                </li>
+                                <li>
+                                  <input type="radio" name="nmIsChangeMobilePhoneNumber" id="MobilePhoneNumber3" value="携帯電話番号の利用なし" class="c-form_radio display_radio js-change-phone-2 no-use" onchange={changeRadioMobileValueHandler} disabled={disabledMobilePhone}>
+                                  <label for="MobilePhoneNumber3">携帯電話番号の利用なし</label>
+                                </li>
+                              </ul>
+                              <div class="p-form_itemNote">※お電話やショートメッセージにてご契約の確認など連絡する場合がございます。
+                                つながりやすい携帯電話番号のご登録をお願いいたします。</div>
+                              <div class="p-form_itemNote text-red" if:true={dispError}>
+                                電話番号はどちらか必ず変更、または変更なしにしてください。</div>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+        <!--
+        <p style="font-weight: bold;">
+            <lightning-input name="checkboxModTelNumber"
+            id={itemKeyCheckBox}
+            type="checkbox"
+            label="電話番号の変更"
+            value={valueCheckBox}
+            checked={checkedCheckBox}
+            onchange={changeCheckBoxValueHandler}>
+            </lightning-input>
+        </p>
+
+        <div if:true={dispTelNumber}>
+            <span class="required red">必須</span><small>いずれか必須</small><br>
+            <small>お客様にお電話やショートメッセージにて、ご連絡を差し上げる場合に必要になりますので最新の番号をご入力ください。</small>
+            <p style="font-weight: bold;">①ご自宅電話番号</p>
+                <lightning-input type="text" id={itemKeyTelNumber} 
+                    value={valueTelNumber} maxlength="11" 
+                    placeholder="09012345678" 
+                    onchange={changeValueHandlerTelNumber}
+                    variant="label-hidden" >
+                </lightning-input>
+            <br>
+            <p style="font-weight: bold;">②携帯電話番号</p>
+                <lightning-input type="text" id={itemKeyCellPhoneNumber} 
+                    value={valueCellPhoneNumber} maxlength="11" 
+                    placeholder="09012345678" 
+                    onchange={changeValueHandlerCellPhoneNumber}
+                    variant="label-hidden" >
+                </lightning-input>
+        </div>
+        -->
+                </ul>
+            </div>
+        </section>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <div if:true={dispTelNumber}>
+            <section class="p-section" if:true={dispSection}>
+                <h2 class="c-ttl_sec">{confirmSection}</h2>
+                <div class="p-form">
+                    <div class="p-form_item">
+                        <span class="weight4">ご自宅電話番号</span><br>
+                        {valuePhoneRadio}
+                        <div if:true={dispPhoneNumber}>
+                          {valueTelNumber}<br>
+                          </div>
+                      </div>
+                    <div class="p-form_item">
+                        <span class="weight4">携帯電話番号</span><br>
+                        {valueMobileRadio}<br>
+                        <div if:true={dispMobileNumber}>
+                        {valueCellPhoneNumber}<br>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="p-section" if:false={dispSection}>
+                <div class="p-form">
+                    <div class="p-form_item">
+                        <span class="weight4">変更する電話番号</span>
+                        <br if:false={dispSection}>
+                        <span class="weight4">ご自宅電話番号</span>
+                        <br>
+                        {valuePhoneRadio}
+                        <br>
+                        <div if:true={dispPhoneNumber}>
+                        {valueTelNumber}
+                        <br>
+                        </div>
+                        <span class="weight4">携帯電話番号</span>
+                        <br>
+                        {valueMobileRadio}
+                        <br>
+                        <div if:true={dispMobileNumber}>
+                        {valueCellPhoneNumber}
+                        <br>
+                        </div>
+                    </div>
+                  </div>
+            </section>
+        </div>
+    </template>
+  
+</template>

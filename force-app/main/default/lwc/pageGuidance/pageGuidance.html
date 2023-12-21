@@ -1,0 +1,36 @@
+<template>
+    <template if:false={confirmPhase}>
+        <template if:false={isEmptyInput}>
+            <div class="p-section">
+                <template if:true={alignCenter}>
+                    <p class="u-txt_c">
+                        {guideForInput}
+                    </p>
+                </template>
+                <template if:false={alignCenter}>
+                    <p>
+                        {guideForInput}
+                    </p>
+                </template>
+            </div>
+        </template>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <template if:false={isEmptyConfirm}>
+            <div class="p-section">
+                <template if:true={alignCenter}>
+                    <p class="u-txt_c">
+                        {guideForConfirm}
+                    </p>
+                </template>
+                <template if:false={alignCenter}>
+                    <p>
+                        {guideForConfirm}
+                    </p>
+                </template>
+            </div>
+        </template>
+    </template>
+
+</template>

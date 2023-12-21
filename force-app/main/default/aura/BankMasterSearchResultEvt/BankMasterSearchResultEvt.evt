@@ -1,0 +1,6 @@
+<aura:event type="APPLICATION" description="金融機関の検索結果をVFページ送信するイベント">
+    <aura:attribute name="bankCode" type="string"/>
+    <aura:attribute name="bankName" type="string"/>
+    <aura:attribute name="branchCode" type="string"/>
+    <aura:attribute name="branchName" type="string"/>
+</aura:event>

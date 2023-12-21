@@ -1,0 +1,15 @@
+.p-subhead_page h3 {
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+    margin: 0 auto 24px;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 756px) {
+    .p-subhead_page h3 {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

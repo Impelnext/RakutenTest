@@ -1,0 +1,379 @@
+<!--
+  @File Name          : RequestDisplayCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/23/2019, 6:40:30 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019           SRM                Initial Version
+-->
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<lightning:workspaceAPI aura:id = "RequestSubTab" />
+
+<aura:attribute name="newRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'Class__c':'',
+                                                             			'Type__c':'',
+																		'Status__c':'',
+																		'Subject__c':'',
+																		'Priority__c':'',
+                                                                        'TelAcceptCompnDate__c':'',
+                                                                        'RequestStatusComment__c':'',
+                                                                        'NonRelatedContractCheck__c':'',
+                                                                        'Notices__c':''
+                                                                        }"/>
+                                                                    
+<!--Declare Event Handlers-->
+<aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+<aura:handler name="ReqStopSaveComponentEvent" event="c:ComponentReqStopSaveEvent" action="{!c.handleComponentEvent}"/>
+<!-- 有人チャット start -->
+<lightning:omniToolkitAPI aura:id="omniToolkit" />
+<aura:handler event="lightning:omniChannelStatusChanged" action="{! c.onStatusChanged }"/>
+<aura:handler event="lightning:omniChannelLogout" action="{! c.onLogout }"/>
+<aura:attribute name="loginFlg" type="String" default = "logout"/>
+<lightning:navigation aura:id="navCreateReceptionRDC"/> 
+<!-- 有人チャット end -->    
+<!--Declare Attributes-->
+<aura:attribute name="recContractWrapper" type="Object"/>
+<aura:attribute name="selectedType" type="string" default=""/>
+    
+<aura:attribute name="keyField" type="String" default = "id"/>
+<aura:attribute name="clsSelected" type="String" default = ""/>    
+<aura:attribute name="contractColumns" type="List"/>
+<aura:attribute name="contractList" type="List" default="[]"/>
+<aura:attribute name="policyNumberList" type="List" default="[]"/>
+    
+<aura:attribute name="classPickMap" type="Map"/> 
+<aura:attribute name="typePickMap" type="Map"/>
+<aura:attribute name="subjectPickMap" type="Map"/>
+<aura:attribute name="statusPickMap" type="Map"/>
+<aura:attribute name="priorityPickMap" type="Map"/>
+
+<aura:attribute name="listControllingValues" type="list" default="[]" />
+<aura:attribute name="listDependingValues" type="list" default="['--- None ---']" />
+<aura:attribute name="depnedentFieldMap" type="map" />
+<aura:attribute name="depnedentFieldAPIMap" type="map" />
+<aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/>
+<aura:attribute name="showError" type="boolean" default="false"/>
+<aura:attribute name="showErrorToStopSave" type="boolean" default="false"/>
+<aura:attribute name="errorMessage" type="String"/>   
+<aura:attribute name="errorMessagePolicyNumber" type="String"/> 
+<aura:attribute name="showErrorToStopSavePolicy" type="boolean" default="false"/>
+<aura:attribute name="showSelectedContract" type="boolean" default="false"/>
+    
+<!-- 件名選択リストの属性-->
+<aura:attribute name="typeControllingValues" type="list"/>
+<aura:attribute name="subjectDependingValues" type="list" default="['--- None ---']"/>
+<aura:attribute name="subjectDependentFieldMap" type="map"/>
+<aura:attribute name="subDepnedentFieldMap" type="map" default="{}"/> 
+<aura:attribute name="listSubDependingValues" type="list" default="['--- None ---']"/>
+<aura:attribute name="subReqConDepnedentFieldMap" type="map" default="{}"/> 
+<aura:attribute name="listSubReqConDependingValues" type="list" default="['--- None ---']"/>
+<aura:attribute name="disableSubjectField" type="boolean" default="true"/>
+<aura:attribute name="accountId" type="String"/>   
+
+<aura:attribute name="selectedRows" type="List" />
+<aura:attribute name="rowsSelectedId" type="List" /> 
+<aura:attribute name="policyNumberErrorDisplay" type="boolean" default="false"/>   
+<aura:attribute name="policyNumber1Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber2Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber3Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber4Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber5Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber6Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber7Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber8Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber9Error" type="boolean" default="false"/>
+<aura:attribute name="policyNumber10Error" type="boolean" default="false"/>    
+    
+<div class="slds-box slds-theme_default">
+	<aura:if isTrue="{!v.showError}">
+		<!-- Show the message to ui -->
+		<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+			<h3 style="font-weight:bolder;color:white">{!v.errorMessage}</h3>
+		</div>
+	</aura:if>
+    <aura:if isTrue="{!v.policyNumberErrorDisplay}">
+	  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+		<h3 style="font-weight:bolder;color:white">{!v.errorMessagePolicyNumber}</h3>
+	  </div>
+	</aura:if>
+    <div class="slds-float--right"  style="height:5rem">
+        <lightning:button aura:id="btnSeihoHozen" variant="neutral" label="生命(保全)一覧" title="生命(保全)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSeihoHokenkin" variant="neutral" label="生命(保険金)一覧" title="生命(保険金)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSeihoTokuyaku" variant="neutral" label="生命(特約)一覧" title="生命(特約)一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSonpo" variant="neutral" label="損保一覧" title="損保一覧" disabled="True" onclick="{!c.handleReportOpen}"/>
+        <lightning:button aura:id="btnSyotan" variant="neutral" label="少短一覧" title="少短一覧" disabled="True" onclick="{!c.handleReportOpen}"/>     
+    </div>
+    <div class="slds-p-top_xx-large"></div>
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">受付情報</h3></div>
+  
+            <div class="slds-p-top_medium"></div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">受付番号</div>			
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText aura:id="opName" value="{!v.recContractWrapper.reception.Name}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">CRMID</div>		
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.CRMID__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">取引先名</div>			
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.Account__r.Name}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">申出人氏名</div>
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.NameOffererKana__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">契約者との続柄</div>
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.RelationshipWithContractor__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">請求対象者との続柄</div>
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.BilleeRelationship__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">続柄その他</div>				
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.OtherPattern__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">送付先住所</div>
+					<div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputText value="{!v.recContractWrapper.reception.FullAddress__c}"/></div>
+				</div>
+				<div class="slds-grid slds-grid--align-left">
+					<div style="width:9%;">受付内容</div>				
+                    <div style="width:1%;">:</div>
+					<div style="width:90%;"><ui:outputTextArea  value="{!v.recContractWrapper.reception.Description__c}" /></div>
+				</div>
+            <!--受付内容&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;: <ui:outputTextArea  value="{!v.recContractWrapper.reception.Description__c}"/>-->
+    <div class="slds-p-top_medium"></div>
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 1 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 2 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">リクエスト基本情報</h3> </div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="form-group">
+                <lightning:select aura:id="controllerFldPicklist" name="controllerFld"
+                                  value="{!v.newRequest.Class__c}"
+                                  label="対応区分"
+                                  onchange="{!c.onControllerFieldChange}">
+                    <aura:iteration items="{!v.listControllingValues}" var="val">
+                        <option value="{!val}">{!val}</option>
+                    </aura:iteration>
+                </lightning:select>
+               <!-- <lightning:select aura:id="classPicklist" value="{!v.newRequest.Class__c}" onchange="{!c.handleClassPick}" name="classPicklist" label="対応区分" >
+                    <option value=""></option>
+                    <aura:iteration items="{!v.classPickMap}" var="cls" indexVar="key">
+                        <option text="{!cls.value}" value="{!cls.key}" selected="{!cls.key==v.newRequest.Class__c}" />
+                    </aura:iteration>
+                </lightning:select>-->
+            </div>
+            
+            </div>
+            <div class="slds-col">
+            <div class="slds-p-top_medium"></div>
+            <div class="slds-p-top_xx-large"></div>
+            </div>
+            
+            </div>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+            
+            <div class="form-group">
+                <lightning:select name="dependentFld"
+                                  value="{!v.newRequest.Type__c}"
+                                  label="対応種別"
+                                  disabled="{!v.bDisabledDependentFld}"
+                                  onchange="{!c.onControllerFieldChange}">
+                    <aura:iteration items="{!v.listDependingValues}" var="val">
+                        <option value="{!val}">{!val}</option>
+                    </aura:iteration>
+                </lightning:select>
+               <!-- <lightning:select aura:id="typePicklist" value="{!v.newRequest.Type__c}" onchange="{!c.handleTypePick}" name="typePicklist" label="対応区分" >
+                    <option value=""></option>
+                    <aura:iteration items="{!v.typePickMap}" var="typ" indexVar="key">
+                        <option text="{!typ.value}" value="{!typ.key}" selected="{!typ.key==v.newRequest.Type__c}" />
+                    </aura:iteration>
+                </lightning:select> -->
+            </div>
+            
+            </div>
+            <div class="slds-col">
+            <div class="slds-p-top_medium"></div>
+            <div class="slds-p-top_xx-large"></div>
+            </div>
+            
+            </div>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+            
+            <div class="form-group">
+                <lightning:select name="subjectDependentFld" 
+                                   value="{!v.newRequest.Subject__c}"
+                                   label="件名"
+                                   disabled="{!v.disableSubjectField}"
+                                   onchange="{!c.onSubControllerFieldChange}"
+                                   aura:Id ="subjectPicklist">
+                <aura:iteration items="{!v.subjectDependingValues}" var="subjectValue">
+                    <option value="{!subjectValue}">{!subjectValue}</option>
+                </aura:iteration>
+                </lightning:select>
+                <!-- <lightning:select aura:id="subjectPicklist" value="{!v.newRequest.Subject__c}" onchange="{!c.handleSubjectPick}" name="subjectPicklist" label="件名" >
+                    <option value=""></option>
+                    <aura:iteration items="{!v.subjectPickMap}" var="sub" indexVar="key">
+                        <option text="{!sub.value}" value="{!sub.key}" selected="{!sub.key==v.newRequest.Subject__c}" />
+                    </aura:iteration>
+                </lightning:select>-->
+            </div>
+            
+            </div>
+            <div class="slds-col">
+            <div class="slds-p-top_medium"></div>
+            <div class="slds-p-top_xx-large"></div>
+            </div>
+            
+            </div>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+            
+            <div class="form-group">
+                <lightning:select aura:id="statusPicklist" value="{!v.newRequest.Status__c}" name="statusPicklist" label="状況">
+                    <aura:iteration items="{!v.statusPickMap}" var="sta" indexVar="key">
+                        <option text="{!sta.value}" value="{!sta.key}" selected="{!sta.key==v.newRequest.Status__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            
+            </div>
+            <div class="slds-col">
+            <lightning:input aura:Id="requestStatus" name="" type="text" value="{!v.newRequest.RequestStatusComment__c}" label="状況コメント" />
+            </div>
+            
+            </div>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+            
+            <div class="form-group">
+                <lightning:select aura:id="priorityPicklist" value="{!v.newRequest.Priority__c}" name="priorityPicklist" label="優先度">
+                    <aura:iteration items="{!v.priorityPickMap}" var="prt" indexVar="key">
+                        <option text="{!prt.value}" value="{!prt.key}" selected="{!prt.key==v.newRequest.Priority__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            
+            </div>
+            <div class="slds-col">
+            <div class="slds-p-top_medium"></div>
+            <div class="slds-p-top_xx-large"></div>
+            </div>
+            
+            </div>
+            <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-2">
+            
+            <!-- <lightning:input aura:Id="requestField" name="TelAcceptCompnDate" type="datetime"  value="{!v.newRequest.TelAcceptCompnDate__c}" label="電話受付完了日時"/> -->
+            <ui:inputDateTime aura:Id="telAcceptCompDate" value="{!v.newRequest.TelAcceptCompnDate__c}" label="電話受付完了日時" displayDatePicker="true" />
+            
+            </div>
+            <div class="slds-col">
+            <div class="slds-p-top_medium"></div>
+            <div class="slds-p-top_xx-large"></div>
+            </div>         
+        </div>
+    <lightning:textarea aura:Id="notice" name="" type="text" value="{!v.newRequest.Notices__c}" label="特記事項" class="customHeight" />
+    <div class="slds-p-top_medium"></div>
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 2 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 3 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">契約選択</h3> </div>
+    <div class="slds-box">
+        <div style="height: 180px;">
+        <lightning:datatable aura:id="dbTable"  class="tableHeader" data="{!v.contractList}" columns="{!v.contractColumns}" keyField="Id" hideCheckboxColumn = "false" selectedRows="{!v.selectedRows}" onrowselection="{!c.handleRowsSelected}" />        
+        </div>
+        <div class="slds-p-top_medium"></div>
+        <ui:inputCheckbox aura:id="noRelatedContractFlag" label="契約を選択せずにリクエスト情報登録" value="{!v.newRequest.NonRelatedContractCheck__c}" />
+        <lightning:button aura:id="btnFocus" variant="" label="" disabled="True" />
+
+    </div>
+    <div class="slds-p-top_medium"></div>
+    <aura:if isTrue="{!v.recContractWrapper.contractCountAlertFlag}">
+        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+            <h3 style="font-weight:bolder;color:white">この取引先は26件以上の契約を保持しています。</h3>
+            <h3 style="font-weight:bolder;color:white">変更対象の契約が表示されていない場合は、下記の手順でケースを新規登録してください。</h3>
+            <h3 style="font-weight:bolder;color:white">1.リクエストを登録</h3>   
+            <h3 style="font-weight:bolder;color:white">2.「契約を選択せずにリクエスト情報登録」を選択してリクエスト登録。</h3>   
+            <h3 style="font-weight:bolder;color:white">3.ケース画面を開き、契約項目（生保／損保／少短）で対象の契約を選択してケースを更新。</h3> 
+        </div>
+    </aura:if>
+    <aura:if isTrue="{!v.showSelectedContract}">
+        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+            <h3 style="font-weight:bolder;color:white">契約を選択、もしくは「契約を選択せずにリクエスト情報登録」にチェックをいれて保存してください。</h3>
+        </div>
+    </aura:if>
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 3 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 4 Start @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+
+	<div aura:id="childCmp">
+		{!v.body}
+	</div>
+
+<!--@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ Block 4 End @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@-->
+    <div class="slds-align_absolute-center" style="height:5rem" aura:Id="buttons" onkeydown="{!c.preventDefault}">
+        <lightning:button aura:Id="saveButton" label="Save" variant="brand" onclick="{!c.handleSaveRequest}" tabindex="-1"/>
+        <lightning:button variant="neutral" label="Cancel" title="Cancel" type="text" onclick="{!c.showModal}" />
+    </div>
+    <div>
+        <!--  Modify 2022/10/20 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 邵　Start -->
+        <!-- <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal"> -->
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal cancelDialog">
+        <!--  Modify 2022/10/20 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 邵　End -->
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+                    <h2 class="slds-modal__title slds-hyphenate">作成漏れの可能性あり！</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <h1 class="slds-modal__title slds-hyphenate">未登録のリクエストが消去されますがよろしいですか？</h1>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="キャンセル" title="Cancel" type="text" onclick="{!c.hideModal}" />
+                    <lightning:button variant="brand" label="OK" title="OK" type="text" onclick="{!c.handleCancel}" />
+                </footer>
+            </div>
+        </section>
+        <!--  Modify 2022/10/20 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 邵　Start -->
+        <!-- <div class="slds-backdrop"></div> -->
+        <div class="slds-backdrop cancelDialogMask"></div>
+        <!--  Modify 2022/10/20 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 邵　End -->
+    </div>
+    <!--  Add 2022/10/05 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 範　Start -->
+    <div>
+        <section role="dialog" tabindex="-1" aria-label="Meaningful description of the modal content" aria-modal="true" aria-describedby="modal-content-id-2" class="slds-modal saveDialog">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header slds-theme_error slds-theme_alert-texture">
+                    <h2 class="slds-modal__title slds-hyphenate">誤作成削除の可能性あり！</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                    <h1 class="slds-modal__title slds-hyphenate">「誤作成削除」が選択されています。保存してよいですか？</h1>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning:button variant="neutral" label="キャンセル" title="Cancel" type="text" onclick="{!c.saveDialogCancel}" />
+                    <lightning:button variant="brand" label="OK" title="OK" type="text" onclick="{!c.saveDialogOK}" />
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop saveDialogMask"></div>
+    </div>
+    <!--  Add 2022/10/05 RIPCRM-740_リクエスト「誤作成削除」選択時のアラート設定 By 範 End -->
+</div>
+</aura:component>

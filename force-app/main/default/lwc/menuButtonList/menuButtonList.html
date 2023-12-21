@@ -1,0 +1,13 @@
+<template>
+  <div class="l-main">
+    <div class="l-inner">
+      <div class="c-menu-content__list" >
+        <template for:each={buttonSettings} for:item="item">
+          <a key={item.apiname} data-id={item.apiname} onclick={moveToPage} class="c-btn_red">
+            <lightning-formatted-rich-text data-id={item.apiname} value={item.label}></lightning-formatted-rich-text>
+          </a>
+        </template>
+      </div>
+    </div>
+  </div>
+</template>

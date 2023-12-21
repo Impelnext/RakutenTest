@@ -1,0 +1,132 @@
+<!--
+  @File Name          : RequestInlineAddressChangeCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/20/2019, 4:47:43 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                              'ChangedPostNumber__c':'',
+                                                              'ChangedPrefecture__c':'',
+                                                              'ChangedAddress1__c':'',
+                                                              'ChangedBuildingName__c':'',
+                                                              'Tel1__c':'',
+                                                              'Fax__c':'',
+                                                              'PlanRelocationDate__c':'',
+                                                              'ChangedMunicipality__c':'',                
+                                                              'ChangedAddress2__c':'',
+                                                              'ReflectMailingAddress__c':'',
+                                                              'Tel2__c':'',
+                                                              'ChangeReason__c':'',
+                                                              'JuniorSpecialContract__c':'',
+                                                              'AGRegistrationChange__c':'',
+                                                              'ChangeAgencyRegistration__c':'',
+                                                              'RecruiterRegistration__c':'',
+                                                              'RecordingPersonInCharge__c':'',       
+                                                              'RecordingCheckDate__c':'',
+                                                              'Processing__c':''
+															}"/>
+
+
+<aura:method name="addressChange" action="{!c.saveAddressChange}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<aura:attribute name="dependantSubject" type="String" access="public" />
+
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="juniorSpecialContractPickMap" type="Map" />
+<aura:attribute name="registrationChangePickMap" type="Map"/>
+<aura:attribute name="agencyChangePickMap" type="Map"/>
+<aura:attribute name="recruiterRegPickMap" type="Map"/>
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'chome': '', 'municipality': ''}"/>
+<aura:attribute name="subDepnedentProcessingFieldMap" type="map" default="{}"/> 
+<aura:attribute name="processingPicklist" type="List" default="['--- None ---']" />
+<aura:attribute name="selectedLookUpRecord" type="sObject" default="{}"/>
+
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">住所変更</h3></div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+                <lightning:input aura:Id="planRelocation" name="" type="date" value="{!v.innerCmpNewRequest.PlanRelocationDate__c}" label="移転予定日（移転が済んでいない場合、入力必須）" /> 
+                <lightning:input aura:Id="changedPostNumber" type="text" onblur="{!c.handleAreaInfo}" value="{!v.innerCmpNewRequest.ChangedPostNumber__c}" label="変更後郵便番号　　注）半角で〔000-0000〕の形式で入力" name="changedPostNumber" />
+                <lightning:input aura:Id="changedprefecture" type="text" value="{!v.innerCmpNewRequest.ChangedPrefecture__c}" label="変更後都道府県　　注）全角で入力" />
+                <lightning:input aura:Id="changedAddress1" type="text" value="{!v.innerCmpNewRequest.ChangedAddress1__c}" label="変更後住所1　　注）全角で入力" />
+                <lightning:input aura:Id="changedBuildingName" type="text" value="{!v.innerCmpNewRequest.ChangedBuildingName__c}" label="変更後建物名　　注）全角で入力" />
+                <ui:inputCheckbox aura:Id="reflectAddrChk" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"/>
+                <lightning:input aura:Id="phone1" type="tel" value="{!v.innerCmpNewRequest.Tel1__c}" label="電話番号1　　注）半角で〔000-0000-0000〕の形式で入力" />
+                <lightning:input aura:Id="fax" type="tel" value="{!v.innerCmpNewRequest.Fax__c}" label="FAX" />
+                <div class="slds-p-bottom_medium"></div>
+            </div>
+		</div>
+		<div class="slds-col">
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_medium"></div>                           
+            <lightning:input aura:Id="changedMunicipality" type="text" value="{!v.innerCmpNewRequest.ChangedMunicipality__c}" onchange="" label="変更後市区町村　　注）全角で入力" />
+            <lightning:input aura:Id="changedAddress2" type="text" value="{!v.innerCmpNewRequest.ChangedAddress2__c}" label="変更後住所2　　注）全角で入力" />
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_large"></div>
+            <div class="slds-p-top_medium"></div>
+            <lightning:input aura:Id="phone22" type="tel" value="{!v.innerCmpNewRequest.Tel2__c}" onchange="" label="電話番号2　　注）半角で〔000-0000-0000〕の形式で入力" />
+		</div>
+    </div>
+    <div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">その他変更情報</h3></div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:input aura:Id="changeReason" type="text" value="{!v.innerCmpNewRequest.ChangeReason__c}" label="変更理由" />
+            <lightning:select aura:Id="specialContract" value="{!v.innerCmpNewRequest.JuniorSpecialContract__c}" label="ジュニア特約有無　　注）生命チームのみ入力" >
+                <aura:iteration items="{!v.juniorSpecialContractPickMap}" var="jun" indexVar="key">
+                    <option text="{!jun.value}" value="{!jun.key}" selected="{!jun.key==v.innerCmpNewRequest.JuniorSpecialContract__c}" />
+                </aura:iteration>
+            </lightning:select>
+            <lightning:select aura:Id="agencyChange" value="{!v.innerCmpNewRequest.ChangeAgencyRegistration__c}" label="代理店登録変更　　注）生命チームのみ入力" >
+                <aura:iteration items="{!v.agencyChangePickMap}" var="agency" indexVar="key">
+                    <option text="{!agency.value}" value="{!agency.key}" selected="{!agency.key==v.innerCmpNewRequest.ChangeAgencyRegistration__c}" />
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <div class="slds-col">
+            <div class="slds-p-top--xx-large"></div>           
+            <div class="slds-p-top--x-small"></div>
+            <lightning:select aura:Id="registrationChange" value="{!v.innerCmpNewRequest.AGRegistrationChange__c}" label="AG登録変更　　注）生命チームのみ入力" >
+                <aura:iteration items="{!v.registrationChangePickMap}" var="reg" indexVar="key">
+                    <option text="{!reg.value}" value="{!reg.key}" selected="{!reg.key==v.innerCmpNewRequest.AGRegistrationChange__c}"/>
+                </aura:iteration>
+            </lightning:select>
+            <lightning:select aura:Id="recruiterReg" value="{!v.innerCmpNewRequest.RecruiterRegistration__c}" label="募集人登録変更　　注）生命チームのみ入力" >
+                <aura:iteration items="{!v.recruiterRegPickMap}" var="recruit" indexVar="key">
+                    <option text="{!recruit.value}" value="{!recruit.key}" selected="{!recruit.key==v.innerCmpNewRequest.RecruiterRegistration__c}"/>
+                </aura:iteration>
+            </lightning:select>            
+        </div>
+    </div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">録音</h3></div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <c:customLookup objectAPIName="user" IconName="standard:user" label="録音チェック担当者" selectedRecord="{!v.selectedLookUpRecord}"/>
+        </div>
+        <div class="slds-col">
+            <lightning:input aura:Id="recordCheckDate" type="Date" value="{!v.innerCmpNewRequest.RecordingCheckDate__c}" label="録音チェック日" />
+        </div>
+    </div>
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-text-align--left"> <h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理方法</h3></div>
+    <div class="slds-p-top_medium"></div>    
+        <lightning:select aura:Id="processing" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" >
+            <aura:iteration items="{!v.processingPicklist}" var="pro" >
+                <option value="{!pro}">{!pro}</option>
+            </aura:iteration>
+        </lightning:select>
+    </div>
+</aura:component>

@@ -1,0 +1,20 @@
+<template>
+  <header class="p-rf-h hasMNO" role="banner">
+    <div class="p-rf-h__main">
+      <div class="p-rf-h_main jsFixedParts p-form-header">
+        <div class="l-rf-container">
+          <div class="p-rf-h_main__wrap -left">
+            <h1 class="p-rf-h_main__logo"><a href="https://www.rakuten-insurance.co.jp/" data-ratid="header_logo" data-ratevent="click" data-ratparam="all"><img class="u-hidden-lg" src={siteResources.logo_sp} alt="楽天保険の総合窓口" width={mobileLogoWidth}><img class="u-visible-lg" src={siteResources.logo_pc} alt="楽天保険の総合窓口" width={normalLogoWidth}></a></h1>
+          </div>
+          <template if:true={dispFAQTop}>
+            <div class="p-rf-h_main__wrap -right">
+              <a href={faqurl}>よくあるご質問トップ</a>
+              <p if:true={linkCaption} class="txt_caption">※{linkCaption}</p>
+            </div>
+          </template>
+
+        </div>
+      </div>
+    </div>
+  </header>
+</template>

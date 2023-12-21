@@ -1,0 +1,22 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'DateOfChange__c':'',
+																		'DetailsOfRequest__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineGeneralPurposeNonlife" action="{!c.saveInlineGeneralPurposeNonlife}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+
+<!--Declare Event Handlers-->
+<!--<aura:handler name="init" value="{!this}" action="{!c.init}"/>-->
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">依頼内容</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<lightning:input aura:Id="dateOfChange" type="date" name="dateOfChange" value="{!v.innerCmpNewRequest.DateOfChange__c}" label="変更日" />
+	<lightning:textarea aura:Id="detailsOfRequest" name="" type="text" value="{!v.innerCmpNewRequest.DetailsOfRequest__c}" label="依頼内容詳細" class="customHeight"/>
+	<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+</div>
+</aura:component>

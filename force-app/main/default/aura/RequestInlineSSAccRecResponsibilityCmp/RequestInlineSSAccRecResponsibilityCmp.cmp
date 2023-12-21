@@ -1,0 +1,242 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'AccidentReceptionDate__c':'',
+                                                             			'BillingNumber__c':'',
+																		'ReporterName__c':'',
+																		'RelationshipContractorReporter__c':'',
+                                                                        'AccidentDay__c':'',
+																		'AccidentTime__c':'',
+                                                             			'LocationOfTheAccident__c':'',
+																		'AccidentContents__c':'',
+																		'DegreeOfDamage__c':'',
+                                                                        'PartnerName__c':'',
+																		'ContactsOfTheOtherPartner__c':'',
+                                                             			'RelationshipWithTheOtherPartner__c':'',
+																		'Remarks__c':'',
+																		'ReturnContact__c':'',
+                                                                        'ReturnDestinationName__c':'',
+																		'EmergencyFlag__c':'',
+																		'CallBackStartTime__c':'',
+																		'CallBackEndTime__c':'',
+																		'OtherOrderFlag__c':'',
+																		'OtherRequests__c':'',
+																		'DetailsOfOtherRequestReasons__c':'',
+																		'OtherOrderDocFlag__c':'',
+																		'OtherDocumentsToSend__c':'',
+																		'SendingReason__c':'',
+																		'OtherDocumentsAndRemarks__c':'',
+																		'WhetherDestinationInformationChanged__c':'',
+																		'PersonToBeChanged__c':'',
+																		'ChangePoint__c':'',
+																		'FullNameKanjiAfterChange__c':'',
+																		'FullNameKanaAfterChange__c':'',
+																		'ChangedPostNumber__c':'',
+																		'ChangedPrefecture__c':'',
+																		'ChangedMunicipality__c':'',
+																		'ChangedAddress1__c':'',
+																		'ChangedAddress2__c':'',
+																		'ReflectMailingAddress__c':'',
+																		'PhoneNumberAfterChange__c':'',
+																		'ChangedMailAddress__c':'',
+																		'ChangedPetInformation__c':'',
+																		'OtherChanges__c':'',
+																		'Notices__c':''
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlineSSAccRecResponsibility" action="{!c.saveInlineSSAccRecResponsibility}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>    
+
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="otherPartnerPickMap" type="Map"/>
+<aura:attribute name="contractorAndReporterPickMap" type="Map"/>
+<aura:attribute name="otherOrderFlagPickMap" type="Map"/>
+<aura:attribute name="otherOrderDocFlagPickMap" type="Map"/>
+<aura:attribute name="whetherDestinationInformationChangedPickMap" type="Map"/>
+<aura:attribute name="sendingReasonPickMap" type="Map"/>
+
+<!--Declare Multipicklist Attributes-->	
+<aura:attribute name="otherRequestsPickList" type="List" />
+<aura:attribute name="otherDocumentsToSendPicklist" type="List" />
+<aura:attribute name="changePointPicklist" type="List" />
+<aura:attribute name="personToBeChangedPicklist" type="List" />
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'chome': '', 'municipality': ''}"/>    
+<aura:attribute name="lstOtherDocumentsToSend" type="List" default="[]"/>    
+  
+
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">少短事故受付（賠責）</h3> </div>
+	<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+                <lightning:input aura:Id="accidentReceptionDay" type="date" name="accidentReceptionDay" value="{!v.innerCmpNewRequest.AccidentReceptionDate__c}" label="事故受付日" />
+                <lightning:input aura:Id="nameOfReporter" type="text" name="nameOfReporter" value="{!v.innerCmpNewRequest.ReporterName__c}" label="報告者氏名" />
+				<lightning:input aura:Id="accidentDay" type="date" name="accidentDay" value="{!v.innerCmpNewRequest.AccidentDay__c}" label="事故日" />
+				<lightning:input aura:Id="accidentLocation" type="text" name="accidentLocation" value="{!v.innerCmpNewRequest.LocationOfTheAccident__c}" label="事故の場所" />
+				<lightning:input aura:Id="degreeOfDamage" type="text" name="degreeOfDamage" value="{!v.innerCmpNewRequest.DegreeOfDamage__c}" label="損害の程度" />
+				<lightning:input aura:Id="partnerName" type="text" name="partnerName" value="{!v.innerCmpNewRequest.PartnerName__c}" label="相手方の氏名・法人名" />
+				<div class="form-group">
+					<lightning:select aura:id="otherPartnerPickList" value="{!v.innerCmpNewRequest.RelationshipWithTheOtherPartner__c}"  name="otherPartnerPickList" label="契約者と相手方の関係" >
+						<option value="">-- None --</option>
+						<aura:iteration items="{!v.otherPartnerPickMap}" var="ot" indexVar="key">
+							<option text="{!ot.value}" value="{!ot.key}" selected="{!ot.key==v.innerCmpNewRequest.RelationshipWithTheOtherPartner__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+			</div>
+			<div class="slds-col">
+                <lightning:input aura:Id="billingNumber" type="text" name="billingNumber" value="{!v.innerCmpNewRequest.BillingNumber__c}" label="請求番号" />
+                <div class="form-group">
+				<lightning:select aura:id="contractorAndReporterPickList" value="{!v.innerCmpNewRequest.RelationshipContractorReporter__c}" name="contractorAndReporterPickList" label="契約者と報告者の関係" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.contractorAndReporterPickMap}" var="cr" indexVar="key">
+						<option text="{!cr.value}" value="{!cr.key}" selected="{!cr.key==v.innerCmpNewRequest.RelationshipContractorReporter__c}" />
+					</aura:iteration>
+				</lightning:select>
+			  </div>
+			  <lightning:input aura:Id="accidentTime" type="time" name="accidentTime" value="{!v.innerCmpNewRequest.AccidentTime__c}" label="事故時間" />
+			  <!--<lightning:input aura:Id="accidentContents" type="text" name="accidentContents" value="{!v.innerCmpNewRequest.AccidentContents__c}" label="事故内容" />-->
+              <lightning:textarea aura:Id="accidentContents" name="" type="text" value="{!v.innerCmpNewRequest.AccidentContents__c}" label="事故内容"/>
+              <div class="slds-p-top--x-large"></div>
+			  <lightning:input aura:Id="contactsOfOtherPartner" type="text" name="contactsOfOtherPartner" value="{!v.innerCmpNewRequest.ContactsOfTheOtherPartner__c}" label="相手方の連絡先TEL" />
+			</div>
+		</div>
+		<lightning:textarea aura:Id="remarks" name="returnDestinationName" type="text" value="{!v.innerCmpNewRequest.Remarks__c}" label="備考欄"/>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<ui:inputPhone aura:id="phone" label="折り返し連絡先　　注）半角で〔000-0000-0000〕の形式で入力" class="field" value="{!v.innerCmpNewRequest.ReturnContact__c}"/>
+				<ui:inputCheckbox aura:id="emergencyFlag" label="至急対応フラグ(1時間以内対応の場合のみチェック)" value="{!v.innerCmpNewRequest.EmergencyFlag__c}"  />
+				<lightning:input aura:id="callBackStartTime" type="datetime" name="callBackStartTime" label="折り返し　開始" value="{!v.innerCmpNewRequest.CallBackStartTime__c}" />
+			</div>
+			<div class="slds-col">
+              <lightning:input aura:Id="returnDestinationName" name="returnDestinationName" type="text" value="{!v.innerCmpNewRequest.ReturnDestinationName__c}" label="折り返し先名" />
+              <div class="slds-p-top--x-large"></div>
+              <lightning:input aura:id="callBackEndTime" type="datetime" name="callBackEndTime" label="折り返し　期限" value="{!v.innerCmpNewRequest.CallBackEndTime__c}" />
+			</div>
+	   </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">その他の依頼事由</h3> </div>
+	<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+					<lightning:select aura:id="otherOrderFlagPicklist" value="{!v.innerCmpNewRequest.OtherOrderFlag__c}" name="otherOrderFlagPicklist" label="他の依頼事由有無" >
+						<option value="">-- None --</option>
+						<aura:iteration items="{!v.otherOrderFlagPickMap}" var="oof" indexVar="key">
+							<option text="{!oof.value}" value="{!oof.key}" selected="{!oof.key==v.innerCmpNewRequest.OtherOrderFlag__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectOtherRequests"
+					name="otherRequests"
+					label="他の依頼内容"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					size='3'
+					options="{!v.otherRequestsPickList }"
+					value="{!v.innerCmpNewRequest.OtherRequests__c}"/>
+				</div>
+			</div>
+			<div class="slds-col">
+			</div>
+		</div>
+		<lightning:textarea aura:Id="detailsOfOtherRequestReasons" name="" type="text" value="{!v.innerCmpNewRequest.DetailsOfOtherRequestReasons__c}" label="他の依頼事由内容詳細"/>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">
+					<lightning:select aura:id="otherOrderDocFlagPicklist" value="{!v.innerCmpNewRequest.OtherOrderDocFlag__c}" name="otherOrderDocFlagPicklist" label="他の依頼事由書類送付あり　　注）他の送付書類がある場合入力必須" >
+						<option value="">-- None --</option>
+						<aura:iteration items="{!v.otherOrderDocFlagPickMap}" var="oodf" indexVar="key">
+							<option text="{!oodf.value}" value="{!oodf.key}" selected="{!oodf.key==v.innerCmpNewRequest.OtherOrderDocFlag__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectOtherRequests"
+					name="otherDocumentsToSend"
+					label="他の送付書類等　　注）定型文言で入力"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					size='3'
+					options="{!v.otherDocumentsToSendPicklist}"
+					value="{!v.lstOtherDocumentsToSend}"/>
+				</div>
+			</div>
+           <div class="slds-col">
+            <div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-medium"></div>   
+			<div class="form-group">
+				<lightning:select aura:id="sendingReasonPicklist" value="{!v.innerCmpNewRequest.SendingReason__c}" name="sendingReasonPicklist" label="送付理由" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.sendingReasonPickMap}" var="srn" indexVar="key">
+						<option text="{!srn.value}" value="{!srn.key}" selected="{!srn.key==v.innerCmpNewRequest.SendingReason__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+		</div>
+		<lightning:textarea aura:Id="otherDocumentsAndRemarks" name="" type="text" value="{!v.innerCmpNewRequest.OtherDocumentsAndRemarks__c}" label="その他送付書類・備考"/>
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<div class="form-group">	
+					<lightning:select aura:id="whetherDestinationInformationChangedPicklist" value="{!v.innerCmpNewRequest.WhetherDestinationInformationChanged__c}" name="whetherDestinationInformationChangedPicklist" label="送付先情報他変更有無" >
+						<option value="">-- None --</option>
+						<aura:iteration items="{!v.whetherDestinationInformationChangedPickMap}" var="srn" indexVar="key">
+							<option text="{!srn.value}" value="{!srn.key}" selected="{!srn.key==v.innerCmpNewRequest.WhetherDestinationInformationChanged__c}" />
+						</aura:iteration>
+					</lightning:select>
+				</div>
+				<div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectChangePoint"
+					name="changePoint"
+					label="変更箇所"
+					sourceLabel="選択可能"
+					size='3'
+					selectedLabel="選択済み"
+					options="{!v.changePointPicklist }"
+					value="{!v.innerCmpNewRequest.ChangePoint__c}" />
+				</div>
+				<lightning:input aura:Id="fullNameKanjiAfterChange" name="" type="text" value="{!v.innerCmpNewRequest.FullNameKanjiAfterChange__c}" label="変更後氏名漢字"/> 
+				<lightning:input aura:Id="changedPostNumber" name="" type="text" onblur="{!c.handleAreaInfo}" value="{!v.innerCmpNewRequest.ChangedPostNumber__c}" label="変更後郵便番号　　注）半角で〔000-0000〕の形式で入力"/>
+				<lightning:input aura:Id="changedPrefecture" name="" type="text" value="{!v.innerCmpNewRequest.ChangedPrefecture__c}" label="変更後都道府県　　注）全角で入力"/> 
+			</div>
+			<div class="slds-col">
+			  <div class="slds-m-around_xx-large, slds-align_absolute-left">
+					<lightning:dualListbox aura:id="selectPersonToBeChanged"
+					name="personToBeChanged"
+					label="変更対象者"
+					sourceLabel="選択可能"
+					selectedLabel="選択済み"
+					size='3'
+					options="{!v.personToBeChangedPicklist }"
+					value="{!v.innerCmpNewRequest.PersonToBeChanged__c}"/>
+				</div>
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="fullNameKanaAfterChange" name="" type="text" value="{!v.innerCmpNewRequest.FullNameKanaAfterChange__c}" label="変更後氏名カナ"/>
+                <div class="slds-p-top--xx-large"></div>
+                <div class="slds-p-top--x-small"></div>
+				<lightning:input aura:Id="changedMunicipality" name="" type="text" value="{!v.innerCmpNewRequest.ChangedMunicipality__c}" label="変更後市区町村　　注）全角で入力"/>	
+			</div>
+		</div>
+		<lightning:input aura:Id="changedAddress1" name="" type="text" value="{!v.innerCmpNewRequest.ChangedAddress1__c}" label="変更後住所1　　注）全角で入力" />
+		<lightning:input aura:Id="changedAddress2" name="" type="text" value="{!v.innerCmpNewRequest.ChangedAddress2__c}" label="変更後住所2　　注）全角で入力"/> 
+		<div class="slds-grid slds-gutters">
+			<div class="slds-col slds-size_1-of-2">
+				<ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"  />
+				<ui:inputPhone aura:id="phone" label="変更後電話番号　　注）半角で〔000-0000-0000〕の形式で入力" class="field" value="{!v.innerCmpNewRequest.PhoneNumberAfterChange__c}"/>
+				<lightning:input aura:Id="changedPetInformation" name="" type="text" value="{!v.innerCmpNewRequest.ChangedPetInformation__c}" label="変更後ペット情報" />
+			</div>
+			<div class="slds-col">
+              <div class="slds-p-top--x-large"></div>
+              <lightning:input type="email" label="変更後メールアドレス　　注）半角数字または半角アルファベットで入力" name="" value="{!v.innerCmpNewRequest.ChangedMailAddress__c}" />
+			</div>
+		</div>
+		<lightning:textarea aura:Id="otherChanges" name="" type="text" value="{!v.innerCmpNewRequest.OtherChanges__c}" label="その他変更項目"/>
+</div>
+</aura:component>

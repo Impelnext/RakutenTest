@@ -1,0 +1,57 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',	
+																		'SettingErasure__c':'',
+																		'SetDateDeleteDate__c':'',
+																		'SendingCompanyName__c':'',
+																		'DepartmentInCharge__c':'',
+																		'PersonInChargeName__c':'',
+																		'MailingPostalCode__c':'',
+																		'MailingPrefectures__c':'',
+																		'MailingCity__c':'',
+																		'MailingAddress1__c':'',
+																		'DestinationBuildingName__c':'',
+																		'ReflectMailingAddress__c':'',
+																		'PhoneNumber__c':'',
+																		'RequiredNumberOfCopies__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlinePledgeSettingOrDeletion" action="{!c.saveInlinePledgeSettingOrDeletion}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>    
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="settingErasurePickMap" type="Map"/>
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">質権設定・抹消情報</h3> </div>
+	<div class="slds-p-top_medium"></div>
+		
+			<div class="form-group">
+				<lightning:select aura:Id="settingErasurePicklist" value="{!v.innerCmpNewRequest.SettingErasure__c}" label="設定・抹消" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.settingErasurePickMap}" var="set" indexVar="key">
+						<option text="{!set.value}" value="{!set.key}" selected="{!set.key==v.innerCmpNewRequest.SettingErasure__c}"/>
+					</aura:iteration>
+				</lightning:select>
+			</div>	
+			<lightning:input aura:Id="setDateDeleteDate" type="date" name="setDateDeleteDate" value="{!v.innerCmpNewRequest.SetDateDeleteDate__c}" label="設定日・削除日"/>
+			<lightning:input aura:Id="sendingCompanyName" type="text" value="{!v.innerCmpNewRequest.SendingCompanyName__c}" label="送付先社名"/>
+			<lightning:input aura:Id="departmentInCharge" type="text" value="{!v.innerCmpNewRequest.DepartmentInCharge__c}" label="担当部署名"/>
+			<lightning:input aura:Id="personInChargeName" type="text" value="{!v.innerCmpNewRequest.PersonInChargeName__c}" label="担当者名"/>
+			<lightning:input aura:Id="mailingPostalCode" type="text"  onblur="{!c.handleAreaInfo}"  value="{!v.innerCmpNewRequest.MailingPostalCode__c}" label="送付先郵便番号　　注）変更後の郵便番号は000-0000の形式で入力してください"/>		
+			<lightning:input aura:Id="mailingPrefectures" type="text" value="{!v.innerCmpNewRequest.MailingPrefectures__c}" label="送付先都道府県"/>
+			<lightning:input aura:Id="mailingCity" type="text" value="{!v.innerCmpNewRequest.MailingCity__c}" label="送付先市区町村"/>
+			<lightning:input aura:Id="mailingAddress1" type="text" value="{!v.innerCmpNewRequest.MailingAddress1__c}" label="送付先住所１　　注）全角で入力してください"/>
+			<lightning:input aura:Id="destinationBuildingName" type="text" value="{!v.innerCmpNewRequest.DestinationBuildingName__c}" label="送付先建物名　　注）全角で入力してください"/>			
+			<ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}"/>	
+			<ui:inputPhone aura:id="phoneNumber__c" label="電話番号" class="field" value="{!v.innerCmpNewRequest.PhoneNumber__c}"/>
+			<lightning:input aura:Id="requiredNumberOfCopies" type="text" value="{!v.innerCmpNewRequest.RequiredNumberOfCopies__c}" label="必要部数"/>
+			<lightning:textarea aura:Id="otherInfomation" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+			
+</div>
+</aura:component>

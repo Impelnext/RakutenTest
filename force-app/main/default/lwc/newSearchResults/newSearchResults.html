@@ -1,0 +1,32 @@
+<template>
+  <template if:false={confirmPhase}>
+    <section class="p-section">
+      <div id={itemKey} class="p-contents_near l-inner_s">
+    
+        <template if:true={knowledes}>
+          <!--
+          <template if:false={existSearchResult}>
+            <div class="p-contents_near_ttl">検索結果が見つかりません</div>
+          </template>
+          -->
+          <template if:true={existSearchResult}>
+            <div class="p-contents_near_head">ご入力いただいた内容から、よくあるご質問に似たような結果がありました。</div>
+            <div class="p-contents_near_ttl">よくあるご質問の検索結果</div>
+
+            <lightning-layout multiple-rows="true" pull-to-boundary="small" class="c-list_faq">
+              <template for:each={knowledes} for:item="knowlede">
+
+                <lightning-layout-item key={knowlede.Id} size="12">
+                  <c-knowledge-q-a question={knowlede.Question__c} answer-html-value={knowlede.Answer__c} url-name={knowlede.UrlName}></c-knowledge-q-a>
+                </lightning-layout-item>
+
+              </template>
+            </lightning-layout>
+            <p class="u-txt_c">お問合せが解消されない場合には当社で確認の上ご回答差し上げます。</p>
+          </template>
+
+        </template>
+      </div>
+    </section>
+  </template>
+</template>

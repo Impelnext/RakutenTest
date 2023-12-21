@@ -1,0 +1,484 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <title>控除証明書の再発行 | 楽天生命保険専用手続きフォーム</title>
+  <link rel="stylesheet" type="text/css" href="/shared/css/index.css" media="all">
+  <link rel="stylesheet" type="text/css" href="../css/style.css?5">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script type="text/javascript" src="/appjs/agencyControl.js"></script>
+  <!--#include virtual="/shared/inc/common_head_r.html" -->
+  <meta name="format-detection" content="telephone=no">
+</head>
+
+<body id="form_area" class="form_area_top">
+<!--#include virtual="/shared/inc/header_r.html" -->
+<div id="l-wrapper">
+  <div class="p-head_page">
+    <div class="p-head_pageInner">
+      <h1>楽天生命保険専用手続きフォーム</h1>
+    </div>
+  </div>
+  <div class="sp_border"></div>
+  <main class="l-main">
+    <div class="l-inner">
+      <div class="p-subhead_page">
+        <h3>控除証明書の再発行</h3>
+      </div>
+      <form method="post" action="#">
+        <section class="p-section">
+          <h2 class="c-ttl_sec">ご契約者さまの情報入力</h2>
+          <div class="p-form">
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（漢字）</div>
+              <div class="c-cols_input">
+                <div>
+                  <label for="LastName">姓</label>
+                  <input name="nmLastName" type="text" class="c-form_text" id="LastName">
+                </div>
+                <div>
+                  <label for="FirstName">名</label>
+                  <input name="nmFirstName" type="text" class="c-form_text" id="FirstName">
+                </div>
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（カナ）</div>
+              <div class="c-cols_input">
+                <div>
+                  <label for="FuriganaLast">セイ</label>
+                  <input name="nmFuriganaLast" type="text" class="c-form_text" id="FuriganaLast">
+                </div>
+                <div>
+                  <label for="FuriganaFirst">メイ</label>
+                  <input name="nmFuriganaFirst" type="text" class="c-form_text" id="FuriganaFirst">
+                </div>
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>生年月日</div>
+              <input type="date" name="nmBirthday" id="Birthday" class="c-form_text">
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>メールアドレス</div>
+              <input name="nmEmail" type="email" class="c-form_text" id="Email" inputmode="email">
+              <div class="p-form_itemNote">
+                ※受付完了のお知らせメールをお送りします。<br>
+                ※ドメイン指定受信設定や受信拒否設定などをご利用中のお客さまには、楽天保険の総合窓口からの「受付完了のお知らせ」メールを受信できない場合がございます。<br>
+                「　rakuten-insuarance.co.jp　」からのメールを受信できるよう設定をお願いいたします。
+              </div>
+            </div>
+            <div class="p-form_item">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>楽天生命に電話番号の登録はありますか？</div>
+              <ul class="c-list_input _nocol">
+                <li>
+                  <input type="radio" name="nmHasRegisterPhoneNumber" id="HasRegisterPhoneNumberYes"
+                         value="登録がある" class="c-form_radio display_radio js-register-phone" data-value="1" checked>
+                  <label for="HasRegisterPhoneNumberYes">登録がある</label>
+                  <div class="u-hide">
+                    <div class="mt5 mb5">登録している電話番号を入力してください。</div>
+                    <input name="nmRegisterPhoneNumber" type="tel" class="c-form_text " id="RegisterPhoneNumber">
+                    <div class="mt5">例：09012345678</div>
+                  </div>
+                </li>
+                <li>
+                  <input type="radio" name="nmHasRegisterPhoneNumber" id="HasRegisterPhoneNumberNo"
+                         value="登録がない / わからない" class="c-form_radio display_radio js-register-phone" data-value="0">
+                  <label for="HasRegisterPhoneNumberNo">登録がない / わからない</label>
+                </li>
+              </ul>
+            </div>
+
+            <div class="u-hide p-form_item js-is-same-phone">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>日中連絡先は上記の電話番号と同じですか？
+              </div>
+              <ul class="c-list_input">
+                <li>
+                  <input type="radio" name="nmIsRegisterPhoneNumber" id="IsRegisterPhoneNumberYes"
+                         value="上記と同じ" class="c-form_radio display_radio js-toggle-display"
+                         data-target="DaytimePhoneNumber" data-display="none">
+                  <label for="IsRegisterPhoneNumberYes" class="center">上記と同じ</label>
+                </li>
+                <li>
+                  <input type="radio" name="nmIsRegisterPhoneNumber" id="IsRegisterPhoneNumberNo"
+                         value="別の電話番号" class="c-form_radio display_radio js-toggle-display"
+                         data-target="DaytimePhoneNumber" data-display="block">
+                  <label for="IsRegisterPhoneNumberNo" class="center">別の電話番号</label>
+                </li>
+              </ul>
+              <div class="u-hide" id="DaytimePhoneNumber">
+                <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text">
+                <span>例：09012345678</span>
+              </div>
+            </div>
+
+            <div class="u-hide p-form_item js-input-phone">
+              <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>日中連絡先を入力してください。</div>
+              <input name="nmDaytimePhoneNumber" type="tel" class="c-form_text">
+              <span>例：09012345678</span>
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_any">任意</span>ご契約の証券番号</div>
+            <div class="p-form_itemNote">ご契約の証券番号をご入力いただきますと、お手続きがより早く進むことがあります。</div>
+            <input name="nmNumber" type="text" class="c-form_text" id="Number">
+            <div class="p-form_itemNote">
+              複数のご契約がある場合はいずれか一つ<br>
+              生命保険：数字8桁<br>
+              お手元の証券番号が12桁の場合は、中央の8桁のみ入力してください。（例：XXX-12345678-X）<br>
+              共済契約：数字10桁<br>
+              お手元の証券番号が14桁の場合は、中央の10桁のみ入力してください。（例：XXX-1234567890-X）
+            </div>
+          </div>
+        </section>
+
+        <section class="p-section">
+          <h2 class="c-ttl_sec">控除証明書の再発行</h2>
+          <div class="p-form_item">
+            <div class="p-form_itemNote">
+              通常、３営業日程度で発送いたしますので予めご承知おきください。
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>再発行を希望される年</div>
+			 <div class="p-form_itemNote">
+              ※複数年選択可
+            </div>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="checkbox" name="nmYear[]" id="Year1" value="2022年"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Year1">2022年</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmYear[]" id="Year2" value="2021年"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Year2">2021年</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmYear[]" id="Year3" value="2020年"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Year3">2020年</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmYear[]" id="Year4" value="2019年"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Year4">2019年</label>
+              </li>
+              <li>
+                <input type="checkbox" name="nmYear[]" id="Year5" value="2018年"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="Year5">2018年</label>
+              </li>
+            </ul>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>控除証明書の送付先住所の確認</div>
+            <label>登録住所に変更はありますか？</label>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="radio" name="nmIsChangeAddress" id="IsChangeAddress1" value="変更がある / わからない"
+                       class="c-form_radio display_radio js-toggle-display" data-target="ChangeAddress" data-display="block">
+                <label for="IsChangeAddress1">変更がある / わからない</label>
+              </li>
+              <li>
+                <input type="radio" name="nmIsChangeAddress" id="IsChangeAddress2" value="変更がない"
+                       class="c-form_radio display_radio js-toggle-display" data-target="ChangeAddress" data-display="none">
+                <label for="IsChangeAddress2">変更がない</label>
+              </li>
+            </ul>
+            <div class="u-hide ml10" id="ChangeAddress">
+              <p>転居先住所に登録変更し、手続き書類を発送しますのでご入力ください。</p>
+              <div class="p-form mt20">
+                <div class="p-form_item">
+                  <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>変更先住所</div>
+                  <div class="c-cols_input zipcode">
+                    <div>
+                      <label for="ZipCode">郵便番号</label>
+                      <input name="nmZipCode" type="text" class="c-form_text " id="ZipCode">
+                    </div>
+                    <div class="">
+                      <a href="https://www.post.japanpost.jp/zipcode/" class="c-link_with_icon" target="_blank">郵便番号検索</a><br>
+                      <input name="nmButtonSearchAddress" type="button" class="c-btn_fill js-zip-search"
+                             id="ButtonSearchAddress"
+                             value="住所検索">
+                    </div>
+                  </div>
+                  <div class="mt10">
+                    <label for="Prefecture">都道府県</label>
+                    <select name="nmPrefecture" id="Prefecture" class="c-form_select">
+                      <option value="" selected></option>
+                      <option value="北海道">北海道</option>
+                      <option value="青森県">青森県</option>
+                      <option value="岩手県">岩手県</option>
+                      <option value="宮城県">宮城県</option>
+                      <option value="秋田県">秋田県</option>
+                      <option value="山形県">山形県</option>
+                      <option value="福島県">福島県</option>
+                      <option value="茨城県">茨城県</option>
+                      <option value="栃木県">栃木県</option>
+                      <option value="群馬県">群馬県</option>
+                      <option value="埼玉県">埼玉県</option>
+                      <option value="千葉県">千葉県</option>
+                      <option value="東京都">東京都</option>
+                      <option value="神奈川県">神奈川県</option>
+                      <option value="新潟県">新潟県</option>
+                      <option value="富山県">富山県</option>
+                      <option value="石川県">石川県</option>
+                      <option value="福井県">福井県</option>
+                      <option value="山梨県">山梨県</option>
+                      <option value="長野県">長野県</option>
+                      <option value="岐阜県">岐阜県</option>
+                      <option value="静岡県">静岡県</option>
+                      <option value="愛知県">愛知県</option>
+                      <option value="三重県">三重県</option>
+                      <option value="滋賀県">滋賀県</option>
+                      <option value="京都府">京都府</option>
+                      <option value="大阪府">大阪府</option>
+                      <option value="兵庫県">兵庫県</option>
+                      <option value="奈良県">奈良県</option>
+                      <option value="和歌山県">和歌山県</option>
+                      <option value="鳥取県">鳥取県</option>
+                      <option value="島根県">島根県</option>
+                      <option value="岡山県">岡山県</option>
+                      <option value="広島県">広島県</option>
+                      <option value="山口県">山口県</option>
+                      <option value="徳島県">徳島県</option>
+                      <option value="香川県">香川県</option>
+                      <option value="愛媛県">愛媛県</option>
+                      <option value="高知県">高知県</option>
+                      <option value="福岡県">福岡県</option>
+                      <option value="佐賀県">佐賀県</option>
+                      <option value="長崎県">長崎県</option>
+                      <option value="熊本県">熊本県</option>
+                      <option value="大分県">大分県</option>
+                      <option value="宮崎県">宮崎県</option>
+                      <option value="鹿児島県">鹿児島県</option>
+                      <option value="沖縄県">沖縄県</option>
+                    </select>
+                  </div>
+                  <div class="mt10">
+                    <label for="Address">ご住所</label>
+                    <input type="text" name="nmAddress" id="Address" class="c-form_text">
+                    <div class="mt5 p-form_itemNote">例：港区南青山二丁目</div>
+                  </div>
+                  <div class="mt10">
+                    <label for="Address2">上記以降のご住所</label>
+                    <input type="text" name="nmAddress2" id="Address2" class="c-form_text">
+                    <div class="mt5 p-form_itemNote">※ビル名・マンション名・アパート名および部屋番号までご入力ください。</div>
+                  </div>
+                </div>
+                <div class="p-form_item">
+                  <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>転居日の確認</div>
+                  <ul class="c-list_input _nocol">
+                    <li>
+                      <input type="radio" name="nmIsMoved" id="IsMoved1" value="転居済み"
+                             class="c-form_radio display_radio js-toggle-display" data-target="MoveCaution" data-display="none">
+                      <label for="IsMoved1">転居済み</label>
+                    </li>
+                    <li>
+                      <input type="radio" name="nmIsMoved" id="IsMoved2" value="転居予定"
+                             class="c-form_radio display_radio js-toggle-display" data-target="MoveCaution" data-display="block">
+                      <label for="IsMoved2">転居予定</label>
+                    </li>
+                  </ul>
+                  <div id="MoveCaution" class="u-hide">
+                    <input name="nmMoveDate" type="date" class="c-form_text" id="MoveDate">
+                    <div class="p-form_itemNote">
+                      ※本日より1ヵ月以内の日付の場合に住所変更を承ります。<br>
+                      ※転居予定日が1ヵ月以降の場合は、1ヵ月以内になりましたら改めてご住所変更お手続きをお願いいたします。<br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_any">任意</span>ご契約者さま情報の変更</div>
+            <label>ご契約者さま情報に変更がある場合には併せてご入力をお願いいたします。</label>
+            <ul class="c-list_input _nocol">
+              <li>
+                <input type="checkbox" name="nmChangeTargets[]" id="ChangeTargets2" value="電話番号の変更"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="ChangeTargets2">電話番号の変更</label>
+                <div class="u-hide ml10">
+                  <div class="p-form mt20">
+                    <div class="p-form_item">
+                      お客さまにご連絡を差し上げる場合に必要になりますので必ず最新の番号をご入力ください。
+                    </div>
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>ご自宅電話番号</div>
+                      <ul class="c-list_input _nocol">
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber1"
+                                 value="1111111111" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber1">変更なし</label>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber2"
+                                 value="変更・登録する" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber2">変更・登録する</label>
+                          <div class="u-hide mt10">
+                            <input name="nmChangePhoneNumber" type="tel" class="c-form_text " id="ChangePhoneNumber">
+                            <span>例：0312345678</span>
+                          </div>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangePhoneNumber" id="IsChangePhoneNumber3"
+                                 value="0000000000" class="c-form_radio display_radio js-change-phone">
+                          <label for="IsChangePhoneNumber3">ご自宅電話番号の利用なし</label>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>携帯電話番号</div>
+                      <ul class="c-list_input _nocol">
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber1"
+                                 value="1111111111" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber1">変更なし</label>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber2"
+                                 value="変更・登録する" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber2">変更・登録する</label>
+                          <div class="u-hide mt10">
+                            <input name="nmChangeMobilePhoneNumber" type="tel" class="c-form_text" id="ChangeMobilePhoneNumber">
+                            <span>例：09012345678</span>
+                          </div>
+                        </li>
+                        <li>
+                          <input type="radio" name="nmIsChangeMobilePhoneNumber" id="IsChangeMobilePhoneNumber3"
+                                 value="0000000000" class="c-form_radio display_radio js-change-phone-2">
+                          <label for="IsChangeMobilePhoneNumber3">携帯電話番号の利用なし</label>
+                        </li>
+                      </ul>
+                      <div class="p-form_itemNote">※お電話やショートメッセージにてご契約の確認など連絡する場合がございます。
+                        つながりやすい携帯電話番号のご登録をお願いいたします。</div>
+                      <div class="p-form_itemNote text-red js-change-phone-error"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <input type="checkbox" name="nmChangeTargets[]" id="ChangeTargets3" value="お名前の変更（改姓）"
+                       class="c-form_checkbox c-form_checkSimple fill">
+                <label for="ChangeTargets3">お名前の変更（改姓）</label>
+                <div class="u-hide ml10">
+                  <div class="p-form mt20">
+                    <div class="p-form_item">
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前</div>
+                      <div>
+                        <label for="ChangeLastName">ご変更後の姓（漢字）：</label>
+                        <input type="text" name="nmChangeLastName" id="ChangeLastName" class="c-form_text">
+                      </div>
+                      <div class="mt10">
+                        <label for="FuriganaChangeLastName">ご変更後の姓（カナ）：</label>
+                        <input type="text" name="nmFuriganaChangeLastName" id="FuriganaChangeLastName"
+                               class="c-form_text">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="p-section">
+          <h2 class="c-ttl_sec">個人情報の取り扱いおよびサービスに関する同意事項</h2>
+          <div class="p-form_item">
+            <div class="p-form_privacy js-scrollArea" id="js-terms">
+              WEB手続フォームのご利用にあたっての同意事項<br>
+              <br>
+              「WEB手続きフォームのご利用にあたっての同意事項(以下、「同意事項」とします)」は、WEB手続きフォーム(以下、「本サービス」とします)をお客さまがご利用いただくための条件を定めるものです。<br>
+              同意事項にご同意いただけない場合は、お客さまは本サービスをご利用いただくことはできません。なお、本サービスを実際に利用された場合、同意事項に同意したものとします。<br>
+              ※本サービスは、パソコン、スマートフォン、タブレット端末で利用可能です。<br>
+              【個人情報保護方針（プライバシーポリシー）】 プライバシーポリシー<br>
+              楽天生命保険株式会社（以下、「当社」とします）では、個人情報の保護取扱に関する「プライバシーポリシー」を策定し、これに即して業務を行なっています。「プライバシーポリシー」の内容については、当社ホーム<br>
+              ページプライバシーポリシーをご確認ください。当社は、取得した個人情報を、次の各五王の目的（以下、「利用目的」といいます。）に必要な範囲を超えて利用しません。<br>
+              また、当社は取得した個人譲歩王について、共同利用させていただく場合があります。「共同利用」の内容については、当社ホームページプライバシーポリシーをご確認ください。<br>
+              また、利用目的は、ホームページで公表するほか、申込書等に記載します。さらに、理代王目的を変更する場合には、その内容をご本人に通知するか、ホームページ等により公表します。<br>
+            </div>
+          </div>
+          <div class="c">
+            <div class="p-form_btn check">
+              <input type="checkbox" name="nmConsentPersonalInformation" id="ConsentPersonalInformation"
+                     class="c-form_checkbox c-form_checkSimple fill agree_checkbox js-agree" disabled>
+              <label for="ConsentPersonalInformation" class="checkbox">内容を確認し、同意します。</label>
+            </div>
+          </div>
+        </section>
+        <div class="p-form_btn mb40">
+          <input name="nmButtonConfirmationPage" type="submit" class="c-btn_submit _blue js-submit-btn" id="ButtonConfirmationPage"
+                 value="入力内容を確認する" disabled>
+        </div>
+        <div class="p-form_btn">
+          <input name="nmButtonCancel" type="button" class="c-btn_outline _gray js-modal-open" data-target="CancelModal"
+                 id="ButtonCancel"
+                 value="手続きの取消">
+          <div class="form-modal modal-container" id="CancelModal">
+            <div class="modal-body">
+              <div class="modal-close oc js-modal-close" data-target="CancelModal"></div>
+              <div class="modal-content">
+                <p class="weight7">すべてのお手続きが取り消されますがよろしいでしょうか？</p>
+                <div class="flex flex-center">
+                  <a class="c-btn_outline _red js-modal-close" data-target="CancelModal">お手続きを続ける</a>
+                  <a class="c-btn_outline _red ml5" href="javascript:void(0)">お手続きを取り消す</a>
+                </div>
+              </div>
+              <div class="modal-close sp js-modal-close" data-target="CancelModal"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-box_guide phone_number">
+          <div class="mb-8">お問い合わせは、以下の電話番号で承ります。</div>
+          <div class="bold mb-8">
+            楽天保険の総合窓口<br>
+            0120-977-010
+          </div>
+          <div>受付時間：9:00～18:00（年末年始を除く）</div>
+        </div>
+      </form>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-inner">
+      <!-- <div class="p-pagetop"><a href="#l-wrapper" class="js-scroll">ページトップへ戻る</a></div> -->
+    </div>
+  </footer>
+</div>
+<script type="text/javascript" src="../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="../js/lib.js"></script>
+<script type="text/javascript" src="../js/common.js?5"></script>
+<script type="text/javascript" src="../js/ajaxzip3.js"></script>
+<script>
+    flatpickr('#js-datepicker', {
+        locale: 'ja',
+        dateFormat: 'Y/m/d'
+    })
+
+    $('.js-zip-search').click(function () {
+        AjaxZip3.zip2addr('nmZipCode', '', 'nmPrefecture', 'nmAddress')
+
+        AjaxZip3.onSuccess = function () {
+            setTimeout(function () {
+                $('[name=nmAddress2]').focus();
+            }, 10)
+        };
+
+        AjaxZip3.onFailure = function () {
+            console.error('郵便番号に該当する住所が見つかりません')
+        }
+
+        return false
+    })
+</script>
+<!--#include virtual="/shared/inc/footer_r.html" -->
+<!--#include virtual="/shared/inc/footer_group_r.html" -->
+<!--#include virtual="/shared/inc/common_foot_r.html" -->
+</body>
+</html>

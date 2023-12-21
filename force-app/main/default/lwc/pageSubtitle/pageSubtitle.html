@@ -1,0 +1,18 @@
+<template>
+    <template if:false={confirmPhase}>
+        <template if:false={isEmptyInput}>
+            <div class="p-subhead_page">
+                <h3>{subtitleForInput}</h3>
+            </div>
+        </template>
+    </template>
+
+    <template if:true={confirmPhase}>
+        <template if:false={isEmptyConfirm}>
+            <div class="p-subhead_page">
+                <h3>{subtitleForConfirm}</h3>
+            </div>           
+        </template>
+    </template>
+
+</template>

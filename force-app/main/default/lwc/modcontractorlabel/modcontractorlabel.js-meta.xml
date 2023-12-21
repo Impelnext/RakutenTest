@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>契約者情報変更ラベル</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemName" label="項目名" type="String" description="項目名" />
+            <property name="itemGuide" label="項目ガイド1" type="String" description="項目ガイド1行目" />
+            <property name="itemGuide2" label="項目ガイド2" type="String" description="項目ガイド2行目" />
+            <property name="confirmPhaseKey" label="確認フェーズキー" type="String" description="" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

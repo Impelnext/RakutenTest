@@ -1,0 +1,38 @@
+<template>
+  <div class="gen_area_top gen_area">
+    <div class="l-wrapper">
+      <main class="l-main">
+        <div class="l-inner">
+          <section class="p-section">
+            <div class="p-form_item">
+              ご希望のお問合せが見つからない場合や解決されない場合には、キーワード検索もご利用ください。
+              <!-- Category level 2 -->
+              <template for:each={categories} for:item="category" for:index="index">
+                <div key={category.categoryName} class="p-catSelect">
+                  <div class="menu">
+                    <input type="checkbox" id={index}>
+                    <label onclick={expandCollapseSubcategory} data-index={index} for={index}
+                      class="p-catSelect_head js-accordion close">
+                      {category.categoryName}
+                    </label>
+                    <ul data-index={index} data-id="category" class="c-list_categorySub1">
+                      <!-- Category level 3 -->
+                      <template for:each={category.subCategories} for:item="subCategory">
+                        <li key={subCategory.categoryApiName}>
+                          <a data-category={subCategory.categoryApiName} data-name={subCategory.categoryName}
+                          data-category1={category.categoryName} onclick={navigateToTopicPage}>
+                            {subCategory.categoryName}
+                          </a>
+                        </li>
+                      </template>
+                    </ul>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</template>

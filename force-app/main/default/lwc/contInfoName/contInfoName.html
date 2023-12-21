@@ -1,0 +1,37 @@
+<template>
+
+    <template if:false={confirmPhase}>
+  
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お名前（漢字）</div>
+            <div class="c-cols_input">
+              <div>
+                <label for={itemKeySei}>姓</label>
+                <input name="nmLastName" id={itemKeySei} type="text" class="c-form_text" value={lastName} onchange={changeHandlerForLastName} maxlength="255">
+              </div>
+              <div>
+                <label for={itemKeyMei}>名</label>
+                <input name="nmFirstName" id={itemKeyMei} type="text" class="c-form_text" value={firstName} onchange={changeHandlerForFirstName} maxlength="255">
+              </div>
+            </div>
+            <div class="p-form_itemNote" if:true={dispNote}>{itemNote}</div>
+          </div>
+        </div>
+      </section>
+    </template>
+  
+    <template if:true={confirmPhase}>
+      <section class="p-section">
+        <div class="p-form">
+          <div class="p-form_item">
+            <span class="weight4">お名前（漢字）</span>
+            <br>
+            <span>{lastName}</span><span style="margin-left: 5px;">{firstName}</span>
+          </div>
+        </div>
+      </section>
+    </template>
+  
+  </template>

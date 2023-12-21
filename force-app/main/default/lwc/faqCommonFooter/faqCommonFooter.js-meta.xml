@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>FAQ Common Footer</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="siteName" type="String" label="サイト名" datasource="FAQLife,FAQSonpo,FAQPet" required="true"/>
+            <property name="ratAccountId" type="String" label="ratタグ ratAccountId値" required="false"/>
+            <property name="ratServiceId" type="String" label="ratタグ ratServiceId値" required="false"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

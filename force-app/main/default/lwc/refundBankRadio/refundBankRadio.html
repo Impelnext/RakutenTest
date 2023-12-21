@@ -1,0 +1,130 @@
+<template>
+  <div style={styleInput} >
+      <section class="p-section">
+          <div class="p-form_item">
+            <div class="p-form_itemNote">
+                ※解約払戻金のお支払いが発生する場合は、ご指定の口座にお支払いいたします。
+            </div>
+              <div class="mt30 js-refund-content">
+                  <div class="p-form_item pl0 js-refund-select-form" style={styleCreditBank} >
+                      <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約払戻金のお支払い先口座を選択</div>
+                      <ul class="c-list_input _nocol">
+                          <li>
+                              <input type="radio" name="nmIsSameBank" id="IsSameBank1" value="上記で入力した保険料の返金先口座と同じ" class="c-form_radio display_radio js-toggle-display js-is-same-refund-bank" onchange={changeRadioHandler} style={styleCreditBank}>
+                              <label for="IsSameBank1">上記で入力した保険料の返金先口座と同じ</label>
+                              <div class="js-refund-bank-info mt5" if:true={dispSameBank}>
+                                  <div if:true={dispCreditPost}><span class="weight4">記号: </span>{creditBookSymbol}－{creditBookNum}</div>
+                                  <div if:true={dispCreditOther}><span class="weight4">金融機関: </span>{creditBank}</div>
+                                  <div if:true={dispCreditOther}><span class="weight4">支店名: </span>{creditBranch}</div>
+                                  <div if:true={dispCreditOther}><span class="weight4">預金種別: </span>{creditDepositType}</div>
+                                  <div if:true={dispCreditOther}><span class="weight4">口座番号: </span>{creditAccNum}</div>
+                              </div>
+                          </li>
+                          <li>
+                              <input type="radio" name="nmIsSameBank" id="IsSameBank2" value="上記で入力した口座とは別の口座を入力する" class="c-form_radio display_radio js-toggle-display js-is-same-refund-bank" onchange={changeRadioHandler} style={styleCreditBank}>
+                              <label for="IsSameBank2">上記で入力した口座とは別の口座を入力する</label>
+                          </li>
+                      </ul>
+                      <div class="p-form_itemNote">
+                          ※契約者さまご本人名義の口座をご指定ください。
+                      </div>
+                  </div>
+                  <div class="p-form_item pl0 js-refund-select-form" style={styleBankList} >
+                      <div class="p-form_item pl0 js-refund-bank-form" id="refundBankForm">
+                          <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>解約払戻金のお支払い先口座</div>
+                          <ul class="c-list_input">
+                            <li>
+                                <input type="radio" name="nmRefundBank" id="nmRefundBank1" value="ゆうちょ銀行" class="c-form_radio display_radio js-bank-2" onchange={changeRadioBankTypeHandler} style={styleBankList}>
+                                <label for="nmRefundBank1" class="center">ゆうちょ銀行</label>
+                            </li>
+                            <li>
+                                <input type="radio" name="nmRefundBank" id="nmRefundBank2" value="その他銀行" class="c-form_radio display_radio js-bank-2" onchange={changeRadioBankTypeHandler} style={styleBankList}>
+                                <label for="nmRefundBank2" class="center">その他銀行</label>
+                            </li>
+                          </ul>
+                          <div class="p-form_itemNote">※契約者さまご本人名義の口座をご指定ください。</div>
+                          <!-- ゆうちょの場合表示 -->
+                          <div class="ml10 js-bank-content-2" id="RefundJapanPostBank" style={stylePostBank} >
+                            <div class="p-form">
+                              <div class="p-form_item">
+                                <div class="p-form_itemLabel">記号</div>
+                                <div class="c-cols_input align_items_baseline">
+                                  <div>
+                                    <input name="nmJapanPostBankNumber1" type="text" class="c-form_text " value={valueBookSymbol} maxlength="5" onchange={changeValuePassbookSymbolHandler} disabled={disabledPostBankInputs} style={stylePostBank}>
+                                    <div class="p-form_itemNote">※数字5桁</div>
+                                  </div>
+                                  －
+                                  <div class="">
+                                    <input name="nmJapanPostBankNumber2" type="text" class="c-form_text " value={valueBookNum} maxlength="8" onchange={changeValuePassbookNumHandler} disabled={disabledPostBankInputs} style={stylePostBank}>
+                                    <div class="p-form_itemNote">
+                                      ※6桁、7桁の方は、頭に0を追加して8桁にしてください。<br>
+                                      例：123451→00123451　末尾は必ず1
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /ゆうちょの場合表示 -->
+                          <!-- その他銀行の場合表示 -->
+                          <div class="ml10 js-bank-content-2" id="RefundOtherBank" name="nmRefundOtherBank" style={styleOtherBank} >
+                              <div class="p-form">
+                                  <div class="p-form_item">
+                                      <div class="mt10">
+                                          <label for="OtherBankName">金融機関</label>
+                                          <input type="text" name="nmOtherBankName" id="OtherBankName" class="c-form_text" value={valueBank} maxlength="255" onchange={changeValueBankNameHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                      </div>
+                                      <div class="mt10">
+                                          <label for="OtherBankBranchName">支店名</label>
+                                          <input type="text" name="nmOtherBankBranchName" id="OtherBankBranchName" class="c-form_text" value={valueBranch} maxlength="255" onchange={changeValueBranchNameHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                      </div>
+                                      <div class="mt10">
+                                          <label for="OtherBankType">預金種別</label>
+                                          <select name="nmOtherBankType" id="OtherBankType" class="c-form_select" onchange={changeValueDepositTypeHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                              <option value="普通預金">普通預金</option>
+                                              <option value="当座預金">当座預金</option>
+                                          </select>
+                                      </div>
+                                      <div class="mt10">
+                                          <label for="OtherBankBranchName">口座番号</label>
+                                          <input type="text" name="nmOtherBankNumber" class="c-form_text" value={valueAccNum} maxlength="7" onchange={changeValueAccNumHandler} disabled={disabledOtherBankInputs} style={styleOtherBank}>
+                                          <div class="p-form_itemNote">
+                                            ※数字7桁<br>
+                                            ※5桁、6桁の方は、頭に0を追加して7桁にしてください。<br>
+                                            例：123456→0123456
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- /その他銀行の場合表示 -->
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  </div>
+  <template if:true={dispConfirm}>
+      <section class="p-section">
+          <div class="p-form">
+              <div class="p-form_item" if:true={dispCreditBank}>
+                  <span class="weight4">解約払戻金のお支払い先口座を選択</span><br>
+                  {value}
+              </div>
+              <div class="p-form_item" if:true={dispBankList}>
+                  <span class="weight4">解約払戻金のお支払い先口座</span><br>
+                  {valueBankType}<br>
+                  <template if:true={dispOtherBank}>
+                      {valueBank}<br>
+                      {valueBranch}<br>
+                      {valueDepositType}<br>
+                      {valueAccNum}
+                  </template>
+                  <template if:true={dispPostBank}>
+                      {valueBookSymbol}―{valueBookNum}
+                  </template>
+              </div>
+          </div>
+      </section>
+  </template>
+</template>

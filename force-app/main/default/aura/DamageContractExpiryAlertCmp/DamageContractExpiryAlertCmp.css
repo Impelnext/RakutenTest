@@ -1,0 +1,9 @@
+.THIS.theme_error{
+    color: red;
+    background-color: rgb(255, 255, 255); 
+    text-align:left;
+    border-radius: .25rem;
+    font-size: 1.5em;
+    padding: 8px;
+    font-weight: bold;
+}

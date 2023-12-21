@@ -1,0 +1,28 @@
+.THIS .slds-theme_backgroundColor-red {
+    background-color: red;
+}
+
+.THIS .tableHeader table tbody{
+    height: 150%;
+}
+
+.THIS .customHeight textarea{
+    height: 5em;
+}
+.THIS .slds-dl_horizontal__label{
+    width: 12% !important;
+}
+.THIS .slds-dl_horizontal__detail{
+    width: 88% !important;
+}
+
+.THIS .slds-grid--align-left {
+  justify-content: left;
+}
+.THIS .slds-grid--align-space {
+  justify-content: space-around;
+}
+
+.THIS .slds-col--padded {
+    flex-grow: 0;
+  }

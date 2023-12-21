@@ -1,0 +1,45 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId" access="global" controller="CallCountComponentController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+<!--
+    <aura:handler name="render" value="{!this}" action="{!c.doInit}"/>
+-->
+    <aura:attribute name="retMap" type="Map" />
+
+    <lightning:card iconName="standard:call">
+<!--
+        <lightning:spinner class="" variant="brand" aura:Id="spinner" />
+-->
+		<aura:set attribute="title">
+			<span class="slds-card__header-link slds-truncate">
+				架電回数
+			</span>
+		</aura:set>
+        <aura:if isTrue="{!v.retMap.totalCount > '5'}">
+            <ui:message title="架電不可" severity="error" closable="false">
+                30日以内に6回以上の架電は禁止されています。
+            </ui:message>
+            <aura:set attribute="else">
+				<aura:if isTrue="{!v.retMap.totalCount > '4'}">
+            		<ui:message title="注意" severity="warning" closable="false">
+            			架電上限回数に迫っています。注意してください。
+            		</ui:message>
+                    <aura:set attribute="else">
+                        <ui:message title="架電可能" severity="confirm" closable="false">
+                            架電上限回数まであと{!6 - v.retMap.totalCount}回です。
+                        </ui:message>
+                    </aura:set>
+				</aura:if>
+			</aura:set>
+		</aura:if>
+		<div class="slds-scrollable slds-card__body slds-card__body_inner" style="height:50px;">
+			<div class="slds-tile__detail">
+				<dl class="slds-list_horizontal slds-wrap">
+					<dt class="slds-item_label slds-text-color_weak slds-truncate" title="直近の架電回数">直近の架電回数:</dt>
+					<dd class="slds-item_detail slds-truncate" title="{!v.retMap.totalCount}">{!v.retMap.totalCount} 回</dd>
+					<dt class="slds-item_label slds-text-color_weak slds-truncate" title="商談の架電回数">商談の架電回数:</dt>
+					<dd class="slds-item_detail slds-truncate" title="{!v.retMap.oppCount}">{!v.retMap.oppCount} 回</dd>
+				</dl>
+			</div>
+		</div>
+	</lightning:card>
+</aura:component>

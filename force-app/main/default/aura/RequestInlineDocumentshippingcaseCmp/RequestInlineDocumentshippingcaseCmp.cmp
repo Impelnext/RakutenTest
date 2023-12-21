@@ -1,0 +1,106 @@
+<!--
+  @File Name          : RequestInlineDocumentshippingcaseCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/24/2019, 7:14:57 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/24/2019   SRM     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ReportGroup__c':'',
+                                                             			'Report__c':'',
+																		'Remarks__c':'',
+																		'NumberOfCopies__c':'',
+																		'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineDocumentshippingcase" action="{!c.saveInlineDocumentshippingcase}" access="PUBLIC">
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<!--Event Method -->
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+
+<!--Declare Event Handlers-->
+<!--<aura:handler name="init" action="{!c.doInit}" value="{!this}" />-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+<!--Declare Attributes-->																
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>
+    
+<aura:attribute name="listControllingValues" type="list" default="[]" />
+<aura:attribute name="listDependingValues" type="list" default="[]" />
+<aura:attribute name="depnedentFieldMap" type="map" />
+<aura:attribute name="bDisabledDependentFld" type="boolean" default="true"/> 
+<aura:attribute name="subReportGroupFieldMap" type="Map" default="{}" />
+<aura:attribute name="dependantSubject" type="String" />
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+
+<div class="slds-box slds-theme_default">
+		<div class="slds-text-align--left">
+			<h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;color:whitesmoke">
+				<div class="slds-grid" style="text-align:left;">
+					<div class="slds-col" style="width:10%;font-weight:bold;"> 書類発送　【1つの手続き単位で1リクエスト】</div>
+				</div>
+			</h3>
+		</div>
+    	
+    <div class="slds-p-top_medium"></div>
+    <div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+            <lightning:select name="controllerFld"
+                          value="{!v.innerCmpNewRequest.ReportGroup__c}"
+                          label="帳票グループ"
+                          onchange="{!c.onControllerFieldChange}">
+                <aura:iteration items="{!v.listControllingValues}" var="val">
+                    <option value="{!val}">{!val}</option>
+                </aura:iteration>
+        	</lightning:select>
+            <lightning:dualListbox aura:id="dependentFld"
+                                   name="dependentFld"
+                                   label="帳票"
+                                   sourceLabel="選択可能"
+                                   selectedLabel="選択済み"
+                                   options="{!v.listDependingValues}"
+                                   value="{!v.innerCmpNewRequest.Report__c}"
+                                   disabled="{!v.bDisabledDependentFld}"
+                                   size="3"/>
+            <lightning:input aura:Id="remarks" name="" type="text" value="{!v.innerCmpNewRequest.Remarks__c}" label="備考欄"/>
+            <!--<ui:inputNumber aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数"/>-->
+    		<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数" onchange="{!c.handleNoOfCopies}" />
+            <aura:if isTrue="{!v.noOfCopiesErr}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+            
+            <div class="form-group">
+                <lightning:select aura:id="dateOfShipmentPickMap" value="{!v.innerCmpNewRequest.DateOfShipment__c}"  name="dateOfShipmentPicklist" label="発送日" >
+                    <option value="">-- None --</option>
+                    <aura:iteration items="{!v.dateOfShipmentPickMap}" var="sim" indexVar="key">
+                        <option text="{!sim.value}" value="{!sim.key}" selected="{!sim.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+            <div class="form-group">
+                <lightning:select aura:id="shippingMethodPickMap" value="{!v.innerCmpNewRequest.ShippingMethod__c}"  name="shippingMethodPicklist" label="発送方法" >
+                    <option value="">-- None --</option>
+                    <aura:iteration items="{!v.shippingMethodPickMap}" var="sim" indexVar="key">
+                        <option text="{!sim.value}" value="{!sim.key}" selected="{!sim.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>           
+        </div>
+    </div> 
+</div>
+</aura:component>

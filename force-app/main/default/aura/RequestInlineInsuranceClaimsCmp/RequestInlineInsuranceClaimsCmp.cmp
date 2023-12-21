@@ -1,0 +1,605 @@
+<!--
+  @File Name          : RequestInlineInsuranceClaimsCmp.cmp
+  @Description        : 
+  @Author             : SRM
+  @Group              : 
+  @Last Modified By   : SRM
+  @Last Modified On   : 12/31/2019, 2:49:08 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/31/2019   SRM     Initial Version
+-->
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ReceivedNumber__c':'',
+                                                             			'ReturnDestinationName__c':'',
+																		'EmergencyFlag__c':'',
+																		'CallBackStartTime__c':'',
+																		'CallBackEndTime__c':'',
+                                                                        'PresenceeOfDocumentIncluded__c':'',
+																		'SendingMethod__c':'',
+																		'SendingProducts__c':'',
+																		'DestinationCategory__c':'',
+																		'ShippingAddressEtc__c':'',
+																		'ReflectMailingAddress__c':'',
+																		'MailingPostalCode__c':'',
+																		'MailingPrefectures__c':'',
+																		'MailingCity__c':'',
+																		'MailingAddress1__c':'',
+																		'MailingAddress2__c':'',
+																		'DestinationAddress__c':'',
+																		'CorrespondenceRequest__c':'',
+																		'CorrespondenceClassificationContents__c':'',
+																		'DateOfConfirmationOfParentalAuthori__c':'',
+																		'NameOfParentalAuthority__c':'',
+																		'ParentNameFullNameKana__c':'',
+																		'ParentalAuthorityConfirmation__c':'',
+																		'ParentsLivingTogetherAndSeparated__c':'',
+																		'PaperlessDocument__c':'',
+																		'ConsentMattersuidance__c':'',
+																		'TransferDesignatedAccount__c':'',
+																		'ApplicablePAccount__c':'',
+																		'AccountHolderKana__c':'',
+																		'AccountHolderKanji__c':'',
+																		'FinancialInstitutionSearch__c':'',
+																		'FinancialName__c':'',
+																		'BankCode__c':'',
+																		'BranchName__c':'',
+																		'BranchCodeStoreNumber__c':'',
+																		'DepositCategory__c':'',
+																		'AccountNumber__c':'',
+																		'DirectOwnership__c':'',
+																		'BillingClassification__c':'',
+																		'NameOfInjuryOrIllness__c':'',
+																		'Icd10__c':'',
+																		'DateOfInjuryAccidentDay__c':'',
+																		'CancerMedicalAnnouncement__c':'',
+																		'ContractLiabilityStartDate__c':'',
+																		'CanceDiagnosisResponsibilityStart__c':'',
+																		'HospitalizationDate__c':'',
+																		'HospitalizationRemarks__c':'',
+																		'SupportPaymentRestrictions__c':'',
+																		'DischargeDate__c':'',
+																		'DischargeDayRemarks__c':'',
+																		'NumberOfHospitalDays__c':'',
+																		'HospitalRemarks__c':'',
+																		'VisitingHospitalPeriod__c':'',
+																		'HospitalizationDay2__c':'',
+																		'HospitalizationTreatment__c':'',
+																		'SurgeryDate__c':'',
+																		'SurgeryName__c':'',
+																		'Surgery__c':'',
+																		'Operation60DaysLimit__c':'',
+																		'AdvancedMedical__c':'',
+																		'Radiotherapy__c':'',
+																		'AnticancerDrugTreatment__c':'',
+																		'HormonalTreatment__c':'',
+																		'AccidentDay__c':'',
+																		'DisasterCause__c':'',
+																		'TreatAsADisease__c':'',
+																		'ReportToPolice__c':'',
+																		'OccurrenceStatus__c':'',
+																		'CircumstancesOfAccident__c':'',
+																		'SpecificDamage__c':'',
+																		'DeathDate__c':'',
+																		'CauseOfDeath__c':'',
+																		'PresenceOrAbsenceOfDeathCertificate__c':'',
+																		'LifeInsuranceMutualAid__c':'',
+																		'Heir__c':'',
+																		'BereavedFamilyInformation__c':'',
+																		'SevereCareStatus__c':'',
+																		'FixedSymptoms__c':'',
+																		'OutOfBillingCharge__c':'',
+																		'ReasonOnForNotCharging__c':''
+																		}"/>
+<!--Declare Method-->
+<aura:method name="requestInsuranceClaims" action="{!c.saveRequestInsuranceClaims}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+<aura:attribute name="dependantSubject" type="String" access="public" /> 
+<aura:handler name="bankMasterSearchCmpEvt" event="c:BankMasterSearchResultCmpEvt" action="{!c.handleBankMasterResultCmpEvt}"/>
+
+<!--Declare Attributes-->	
+<aura:attribute name="paperlessDocumentPickList" type="List" default="[]" />
+<aura:attribute name="billingClassificationPickList" type="List" default="[]" />
+
+<aura:attribute name="presenceeOfDocumentIncludedPickMap" type="Map"/>
+<aura:attribute name="sendingMethodPickMap" type="Map"/>																			
+<aura:attribute name="destinationCategoryPickMap" type="Map"/>																			
+<aura:attribute name="correspondenceRequestPickMap" type="Map"/>
+<aura:attribute name="correspondenceRequestPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="parentalAuthorityConfirmationPickMap" type="Map"/>
+<aura:attribute name="parentsLivingTogetherAndSeparatedPickMap" type="Map"/>																			
+<aura:attribute name="transferDesignatedAccountPickMap" type="Map"/>																			
+<aura:attribute name="depositCategoryPickMap" type="Map"/>
+<aura:attribute name="cancerMedicalAnnouncementPickMap" type="Map"/>																			
+<aura:attribute name="hospitalizationDay2PickMap" type="Map"/>																			
+<aura:attribute name="surgeryPickMap" type="Map"/>																			
+<aura:attribute name="disasterCausePickMap" type="Map"/>
+<aura:attribute name="reportToPolicePickMap" type="Map"/>																			
+<aura:attribute name="occurrenceStatusPickMap" type="Map"/>
+<aura:attribute name="specificDamagePickMap" type="Map"/>	
+<aura:attribute name="causeOfDeathPickMap" type="Map"/>	
+<aura:attribute name="presenceOrAbsenceOfDeathCertificatePickMap" type="Map"/>	
+<aura:attribute name="lifeInsuranceMutualAidPickMap" type="Map"/>	
+<aura:attribute name="heirPickMap" type="Map"/>	
+<aura:attribute name="fixedSymptomsPickMap" type="Map"/>
+<aura:attribute name="outOfBillingChargePickMap" type="Map"/>
+<aura:attribute name="anticancerDrugTreatmentPickMap" type="Map"/>
+<aura:attribute name="hormonalTreatmentPickMap" type="Map"/>
+<aura:attribute name="radiotherapyPickMap" type="Map"/>
+
+<aura:attribute name="listControllingValues" type="list" default="[]" />
+<aura:attribute name="listDependingValues" type="list" default="['--- None ---']" />
+<aura:attribute name="depnedentFieldMap" type="map" />
+<aura:attribute name="bDisabledDependentFld" type="boolean" default="['--- None ---']"/> 
+
+<aura:attribute name="getAreaInfoMap" type="Map" default="{'prefecture': '', 'municipality': '', 'chome': ''}"/>
+<aura:attribute name="CancerDiagnosisDate" type="Date"/> 
+<aura:attribute name="RestrictionsOnSupportDate" type="Date"/>    
+<aura:attribute name="OutpatientCoveragePeriodDate" type="Date"/>
+<aura:attribute name="TreatedAsHospitalDate" type="Date"/>   
+<aura:attribute name="ReclaimDate" type="Date"/> 
+<aura:attribute name="DiseaseTreatmentDate" type="Date"/> 
+<aura:attribute name="treatmentDays" type="Integer" />
+
+<div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">入電状況</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+            <div >
+			<ui:inputPhone aura:id="receivedNumber" label="着信番号" class="field" value="{!v.innerCmpNewRequest.ReceivedNumber__c}" />
+			</div>
+                <lightning:input aura:Id="returnDestinationName"    name="" type="text" value="{!v.innerCmpNewRequest.ReturnDestinationName__c}" label="折り返し先名"/> 
+                <div >
+               <ui:inputCheckbox aura:id="emergencyFlag" label="至急対応フラグ(1時間以内対応の場合のみチェック)" value="{!v.innerCmpNewRequest.EmergencyFlag__c}" />
+            </div>
+            <div >
+                    <ui:inputDateTime aura:Id="callBackStartTime" value="{!v.innerCmpNewRequest.CallBackStartTime__c}" label="折り返し　開始" displayDatePicker="true"/>
+		    </div>
+            </div>
+		<div class="slds-col">
+            <!--<div class="slds-p-top_medium"></div>-->
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_xx-small"></div>
+            <ui:inputDateTime aura:Id="callBackEndTime" value="{!v.innerCmpNewRequest.CallBackEndTime__c}" label="折り返し　期限" displayDatePicker="true"/>
+            </div>
+	</div>
+	
+	 <div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">送付書類</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+				<lightning:select aura:id="presenceeOfDocumentIncludedPicklist" value="{!v.innerCmpNewRequest.PresenceeOfDocumentIncluded__c}"  name="presenceeOfDocumentIncludedPicklist" label="送付書類有無" >
+					<option value=""> --None-- </option>
+					<aura:iteration items="{!v.presenceeOfDocumentIncludedPickMap}" var="prd" indexVar="key">
+						<option text="{!prd.value}" value="{!prd.key}" selected="{!prd.key==v.innerCmpNewRequest.PresenceeOfDocumentIncluded__c}" />
+					</aura:iteration>
+				</lightning:select>
+		 </div>		
+		 <div class="form-group">
+			<lightning:select aura:id="sendingMethodPicklist" value="{!v.innerCmpNewRequest.SendingMethod__c}"  name="sendingMethodPicklist" label="送付方法" >
+				<option value="">-- None --</option>           
+			    <aura:iteration items="{!v.sendingMethodPickMap}" var="sdm" indexVar="key">
+					<option text="{!sdm.value}" value="{!sdm.key}" selected="{!sdm.key==v.innerCmpNewRequest.SendingMethod__c}" />
+				</aura:iteration>
+			</lightning:select>
+		 </div>		
+		</div>
+		<div class="slds-col">
+
+		</div>
+	</div>
+	 <div>	 
+           <lightning:textarea aura:Id="sendingProducts" name="" type="text" value="{!v.innerCmpNewRequest.SendingProducts__c}" label="送付物" class="customHeight"/> 
+    </div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+				<lightning:select aura:id="destinationCategory" value="{!v.innerCmpNewRequest.DestinationCategory__c}"  name="destinationCategoryPicklist" label="送付先区分" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.destinationCategoryPickMap}" var="dcy" indexVar="key">
+						<option text="{!dcy.value}" value="{!dcy.key}" selected="{!dcy.key==v.innerCmpNewRequest.DestinationCategory__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div>
+			 <ui:inputCheckbox aura:id="reflectMailingAddress" label="受付情報の送付先住所に反映する" value="{!v.innerCmpNewRequest.ReflectMailingAddress__c}" />
+			</div> 
+			<lightning:input aura:Id="mailingPostalCode" name="" onblur="{!c.handleAreaInfo}" type="text" value="{!v.innerCmpNewRequest.MailingPostalCode__c}" label="送付先郵便番号"/> 
+			<lightning:input aura:Id="mailingPrefectures" name="" type="text" value="{!v.innerCmpNewRequest.MailingPrefectures__c}" label="送付先都道府県"/> 
+			<lightning:input aura:Id="mailingCity" name="" type="text" value="{!v.innerCmpNewRequest.MailingCity__c}" label="送付先市区町村"/> 
+			<lightning:input aura:Id="mailingAddress1" name="" type="text" value="{!v.innerCmpNewRequest.MailingAddress1__c}" label="送付先住所１"/> 
+			<lightning:input aura:Id="mailingAddress2" name="" type="text" value="{!v.innerCmpNewRequest.MailingAddress2__c}" label="送付先住所２"/> 							
+		</div>
+		<div class="slds-col">
+            <div class="form-group">
+				<lightning:input aura:Id="shippingAddressEtc" name="" type="text" value="{!v.innerCmpNewRequest.ShippingAddressEtc__c}" label="送付先その他"/> 
+            </div>
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-large"></div>
+                <div class="slds-p-top_xx-large"></div>
+				<div class="slds-p-top_medium"></div>
+				<div class="slds-p-top_xx-small"></div>
+				<lightning:input aura:Id="destinationAddress" name="" type="text" value="{!v.innerCmpNewRequest.DestinationAddress__c}" label="送付先宛名"/> 
+		</div>
+	</div>	
+	
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">対応依頼</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+			<lightning:select aura:id="correspondenceRequestPickList" value="{!v.innerCmpNewRequest.CorrespondenceRequest__c}" label="対応依頼">
+                <aura:iteration items="{!v.correspondenceRequestPickList}" var="pro" >
+                    <option  value="{!pro}"> {!pro} </option>		
+                </aura:iteration>
+            </lightning:select>
+		</div>
+		</div>
+		<div class="slds-col">
+
+		</div>
+	</div>
+	<div>	 
+           <lightning:textarea aura:Id="correspondenceClassificationContents" name="" type="text" value="{!v.innerCmpNewRequest.CorrespondenceClassificationContents__c}" label="対応区分内容" class="customHeight"/> 
+    </div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input aura:Id="dateOfConfirmationOfParentalAuthori" name="" type="date" value="{!v.innerCmpNewRequest.DateOfConfirmationOfParentalAuthori__c}" label="親権者確認日" /> 
+			<lightning:input aura:Id="nameOfParentalAuthority" name="" type="text" value="{!v.innerCmpNewRequest.NameOfParentalAuthority__c}" label="親権者氏名漢字"/> 
+			<div class="form-group">
+			<lightning:select aura:id="parentalAuthorityConfirmation" value="{!v.innerCmpNewRequest.ParentalAuthorityConfirmation__c}"  name="parentalAuthorityConfirmationPicklist" label="親権者確認" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.parentalAuthorityConfirmationPickMap}" var="pac" indexVar="key">
+					<option text="{!pac.value}" value="{!pac.key}" selected="{!pac.key==v.innerCmpNewRequest.ParentalAuthorityConfirmation__c}" />
+				</aura:iteration>
+			</lightning:select>
+			
+    </div>
+		</div>
+		<div class="slds-col">
+			<div class="slds-p-top--x-small"></div>
+			<div class="slds-p-top_large"></div>
+            <div class="slds-p-top_large"></div>
+			<lightning:input aura:Id="parentNameFullNameKana" name="" type="text" value="{!v.innerCmpNewRequest.ParentNameFullNameKana__c}" label="親権者氏名カナ"/> 
+			<div class="form-group">
+				<lightning:select aura:id="parentsLivingTogetherAndSeparated" value="{!v.innerCmpNewRequest.ParentsLivingTogetherAndSeparated__c}"  name="parentsLivingTogetherAndSeparatedPicklist" label="親権者同居・別居" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.parentsLivingTogetherAndSeparatedPickMap}" var="plt" indexVar="key">
+						<option text="{!plt.value}" value="{!plt.key}" selected="{!plt.key==v.innerCmpNewRequest.ParentsLivingTogetherAndSeparated__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+	</div>
+	
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">ペーパレス対応</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="slds-m-around_xx-large, slds-align_absolute-left">
+				<lightning:dualListbox aura:id="selectPaperlessDocument"
+				name="PaperlessDocument"
+				label="ペーパーレス書類名"
+				sourceLabel="選択可能"
+				selectedLabel="選択済み"
+				options="{!v.paperlessDocumentPickList }"
+                size="3"                       
+				value="{!v.innerCmpNewRequest.PaperlessDocument__c}"/>
+			</div>
+			<div class="form-group">
+				<lightning:select aura:id="transferDesignatedAccount" value="{!v.innerCmpNewRequest.TransferDesignatedAccount__c}"  name="transferDesignatedAccountPicklist" label="給付金・共済金振込指定口座" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.transferDesignatedAccountPickMap}" var="tda" indexVar="key">
+						<option text="{!tda.value}" value="{!tda.key}" selected="{!tda.key==v.innerCmpNewRequest.TransferDesignatedAccount__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<lightning:input aura:Id="accountHolderKana" name="" type="text" value="{!v.innerCmpNewRequest.AccountHolderKana__c}" label="口座名義人（カナ）"/> 
+            <div class="slds-p-top--xx-small"></div>
+            金融機関検索 <br /><br /><lightning:button variant="neutral" label="検索" aura:Id="bankMastersearchId" onclick="{!c.openBankMasterSearch}"/>
+            <div class="slds-p-top--x-small"></div>
+			<lightning:input aura:Id="financialName" name="" type="text" value="{!v.innerCmpNewRequest.FinancialName__c}" label="金融機関名"/> 
+			<lightning:input aura:Id="branchName" name="" type="text" value="{!v.innerCmpNewRequest.BranchName__c}" label="支店名"/>
+			<div class="form-group">
+				<lightning:select aura:id="depositCategory" value="{!v.innerCmpNewRequest.DepositCategory__c}"  name="depositCategoryPicklist" label="預金種目" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.depositCategoryPickMap}" var="dcy" indexVar="key">
+						<option text="{!dcy.value}" value="{!dcy.key}" selected="{!dcy.key==v.innerCmpNewRequest.DepositCategory__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<lightning:input aura:Id="directOwnership" name="" type="text" value="{!v.innerCmpNewRequest.DirectOwnership__c}" label="ゆうちょ番号"/> 
+		</div>
+		<div class="slds-col">
+			<ui:inputCheckbox aura:id="consentMattersuidance" label="同意事項案内" value="{!v.innerCmpNewRequest.ConsentMattersuidance__c}" />
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_xx-large"></div>
+            <div class="slds-p-top_large"></div>
+            <div class="slds-p-top_medium"></div>
+            <lightning:input aura:Id="applicablePAccount" name="" type="text" value="{!v.innerCmpNewRequest.ApplicablePAccount__c}" label="該当P口座"/>
+			<lightning:input aura:Id="accountHolderKanji" name="" type="text" value="{!v.innerCmpNewRequest.AccountHolderKanji__c}" label="口座名義人（漢字）"/>
+			<div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-large"></div>
+			<div class="slds-p-top_xxx-small"></div>
+			<lightning:input aura:Id="bankCode" name="" type="text" value="{!v.innerCmpNewRequest.BankCode__c}" label="金融機関コード"/> 
+			<lightning:input aura:Id="branchCodeStoreNumber" name="" type="text" value="{!v.innerCmpNewRequest.BranchCodeStoreNumber__c}" label="支店コード（店番）"/> 
+			<lightning:input aura:Id="accountNumber" name="" type="text" value="{!v.innerCmpNewRequest.AccountNumber__c}" label="口座番号"/> 
+		</div>
+	</div>
+	
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(59, 59, 59);font-size:medium;font-weight:bold;color:whitesmoke">請求内容</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="slds-m-around_xx-large, slds-align_absolute-left">
+				<lightning:dualListbox aura:id="selectBillingClassification"
+				name="BillingClassification"
+				label="請求区分"
+				sourceLabel="選択可能"
+				selectedLabel="選択済み"
+				options="{!v.billingClassificationPickList }"
+                size="3"                                       
+				value="{!v.innerCmpNewRequest.BillingClassification__c}"/>
+			</div>
+			<lightning:input aura:Id="nameOfInjuryOrIllness" name="" type="text" value="{!v.innerCmpNewRequest.NameOfInjuryOrIllness__c}" label="傷病名"/> 
+			<lightning:input aura:Id="dateOfInjuryAccidentDay" name="" type="date" value="{!v.innerCmpNewRequest.DateOfInjuryAccidentDay__c}" label="傷病発生日・確定診断日" /> 
+			<div class="form-group">
+				<lightning:select aura:id="cancerMedicalAnnouncement" value="{!v.innerCmpNewRequest.CancerMedicalAnnouncement__c}" name="cancerMedicalAnnouncementPicklist" label="ガン診断告知" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.cancerMedicalAnnouncementPickMap}" var="cma" indexVar="key">
+						<option text="{!cma.value}" value="{!cma.key}" selected="{!cma.key==v.innerCmpNewRequest.CancerMedicalAnnouncement__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<!--ガン診断責任開始日(この日からガン診断対象)<br /><div class="slds-p-top-xx-small"></div><ui:outputText value="{!v.CancerDiagnosisDate}"/><div class="slds-p-top-xx-small"></div>-->
+			<lightning:input aura:Id="CancerDiagnosisDate" name="CancerDiagnosisDate" type="date" value="{!v.CancerDiagnosisDate}" label="ガン診断責任開始日(この日からガン診断対象)" disabled="true" />
+			
+			<lightning:input aura:Id="hospitalizationDate" name="" type="date" value="{!v.innerCmpNewRequest.HospitalizationDate__c}" label="入院日" onblur="{!c.handleAdmitRelatedDate}"/> 
+		    <!--支援支払制限(この日から再び請求対象)<br /><div class="slds-p-top-xx-small"></div> <ui:outputText value="{!v.RestrictionsOnSupportDate}"/><div class="slds-p-top-xx-small"></div>-->
+			<lightning:input aura:Id="RestrictionsOnSupportDate" name="RestrictionsOnSupportDate" type="date" value="{!v.RestrictionsOnSupportDate}" label="支援支払制限(この日から再び請求対象)" disabled="true" />
+			
+            <lightning:input aura:Id="dischargeDate" name="" type="date" value="{!v.innerCmpNewRequest.DischargeDate__c}" label="退院日" onblur="{!c.handleDischargeRelatedDate}"/>
+            <!-- <ui:inputNumber aura:Id="numberOfHospitalDays" value="{!v.innerCmpNewRequest.NumberOfHospitalDays__c}" label="入院日数"/>-->
+			<!--入院日数<br /><div class="slds-p-top-xx-small"></div> <ui:outputText value="{!v.treatmentDays}"/><br /><div class="slds-p-top-xx-small"></div>
+            <div class="slds-p-top-xx-small"></div>-->
+			<lightning:input aura:Id="treatmentDays" name="treatmentDays" type="number" value="{!v.treatmentDays}" label="入院日数" />
+			
+			<!--<lightning:input aura:Id="numberOfHospitalDays" type="integer" value="{!v.innerCmpNewRequest.NumberOfHospitalDays__c}" label="入院日数" />-->
+			<!--通院対象期間(この日まで通院請求対象)<br /><div class="slds-p-top-xx-small"></div> <ui:outputText value="{!v.OutpatientCoveragePeriodDate}"/><div class="slds-p-top-xx-small"></div>
+			<div class="slds-p-top-xx-small"></div>-->
+			<lightning:input aura:Id="OutpatientCoveragePeriodDate" name="OutpatientCoveragePeriodDate" type="date" value="{!v.OutpatientCoveragePeriodDate}" label="通院対象期間(この日まで通院請求対象)" disabled="true" />
+			
+            <div class="form-group">
+				<lightning:select aura:id="hospitalizationDay2" value="{!v.innerCmpNewRequest.HospitalizationDay2__c}" name="hospitalizationDay2Picklist" label="入院日2" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.hospitalizationDay2PickMap}" var="hod" indexVar="key">
+						<option text="{!hod.value}" value="{!hod.key}" selected="{!hod.key==v.innerCmpNewRequest.HospitalizationDay2__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<lightning:input aura:Id="surgeryDate" name="" type="date" value="{!v.innerCmpNewRequest.SurgeryDate__c}" label="手術日" /> 
+			<div class="form-group">
+				<lightning:select aura:id="surgery" value="{!v.innerCmpNewRequest.Surgery__c}" name="surgeryPicklist" label="手術" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.surgeryPickMap}" var="sur" indexVar="key">
+						<option text="{!sur.value}" value="{!sur.key}" selected="{!sur.key==v.innerCmpNewRequest.Surgery__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<lightning:input aura:Id="advancedMedical" name="" type="text" value="{!v.innerCmpNewRequest.AdvancedMedical__c}" label="先進医療"/> 
+			<!-- <lightning:input aura:Id="anticancerDrugTreatment" name="" type="text" value="{!v.innerCmpNewRequest.AnticancerDrugTreatment__c}" label="抗がん剤治療"/>  -->
+		   
+		   <div class="form-group">
+				<lightning:select aura:id="anticancerDrugTreatment" value="{!v.innerCmpNewRequest.AnticancerDrugTreatment__c}" name="anticancerDrugTreatmentPicklist" label="抗がん剤治療" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.anticancerDrugTreatmentPickMap}" var="acd" indexVar="key">
+						<option text="{!acd.value}" value="{!acd.key}" selected="{!acd.key==v.innerCmpNewRequest.AnticancerDrugTreatment__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+		<div class="slds-col">
+            <div class="slds-p-top--xx-large"></div><div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--xx-large"></div><div class="slds-p-top_medium"></div><div class="slds-p-top_small"></div>
+			<lightning:input aura:Id="icd10" name="" type="text" value="{!v.innerCmpNewRequest.Icd10__c}" label="ＩＣＤ10コード"/>
+            <div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-small"></div>
+			<lightning:input aura:Id="contractLiabilityStartDate" name="" type="date" value="{!v.innerCmpNewRequest.ContractLiabilityStartDate__c}" label="契約責任開始日" onblur="{!c.handleCancerDiagnosis}" /> 
+			<div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-small"></div>
+			<lightning:input aura:Id="hospitalizationRemarks" name="" type="text" value="{!v.innerCmpNewRequest.HospitalizationRemarks__c}" label="入院日備考"/> 
+			<div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-small"></div>
+			<lightning:input aura:Id="dischargeDayRemarks" name="" type="text" value="{!v.innerCmpNewRequest.DischargeDayRemarks__c}" label="退院日備考"/>
+			<lightning:input aura:Id="hospitalRemarks" name="" type="text" value="{!v.innerCmpNewRequest.HospitalRemarks__c}" label="通院備考"/> 
+            <div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-small"></div>
+			<!--1入院扱い(この日まで同一事由は一入院扱い)<br /><div class="slds-p-top-xx-small"></div> <ui:outputText value="{!v.TreatedAsHospitalDate}"/>-->
+			<lightning:input aura:Id="TreatedAsHospitalDate" name="TreatedAsHospitalDate" type="date" value="{!v.TreatedAsHospitalDate}" label="1入院扱い(この日まで同一事由は一入院扱い)" disabled="true" />
+           
+			<lightning:input aura:Id="surgeryName" name="" type="text" value="{!v.innerCmpNewRequest.SurgeryName__c}" label="手術名"/>			
+			<!--手術60日制限(この日から再び請求対象)<br /><div class="slds-p-top-xx-small"></div> <ui:outputText value="{!v.ReclaimDate}"/>
+            <div class="slds-p-top-x-small"></div>
+            <div class="slds-p-top-xx-small"></div>-->
+			<lightning:input aura:Id="ReclaimDate" name="ReclaimDate" type="date" value="{!v.ReclaimDate}" label="手術60日制限(この日から再び請求対象)" disabled="true" />
+			
+			<div class="form-group">
+				<lightning:select aura:id="radiotherapy" value="{!v.innerCmpNewRequest.Radiotherapy__c}" name="radiotherapyPicklist" label="放射線治療" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.radiotherapyPickMap}" var="rty" indexVar="key">
+						<option text="{!rty.value}" value="{!rty.key}" selected="{!rty.key==v.innerCmpNewRequest.Radiotherapy__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		   <div class="form-group">
+				<lightning:select aura:id="hormonalTreatment" value="{!v.innerCmpNewRequest.HormonalTreatment__c}" name="hormonalTreatmentPicklist" label="ホルモン剤治療" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.hormonalTreatmentPickMap}" var="hrt" indexVar="key">
+						<option text="{!hrt.value}" value="{!hrt.key}" selected="{!hrt.key==v.innerCmpNewRequest.HormonalTreatment__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+	</div>
+	
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">請求内容(災害)</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input aura:Id="accidentDay" name="" type="date" value="{!v.innerCmpNewRequest.AccidentDay__c}" label="事故日" /> 
+			<div class="form-group">
+				<lightning:select aura:id="disasterCause" value="{!v.innerCmpNewRequest.DisasterCause__c}" name="disasterCausePicklist" label="災害原因" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.disasterCausePickMap}" var="dsc" indexVar="key">
+						<option text="{!dsc.value}" value="{!dsc.key}" selected="{!dsc.key==v.innerCmpNewRequest.DisasterCause__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+            <div class="form-group">
+				<lightning:select aura:id="reportToPolice" value="{!v.innerCmpNewRequest.ReportToPolice__c}"  name="reportToPolicePicklist" label="交通事故警察届出" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.reportToPolicePickMap}" var="rtp" indexVar="key">
+						<option text="{!rtp.value}" value="{!rtp.key}" selected="{!rtp.key==v.innerCmpNewRequest.ReportToPolice__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		
+		</div>
+		<div class="slds-col">
+			<div class="slds-p-top_xx-large"></div>
+			<div class="slds-p-top_x-small"></div>
+            <lightning:input aura:Id="DiseaseTreatmentDate" name="DiseaseTreatmentDate" type="date" value="{!v.DiseaseTreatmentDate}" label="疾病扱い(この日から開始した入院は災害・ケガ入院でなくなる)" disabled="true" />
+			<div class="form-group">
+				<lightning:select aura:id="occurrenceStatus" value="{!v.innerCmpNewRequest.OccurrenceStatus__c}"  name="occurrenceStatusPicklist" label="交通事故発生状況" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.occurrenceStatusPickMap}" var="ocs" indexVar="key">
+						<option text="{!ocs.value}" value="{!ocs.key}" selected="{!ocs.key==v.innerCmpNewRequest.OccurrenceStatus__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+							
+		</div>
+	</div>
+	<lightning:textarea aura:Id="circumstancesOfAccident" name="" type="text" value="{!v.innerCmpNewRequest.CircumstancesOfAccident__c}" label="受傷時の状況" class="customHeight"/> 
+	<div class="slds-grid slds-gutters">
+        <div class="slds-col slds-size_1-of-2">
+        </div>
+		<div class="slds-col ">
+            <div class="form-group">
+                <lightning:select aura:id="specificDamage" value="{!v.innerCmpNewRequest.SpecificDamage__c}" name="specificDamagePicklist" label="特定損傷" >
+                    <option value="">-- None --</option>
+                    <aura:iteration items="{!v.specificDamagePickMap}" var="spd" indexVar="key">
+                        <option text="{!spd.value}" value="{!spd.key}" selected="{!spd.key==v.innerCmpNewRequest.SpecificDamage__c}" />
+                    </aura:iteration>
+                </lightning:select>
+            </div>
+         </div>
+     </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">請求内容(死亡・高度他)</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input aura:Id="deathDate" name="" type="date" value="{!v.innerCmpNewRequest.DeathDate__c}" label="死亡日" />
+			<div class="form-group">
+				<lightning:select aura:id="presenceOrAbsenceOfDeathCertificate" value="{!v.innerCmpNewRequest.PresenceOrAbsenceOfDeathCertificate__c}"  name="presenceOrAbsenceOfDeathCrtftPicklist" label="死亡診断書の有無" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.presenceOrAbsenceOfDeathCertificatePickMap}" var="padc" indexVar="key">
+						<option text="{!padc.value}" value="{!padc.key}" selected="{!padc.key==v.innerCmpNewRequest.PresenceOrAbsenceOfDeathCertificate__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			
+			<div class="form-group">   
+				<lightning:select   name="lifeInsuranceMutualAidPicklist"
+									value="{!v.innerCmpNewRequest.LifeInsuranceMutualAid__c}"
+									label="生保・共済"
+									onchange="{!c.onControllerFieldChange}">
+									<aura:iteration items="{!v.listControllingValues}" var="val">
+									<option value="{!val}">{!val}</option>
+									</aura:iteration>
+				</lightning:select>
+			</div>			
+		</div>
+		<div class="slds-col">
+			<div class="form-group">
+				<lightning:select aura:id="causeOfDeath" value="{!v.innerCmpNewRequest.CauseOfDeath__c}"  name="causeOfDeathPicklist" label="死亡原因" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.causeOfDeathPickMap}" var="cad" indexVar="key">
+						<option text="{!cad.value}" value="{!cad.key}" selected="{!cad.key==v.innerCmpNewRequest.CauseOfDeath__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+			<div class="slds-p-top--xx-large"></div>
+            <div class="slds-p-top--x-small"></div>
+			<div class="form-group">
+					<lightning:select name="dependentFld"
+					value="{!v.innerCmpNewRequest.Heir__c}"
+					label="相続人"
+					disabled="{!v.bDisabledDependentFld}">
+					<aura:iteration items="{!v.listDependingValues}" var="val">
+					<option value="{!val}">{!val}</option>
+					</aura:iteration>
+					</lightning:select>
+			</div>
+						
+		</div>
+	</div>
+	<lightning:textarea aura:Id="bereavedFamilyInformation" name="" type="text" value="{!v.innerCmpNewRequest.BereavedFamilyInformation__c}" label="遺族情報" class="customHeight"/> 
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input aura:Id="severeCareStatus" name="" type="text" value="{!v.innerCmpNewRequest.SevereCareStatus__c}" label="高度重度介護状態"/> 
+		</div>
+		<div class="slds-col">
+			<div class="form-group">
+				<lightning:select aura:id="fixedSymptoms" value="{!v.innerCmpNewRequest.FixedSymptoms__c}" name="fixedSymptomsPicklist" label="症状固定" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.fixedSymptomsPickMap}" var="fsy" indexVar="key">
+						<option text="{!fsy.value}" value="{!fsy.key}" selected="{!fsy.key==v.innerCmpNewRequest.FixedSymptoms__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+	</div>	
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">請求対象外</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+				<lightning:select aura:id="outOfBillingCharge" value="{!v.innerCmpNewRequest.OutOfBillingCharge__c}" name="outOfBillingChargePicklist" label="請求対象外" >
+					<option value="">-- None --</option>
+					<aura:iteration items="{!v.outOfBillingChargePickMap}" var="obc" indexVar="key">
+						<option text="{!obc.value}" value="{!obc.key}" selected="{!obc.key==v.innerCmpNewRequest.OutOfBillingCharge__c}" />
+					</aura:iteration>
+				</lightning:select>
+			</div>
+		</div>
+		<div class="slds-col">
+
+		</div>
+	</div>
+	<div>	 
+        <lightning:textarea aura:Id="reasonOnForNotCharging" name="" type="text" value="{!v.innerCmpNewRequest.ReasonOnForNotCharging__c}" label="請求対象外理由" class="customHeight"/> 
+    </div>
+	<div class="slds-p-top_medium"></div>
+	<div aura:Id="bankMasterPopup">
+		{!v.body}
+	</div>
+</div>
+</aura:component>

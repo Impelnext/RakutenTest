@@ -1,0 +1,12 @@
+<template>
+    <template if:false={confirmPhase}>
+        <section class="p-section">
+            <div class="p-form_item">
+                <div class="p-form_itemLabel"><span class="u-icon_any">任意</span>{itemName}</div>
+                <label>{itemGuide}
+                    <span if:true={dispGuide2}><br>{itemGuide2}</span>
+                </label>
+            </div>
+        </section>
+    </template>    
+</template>

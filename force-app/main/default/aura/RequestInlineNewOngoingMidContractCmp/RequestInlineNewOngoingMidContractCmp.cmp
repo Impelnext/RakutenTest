@@ -1,0 +1,169 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',	
+																		'DesiredProduct__c':'',
+																		'ReceptionCategory__c':'',
+																		'ReturnContact__c':'',
+																		'DateAndTimeDesignation__c':'',
+																		'YourArea_Prefecture__c':'',
+																		'DetailsOfOtherRequests__c':'',
+																		'CompensationItem__c':'',
+																		'PrefectureBuildLocated__c':'',
+																		'Use__c':'',
+																		'PropertyWithStoreInBuildingIndustry__c':'',
+																		'Construction__c':'',
+																		'ConstructionDate__c':'',
+																		'BuildingArea__c':'',
+																		'InsuredPersonsDateOfBirth__c':'',
+																		'Profession__c':'',
+																		'SubscriptionType__c':'',
+																		'ReceptionCategoryCarInsurance__c':'',
+																		'Grades__c':'',
+																		'AccidentCoefficientPeriod__c':'',
+																		'InsurancePeriod__c':'',
+																		'AccidentDuringFlg__c':'',
+																		'MainlyUseCars__c':'',
+																		'YoungestDriver__c':'',
+																		'TargetVehicle__c':'',
+																		'VehicleUse__c':'',
+																		'DesiredCompensation__c':'',
+																		'Industry__c':'',
+																		'SpecificWorkContent__c':'',
+																		'Continue__c':'',
+																		'RenewalRequested__c':''
+																		}"/>
+																																			
+<!--Declare Method-->																		
+<aura:method name="inlineNewOngoingMidContract" action="{!c.saveInlineNewOngoingMidContract}" access="PUBLIC"> 
+    <aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>    
+<!--Declare Picklist Attributes-->	
+<aura:attribute name="receptionCategoryPickMap" type="Map"/>
+<aura:attribute name="compensationItemPickMap" type="Map"/>
+<aura:attribute name="usePickMap" type="Map"/>
+<aura:attribute name="usePickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="constructionPickMap" type="Map"/>
+<aura:attribute name="subscriptionTypePickMap" type="Map"/>
+<aura:attribute name="receptionCategoryCarInsurancePickMap" type="Map"/>
+<aura:attribute name="accidentDuringFlgPickMap" type="Map"/>
+<aura:attribute name="targetVehiclePickMap" type="Map"/>
+<aura:attribute name="vehicleUsePickMap" type="Map"/>
+
+
+<div class="slds-box slds-theme_default">
+    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">種目共通</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <lightning:input aura:Id="desiredProduct" type="text" value="{!v.innerCmpNewRequest.DesiredProduct__c}" label="加入希望商品"/>
+        <div class="form-group">
+            <lightning:select aura:Id="receptionCategoryPicklist" value="{!v.innerCmpNewRequest.ReceptionCategory__c}" label="受付区分" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.receptionCategoryPickMap}" var="rec" indexVar="key">
+                    <option text="{!rec.value}" value="{!rec.key}" selected="{!rec.key==v.innerCmpNewRequest.ReceptionCategory__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>	
+        <lightning:input aura:Id="returnContact" type="text" value="{!v.innerCmpNewRequest.ReturnContact__c}" label="折り返し連絡先"/>
+        <lightning:input aura:Id="dateAndTimeDesignation" type="text" value="{!v.innerCmpNewRequest.DateAndTimeDesignation__c}" label="日時指定"/>
+        <lightning:input aura:Id="yourAreaPrefecture" type="text" value="{!v.innerCmpNewRequest.YourArea_Prefecture__c}" label="お住まいの地域（都道府県）"/>					
+        <lightning:textarea aura:Id="detailsOfOtherRequests" name="" type="text" value="{!v.innerCmpNewRequest.DetailsOfOtherRequests__c}" label="その他依頼内容詳細" class="customHeight"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（新規）火災保険</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <div class="form-group">
+            <lightning:select aura:Id="compensationItemPicklist" value="{!v.innerCmpNewRequest.CompensationItem__c}" label="補償種目" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.compensationItemPickMap}" var="item" indexVar="key">
+                    <option text="{!item.value}" value="{!item.key}" selected="{!item.key==v.innerCmpNewRequest.CompensationItem__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>	
+        <lightning:input aura:Id="prefectureBuildLocated" type="text" value="{!v.innerCmpNewRequest.PrefectureBuildLocated__c}" label="建物所在の都道府県"/>
+        <div class="form-group">
+            <lightning:select aura:id="usePickList" value="{!v.innerCmpNewRequest.Use__c}" label="用途">
+                <aura:iteration items="{!v.usePickList}" var="pro" >
+                    <option  value="{!pro}"> {!pro} </option>		
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <lightning:input aura:Id="buildingIndustry" type="text" value="{!v.innerCmpNewRequest.PropertyWithStoreInBuildingIndustry__c}" label="建物内にお店のある物件（業種）"/>
+        <div class="form-group">
+            <lightning:select aura:Id="constructionPicklist" value="{!v.innerCmpNewRequest.Construction__c}" label="構造" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.constructionPickMap}" var="con" indexVar="key">
+                    <option text="{!con.value}" value="{!con.key}" selected="{!con.key==v.innerCmpNewRequest.Construction__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <lightning:input aura:Id="constructionDate" type="text" value="{!v.innerCmpNewRequest.ConstructionDate__c}" label="建築年月"/>
+        <lightning:input aura:Id="buildingArea" type="text" value="{!v.innerCmpNewRequest.BuildingArea__c}" label="建物面積"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（新規）傷害保険</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <lightning:input aura:Id="insuredPersonsDateOfBirth" type="text" value="{!v.innerCmpNewRequest.InsuredPersonsDateOfBirth__c}" label="被保険者の生年月日"/>
+        <lightning:input aura:Id="profession" type="text" value="{!v.innerCmpNewRequest.Profession__c}" label="職業"/>
+        <div class="form-group">
+            <lightning:select aura:Id="subscriptionTypePicklist" value="{!v.innerCmpNewRequest.SubscriptionType__c}" label="加入タイプ" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.subscriptionTypePickMap}" var="sub" indexVar="key">
+                    <option text="{!sub.value}" value="{!sub.key}" selected="{!sub.key==v.innerCmpNewRequest.SubscriptionType__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（新規）自動車保険</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <div class="form-group">
+            <lightning:select aura:Id="receptionCategoryCarInsurancePicklist" value="{!v.innerCmpNewRequest.ReceptionCategoryCarInsurance__c}" label="受付区分（自動車保険）" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.receptionCategoryCarInsurancePickMap}" var="rec" indexVar="key">
+                    <option text="{!rec.value}" value="{!rec.key}" selected="{!rec.key==v.innerCmpNewRequest.ReceptionCategoryCarInsurance__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <lightning:input aura:Id="grades" type="text" value="{!v.innerCmpNewRequest.Grades__c}" label="現契約証券記載の等級（受付区分で他社からの切替希望を選択した場合）"/>
+        <lightning:input aura:Id="accidentCoefficientPeriod" type="text" value="{!v.innerCmpNewRequest.AccidentCoefficientPeriod__c}" label="現契約証券記載の事故有係数期間（受付区分で他社からの切替希望を選択した場合）"/>
+        <lightning:input aura:Id="insurancePeriod" type="text" value="{!v.innerCmpNewRequest.InsurancePeriod__c}" label="現契約証券記載の保険期間（受付区分で他社からの切替希望を選択した場合）"/>
+        <div class="form-group">
+            <lightning:select aura:Id="accidentDuringFlgPicklist" value="{!v.innerCmpNewRequest.AccidentDuringFlg__c}" label="現契約保険期間中の事故の有無（受付区分で他社からの切替希望を選択した場合）" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.accidentDuringFlgPickMap}" var="acc" indexVar="key">
+                    <option text="{!acc.value}" value="{!acc.key}" selected="{!acc.key==v.innerCmpNewRequest.AccidentDuringFlg__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <lightning:input aura:Id="mainlyUseCars" type="text" value="{!v.innerCmpNewRequest.MainlyUseCars__c}" label="主にお車を使用される方の年齢"/>
+        <lightning:input aura:Id="youngestDriver" type="text" value="{!v.innerCmpNewRequest.YoungestDriver__c}" label="運転される方で一番若い方の年齢"/>
+        <div class="form-group">
+            <lightning:select aura:Id="targetVehiclePicklist" value="{!v.innerCmpNewRequest.TargetVehicle__c}" label="対象車両" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.targetVehiclePickMap}" var="target" indexVar="key">
+                    <option text="{!target.value}" value="{!target.key}" selected="{!target.key==v.innerCmpNewRequest.TargetVehicle__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+        <div class="form-group">
+            <lightning:select aura:Id="vehicleUsePicklist" value="{!v.innerCmpNewRequest.VehicleUse__c}" label="車両用途" >
+                <option value="">-- None --</option>
+                <aura:iteration items="{!v.vehicleUsePickMap}" var="vehicle" indexVar="key">
+                    <option text="{!vehicle.value}" value="{!vehicle.key}" selected="{!vehicle.key==v.innerCmpNewRequest.VehicleUse__c}"/>
+                </aura:iteration>
+            </lightning:select>
+        </div>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（新規）新種保険</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <lightning:textarea aura:Id="desiredCompensation" name="" type="text" value="{!v.innerCmpNewRequest.DesiredCompensation__c}" label="希望の補償内容（例：賠償、お店の什器など）" class="customHeight"/>
+        <lightning:input aura:Id="industry__c" type="text" value="{!v.innerCmpNewRequest.Industry__c}" label="業種"/>
+        <lightning:input aura:Id="specificWorkContent" type="text" value="{!v.innerCmpNewRequest.SpecificWorkContent__c}" label="具体的な仕事内容（工務店、レストランなど）"/>			
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（継続）</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <lightning:textarea aura:Id="continue" name="" type="text" value="{!v.innerCmpNewRequest.Continue__c}" label="ご希望の継続内容" class="customHeight"/>
+	<div class="slds-p-top_medium"></div>
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">（中途更改）</h3> </div>
+	<div class="slds-p-top_medium"></div>
+        <lightning:textarea aura:Id="renewalRequested" name="" type="text" value="{!v.innerCmpNewRequest.RenewalRequested__c}" label="ご希望の中途更改内容" class="customHeight"/>
+</div>
+</aura:component>

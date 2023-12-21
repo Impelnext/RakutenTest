@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>お手続き書類の送付先住所</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="itemkeyCheckBox" label="チェックボックス項目キー" type="String" description="チェックボックス項目キー" />
+            <property name="itemKeyPostCode" label="郵便番号" type="String" description="郵便番号" />
+            <property name="itemKeyPrefectures" label="都道府県" type="String" description="都道府県" />
+            <property name="itemKeyAddress" label="ご住所" type="String" description="ご住所" />
+            <property name="itemKeyOtherAddress" label="上記以降のご住所" type="String" description="上記以降のご住所" />
+            <property name="itemKeyMoveDay" label="転居日" type="String" description="転居日" />
+            <property name="majorItemName" label="大項目名" type="String" description="大項目名" />
+            <property name="itemName1" label="項目名１" type="String" description="項目名１" />
+            <property name="itemName2" label="項目名２" type="String" description="項目名２" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

@@ -1,0 +1,114 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'DateOfCall__c':'',
+                                                             			'Receptionist__c':'',
+																		'VOCType__c':'',
+																		'ComplaintSummary__c':'',
+																		'ComplaintResult__c':'',
+                                                                        'ClosedDate__c':'',
+                                                                        'ComplaintReason__c':'',
+																		'PreventionOfComplaint__c':'',
+																		'AdditionalReasons__c':'',
+																		'CauseOfCompany__c':'',
+																		'CauseOfDivision__c':'',
+																		'CauseOfDepartment__c':'',
+																		'Originator__c':'',
+																		'ReceptionDepartment__c':'',
+																		'InsuranceCompany__c':'',
+																		}"/>	
+
+																		
+<!--Declare Method-->
+<aura:method name="complaints" action="{!c.saveComplaints}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+<!--Declare Attributes-->	
+<aura:attribute name="vocTypePickMap" type="Map" />
+<aura:attribute name="additionalReasonsPickList" type="List" default="[]" />
+<aura:attribute name="causeOfCompanyPickMap" type="Map"/>	
+<aura:attribute name="causeOfDivisionPickMap" type="Map"/>	
+<aura:attribute name="insuranceCompanyPickMap" type="Map" />
+<aura:attribute name="comDivisionPickMap" type="Map" />
+<aura:attribute name="divSummaryMap" type="Map" />
+<aura:attribute name="complaintSummaryPickMap" type="Map" />
+
+<div class="slds-box slds-theme_default">
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">苦情・要望内容</h3> </div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="slds-p-top_medium"/>
+			<ui:inputDateTime aura:Id="dateOfCall" value="{!v.innerCmpNewRequest.DateOfCall__c}" label="入電日時" displayDatePicker="true"/>
+		</div>
+	    <div class="slds-col slds-size_1-of-2">
+			<div class="slds-p-top_medium"/>
+            <lightning:input aura:Id="receptionist" name="" type="text" value="{!v.innerCmpNewRequest.ReceptionDepartment__c}" label="受付部門"/> 
+		</div>
+	</div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:select aura:id="selectVOCType" name="vocType" label="VOC種別" value="{!v.innerCmpNewRequest.VOCType__c}" onchange="{!c.handleVOCTypePickListChange}">
+			  <option value="">--None--</option>
+			  <aura:iteration items="{!v.vocTypePickMap}" var="voc" indexVar="key">
+				  <option text="{!voc.value}" value="{!voc.key}" selected="{!voc.key==v.innerCmpNewRequest.VOCType__c}" />
+			  </aura:iteration>
+			</lightning:select>
+		</div>	
+		<div class="slds-col slds-size_1-of-2">	
+			<lightning:input aura:Id="receptionist" name="" type="text" value="{!v.innerCmpNewRequest.Receptionist__c}" label="受付者"/>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="slds-p-top_medium"/>
+		<lightning:select aura:id="InsuranceCompanyPicklist" value="{!v.innerCmpNewRequest.InsuranceCompany__c}" onchange="{!c.handleInsuranceCompanyPick}" name="insuranceCompanyPicklist" label="受付会社" >
+			<option value="">--None--</option>
+			<aura:iteration items="{!v.insuranceCompanyPickMap}" var="ins" indexVar="key">
+				<option text="{!ins.value}" value="{!ins.key}" selected="{!ins.key==v.innerCmpNewRequest.InsuranceCompany__c}" />
+			</aura:iteration>
+		</lightning:select>
+		<lightning:select aura:id="causeOfDivisionPicklist" value="{!v.innerCmpNewRequest.CauseOfDivision__c}" onchange="{!c.handleCauseOfDivisionPick}" name="causeOfDivisionPickList" label="起因領域" disabled="true">
+			<option value="">--None--</option>
+			<aura:iteration items="{!v.causeOfDivisionPickMap}" var="caud" indexVar="key">
+				<option text="{!caud.value}" value="{!caud.key}" selected="{!caud.key==v.innerCmpNewRequest.CauseOfDivision__c}" />
+			</aura:iteration>
+		</lightning:select>
+		<lightning:select aura:id="ComplaintSummaryPicklist" value="{!v.innerCmpNewRequest.ComplaintSummary__c}" name="complaintSummaryPickList" label="苦情概要"  disabled="true">
+			<option value="">--None--</option>
+			<aura:iteration items="{!v.complaintSummaryPickMap}" var="csp" indexVar="key">
+				<option text="{!csp.value}" value="{!csp.key}" selected="{!csp.key==v.innerCmpNewRequest.ComplaintSummary__c}" />
+			</aura:iteration>
+		</lightning:select>
+	</div>
+    <lightning:textarea aura:Id="complaintResult" name="" type="text" value="{!v.innerCmpNewRequest.ComplaintResult__c}" label="苦情（対応経緯・結果）" class="customHeight"/>
+	<lightning:textarea aura:Id="complaintReason" name="" type="text" value="{!v.innerCmpNewRequest.ComplaintReason__c}" label="苦情原因" class="customHeight"/>
+    <ui:inputDate aura:Id="closeDate" value="{!v.innerCmpNewRequest.ClosedDate__c}" label="顧客対応完了日" displayDatePicker="true"/>
+	<lightning:textarea aura:Id="preventionOfComplaint" name="" type="text" value="{!v.innerCmpNewRequest.PreventionOfComplaint__c}" label="再発防止" class="customHeight"/>
+	<div class="form-group">
+		<lightning:select aura:id="causeOfCompanyPicklist" value="{!v.innerCmpNewRequest.CauseOfCompany__c}" onchange="{!c.handleCauseOfCompanyPick}" name="causeOfCompanyPicklist" label="起因会社">
+			<option value="">--None--</option>
+			<aura:iteration items="{!v.causeOfCompanyPickMap}" var="cau" indexVar="key">
+				<option text="{!cau.value}" value="{!cau.key}" selected="{!cau.key==v.innerCmpNewRequest.CauseOfCompany__c}" />
+			</aura:iteration>
+		</lightning:select>
+	</div>
+	<div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectAdditionalReasons"
+			name="additionalReasons"
+			label="追加事由"
+			sourceLabel="選択可能"
+			selectedLabel="選択済み"
+			options="{!v.additionalReasonsPickList}"
+			value="{!v.innerCmpNewRequest.AdditionalReasons__c}"
+			onchange="{!c.handleAdditionalReasonsPickListChange}"
+			size="3"/>
+	</div>
+    <div class="slds-grid slds-gutters">
+		<div class="slds-col">
+			<lightning:input aura:Id="causeOfDepartment" name="" type="text" value="{!v.innerCmpNewRequest.CauseOfDepartment__c}" label="起因部署"/> 
+			<lightning:input aura:Id="originator" name="" type="text" value="{!v.innerCmpNewRequest.Originator__c}" label="惹起者"/>
+		</div>
+	</div>
+</div>
+</aura:component>

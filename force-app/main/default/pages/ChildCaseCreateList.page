@@ -1,0 +1,199 @@
+<apex:page standardController="Case" extensions="ChildCaseCreateController" action="{!view}" lightningStylesheets="true">
+    <apex:includeScript value="{!$Resource.jqueryJs}"/>
+    <apex:includeScript value="/support/console/45.0/integration.js"/>
+    <script src="/support/console/42.0/integration.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function(){
+            // ヘッダチェックボックスを格納
+            var checkAll = $('[id$=chkAll]');
+            // 一覧のチェックボックス要素を格納
+            var checkboxs = $('[id$=ContractTable]').find('tbody tr td').find('input:checkbox');
+ 
+
+            // ヘッダチェックボックスchangeイベント
+            checkAll.change(function(){
+                var checked = false;
+
+                // ヘッダチェックボックスのチェック判定
+                if ($(this).is(':checked')) checked = true;
+
+                // 一覧のチェックボックスのチェック切替
+                checkboxs.each(function(i, element) {
+                    element.checked = checked;
+                });
+            });
+
+            // 一覧チェックボックスchangeイベント
+            checkboxs.change(function(){
+                var allChecked = true;
+
+                // 一覧のチェックボックスのチェック判定
+                checkboxs.each(function(i, element) {
+                    // 一覧チェックボックスにチェックがない場合
+                    if(!element.checked) {
+                        allChecked = false;
+                        return false; //break
+                    }
+                });
+                // ヘッダチェックボックス設定（全チェック有でチェック、そうでない場合はチェック外す）
+                checkAll.prop('checked', allChecked);
+            });
+        });
+
+        //引数にタブのタイトルを指定
+        sforce.console.setTabTitle('子ケース作成');
+        //oncomplete
+        function onCompleteSave(){
+            var el = document.getElementById('{!$Component.form.pb.parentCheckId}');
+            var pc = el.value;
+            if(pc == "true"){
+                //主タブIDを取得　引数にはコールバック関数を指定
+                sforce.console.getFocusedPrimaryTabId(refresh);
+            }
+        };
+        
+        //主タブのIDを受け取ってリフレッシュするコールバック関数
+        var refresh = function refresh(result){
+            //主タブをリフレッシュ　引数にはタブID、タブをアクティブにするか、コールバック関数（省略可）を指定
+            sforce.console.refreshPrimaryTabById(result.id, true, refreshSuccess);
+        }
+        
+        //リフレッシュ結果を受け取って処理を分岐するコールバック関数
+        var refreshSuccess = function refreshSuccess(result){
+            //結果を判断
+            if (result.success == true) {
+                //サブタブのIDを取得　引数はコールバック関数
+                sforce.console.getEnclosingTabId(closeTab);
+            } else {
+                console.log('リフレッシュ失敗');
+            }
+        }
+        
+        //サブタブのIDを受け取ってサブタブを閉じるコールバック関数
+        var closeTab = function closeTab(result){
+            //タブを閉じる　引数はタブのID
+            sforce.console.closeTab(result.id);
+        }
+
+
+        function linkToBack(recordId) {
+            if (typeof sforce !== 'undefined' && sforce.one) {
+                sforce.one.back(true);
+            } else {
+                location.href = '/' + recordId;
+            }
+        }
+        
+        function disableDoubleClick(btn){
+            setTimeout(function(){
+                btn.disabled = "disabled";
+                btn.class = "btnDisabled";
+            },1);
+       　}
+    </script>
+    <apex:form id="form">
+        <script type="text/javascript">
+            function confirmDisplay() {
+                return confirm('子ケースを作成します。よろしいですか。');
+            }
+        </script>
+        <apex:actionFunction name="acfPickListChange" reRender="result" />
+        <apex:sectionHeader title="子ケース作成対象一覧" />
+        <apex:pageMessages id="messagearea" showDetail="false" />
+        <apex:outputpanel >
+            <apex:pageBlock title="" rendered="{!(dtos.size == 0)}">対象契約情報はありません。</apex:pageBlock>
+            <apex:pageBlock id="pb" title="{!Status}" rendered="{!(dtos.size > 0)}">
+                <apex:outputLabel value="対応区分"/>
+                <apex:selectList value="{!objectInstance.class__c}" size="1" onChange="{acfPickListChange()}">
+                    <apex:selectOptions value="{!CtrlPickListOptions}"/>
+                </apex:selectList>
+                <apex:outputLabel value="　対応種別"/>
+                <apex:selectList value="{!objectInstance.type__c}" size="1" id="result">
+                    <apex:selectOptions value="{!DependentPickListOptions}"/>
+                </apex:selectList>
+                <apex:outputLabel value="　キュー名"/>
+                <apex:selectList value="{!queueId}" size="1">
+                    <apex:selectOptions value="{!QueueListOptions}"/>
+                </apex:selectList>
+                <br/>
+                <div>
+                <apex:pageblockTable id="ContractTable" value="{!dtos}" var="d">
+                  <apex:column id="header" width="32px">
+                        <apex:facet name="header"><input type="checkbox" id="chkAll"/></apex:facet>
+                        <apex:inputCheckbox id="checkbox" value="{!d.checked}"/>
+                  </apex:column>
+                  <apex:column width="80px">
+                        <apex:facet name="header"><apex:outputText value="保険区分"  /></apex:facet>
+                        <apex:outputText value="{!d.insuranceCategory}"/>
+                  </apex:column>
+                  <apex:column width="80px">
+                        <apex:facet name="header"><apex:outputText value="NG代理店"  /></apex:facet>
+                        <apex:outputPanel rendered="{!d.isNGAgency}">
+                            <div style="background:red;color:white;text-align:center;font-weight:bold">NG</div>
+                        </apex:outputPanel>
+                  </apex:column>
+                  <apex:column width="100px">
+                      <apex:facet name="header"><apex:outputText value="契約ステータス"  /></apex:facet>
+                      <apex:outputText value="{!d.contractStatus}" />
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="証券番号/会員番号"  /></apex:facet>
+                      <apex:outputText value="{!d.policyNumber}" />
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="商品名"  /></apex:facet>
+                      <apex:outputText value="{!d.productName}" />
+                  </apex:column>
+                  <apex:column width="180px">
+                      <apex:facet name="header"><apex:outputText value="契約者"  /></apex:facet>
+                      <apex:outputLink value="/{!d.contractId}"><apex:outputText value="{!d.controrName}" /></apex:outputLink>
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="保険期間" /></apex:facet>
+                      <apex:outputText value="{!d.insurancePeriod}" />
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="契約開始日" /></apex:facet>
+                      <apex:outputText value="{0, date, yyyy/MM/dd}" >
+                        <apex:param value="{!d.contractStartDate + timezoneoffset}" />
+                      </apex:outputText>
+                  </apex:column>
+                  <apex:column width="180px">
+                      <apex:facet name="header"><apex:outputText value="被保険者" /></apex:facet>
+                      <apex:outputText value="{!d.insured}" />
+                  </apex:column>
+                  <apex:column width="180px">
+                    <apex:facet name="header"><apex:outputText value="被保険体（ペット名）" /></apex:facet>
+                      <apex:outputText value="{!d.insuredBody}" />
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="車両ナンバー" /></apex:facet>
+                      <apex:outputText value="{!d.carNo}" />
+                  </apex:column>
+                  <apex:column width="240px">
+                      <apex:facet name="header"><apex:outputText value="対象所在地" /></apex:facet>
+                      <apex:outputText value="{!d.subjectArea}" />
+                  </apex:column>
+                  <apex:column width="120px">
+                      <apex:facet name="header"><apex:outputText value="電話番号" /></apex:facet>
+                      <apex:outputText value="{!d.phone}" />
+                  </apex:column>
+                  <apex:column width="80px">
+                      <apex:facet name="header"><apex:outputText value="保険金額" /></apex:facet>
+                      <apex:outputText value="{!d.insuranceAmount}" />
+                  </apex:column>
+                  <apex:column width="80px">
+                      <apex:facet name="header"><apex:outputText value="保険料" /></apex:facet>
+                      <apex:outputText value="{!d.insuranceFee}" />
+                  </apex:column>
+                </apex:pageblockTable>
+                </div>
+                <apex:pageBlockButtons >
+                    <apex:commandButton id="btnCreateChild" value="子ケース作成" action="{!execute}" oncomplete="return onCompleteSave();" rerender="form"
+                                        onclick="disableDoubleClick(this)"/>
+                </apex:pageBlockButtons>
+                <apex:inputHidden id="parentCheckId" value="{!parentCheck}"/>
+            </apex:pageBlock>
+        </apex:outputpanel>
+    </apex:form>
+</apex:page>

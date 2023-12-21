@@ -1,0 +1,31 @@
+<template>
+    <lightning-spinner alternative-text="Loading" size="large" if:true={isLoading}></lightning-spinner>
+
+    <template if:true={confirmPhase}>
+        <div class="border"></div>
+        <div class="p-form_btn">
+            <input type="button" value={labelModifyButton} class="c-btn_outline _gray" onclick={clickModify}>
+        </div>
+
+        <div class="p-form_add l-inner_s c-box_info _orange">
+            <div class="caution">
+                <img src={cautionIcon} alt="caution">
+                <div class="caution_text">
+                    ＜入力内容の確認＞<br>
+                    上記のご入力内容にお間違いがなければ、「{labelRegistButton}」をご選択ください。<br>
+                    ※「{labelRegistButton}」をご選択いただくと受付が完了し、「受付のお知らせ」メールを送信いたします。<br>
+                    ※ドメイン指定受信設定や受信拒否設定などをご利用中のお客様には、当社からの「受付のお知らせ」メールを受信できない場合がございます。
+                </div>
+            </div>
+        </div>
+
+        <div class="p-form_btn phone_number mb40">
+            <input type="submit" class="c-btn_submit" value={labelRegistButton} onclick={clickRegist}>
+        </div>
+    </template>
+
+    <div>
+        <input type="hidden" id="CompanyName" data-id="CompanyName" value={companyName}/>
+    </div>
+  
+</template>

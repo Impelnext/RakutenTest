@@ -1,0 +1,142 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+																		'ReasonForProposal__c':'',
+																		'ContinuationProposal__c':'',
+																		'ContinuationProposalComments__c':'',
+																		'ProposalContent__c':'',
+																		'OfferContentComments__c':'',
+																		'CancellationReason__c':'',
+																		'ReasonForCancellationComment__c':'',
+																		'ContentsOfGuidance__c':'',
+																		'RetentionSuccess__c':'',
+																		'Comment2__c':'',
+																		'ChangePlan__c':'',
+																		'RetentionFailure__c':'',
+																		'RetentionFailureComment__c':'',
+																		}"/>
+<!--Declare Method-->
+<aura:method name="inlineRetentionShort" action="{!c.saveRequestInlineRetentionShort}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+    
+<aura:attribute name="dependantSubject" type="String" access="public" />    
+<aura:attribute name="subDepContentsOfGuidanceFieldMap" type="map" default="{}"/> 
+<aura:attribute name="contentsOfGuidancePicklist" type="list" default="['--- None ---']"/>
+  
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+    
+<!--Declare Attributes-->	
+            <!--Multipicklist Attributes-->	
+<aura:attribute name="proposalContentPicklist" type="List" default="[]" />
+<aura:attribute name="changePlanPicklist" type="List" default="[]" />
+<aura:attribute name="retentionFailurePicklist" type="List" default="[]" />
+              <!--picklist Attributes-->	
+<aura:attribute name="reasonForProposalPickMap" type="Map"/>
+<aura:attribute name="reasonForProposalPicklist" type="list" default="['--- None ---']"/>
+<aura:attribute name="continuationProposalPickMap" type="Map"/>
+<aura:attribute name="continuationProposalPickList" type="list" default="['--- None ---']"/>
+<aura:attribute name="retentionSuccessPickMap" type="Map"/>
+
+
+    <div class="slds-box slds-theme_default">	
+	<div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">リテンション</h3> </div>
+    <div class="slds-p-top_medium"></div>
+	 <div class="slds-grid slds-gutters">
+	 <div class="slds-col slds-size_1-of-2">
+		<div class="form-group">
+			<lightning:select aura:id="reasonForProposalPicklist" value="{!v.innerCmpNewRequest.ReasonForProposal__c}"  name="reasonForProposalPicklist" label="申出理由" >
+				<aura:iteration items="{!v.reasonForProposalPicklist}" var="val" indexVar="key">
+					<option value="{!val}">{!val}</option>
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="form-group">
+			<lightning:select aura:id="continuationProposalPickList" value="{!v.innerCmpNewRequest.ContinuationProposal__c}"  name="continuationProposalPicklist" label="継続提案" >
+				<aura:iteration items="{!v.continuationProposalPickList}" var="con" indexVar="key">
+					<option value="{!con}">{!con}</option>
+				</aura:iteration>
+			</lightning:select>
+		</div>
+	</div>
+	<div class="slds-col">
+	</div>
+</div>	
+<lightning:textarea aura:Id="continuationProposalComments" name="" type="text" value="{!v.innerCmpNewRequest.ContinuationProposalComments__c}" label="継続提案コメント"/>
+<div class="slds-grid slds-gutters">
+	<div class="slds-col slds-size_1-of-2">
+		<div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectProposalContent"
+			name="proposalContent"
+			label="申出内容"
+			sourceLabel="選択可能"
+			selectedLabel="選択済み"
+            size='3'
+			options="{!v.proposalContentPicklist}"
+			value="{!v.innerCmpNewRequest.ProposalContent__c}"/>
+	    </div>
+	</div>
+	<div class="slds-col">
+	</div>
+</div>
+<lightning:textarea aura:Id="offerContentComments" name="" type="text" value="{!v.innerCmpNewRequest.OfferContentComments__c}" label="申出内容コメント" />
+<div class="slds-grid slds-gutters">
+	<div class="slds-col slds-size_1-of-2">
+		<lightning:input aura:Id="cancellationReason" name="" type="text" value="{!v.innerCmpNewRequest.CancellationReason__c}" label="解約理由"/> 
+	</div>
+	<div class="slds-col">
+	</div>
+</div>
+<lightning:textarea aura:Id="reasonForCancellationComment" name="" type="text" value="{!v.innerCmpNewRequest.ReasonForCancellationComment__c}" label="解約理由コメント"/>
+<div class="slds-grid slds-gutters">
+	<div class="slds-col slds-size_1-of-2">
+	  <lightning:select aura:id="contentsOfGuidancePickMap" value="{!v.innerCmpNewRequest.ContentsOfGuidance__c}"  name="contentsOfGuidancePicklist" label="案内内容" >
+          <aura:iteration items="{!v.contentsOfGuidancePicklist}" var="sim" indexVar="key">
+              <option value="{!sim}">{!sim}</option>	
+          </aura:iteration>
+	  </lightning:select>
+	  <lightning:select aura:id="retentionSuccessPicklist" value="{!v.innerCmpNewRequest.RetentionSuccess__c}"  name="retentionSuccessPicklist" label="リテンション成功" >
+		<option value="">-- None --</option>
+		<aura:iteration items="{!v.retentionSuccessPickMap}" var="rss" indexVar="key">
+			<option text="{!rss.value}" value="{!rss.key}" selected="{!rss.key==v.innerCmpNewRequest.RetentionSuccess__c}" />
+		</aura:iteration>
+	  </lightning:select>
+	</div>
+	<div class="slds-col">
+	</div>
+</div>
+<lightning:textarea aura:Id="comment2" name="" type="text" value="{!v.innerCmpNewRequest.Comment2__c}" label="コメント"/>
+<div class="slds-grid slds-gutters">
+	<div class="slds-col slds-size_1-of-2">
+	  <div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectChangePlan"
+			name="ChangePlan"
+			label="変更プラン"
+			sourceLabel="選択可能"
+			selectedLabel="選択済み"
+            size='3'                                   
+			options="{!v.changePlanPicklist }"
+			value="{!v.innerCmpNewRequest.ChangePlan__c}"/>
+	   </div>
+	   <div class="slds-m-around_xx-large, slds-align_absolute-left">
+			<lightning:dualListbox aura:id="selectRetentionFailure"
+			name="RetentionFailure"
+			label="リテンション失敗"
+			sourceLabel="選択可能"
+            size='3'                       
+			selectedLabel="選択済み"
+			options="{!v.retentionFailurePicklist }"
+			value="{!v.innerCmpNewRequest.RetentionFailure__c}"/>
+	   </div>
+	</div>
+	<div class="slds-col">
+        <div class="slds-p-top--xx-large"></div>
+        <div class="slds-p-top--xx-large"></div>
+        <div class="slds-p-top--xx-large"></div>
+        <div class="slds-p-top--large"></div>
+	   <lightning:input aura:Id="retentionFailureComment" name="" type="text" value="{!v.innerCmpNewRequest.RetentionFailureComment__c}" label="リテンション失敗コメント"/> 
+	</div>
+  </div>
+</div>
+</aura:component>

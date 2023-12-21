@@ -1,0 +1,1066 @@
+<!--
+  @File Name          : RequestInlineChangedesignatedagentCmp.cmp
+  @Description        : 
+  @Author             : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Group              : 
+  @Last Modified By   : ChangeMeIn@UserSettingsUnder.SFDoc
+  @Last Modified On   : 12/19/2019, 6:45:44 PM
+  @Modification Log   : 
+  Ver       Date            Author      		    Modification
+  1.0    12/19/2019   ChangeMeIn@UserSettingsUnder.SFDoc     Initial Version
+-->
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'ProcedureType1__c':'',
+																		'PolicyNumber1__c':'',
+                                                             			'ChangeDetails1__c':'',
+																		'ProcedureType2__c':'',
+																		'PolicyNumber2__c':'',
+                                                                        'ChangeDetails2__c':'',
+																		'ProcedureType3__c':'',
+                                                                        'PolicyNumber3__c':'',
+																		'ChangeDetails3__c':'',
+																		'ProcedureType4__c':'',
+																		'ProcedureType4__c':'',
+                                                             			'PolicyNumber4__c':'',
+																		'ChangeDetails4__c':'',
+																		'ProcedureType5__c':'',
+                                                                        'PolicyNumber5__c':'',
+                                                                        'ChangeDetails5__c':'',
+																		'ProcedureType6__c':'',
+																		'PolicyNumber6__c':'',
+                                                             			'ChangeDetails6__c':'',
+																		'ProcedureType7__c':'',
+																		'PolicyNumber7__c':'',
+                                                                        'ChangeDetails7__c':'',
+																		'ProcedureType8__c':'',
+                                                                        'PolicyNumber8__c':'',
+																		'ChangeDetails8__c':'',
+																		'ProcedureType9__c':'',
+                                                             			'PolicyNumber9__c':'',
+																		'ChangeDetails9__c':'',
+																		'ProcedureType10__c':'',
+                                                                        'PolicyNumber10__c':'',
+                                                                        'ChangeDetails10__c':'',
+																		'Processing__c':'',
+                                                             			'ShippingDocuments__c':'',
+																		'NumberOfCopies__c':'',
+                                                                        'DateOfShipment__c':'',
+                                                                        'ShippingMethod__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineRequestChangedesignatedagent" action="{!c.saveInlineRequestChangedesignatedagent}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+<aura:registerEvent name="ReqStopSaveComponentEvent" type="c:ComponentReqStopSaveEvent"/>
+    
+<aura:attribute name="dependantSubject" type="String" access="public" />
+
+<!--Declare Event Handlers-->
+<aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    
+<!--Declare Attributes-->
+  <!--ChangeDetails1 attributes-->   
+<aura:attribute name="newDesignatedAgentNamekana1" type="String"  default=""  />
+<aura:attribute name="newDesignatedAgentNamekanji1" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured1" type="String"  default=""/>
+<aura:attribute name="otherDetails1" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob1" type="String" default=""/>
+   <!--ChangeDetails2 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana2" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji2" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured2" type="String"  default=""/>
+<aura:attribute name="otherDetails2" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob2" type="String" default=""/>
+  <!--ChangeDetails3 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana3" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji3" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured3" type="String"  default=""/>
+<aura:attribute name="otherDetails3" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob3" type="String" default=""/>
+  <!--ChangeDetails4 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana4" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji4" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured4" type="String"  default=""/>
+<aura:attribute name="otherDetails4" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob4" type="String" default=""/>
+  <!--ChangeDetails5 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana5" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji5" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured5" type="String"  default=""/>
+<aura:attribute name="otherDetails5" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob5" type="String" default=""/>
+  <!--ChangeDetails6 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana6" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji6" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured6" type="String"  default=""/>
+<aura:attribute name="otherDetails6" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob6" type="String" default=""/>
+  <!--ChangeDetails7 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana7" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji7" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured7" type="String"  default=""/>
+<aura:attribute name="otherDetails7" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob7" type="String" default=""/>
+  <!--ChangeDetails8 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana8" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji8" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured8" type="String"  default=""/>
+<aura:attribute name="otherDetails8" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob8" type="String" default=""/>
+  <!--ChangeDetails9 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana9" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji9" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured9" type="String"  default=""/>
+<aura:attribute name="otherDetails9" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob9" type="String" default=""/>
+  <!--ChangeDetails10 attributes-->  
+<aura:attribute name="newDesignatedAgentNamekana10" type="String"  default=""/>
+<aura:attribute name="newDesignatedAgentNamekanji10" type="String"  default=""/>
+<aura:attribute name="relationshipWithInsured10" type="String"  default=""/>
+<aura:attribute name="otherDetails10" type="String"  default=""/>
+<aura:attribute name="newDesignatedDob10" type="String" default=""/>
+  <!--Picklist attributes-->
+<aura:attribute name="processingPickMap" type="Map"/>
+<aura:attribute name="processingPicklist" type="List" default="手動"/> 
+<aura:attribute name="shippingDocumentsPickMap" type="Map"/>
+<aura:attribute name="shippingDocumentsPickList" type="List" default="['--- None ---']"/>    
+<aura:attribute name="dateOfShipmentPickMap" type="Map"/>
+<aura:attribute name="shippingMethodPickMap" type="Map"/>
+<aura:attribute name="procedureType1PickList" type="list"/>
+<aura:attribute name="procedureType2PickList" type="list"/>
+<aura:attribute name="procedureType3PickList" type="list"/>
+<aura:attribute name="procedureType4PickList" type="list"/>
+<aura:attribute name="procedureType5PickList" type="list"/>
+<aura:attribute name="procedureType6PickList" type="list"/>
+<aura:attribute name="procedureType7PickList" type="list"/>
+<aura:attribute name="procedureType8PickList" type="list"/>
+<aura:attribute name="procedureType9PickList" type="list"/>
+<aura:attribute name="procedureType10PickList" type="list"/>
+<aura:attribute name="procedureType1PickMap" type="Map"/>
+<aura:attribute name="procedureType2PickMap" type="Map"/>
+<aura:attribute name="procedureType3PickMap" type="Map"/>
+<aura:attribute name="procedureType4PickMap" type="Map"/>
+<aura:attribute name="procedureType5PickMap" type="Map"/>
+<aura:attribute name="procedureType6PickMap" type="Map"/>
+<aura:attribute name="procedureType7PickMap" type="Map"/>
+<aura:attribute name="procedureType8PickMap" type="Map"/>
+<aura:attribute name="procedureType9PickMap" type="Map"/>
+<aura:attribute name="procedureType10PickMap" type="Map"/>
+             <!--Errormessages attributes-->
+
+<aura:attribute name="DesignatedAgentNamekana1" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekana2" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekana3" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekana4" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekana5" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekana6" type="boolean" default="false"/>  
+<aura:attribute name="DesignatedAgentNamekana7" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekana8" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekana9" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekana10" type="boolean" default="false"/>
+
+<aura:attribute name="DesignatedAgentNamekanji1" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekanji2" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekanji3" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekanji4" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekanji5" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekanji6" type="boolean" default="false"/>  
+<aura:attribute name="DesignatedAgentNamekanji7" type="boolean" default="false"/>
+<aura:attribute name="DesignatedAgentNamekanji8" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekanji9" type="boolean" default="false"/> 
+<aura:attribute name="DesignatedAgentNamekanji10" type="boolean" default="false"/> 
+    
+<aura:attribute name="DesignatedDob1" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob2" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob3" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob4" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob5" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob6" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob7" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob8" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob9" type="boolean" default="false"/>
+<aura:attribute name="DesignatedDob10" type="boolean" default="false"/>
+
+<aura:attribute name="RelationshipInsureValidate1" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate2" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate3" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate4" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate5" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate6" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate7" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate8" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate9" type="boolean" default="false"/> 
+<aura:attribute name="RelationshipInsureValidate10" type="boolean" default="false"/> 
+
+<aura:attribute name="PolicyNumberValidate1" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate2" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate3" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate4" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate5" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate6" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate7" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate8" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate9" type="boolean" default="false"/> 
+<aura:attribute name="PolicyNumberValidate10" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_POLICYNO_SECTION_INPUT" type="String"  default="証券番号を入力したセクションの全ての項目を入力してください。"/>
+<aura:attribute name="ERR_MSG_RECEPIENTDATE_SECTION_INPUT" type="String"  default="半角数字8桁で入力してください。"/>
+
+<aura:attribute name="numberOfCopies" type="Integer"/>
+<aura:attribute name="noOfCopiesErr" type="boolean" default="false"/>
+
+<aura:attribute name="ERR_MSG_NOOFCOPIES_SECTION_INPUT" type="String"  default="部数は半角数字で入力してください"/>
+
+<div class="slds-box slds-theme_default">
+		
+		<div class="slds-text-align--left">
+			<h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;color:whitesmoke">
+				<div class="slds-grid" style="text-align:left;">
+					<div class="slds-col" style="width:15%;font-weight:bold;"> 指定代理人変更① </div>
+					<div class="slds-col" style="width:85%">【新指代人かつ被保険者単位】</div>
+				</div>
+			</h3>
+		</div> 
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+		<div class="form-group"  >
+			<lightning:select   aura:id="procedureType1PickList" value="{!v.innerCmpNewRequest.ProcedureType1__c}"  name="ProcedureType1PickList" label="手続き種別①"  >
+			<aura:iteration items="{!v.procedureType1PickList}" var="pt1" indexVar="key">
+			<option value="{!pt1}">{!pt1}</option>
+			</aura:iteration>
+			</lightning:select>
+		</div>	
+		</div>
+		<div class="slds-col">
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-p-top_xx-large"></div>
+		</div>
+		</div>   
+		<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">  
+			<lightning:input  aura:Id="policyNumber1" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber1__c}" label="証券番号①　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+		</div>
+		<div class="slds-col">
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-p-top_xx-large"></div>
+		</div>
+		</div>  
+		<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">  	
+			<lightning:input   aura:Id="newDesignatedAgentNamekana1" name="newDesignatedAgentNamekana1" type="text" value="{!v.newDesignatedAgentNamekana1}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKana1}" />
+			<aura:if isTrue="{!v.DesignatedAgentNamekana1}">
+			<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+			<h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+			</div>
+			</aura:if>
+		</div>
+		<div class="slds-col">
+			<lightning:input   aura:Id="newDesignatedAgentNamekanji1" name="newDesignatedAgentNamekanji1" type="text" value="{!v.newDesignatedAgentNamekanji1}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji1}" />         
+			<aura:if isTrue="{!v.DesignatedAgentNamekanji1}">
+			<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+			<h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+			</div>
+			</aura:if>
+		</div>
+		</div>		
+		<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:select   aura:id="relationshipWithInsured1"  name="relationshipWithInsured1" label="被保険者との続柄"  onchange="{!c.handleRelationshipInsured1 }" >
+			<option value="">-- None --</option>
+			<option value="配偶者">配偶者</option>
+			<option value="子供">子供</option>
+			<option value="親">親</option>
+			<option value="その他親族">その他親族</option>
+			</lightning:select>
+			  <aura:if isTrue="{!v.RelationshipInsureValidate1}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+                  </div>
+			</aura:if>
+		</div>
+		<div  class="slds-col">
+			<lightning:select   aura:id="otherDetails1" name="otherDetails1" label="その他詳細" onchange="{!c.handleOtherDetails1 }"  disabled="true">
+			<option value="">-- None --</option>
+			<option value="姉">姉</option>
+			<option value="兄">兄</option>
+			<option value="妹">妹</option>
+			<option value="弟">弟</option>
+			<option value="祖父">祖父</option>
+			<option value="祖母">祖母</option>
+			<option value="孫">孫</option>
+			<option value="叔父">叔父</option>
+			<option value="叔母">叔母</option>
+			<option value="姪">姪</option>
+			<option value="甥">甥</option>
+			<option value="指定範囲外">指定範囲外</option>
+			</lightning:select>
+		</div>
+		</div>
+		<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<lightning:input   aura:Id="newDesignatedDob1" name="newDesignatedDob1"  value="{!v.newDesignatedDob1}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob1}" />
+			<aura:if isTrue="{!v.DesignatedDob1}">
+			<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+			<h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+			</div>
+			</aura:if>
+		</div>
+		<div class="slds-col">
+		<div class="slds-p-top_medium"></div>
+		<div class="slds-p-top_xx-large"></div>
+		</div>
+		</div>  
+		 <div class="slds-p-top_medium"></div>
+	     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更②</h3> </div>
+	     <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">		 
+		 <div class="form-group">
+                <lightning:select   aura:id="procedureType2PickList" value="{!v.innerCmpNewRequest.ProcedureType2__c}"  name="ProcedureType2PickList" label="手続き種別②" >
+                    <aura:iteration items="{!v.procedureType2PickList}" var="pt2" indexVar="key">
+                        <option value="{!pt2}">{!pt2}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>	
+		<div>
+            <lightning:input   aura:Id="policyNumber2" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber2__c}" label="証券番号②　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+        
+		<div>	 
+            <!-- <lightning:textarea aura:Id="ChangeDetails2" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails2__c}" label="変更詳細②" class="customHeight"/>  -->
+			 <lightning:input   aura:Id="newDesignatedAgentNamekana2" name="newDesignatedAgentNamekana2" type="text" value="{!v.newDesignatedAgentNamekana2}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana2}"/>			 
+            <aura:if isTrue="{!v.DesignatedAgentNamekana2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                </div>
+            </aura:if> 
+            <lightning:select   aura:id="relationshipWithInsured2"  name="relationshipWithInsured2" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured2 }" >
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			 <aura:if isTrue="{!v.RelationshipInsureValidate2}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+                  </div>
+			</aura:if>
+			 <lightning:input  aura:Id="newDesignatedDob2" name="newDesignatedDob2"  value="{!v.newDesignatedDob2}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob2}" />
+            <aura:if isTrue="{!v.DesignatedDob2}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+             </div>
+		</div>
+		<div class="slds-col">
+		<div>
+             <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		      <lightning:input   aura:Id="newDesignatedAgentNamekanji2" name="newDesignatedAgentNamekanji2" type="text" value="{!v.newDesignatedAgentNamekanji2}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji2}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekanji2}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+              <lightning:select  aura:id="otherDetails2" name="otherDetails2" label="その他詳細" onchange="{!c.handleOtherDetails2 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更③</h3> </div>
+	     <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">		
+		 <div class="form-group">
+                <lightning:select   aura:id="ProcedureType3PickList" value="{!v.innerCmpNewRequest.ProcedureType3__c}"  name="ProcedureType3PickList" label="手続き種別③" >
+                    <aura:iteration items="{!v.procedureType3PickList}" var="pt3" indexVar="key">
+                        <option value="{!pt3}">{!pt3}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div>
+            <lightning:input   aura:Id="policyNumber3" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber3__c}" label="証券番号③　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate3}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>     
+		<div>	 
+           <!-- <lightning:textarea aura:Id="ChangeDetails3" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails3__c}" label="変更詳細③" class="customHeight"/>  -->
+		    <lightning:input  aura:Id="newDesignatedAgentNamekana3" name="newDesignatedAgentNamekana3" type="text" value="{!v.newDesignatedAgentNamekana3}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKana3}"/>
+            <aura:if isTrue="{!v.DesignatedAgentNamekana3}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                </div>
+            </aura:if>
+				 <lightning:select   aura:id="relationshipWithInsured3"  name="relationshipWithInsured3" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured3 }">
+						<option value="">-- None --</option>
+						<option value="配偶者">配偶者</option>
+						<option value="子供">子供</option>
+						<option value="親">親</option>
+						<option value="その他親族">その他親族</option>
+				 </lightning:select>
+				<aura:if isTrue="{!v.RelationshipInsureValidate3}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+				</aura:if>
+				 <lightning:input   aura:Id="newDesignatedDob3" name="newDesignatedDob3"  value="{!v.newDesignatedDob3}" label="新指定代理生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleDesignatedDob3}"/>
+                <aura:if isTrue="{!v.DesignatedDob3}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+		<div class="slds-col">
+		<div>
+                 <div class="slds-p-bottom--xx-large"></div>
+                 <div class="slds-p-bottom--x-large"></div>
+                 <div class="slds-p-bottom--x-large"></div>
+		         <lightning:input   aura:Id="newDesignatedAgentNamekanji3" name="newDesignatedAgentNamekanji3" type="text" value="{!v.newDesignatedAgentNamekanji3}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKanji3}"/>
+                    <aura:if isTrue="{!v.DesignatedAgentNamekanji3}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                        </div>
+                    </aura:if> 
+                 <lightning:select   aura:id="otherDetails3" name="otherDetails3" label="その他詳細" onchange="{!c.handleOtherDetails3 }" disabled="true">
+						<option value="">-- None --</option>
+						<option value="姉">姉</option>
+						<option value="兄">兄</option>
+						<option value="妹">妹</option>
+						<option value="弟">弟</option>
+						<option value="祖父">祖父</option>
+						<option value="祖母">祖母</option>
+						<option value="孫">孫</option>
+						<option value="叔父">叔父</option>
+						<option value="叔母">叔母</option>
+						<option value="姪">姪</option>
+						<option value="甥">甥</option>
+						<option value="指定範囲外">指定範囲外</option>
+				 </lightning:select>
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更④</h3> </div>
+	    <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">	
+		<div class="form-group">
+
+                <lightning:select   aura:id="ProcedureType4PickList" value="{!v.innerCmpNewRequest.ProcedureType4__c}"  name="ProcedureType4PickList" label="手続き種別④" >
+                    <aura:iteration items="{!v.procedureType4PickList}" var="pt4" indexVar="key">
+                        <option value="{!pt4}">{!pt4}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>	
+		<div >
+            <lightning:input   aura:Id="policyNumber4" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber4__c}" label="証券番号④　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate4}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+        
+		<div>	 
+            <!-- <lightning:textarea aura:Id="ChangeDetails4" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails4__c}" label="変更詳細④" class="customHeight"/>  -->
+             <lightning:input   aura:Id="newDesignatedAgentNamekana4" name="newDesignatedAgentNamekana4" type="text" value="{!v.newDesignatedAgentNamekana4}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana4}"/>
+            <aura:if isTrue="{!v.DesignatedAgentNamekana4}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                </div>
+            </aura:if>
+             <lightning:select   aura:id="relationshipWithInsured4"  name="relationshipWithInsured4" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured4 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			<aura:if isTrue="{!v.RelationshipInsureValidate4}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+			</aura:if>
+			 <lightning:input  aura:Id="newDesignatedDob4" name="newDesignatedDob4"  value="{!v.newDesignatedDob4}" label="新指定代理生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleDesignatedDob4}"/>
+                <aura:if isTrue="{!v.DesignatedDob4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+		
+        <div  class="slds-col">		
+        <div>
+              <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		     <lightning:input   aura:Id="newDesignatedAgentNamekanji4" name="newDesignatedAgentNamekanji4" type="text" value="{!v.newDesignatedAgentNamekanji4}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji4}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekanji4}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+             <lightning:select   aura:id="otherDetails4" name="otherDetails4" label="その他詳細" onchange="{!c.handleOtherDetails4 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>		
+		</div>
+		</div>
+		</div>
+        <div class="slds-p-top_medium"></div>		
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑤</h3> </div>
+	    <div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">	
+		<div class="form-group">
+                <lightning:select   aura:id="ProcedureType5PickList" value="{!v.innerCmpNewRequest.ProcedureType5__c}"  name="ProcedureType5PickList" label="手続き種別⑤" >
+                    <aura:iteration items="{!v.procedureType5PickList}" var="pt5" indexVar="key">
+                        <option value="{!pt5}">{!pt5}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input   aura:Id="policyNumber5" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber5__c}" label="証券番号⑤　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate5}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+      
+		<div>	 
+         <!-- <lightning:textarea aura:Id="ChangeDetails5" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails5__c}" label="変更詳細⑤" class="customHeight"/>  -->
+		         <lightning:input   aura:Id="newDesignatedAgentNamekana5" name="newDesignatedAgentNamekana5" type="text" value="{!v.newDesignatedAgentNamekana5}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana5}"/>				 
+                    <aura:if isTrue="{!v.DesignatedAgentNamekana5}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                        </div>
+                    </aura:if>
+                 <lightning:select   aura:id="relationshipWithInsured5"  name="relationshipWithInsured5" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured5 }">
+						<option value="">-- None --</option>
+						<option value="配偶者">配偶者</option>
+						<option value="子供">子供</option>
+						<option value="親">親</option>
+						<option value="その他親族">その他親族</option>
+				 </lightning:select>
+				 <aura:if isTrue="{!v.RelationshipInsureValidate5}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+				</aura:if>
+				 <lightning:input   aura:Id="newDesignatedDob5" name="newDesignatedDob5"  value="{!v.newDesignatedDob5}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob5}"/>
+                    <aura:if isTrue="{!v.DesignatedDob5}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                        </div>
+                    </aura:if>
+             </div>
+		</div>		
+		<div class="slds-col">
+		<div>
+             <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		          <lightning:input   aura:Id="newDesignatedAgentNamekanji5" name="newDesignatedAgentNamekanji5" type="text" value="{!v.newDesignatedAgentNamekanji5}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji5}"/>
+                    <aura:if isTrue="{!v.DesignatedAgentNamekanji5}">
+                        <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                            <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                        </div>
+                    </aura:if>
+                  <lightning:select   aura:id="otherDetails5" name="otherDetails5" label="その他詳細" onchange="{!c.handleOtherDetails5 }" disabled="true">
+						<option value="">-- None --</option>
+						<option value="姉">姉</option>
+						<option value="兄">兄</option>
+						<option value="妹">妹</option>
+						<option value="弟">弟</option>
+						<option value="祖父">祖父</option>
+						<option value="祖母">祖母</option>
+						<option value="孫">孫</option>
+						<option value="叔父">叔父</option>
+						<option value="叔母">叔母</option>
+						<option value="姪">姪</option>
+						<option value="甥">甥</option>
+						<option value="指定範囲外">指定範囲外</option>
+				 </lightning:select>
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+        <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑥</h3> </div>
+		<div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">	
+		<div class="form-group">
+                <lightning:select  aura:id="ProcedureType6PickList" value="{!v.innerCmpNewRequest.ProcedureType6__c}"  name="ProcedureType6PickList" label="手続き種別⑥" >
+                    <aura:iteration items="{!v.procedureType6PickList}" var="pt6" indexVar="key">
+                        <option value="{!pt6}">{!pt6}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input  aura:Id="policyNumber6" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber6__c}" label="証券番号⑥　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate6}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+       
+		<div>	 
+             <!-- <lightning:textarea aura:Id="ChangeDetails6" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails6__c}" label="変更詳細⑥" class="customHeight"/>  -->
+             <lightning:input  aura:Id="newDesignatedAgentNamekana6" name="newDesignatedAgentNamekana6" type="text" value="{!v.newDesignatedAgentNamekana6}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKana6}"/>			 
+                <aura:if isTrue="{!v.DesignatedAgentNamekana6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+             <lightning:select   aura:id="relationshipWithInsured6"  name="relationshipWithInsured6" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured6 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			 <aura:if isTrue="{!v.RelationshipInsureValidate6}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+				</aura:if>
+			 <lightning:input  aura:Id="newDesignatedDob6" name="newDesignatedDob6"  value="{!v.newDesignatedDob6}" label="新指定代理生年月日　　注）西暦で半角数字８桁" onblur="{!c.handleDesignatedDob6}"/>
+                <aura:if isTrue="{!v.DesignatedDob6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+		<div class="slds-col">
+		<div>
+            <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		    <lightning:input   aura:Id="newDesignatedAgentNamekanji6" name="newDesignatedAgentNamekanji6" type="text" value="{!v.newDesignatedAgentNamekanji6}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKanji6}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekanji6}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                    </div>
+                </aura:if> 
+            <lightning:select   aura:id="otherDetails6" name="otherDetails6" label="その他詳細" onchange="{!c.handleOtherDetails6 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>		
+		</div>
+		</div>
+		</div>
+        <div class="slds-p-top_medium"></div>		
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑦</h3> </div>
+		<div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">
+		<div class="form-group">
+                <lightning:select   aura:id="ProcedureType7PickList" value="{!v.innerCmpNewRequest.ProcedureType7__c}"  name="ProcedureType7PickList" label="手続き種別⑦" >
+                    <aura:iteration items="{!v.procedureType7PickList}" var="pt7" indexVar="key">
+                        <option value="{!pt7}">{!pt7}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input   aura:Id="policyNumber7" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber7__c}" label="証券番号⑦　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate7}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+    
+		<div>	 
+            <!-- <lightning:textarea aura:Id="ChangeDetails7" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails7__c}" label="変更詳細⑦" class="customHeight"/>  -->
+             <lightning:input   aura:Id="newDesignatedAgentNamekana7" name="newDesignatedAgentNamekana7" type="text" value="{!v.newDesignatedAgentNamekana7}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana7}"/>			 
+                <aura:if isTrue="{!v.DesignatedAgentNamekana7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+             <lightning:select   aura:id="relationshipWithInsured7"  name="relationshipWithInsured7" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured7 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			 <aura:if isTrue="{!v.RelationshipInsureValidate7}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+				</aura:if>
+			 <lightning:input   aura:Id="newDesignatedDob7" name="newDesignatedDob7"  value="{!v.newDesignatedDob7}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob7}"/>
+                <aura:if isTrue="{!v.DesignatedDob7}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+         </div>
+		</div>
+		<div class="slds-col">
+		<div>
+            <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		             <lightning:input  aura:Id="newDesignatedAgentNamekanji7" name="newDesignatedAgentNamekanji7" type="text" value="{!v.newDesignatedAgentNamekanji7}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji7}"/>
+                        <aura:if isTrue="{!v.DesignatedAgentNamekanji7}">
+                            <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                                <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                            </div>
+                        </aura:if>
+                     <lightning:select   aura:id="otherDetails7" name="otherDetails7" label="その他詳細" onchange="{!c.handleOtherDetails7 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			        </lightning:select>
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑧</h3> </div>
+		<div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">
+		<div class="form-group">
+                <lightning:select   aura:id="ProcedureType8PickList" value="{!v.innerCmpNewRequest.ProcedureType8__c}"  name="ProcedureType8PickList" label="手続き種別⑧" >
+                    <aura:iteration items="{!v.procedureType8PickList}" var="pt8" indexVar="key">
+                        <option value="{!pt8}">{!pt8}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input   aura:Id="policyNumber8" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber8__c}" label="証券番号⑧　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate8}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+     
+		<div>	 
+             <!-- <lightning:textarea aura:Id="ChangeDetails8" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails8__c}" label="変更詳細⑧" class="customHeight"/>  -->
+             <lightning:input   aura:Id="newDesignatedAgentNamekana8" name="newDesignatedAgentNamekana8" type="text" value="{!v.newDesignatedAgentNamekana8}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana8}"/>			 
+                <aura:if isTrue="{!v.DesignatedAgentNamekana8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+             <lightning:select   aura:id="relationshipWithInsured8"  name="relationshipWithInsured8" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured8 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>	
+			<aura:if isTrue="{!v.RelationshipInsureValidate8}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+			</aura:if>
+			 <lightning:input   aura:Id="newDesignatedDob8" name="newDesignatedDob8"  value="{!v.newDesignatedDob8}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob8}"/>
+                <aura:if isTrue="{!v.DesignatedDob8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+		<div class="slds-col">
+		<div>
+            <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		<lightning:input   aura:Id="newDesignatedAgentNamekanji8" name="newDesignatedAgentNamekanji8" type="text" value="{!v.newDesignatedAgentNamekanji8}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji8}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekanji8}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+            <lightning:select   aura:id="otherDetails8" name="otherDetails8" label="その他詳細" onchange="{!c.handleOtherDetails8 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>			 
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑨</h3> </div>
+		<div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">
+		<div class="form-group">
+                <lightning:select   aura:id="ProcedureType9PickList" value="{!v.innerCmpNewRequest.ProcedureType9__c}"  name="ProcedureType9PickList" label="手続き種別⑨" >
+                    <aura:iteration items="{!v.procedureType9PickList}" var="pt9" indexVar="key">
+                        <option value="{!pt9}">{!pt9}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input   aura:Id="policyNumber9" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber9__c}" label="証券番号⑨　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate9}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+      
+		<div>	 
+             <!-- <lightning:textarea aura:Id="ChangeDetails9" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails9__c}" label="変更詳細⑨" class="customHeight"/>  -->
+             <lightning:input   aura:Id="newDesignatedAgentNamekana9" name="newDesignatedAgentNamekana9" type="text" value="{!v.newDesignatedAgentNamekana9}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKana9}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekana9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+			 <lightning:select   aura:id="relationshipWithInsured9"  name="relationshipWithInsured9" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured9 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			 <aura:if isTrue="{!v.RelationshipInsureValidate9}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+			</aura:if>
+			 <lightning:input   aura:Id="newDesignatedDob9" name="newDesignatedDob9"  value="{!v.newDesignatedDob9}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob9}"/> 
+                <aura:if isTrue="{!v.DesignatedDob9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+		<div class="slds-col">
+		<div>
+              <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		      <lightning:input  aura:Id="newDesignatedAgentNamekanji9" name="newDesignatedAgentNamekanji9" type="text" value="{!v.newDesignatedAgentNamekanji9}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース"  onblur="{!c.handleDesignatedNameKanji9}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekanji9}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+              <lightning:select   aura:id="otherDetails9" name="otherDetails9" label="その他詳細" onchange="{!c.handleOtherDetails9 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>
+		</div>
+		</div>
+		</div>
+		<div class="slds-p-top_medium"></div>
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">指定代理人変更⑩</h3> </div>
+		<div class="slds-p-top_medium"></div>
+         <div class="slds-grid slds-gutters">
+         <div class="slds-col slds-size_1-of-2">
+		<div class="form-group">
+                <lightning:select   aura:id="ProcedureType10PickList" value="{!v.innerCmpNewRequest.ProcedureType10__c}"  name="ProcedureType10PickList" label="手続き種別⑩" >
+                    <aura:iteration items="{!v.procedureType10PickList}" var="pt10" indexVar="key">
+                        <option value="{!pt10}">{!pt10}</option>
+                    </aura:iteration>
+                </lightning:select>
+        </div>
+		<div >
+            <lightning:input   aura:Id="policyNumber10" name="" type="text" value="{!v.innerCmpNewRequest.PolicyNumber10__c}" label="証券番号⑩　　注）複数証番可「/」区切りで入力" /> 
+			<aura:if isTrue="{!v.PolicyNumberValidate10}">
+                  <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_POLICYNO_SECTION_INPUT}</h3>
+                  </div>
+			</aura:if>
+        </div>
+     
+		<div>	 
+             <!-- <lightning:textarea aura:Id="ChangeDetails10" name="" type="text" value="{!v.innerCmpNewRequest.ChangeDetails10__c}" label="変更詳細⑩" class="customHeight"/>  -->
+             <lightning:input   aura:Id="newDesignatedAgentNamekana10" name="newDesignatedAgentNamekana10" type="text" value="{!v.newDesignatedAgentNamekana10}" label="新指定代理人氏名（カナ）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKana10}"/>
+                <aura:if isTrue="{!v.DesignatedAgentNamekana10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">新指定代理人氏名（カナ）は全角で入力してください</h3>
+                    </div>
+                </aura:if>
+			 <lightning:select   aura:id="relationshipWithInsured10"  name="relationshipWithInsured10" label="被保険者との続柄"  onchange="{! c.handleRelationshipInsured10 }">
+					<option value="">-- None --</option>
+					<option value="配偶者">配偶者</option>
+					<option value="子供">子供</option>
+					<option value="親">親</option>
+					<option value="その他親族">その他親族</option>
+			 </lightning:select>
+			 <aura:if isTrue="{!v.RelationshipInsureValidate10}">
+					<div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+					<h3 style="font-weight:bolder;color:white">その他親族を選択した場合その他詳細を選択してください。</h3>
+					</div>
+			</aura:if>
+			 <lightning:input   aura:Id="newDesignatedDob10" name="newDesignatedDob10"  value="{!v.newDesignatedDob10}" label="新指定代理生年月日　　注）西暦で半角数字８桁"  onblur="{!c.handleDesignatedDob10}"/>
+                <aura:if isTrue="{!v.DesignatedDob10}">
+                    <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                        <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_RECEPIENTDATE_SECTION_INPUT}</h3>
+                    </div>
+                </aura:if>
+             </div>
+		</div>
+         <div class="slds-col">
+         <div> 
+             <div class="slds-p-bottom--xx-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+             <div class="slds-p-bottom--x-large"></div>
+		          <lightning:input   aura:Id="newDesignatedAgentNamekanji10" name="newDesignatedAgentNamekanji10" type="text" value="{!v.newDesignatedAgentNamekanji10}" label="新指定代理氏名（漢字）　　注）全角で入力／姓と名の間はスペース" onblur="{!c.handleDesignatedNameKanji10}"/>
+                     <aura:if isTrue="{!v.DesignatedAgentNamekanji10}">
+                         <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                             <h3 style="font-weight:bolder;color:white">新指定代理人氏名（漢字）は全角で入力してください</h3>
+                         </div>
+                     </aura:if>
+                   <lightning:select aura:id="otherDetails10" name="otherDetails10" label="その他詳細" onchange="{!c.handleOtherDetails10 }" disabled="true">
+					<option value="">-- None --</option>
+					<option value="姉">姉</option>
+					<option value="兄">兄</option>
+					<option value="妹">妹</option>
+					<option value="弟">弟</option>
+					<option value="祖父">祖父</option>
+					<option value="祖母">祖母</option>
+					<option value="孫">孫</option>
+					<option value="叔父">叔父</option>
+					<option value="叔母">叔母</option>
+					<option value="姪">姪</option>
+					<option value="甥">甥</option>
+					<option value="指定範囲外">指定範囲外</option>
+			 </lightning:select>          
+         </div>
+         </div>
+         </div>	
+     <div class="slds-p-top_medium"></div>		 
+     <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">処理内容</h3> </div>
+	 <div class="slds-p-top_medium"></div>
+	<div class="slds-grid slds-gutters">
+		<div class="slds-col slds-size_1-of-2">
+			<div class="form-group">
+				<lightning:select   aura:id="processingPickList" value="{!v.innerCmpNewRequest.Processing__c}" label="処理方法" onchange="{!c.handleProcessingPick}">
+				<aura:iteration items="{!v.processingPicklist}" var="pro" >
+				<option  value="{!pro}"> {!pro} </option>		
+				</aura:iteration>
+				</lightning:select>
+			</div>
+			 <lightning:select   aura:id="shippingDocumentsPickList" value="{!v.innerCmpNewRequest.ShippingDocuments__c}" label="発送書類" disabled="true">
+				<aura:iteration items="{!v.shippingDocumentsPickList}" var="pro" >
+					<option  value="{!pro}"> {!pro} </option>		
+				</aura:iteration>
+			</lightning:select>
+			<lightning:select   aura:id="dateOfShipmentPickList" value="{!v.innerCmpNewRequest.DateOfShipment__c}"  name="dateOfShipmentPicklist" label="発送日" disabled="true">
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.dateOfShipmentPickMap}" var="date" indexVar="key">
+					<option text="{!date.value}" value="{!date.key}" selected="{!date.key==v.innerCmpNewRequest.DateOfShipment__c}" />
+				</aura:iteration>
+			</lightning:select>
+			 <lightning:select   aura:id="shippingMethodPickList" value="{!v.innerCmpNewRequest.ShippingMethod__c}"  name="shippingMethodPicklist" label="発送方法" disabled="true" >
+				<option value="">-- None --</option>
+				<aura:iteration items="{!v.shippingMethodPickMap}" var="sm" indexVar="key">
+					<option text="{!sm.value}" value="{!sm.key}" selected="{!sm.key==v.innerCmpNewRequest.ShippingMethod__c}" />
+				</aura:iteration>
+			</lightning:select>
+		</div>
+		<div class="slds-col">
+			<div class="slds-p-top--xx-large"></div>
+			<!--<ui:inputNumber   aura:Id="numberOfCopies" value="{!v.innerCmpNewRequest.NumberOfCopies__c}" label="部数" disabled="true"/>-->
+    		<lightning:input aura:Id="numberOfCopies" type="integer" value="{!v.numberOfCopies}" label="部数"  disabled="true" onchange="{!c.handleNoOfCopies}" />
+            <aura:if isTrue="{!v.noOfCopiesErr}">
+                <div class="slds-box slds-theme_default slds-theme_backgroundColor-red">
+                    <h3 style="font-weight:bolder;color:white">{!v.ERR_MSG_NOOFCOPIES_SECTION_INPUT}</h3>
+                </div>
+            </aura:if>
+			
+		</div>
+	</div>
+</div>
+</aura:component>

@@ -1,0 +1,23 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+<aura:attribute name="innerCmpNewRequest" type="Request__c" default="{ 'sObjectType': 'Request__c',
+                                                                        'CorrectionDetails__c':'',
+																		'TargetSecuritiesNumber1__c':'',
+																		'TargetSecuritiesNumber2__c':'',
+																		'TargetSecuritiesNumber3__c':'',
+																		'OtherInfomation__c':''
+																		}"/>
+<!--Declare Method-->																		
+<aura:method name="inlineGradeCorrectionCmp" action="{!c.saveInlineGradeCorrectionCmp}" access="PUBLIC">
+<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>
+
+<div class="slds-box slds-theme_default">
+	    <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">訂正情報</h3> </div>
+		<div class="slds-p-top_medium"></div>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.CorrectionDetails__c}" label="訂正内容"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber1__c}" label="対象証券番号①"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber2__c}" label="対象証券番号②"/>
+			<lightning:input aura:Id="note" type="text" value="{!v.innerCmpNewRequest.TargetSecuritiesNumber3__c}" label="対象証券番号③"/>
+		    <lightning:textarea aura:Id="otherInfomation__c" name="" type="text" value="{!v.innerCmpNewRequest.OtherInfomation__c}" label="その他情報" class="customHeight"/>
+</div>
+</aura:component>

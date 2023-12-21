@@ -1,0 +1,294 @@
+<!--<apex:page controller="ContractSearchCustomController" action="{!view}">-->
+<apex:page >
+<!--
+    <apex:form id="form">
+        <apex:sectionHeader title="契約検索" />
+        <apex:pageMessages id="messagearea" showDetail="false" />
+        <apex:pageBlock >
+            <apex:outputpanel id="Panel2">
+                <apex:pageblockSection title="検索条件" columns="1" collapsible="false" >
+                    <apex:outputpanel layout="block">
+                        <table style="margin-left:9.5px !important;">
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="証券番号" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuraPolicyNo}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="申込書番号" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.applicationNumber}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="保険種目" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuraType}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="商品名" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.name}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="ステータス" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.status}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="保険期間" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.contractTerm}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="顧客ID" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.CSID}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="契約者名カナ（姓名" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.contractorNameKana}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="契約者名漢字（姓名）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.contractorNameKanji}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="契約者生年月日（西暦）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.subscriberDateOfBirth}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="電話番号" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.phone}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="郵便番号" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.postalCode}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="被保険者名カナ（姓名" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuredNameKana}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="被保険者名漢字（姓名）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuredNameKanji}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="被保険者生年月日（西暦）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuredBirthdate}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="被保険体（ペット名）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.insuredBody}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="車両ナンバー（損保）" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.carNo}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="代理店コード" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.agencyCode}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <apex:outputLabel value="代理店名" styleClass="labelCol"/>
+                                </th>
+                                <td>
+                                    <apex:outputPanel layout="block">
+                                        <apex:inputText value="{!sv.agency}" size="20" maxlength="20"/>
+                                    </apex:outputPanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </apex:outputpanel>
+                </apex:pageblockSection>
+            </apex:outputpanel>
+            <apex:outputpanel style="text-align:center; margin:8px 0;" layout="block">
+                <apex:commandButton value="生保契約検索"  action="{!lifeContract}"/>
+                <apex:commandButton value="損保契約検索"  action="{!generaContract}"/>
+                <apex:commandButton value="少短契約検索"  action="{!ssContract}"/>
+            </apex:outputpanel>
+            <apex:pageblockSection title="検索結果" columns="1" collapsible="false" rendered="{!(dtos.size > 0)}">
+                <apex:pageblockTable id="AccountTable" value="{!dtos}" var="d">
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="証券番号"  /></apex:facet>
+                        <apex:outputLink value="/{!d.contractId}"><apex:outputText value="{!d.insuraPolicyNo}" /></apex:outputLink>
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="申込書番号" /></apex:facet>
+                        <apex:outputText value="{!d.applicationNumber}" />
+                    </apex:column>
+                    <apex:column width="10%">
+                        <apex:facet name="header"><apex:outputText value="保険種目" /></apex:facet>
+                        <apex:outputText value="{!d.insuraType}" />
+                    </apex:column>
+                    <apex:column width="25%">
+                        <apex:facet name="header"><apex:outputText value="商品名" /></apex:facet>
+                        <apex:outputText value="{!d.name}" />
+                    </apex:column>
+                    <apex:column width="25%">
+                        <apex:facet name="header"><apex:outputText value="ステータス" /></apex:facet>
+                        <apex:outputText value="{!d.status}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="保険期間" /></apex:facet>
+                        <apex:outputText value="{!d.contractTerm}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="顧客ID" /></apex:facet>
+                        <apex:outputText value="{!d.CSID}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="契約者名カナ（姓名）" /></apex:facet>
+                        <apex:outputText value="{!d.contractorNameKana}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="契約者名漢字（姓名" /></apex:facet>
+                        <apex:outputText value="{!d.contractorNameKanji}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="契約者生年月日（西暦）" /></apex:facet>
+                        <apex:outputText value="{!d.subscriberDateOfBirth}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="電話番号" /></apex:facet>
+                        <apex:outputText value="{!d.phone}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="郵便番号" /></apex:facet>
+                        <apex:outputText value="{!d.postalCode}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="被保険者名カナ（姓名）" /></apex:facet>
+                        <apex:outputText value="{!d.insuredNameKana}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="被保険者名漢字（姓名）" /></apex:facet>
+                        <apex:outputText value="{!d.insuredNameKanji}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value=" 被保険者生年月日（西暦）" /></apex:facet>
+                        <apex:outputText value="{!d.insuredBirthdate}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="被保険体（ペット名）" /></apex:facet>
+                        <apex:outputText value="{!d.insuredBody}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="車両ナンバー（損保）" /></apex:facet>
+                        <apex:outputText value="{!d.carNo}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="代理店コード" /></apex:facet>
+                        <apex:outputText value="{!d.agencyCode}" />
+                    </apex:column>
+                    <apex:column width="5%">
+                        <apex:facet name="header"><apex:outputText value="代理店名" /></apex:facet>
+                        <apex:outputText value="{!d.agency}" />
+                    </apex:column>
+                </apex:pageblockTable>
+            </apex:pageblockSection>
+        </apex:pageBlock>
+    </apex:form>
+-->
+</apex:page>

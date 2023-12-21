@@ -1,0 +1,34 @@
+<template>
+  <template if:false={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form">
+        <div class="p-form_item">
+          <div class="p-form_itemLabel"><span class="u-icon_require">必須</span>お問合せされる方とご契約者さまとの続柄</div>
+          <ul class="c-list_input _nocolSP">
+            <template for:each={options} for:item="opt">
+              <li key={opt.id}>
+                <input type="radio" name="radioGroupRelationShip"
+                id={opt.id}
+                value={opt.value}
+                checked={opt.checked}
+                class="c-form_radio display_radio"
+                onchange={changeValueHandler}>
+                <label for={opt.id}>{opt.label}</label>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template if:true={confirmPhase}>
+    <section class="p-section">
+      <div class="p-form">
+        <div class="p-form_item"><span class="weight4">お問合せされる方とご契約者さまとの続柄</span><br>
+          {dispLabel}
+        </div>
+      </div>
+    </section>
+  </template>
+</template>

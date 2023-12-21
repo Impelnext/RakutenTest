@@ -1,0 +1,93 @@
+<aura:component controller="SMSTemplateCmpController" implements="flexipage:availableForAllPageTypes,lightning:actionOverride,force:appHostable,force:hasRecordId,force:lightningQuickAction" access="global" >
+    <lightning:workspaceAPI aura:id="workspace"/>
+
+    <aura:attribute name="showSearchPopup" type="Boolean" default="false"/>
+    <aura:attribute name="showSearchResultFlg" type="Boolean" default="false"/>
+    <aura:attribute name="bankBranchNameErrorFlag" type="Boolean" default="false"/>
+    <aura:attribute name="errorFlag" type="Boolean" default="false"/>
+    <aura:attribute name="errorMessage" type="String" default=""/>
+    <aura:attribute name="sourceScreen" type="String" default=""/>
+    <aura:attribute name="searchResultCol" type="List"/>
+    <aura:attribute name="searchResult" type="List" default="[]"/>
+    <aura:attribute name="selectedRecord" type="List" default="[]"/>
+
+    <aura:attribute name="sourceComp" type="Object" default="{}"/>
+
+    <aura:attribute name="tempList" type="List"/>
+    <aura:attribute name="template" type="SMSMessageTemplate__c"/>
+    <aura:attribute name="tempMsg" type="String"/>
+    <aura:attribute name="tempId" type="Id"/>
+    <aura:attribute name="tempSubject" type="String"/>
+    <aura:attribute name="popupTitle" type="String"/>
+    <!-- <aura:attribute name="popup" type="Boolean" default="false"/> -->
+    <aura:attribute name="edit" type="Boolean" default="false"/>
+    <aura:attribute name="new" type="Boolean" default="false"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+
+    <aura:attribute name="packed" type="Boolean" default="false"/>
+    <aura:attribute name="isWritable" type="Boolean"/>
+    
+
+    <!-- event register-->
+    <!--
+    <aura:registerEvent name="bankMasterSearchResult" type="c:BankMasterSearchResultEvt"/>
+    <aura:registerEvent name="bankMasterSearchCmpEvt" type="c:BankMasterSearchResultCmpEvt"/>
+    <aura:registerEvent name="SMSTemplateEvent" type="c:SMSTemplateEvent"/>
+    -->
+
+    <aura:method name="openBankMasterSearch" action="{!c.openBankMasterSearch}" access="global">
+        <aura:attribute name="showSearchPopup" type="Boolean" default="false"/>
+    </aura:method>
+
+    <aura:registerEvent name="cmpEvent" type="c:SMSTemplateEvent" />
+
+    <aura:if isTrue = "{!v.showSearchPopup}">
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-hidden="false" class="slds-modal slds-fade-in-open slds-modal_large">
+            <div class="slds-modal__container" style="height: 100%; width: 50%;">
+                <form>
+                    <!-- header -->
+                    <header class="slds-modal__header" style="width: 640px;">
+                        <div>テンプレート挿入</div>
+                    </header>
+                    <!-- body-->
+                    <div class="slds-modal__content slds-p-around_medium" style="height: 340px; width: 640px;">
+                       <div class="PopupBase">
+                           <div class="slds-grid">
+                               <!-- テンプレート名一覧 -->
+                               <div class="slds-col slds-size_1-of-3">
+                                    <h2 class="temptitle" style="width:400px;text-align:left;padding-left:26px">テンプレート一覧(件名)</h2>
+                                    <!-- 一覧表示 -->
+                                    <div class="ListTemp">
+                                    <aura:iteration items="{!v.tempList}" var="temp">
+                                       <!-- <ui:inputRadio labelClass="RadioLabel" class="RadioInput" name="Template" label="{!temp.Name}" change="{!c.selectTemp}" text="{!temp.Id + '_' + temp.MessageDetail__c}"/> -->
+                                       <input type="radio" name="Template" id="{!temp.Id}" class="RadioInput" value="{!temp.Name + '$0#D%H' + temp.MessageDetail__c}" onchange="{!c.selectTemp}" />
+                                       <label class="RadioLabel" for="{!temp.Id}">{!temp.Name}</label>
+                                    </aura:iteration>
+                                    </div>
+                               </div>
+                               <!-- メッセージ詳細 -->
+                               <div class="slds-col slds-size_2-of-3">
+                                    <h2 class="temptitle">メッセージ詳細</h2>
+                                    <div class="messagewrap">
+                                       <ui:inputTextArea aura:id="MessageDetail" class="messageDetail" maxlength="670" value="{!v.tempMsg}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- footer -->
+                    <footer class="slds-modal__footer" style="height: 56px; width: 640px;">
+                        <div class="leftbottomBtn">
+                            <lightning:button label="新規追加" onclick="{!c.tempEdit}" disabled="{!v.packed}" />
+                            <lightning:button label="編集" onclick="{!c.tempEdit}" disabled="{!v.packed}" />
+                        </div>
+                        <div class="bottomBtn">
+                            <lightning:button label="閉じる" onclick="{!c.tempCloseJump}" />
+                            <lightning:button label="挿入" onclick="{!c.tempInsertJump}" />
+                        </div>
+                    </footer>
+                </form>
+            </div>
+        </section>
+    </aura:if>
+</aura:component>

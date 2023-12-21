@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>セクションタイトル(その他)</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="title" label="タイトルラベル" type="String" description="タイトル" />
+            <property name="confirmPhaseKey" label="確認フェーズキー" type="String" description="" />
+            <property name="contractorCheckKey" label="契約者本人" type="Boolean" description="" />
+            <property name="otherCheckKey" label="契約者以外" type="Boolean" description="" />
+            <property name="noTopMargin" label="上余白なし" type="Boolean" description="" />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

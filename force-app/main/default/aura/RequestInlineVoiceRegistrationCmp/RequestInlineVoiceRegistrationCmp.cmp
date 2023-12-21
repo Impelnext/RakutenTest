@@ -1,0 +1,72 @@
+<aura:component controller="RequestController" implements="flexipage:availableForRecordHome,lightning:isUrlAddressable,force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId" access="global">
+<aura:attribute name="innerCmpNewRequest"  type="Request__c" default="{ 
+                                                                      'sObjectType': 'Request__c',
+																		'Registration__c':false,
+                                                             			'Busy__c':false,
+																		'Decline__c':false,
+																		'Change__c':false,
+																		'ChangeNewNumber__c':'',
+																		'Delete__c':false,
+                                                                        'CorrespondenceRequest__c':''
+                                                                      }"/>	
+
+<aura:handler name="init" value="{!this}" action="{!c.init}" />																	
+<aura:method name="VoiceRegistration" action="{!c.saveVoiceRegistration}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	
+<aura:attribute name="CorrespondenceRequestPLValues" type="list" default="[]" />																																								
+
+    <div class="slds-box slds-theme_default">
+	 <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">声紋認証</h3> </div>
+	 <div class="slds-grid slds-gutters">
+		 <div class="slds-col slds-size_1-of-2">
+             <div class="slds-p-right_large"/>
+			<div class="slds-p-top_small"/>
+        
+             
+            	<div class="slds-checkbox ">
+                    <lightning:input type="checkbox" value="Registration" name="Registration" aura:id="checkbox" label="登録" checked="" onchange="{!c.setValues}" />
+                    
+                </div>
+             <br/>
+             <br/>
+             
+             
+                <div class="slds-checkbox">
+                    <lightning:input type="checkbox" value="Busy" name="Busy" aura:id="checkbox" label="多忙" checked="" onchange="{!c.setValues}"  />
+                </div>
+             <br/>
+             <br/>
+             
+                <div class="slds-checkbox slds-p-top_x-small ">
+                    <lightning:input type="checkbox" value="Decline" name="Decline" aura:id="checkbox" label="辞退" checked="" onchange="{!c.setValues}" />
+
+                </div>
+             <div class=" slds-p-top_x-small ">
+             <lightning:select name="CorrespondenceRequest"  label="対応依頼"  value="{!v.innerCmpNewRequest.CorrespondenceRequest__c}" >
+        				<aura:iteration items="{!v.CorrespondenceRequestPLValues}" var="req" >
+                			<option  value="{!req}">{!req}</option>
+            			</aura:iteration>
+    				</lightning:select> 
+                  </div>
+             </div>
+	 	<div class="slds-col">
+				<div class="slds-p-top_small"/>
+            
+             		 <div class="slds-checkbox ">
+                    <lightning:input type="checkbox" value="Change" name="Change" aura:id="checkbox" label="変更" checked="" onchange="{!c.setValues}" />
+                </div>
+            
+            <div class="slds-text">
+            <lightning:input class="slds-size_1-of-2" aura:Id="text" name="ChangeNewNumber" type="text"  value="{!v.innerCmpNewRequest.ChangeNewNumber__c}" label="変更内容（新電話番号・新姓）" />
+            </div>
+             
+             
+            <div class="slds-checkbox slds-p-top_small">
+                    <lightning:input type="checkbox" name="Delete" aura:id="checkbox" label="削除" checked="" onchange="{!c.setValues}" />
+                </div>
+		 	</div>
+	 	</div> 
+</div>
+    <c:InlineRequestContent parentNewRequest="{!v.innerCmpNewRequest}"/>   
+</aura:component>

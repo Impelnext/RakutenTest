@@ -1,0 +1,37 @@
+<aura:component implements="flexipage:availableForAllPageTypes,force:appHostable,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global" controller="SMSSendCmpController">
+<lightning:workspaceAPI aura:id="workspace"/>
+
+<aura:attribute name="pageReference" type="Object"/>
+<aura:attribute name="recordId" type="Id" />
+<aura:attribute name="retmsg" type="String" />
+<aura:attribute name="error" type="Integer" />
+<aura:attribute name="setIntervalId" type="Integer"/>
+<aura:attribute name="isVisible" type="Boolean" default="false"/>
+
+<aura:attribute name="packed" type="Boolean" default="true"/>
+
+<aura:handler name="init" value="{! this }" action="{! c.init }" /> 
+<lightning:navigation aura:id="navCreateReception"/> 
+
+    <section role="dialog" tabindex="-1" aria-modal="true" aria-hidden="false" class="slds-modal slds-fade-in-open slds-modal_small">
+        <div class="slds-modal__container" >
+            <header class="slds-modal__header">
+                <h1 style="text-align: center;font-weight:bold">送信</h1>
+            </header>
+
+            <div style="height: 100px;" class="slds-modal__content slds-p-around_medium prompt-message" id="prompt-message-wrapper">
+                <div style="width: 80%;" >
+                    {! v.retmsg}
+                </div>
+            </div>
+
+            <footer class="slds-modal__footer">
+                <div class="slds-align_absolute-center">
+                    <div class="slds-align_absolute-center">
+                       <lightning:button label="閉じる" variant="brand" onclick="{!c.clickCancel}" disabled="{!v.packed}" />
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </section>
+</aura:component>

@@ -1,0 +1,40 @@
+.THIS .smssend {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+}
+
+
+.THIS .inner {
+    text-align: center;
+    display: block;
+}
+
+.THIS .off {
+    display: none;
+}
+
+.THIS .on {
+    display: block;
+}
+
+.THIS.hideDiv {
+    display: none;
+}
+
+.THIS .slds-modal__content{
+    height: 100%;
+    width: 500px;
+    background:whitesmoke
+}
+
+.THIS .slds-modal__header{
+    background:whitesmoke;
+    width: 500px;
+}
+
+.THIS .slds-modal__footer{
+    background: whitesmoke;
+    width: 500px;
+}

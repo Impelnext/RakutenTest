@@ -1,0 +1,29 @@
+<aura:component controller="RequestController" implements="force:appHostable,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,force:hasRecordId">
+   <aura:attribute name="innerCmpNewRequest" type="Request__c" default="{'sObjectType':'Request__c',
+                                                                        'SupportContents__c':'',
+                                                                        
+                                                              
+															}"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+<aura:method name="CancellationEmail" action="{!c.saveCancellationEmail}" access="PUBLIC">
+	<aura:attribute name="parentNewRequest" type="Request__c" />
+</aura:method>	    
+      <aura:attribute name="SupportContentsStatusPLValues" type="list" default="[]" />
+    
+    <div class="slds-p-top_medium"/>   
+    <div class="slds-box slds-theme_default">
+         <div class="slds-text-align--left"><h3 class="slds-section-title--divider" style="background-color:rgb(90, 131, 165);font-size:medium;font-weight:bold;color:whitesmoke">フォロー対応</h3> </div>
+         <div class="slds-grid slds-gutters">
+           	<div class="slds-col slds-size_1-of-2">
+             	<div class="slds-p-top_medium"/>
+           			<lightning:select name="SeihoSupportContents"  label="対応内容"  value="{!v.innerCmpNewRequest.SupportContents__c}" >
+        				<aura:iteration items="{!v.SupportContentsStatusPLValues}" var="req" >
+                			<option  value="{!req}">{!req}</option>
+            			</aura:iteration>
+    				</lightning:select> 
+                   
+                </div>    
+        </div> 
+      </div> 
+</aura:component>

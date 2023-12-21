@@ -1,0 +1,130 @@
+<apex:page id="CommunityInMaintenance" standardStylesheets="false" sideBar="false" showHeader="false" applyHtmlTag="true" applyBodyTag="fales">
+    
+    <head>          
+        <meta name="robots" content="noindex, nofollow"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1"/>
+        
+        <link rel="shortcut icon" href="{!URLFOR($Resource.SiteCommon, '/shared/img/favicon/faviconV2.png')}"/>
+    
+        <apex:stylesheet value="{!URLFOR($Resource.SiteInc, '/shared/css/index.css')}"/>
+    
+        <style>
+            main {
+                margin: 50px auto;
+            }
+            main h2,
+            main h3,
+            main p,
+            main table,
+            main div {
+                margin: 20px auto;
+                text-align: center;
+            }
+            main p.maintenance-main-content-red {
+                color: #f00;
+            }
+            main table {
+                margin: 16px auto 32px auto;
+            }
+            main table tr th {
+                background-color: gray;
+                color: white;
+                padding: 8px 16px 8px 16px;
+                border: 1px solid white;
+            }
+            main table tr td {
+                background-color: whitesmoke;
+                padding: 8px 16px 8px 16px;
+                border: 1px solid white;
+            }
+            main div {         
+                width: fit-content;
+            }
+            main div a {   
+                padding: 10px 25px;
+                margin: 0 20px;
+                border: 2px solid #bf0000;
+                border-radius: 10px;
+                color: #bf0000;
+            }
+            main div a:hover {
+                text-decoration: none;
+                color: #fff;
+                background-color: #bf0000;
+            }
+            
+            @media screen and (max-width: 756px) {
+                html,
+                body {
+                    overflow-x: hidden;
+                }
+                main {
+                    padding: 0 3%;
+                }
+                main div a {
+                    display: block;
+                    margin: 5% auto;
+                }
+            }
+            
+        </style>    
+    </head>
+    
+    <body>
+        <header class="p-rf-h hasMNO" role="banner">
+            <div class="p-rf-h__main">
+                <div class="p-rf-h_main jsFixedParts p-form-header">
+                    <div class="l-rf-container">
+                        <div class="p-rf-h_main__wrap -left">
+                            <h1 class="p-rf-h_main__logo">
+                                <a href="https://www.rakuten-insurance.co.jp/" data-ratid="header_logo" data-ratevent="click" data-ratparam="all">
+                                    <apex:image styleClass="u-hidden-lg" url="{!URLFOR($Resource.SiteInc, '/shared/img/header/logo_sp.svg')}" alt="楽天保険の総合窓口" width="120"/>
+                                    <apex:image styleClass="u-visible-lg" url="{!URLFOR($Resource.SiteInc, '/shared/img/header/logo_pc.svg')}" alt="楽天保険の総合窓口" width="240"/>
+                                </a>
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <main class="l-rf-container">
+            <h2>現在、メンテナンスの為、サービス停止中です。</h2>
+            <p class="maintenance-main-content-red">ご不便をおかけして申し訳ありません。本日、20:00以降に、再度、画面を開くとご利用になれます。</p>
+            <h3>停止期間：2023年11月01日（水）18:00～20:00</h3>
+            <h3>※サービス再開時刻は都合により変更する場合があります。</h3>
+            <table>
+                <tr>
+                    <th>停止期間</th>
+                    <th>保険会社</th>
+                    <th>停止中のサービス</th>
+                </tr>
+                <tr>
+                    <td>2023年11月01日（水）<br/>18:00～20:00</td>
+                    <td>楽天生命</td>
+                    <td>お手続きフォーム</td>
+                </tr>
+            </table>
+            <div>
+                <a href="https://www.rakuten-life.co.jp/contractor/">楽天生命ページに戻る</a>
+                <a href="https://www.rakuten-sonpo.co.jp/tabid/1127/Default.aspx">楽天損保ページに戻る</a>
+                <a href="https://www.rakuten-ssi.co.jp/support/">楽天ペット保険ページに戻る</a>
+            </div>
+            <p>リンク先は楽天の保険グループ各社のページになります。</p>
+        </main>
+        
+        <footer class="contentinfo">
+            <footer class="p-rf-f" role="contentinfo">
+                <div class="p-rf-f__inner -top">
+                    <div class="l-rf-container">
+                        <div class="p-rf-f_bottom">
+                            <p class="p-rf-f_copyright">商号等：楽天インシュアランスプランニング株式会社</p>
+                            <p class="p-rf-f_copyright">&copy; Rakuten Insurance Planning Co.,Ltd.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </footer>   
+    </body>
+
+</apex:page>

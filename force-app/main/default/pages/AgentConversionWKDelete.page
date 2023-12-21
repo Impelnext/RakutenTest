@@ -1,0 +1,12 @@
+<apex:page standardController="agentConversionWK__c" extensions="AgentConversionWKDeleteController" recordSetVar="AgentConversionWKList" lightningStylesheets="true">
+    <apex:form >
+        <apex:pageBlock title="代理店変換WK全削除">
+            <apex:actionPoller reRender="jobStatus" interval="5"/>
+                <apex:commandButton action="{!deleteAgentConversionWK}" value="削除処理開始" onclick=""/> 
+                <apex:commandButton action="{!cancel}" value="前ページへ遷移"/>
+                <br/>
+                <br/>                
+                <apex:outputText value="ステータス：" style="font-weight:bold;color:red"/><apex:outputLabel value="{!jobStatus}" id="jobStatus" style="font-weight:bold;color:red"/>   
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

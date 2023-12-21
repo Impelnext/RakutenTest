@@ -1,0 +1,37 @@
+.l-inner {
+    max-width: 950px;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 0 16px;
+    margin-bottom: 64px;
+}
+
+.p-pagetop {
+    text-align: right;
+}
+
+.p-pagetop a {
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    padding-right: 24px;
+}
+
+.p-pagetop a::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 7.5px 13px 7.5px;
+    border-color: transparent transparent #2a66c0 transparent;
+}
+
+a {
+    text-decoration: none;
+    color: #085b7c;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}

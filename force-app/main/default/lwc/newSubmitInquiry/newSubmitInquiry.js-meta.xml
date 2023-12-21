@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>問合せ登録情報（new）</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets> 
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property name="labelConfirmButton" label="確認画面ボタンラベル" type="String" description="ラベル" />
+            <property name="labelModifyButton" label="修正ボタンラベル" type="String" description="ラベル" />
+            <property name="labelRegistInquiryButton" label="問合せ登録ボタンラベル" type="String" description="ラベル" />
+            <property name="labelRegistNote" label="問合せ登録注意書きラベル" type="String" description="ラベル" />
+            <property name="keyRegistDataContractor" label="本人用登録データキー" type="String" description=",区切りで指定" />
+            <property name="keyRegistDataOther" label="他人用登録データキー" type="String" description=",区切りで指定" />
+            <property name="confirmPhaseKey" label="確認フェーズキー" type="String" description="" />
+            <property name="nameCompletePage" label="完了画面API名" type="String" description="" />
+        </targetConfig>
+    </targetConfigs>  
+</LightningComponentBundle>

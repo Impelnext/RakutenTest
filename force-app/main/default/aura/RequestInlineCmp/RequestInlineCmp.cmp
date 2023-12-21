@@ -1,0 +1,17 @@
+<!--
+  @File Name          : RequestInlineCmp.cmp
+  @Description        : 
+-->
+<aura:component implements="flexipage:availableForAllPageTypes,force:hasRecordId" access="global" controller="RequestPageController">
+    <!-- Private Attribute -->
+    <aura:attribute name="recordId" type="Id" />
+    <aura:attribute access="private" type="String" name="url"/>
+    <aura:attribute name="divHeight" type="Integer" default="100" />
+
+    <!-- Event Handlers -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+
+    <!-- User Interface -->
+    <!-- <iframe src="{!v.url}"/>-->
+    <iframe src="{!v.url}" frameborder="0" scrolling="yes" onload="resizeIframe(this)"/>
+</aura:component>
