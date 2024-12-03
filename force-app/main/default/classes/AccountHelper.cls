@@ -13,6 +13,7 @@ public class AccountHelper {
     /*
      * 取引先カナ名取得
      */
+    // Iyappan commit test
     public static String getAccFurigana(String recordId){
         
         // 取引先検索
